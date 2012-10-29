@@ -22,6 +22,8 @@ fun SetupVAM()
       \ 'github:tpope/vim-repeat',
       \ 'github:tpope/vim-fugitive',
       \ 'github:tpope/vim-commentary',
+      \ 'github:mattn/webapi-vim',
+      \ 'github:mattn/gist-vim',
       \ 'github:myusuf3/numbers.vim'
       \ ], {'auto_install' : 1})
 endf
@@ -426,6 +428,11 @@ let g:ctrlp_custom_ignore = {
 \ 'file': '\.exe$\|\.so$\|\.dll$',
 \ 'link': 'some_bad_symbolic_links',
 \ }
+
+" --- gist-vim
+let g:gist_clip_command = 'pbcopy'
+let g:gist_detect_filytype = 1
+let g:gist_open_browser_after_post = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GUIFONT SETTINGS
