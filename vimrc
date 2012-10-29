@@ -14,11 +14,15 @@ fun SetupVAM()
     execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '.shellescape(vam_install_path, 1).'/vim-addon-manager'
   endif
   call vam#ActivateAddons([
-      \ 'github:myusuf3/numbers.vim',
+      \ 'github:scrooloose/nerdtree',
+      \ 'github:taiansu/nerdtree-ag',
       \ 'github:epmatsw/ag.vim',
       \ 'github:kien/ctrlp.vim',
       \ 'github:tpope/vim-rails',
-      \ 'github:tpope/vim-commentary'
+      \ 'github:tpope/vim-repeat',
+      \ 'github:tpope/vim-fugitive',
+      \ 'github:tpope/vim-commentary',
+      \ 'github:myusuf3/numbers.vim'
       \ ], {'auto_install' : 1})
 endf
 call SetupVAM()
