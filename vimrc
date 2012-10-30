@@ -451,4 +451,4 @@ let g:gist_open_browser_after_post = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GUIFONT SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set gfn=Source\ Code\ Pro\ Light:h16
+set gfn=Source\ Code\ Pro\ Light:h14
