@@ -18,6 +18,7 @@ fun SetupVAM()
       \ 'github:taiansu/nerdtree-ag',
       \ 'github:epmatsw/ag.vim',
       \ 'github:kien/ctrlp.vim',
+      \ 'github:vim-ruby/vim-ruby',
       \ 'github:tpope/vim-rails',
       \ 'github:tpope/vim-repeat',
       \ 'github:tpope/vim-endwise',
