@@ -294,6 +294,7 @@ map <leader>gg :topleft 100 :split Gemfile<cr>
 map <leader>gt :CtrlPClearCache<cr>\|CtrlPTag<cr>
 map <leader>f :CtrlPClearCache<cr>\|:CtrlP<cr>
 map <leader>F :CtrlPClearCache<cr>\|:CtrlP %%<cr>
+map <leader>z z5<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SWITCH BETWEEN TEST AND PRODUCTION CODE
