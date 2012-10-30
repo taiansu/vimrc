@@ -131,6 +131,7 @@ command! Sfjs setf javascript
 :set t_Co=256 " 256 colors
 :set background=dark
 :colorscheme railscasts
+highlight Pmenu ctermbg=94 guibg=#875F00
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " STATUS LINE
