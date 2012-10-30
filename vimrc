@@ -20,6 +20,7 @@ fun SetupVAM()
       \ 'github:kien/ctrlp.vim',
       \ 'github:tpope/vim-rails',
       \ 'github:tpope/vim-repeat',
+      \ 'github:tpope/vim-endwise',
       \ 'github:tpope/vim-fugitive',
       \ 'github:tpope/vim-commentary',
       \ 'github:mattn/webapi-vim',
@@ -402,6 +403,12 @@ function! OpenChangedFiles()
   endfor
 endfunction
 command! OpenChangedFiles :call OpenChangedFiles()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" allow multiple indentation/deindentation in visual mode
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+vnoremap < <gv
+vnoremap > >gv
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " InsertTime COMMAND
