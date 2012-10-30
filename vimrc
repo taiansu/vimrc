@@ -83,7 +83,7 @@ set wildmode=longest,list
 " make tab completion for files/buffers act like bash
 set wildmenu
 set showbreak=↪
-let mapleader=";"
+let mapleader=","
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
