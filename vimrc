@@ -14,19 +14,23 @@ fun SetupVAM()
     execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '.shellescape(vam_install_path, 1).'/vim-addon-manager'
   endif
   call vam#ActivateAddons([
+      \ 'matchit.zip',
+      \ 'github:honza/snipmate-snippets',
       \ 'github:scrooloose/nerdtree',
       \ 'github:taiansu/nerdtree-ag',
       \ 'github:epmatsw/ag.vim',
       \ 'github:kien/ctrlp.vim',
       \ 'github:vim-ruby/vim-ruby',
       \ 'github:tpope/vim-rails',
+      \ 'github:tpope/vim-surround',
       \ 'github:tpope/vim-repeat',
       \ 'github:tpope/vim-endwise',
       \ 'github:tpope/vim-fugitive',
       \ 'github:tpope/vim-commentary',
       \ 'github:mattn/webapi-vim',
       \ 'github:mattn/gist-vim',
-      \ 'github:myusuf3/numbers.vim'
+      \ 'github:myusuf3/numbers.vim',
+      \ 'github:vim-scripts/ruby-matchit'
       \ ], {'auto_install' : 1})
 endf
 call SetupVAM()
@@ -447,6 +451,10 @@ let g:ctrlp_custom_ignore = {
 let g:gist_clip_command = 'pbcopy'
 let g:gist_detect_filytype = 1
 let g:gist_open_browser_after_post = 1
+
+" --- snipMate
+let g:snips_trigger_key='<F3>'
+imap <F4> <c-r><F3>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GUIFONT SETTINGS
