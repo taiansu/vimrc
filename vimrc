@@ -17,7 +17,6 @@ fun SetupVAM()
       \ 'matchit.zip',
       \ 'github:honza/snipmate-snippets',
       \ 'github:scrooloose/nerdtree',
-      \ 'github:taiansu/nerdtree-ag',
       \ 'github:epmatsw/ag.vim',
       \ 'github:kien/ctrlp.vim',
       \ 'github:vim-ruby/vim-ruby',
