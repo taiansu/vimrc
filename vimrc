@@ -16,6 +16,7 @@ fun SetupVAM()
   call vam#ActivateAddons([
       \ 'matchit.zip',
       \ 'github:honza/snipmate-snippets',
+      \ 'github:maxbrunsfeld/vim-yankstack',
       \ 'github:scrooloose/nerdtree',
       \ 'github:epmatsw/ag.vim',
       \ 'github:kien/ctrlp.vim',
@@ -454,6 +455,11 @@ let g:gist_open_browser_after_post = 1
 " --- snipMate
 let g:snips_trigger_key='<F3>'
 imap <F4> <c-r><F3>
+
+" --- yankstack
+if system('uname') =~ "Darwin"
+  set macmeta
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GUIFONT SETTINGS
