@@ -274,7 +274,6 @@ nnoremap <leader>ri :call InlineVariable()<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MAPS TO JUMP TO SPECIFIC CtrlP TARGETS AND FILES
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>gr :topleft :split config/routes.rb<cr>
 function! ShowRoutes()
   " Requires 'scratch' plugin
   :topleft 100 :split __Routes__
@@ -291,7 +290,9 @@ function! ShowRoutes()
   " Delete empty trailing line
   :normal dd
 endfunction
+
 map <leader>gR :call ShowRoutes()<cr>
+map <leader>gr :topleft :split config/routes.rb<cr>
 map <leader>gv :CtrlPClearCache<cr>\|:CtrlP app/views<cr>
 map <leader>gc :CtrlPClearCache<cr>\|:CtrlP app/controllers<cr>
 map <leader>gm :CtrlPClearCache<cr>\|:CtrlP app/models<cr>
