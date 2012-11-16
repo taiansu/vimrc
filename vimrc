@@ -460,8 +460,8 @@ let g:gist_detect_filytype = 1
 let g:gist_open_browser_after_post = 1
 
 " --- snipMate
-let g:snips_trigger_key='<F2>'
-imap <F3> <c-r><F2>
+let g:snips_trigger_key='<F3>'
+imap <F2> <c-r><F3>
 
 " --- yankstack
 if system('uname') =~ "Darwin"
