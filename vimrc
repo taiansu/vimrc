@@ -21,6 +21,7 @@ fun SetupVAM()
       \ 'github:epmatsw/ag.vim',
       \ 'github:kien/ctrlp.vim',
       \ 'github:vim-ruby/vim-ruby',
+      \ 'github:godlygeek/tabular',
       \ 'github:tpope/vim-rails',
       \ 'github:tpope/vim-surround',
       \ 'github:tpope/vim-repeat',
@@ -466,6 +467,14 @@ imap <F2> <c-r><F3>
 " --- yankstack
 if system('uname') =~ "Darwin"
   set macmeta
+endif
+
+" --- Tabular
+if exists(":Tabularize")
+  nmap <leader>b= :Tabularize /=<CR>
+  vmap <leader>b= :Tabularize /=<CR>
+  nmap <leader>b: :Tabularize /:\zs<CR>
+  vmap <leader>b: :Tabularize /:\zs<CR>
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
