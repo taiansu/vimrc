@@ -20,7 +20,6 @@ fun SetupVAM()
       \ 'github:scrooloose/nerdtree',
       \ 'github:epmatsw/ag.vim',
       \ 'github:kien/ctrlp.vim',
-      \ 'github:vim-ruby/vim-ruby',
       \ 'github:godlygeek/tabular',
       \ 'github:tpope/vim-rails',
       \ 'github:tpope/vim-surround',
@@ -31,7 +30,10 @@ fun SetupVAM()
       \ 'github:mattn/webapi-vim',
       \ 'github:mattn/gist-vim',
       \ 'github:myusuf3/numbers.vim',
-      \ 'github:vim-scripts/ruby-matchit'
+      \ 'github:vim-scripts/ruby-matchit',
+      \ 'github:kchmck/vim-coffee-script',
+      \ 'github:tpope/vim-haml',
+      \ 'github:vim-ruby/vim-ruby'
       \ ], {'auto_install' : 1})
 endf
 call SetupVAM()
