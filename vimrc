@@ -465,7 +465,7 @@ let g:snips_trigger_key='<F3>'
 imap <F2> <c-r><F3>
 
 " --- yankstack
-if system('uname') =~ "Darwin"
+if system('uname') =~ "Darwin" && has("gui_running")
   set macmeta
 endif
 
