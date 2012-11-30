@@ -14,7 +14,6 @@ fun SetupVAM()
     execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '.shellescape(vam_install_path, 1).'/vim-addon-manager'
   endif
   call vam#ActivateAddons([
-      \ 'matchit.zip',
       \ 'github:honza/snipmate-snippets',
       \ 'github:maxbrunsfeld/vim-yankstack',
       \ 'github:scrooloose/nerdtree',
@@ -39,6 +38,19 @@ endf
 call SetupVAM()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ENCODING SETTINGS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set encoding=utf-8
+set termencoding=utf-8
+set fileencoding=utf-8
+set fileencodings=ucs-bom,utf-8,big5,gb2312,latin1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" GUIFONT SETTINGS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set gfn=Source\ Code\ Pro\ Light:h14
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " allow unsaved background buffers and remember marks/undo for them
@@ -56,6 +68,8 @@ set incsearch
 set hlsearch
 " make searches case-sensitive only if they contain upper-case characters
 set ignorecase smartcase
+" insert tabs on the start of a line according to context
+set smarttab
 " highlight current line
 set cursorline
 set cmdheight=2
@@ -63,6 +77,15 @@ set switchbuf=useopen
 set numberwidth=5
 set showtabline=2
 set winwidth=79
+" disable sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+" show the cursor wposition all the time
+set ruler
+" auto read when file is changed from outsideyy
+set autoread
 " This makes RVM work inside Vim. I have no idea why.
 set shell=zsh
 " Prevent Vim from clobbering the scrollback buffer. See
@@ -129,8 +152,16 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM FILE COMMANDS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+command! W w !sudo tee % > /dev/null
 command! F setf
-command! Fjs setf javascript
+command! Fj setf javascript
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" BASH LIKE KEYS FOR THE COMMANDLINE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+cnoremap <C-A>      <Home>
+cnoremap <C-E>      <End>
+cnoremap <C-K>      <C->
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COLOR
@@ -226,7 +257,7 @@ function! PromoteToLet()
   :normal ==
 endfunction
 :command! PromoteToLet :call PromoteToLet()
-:map <leader>p :PromoteToLet<cr>
+:map <leader>l :PromoteToLet<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " EXTRACT VARIABLE (SKETCHY)
@@ -302,9 +333,9 @@ map <leader>gv :CtrlPClearCache<cr>\|:CtrlP app/views<cr>
 map <leader>gc :CtrlPClearCache<cr>\|:CtrlP app/controllers<cr>
 map <leader>gm :CtrlPClearCache<cr>\|:CtrlP app/models<cr>
 map <leader>gh :CtrlPClearCache<cr>\|:CtrlP app/helpers<cr>
+map <leader>ga :CtrlPClearCache<cr>\|:CtrlP app/assets<cr>
 map <leader>gl :CtrlPClearCache<cr>\|:CtrlP lib<cr>
 map <leader>gp :CtrlPClearCache<cr>\|:CtrlP public<cr>
-map <leader>gs :CtrlPClearCache<cr>\|:CtrlP public/stylesheets/sass<cr>
 map <leader>gf :CtrlPClearCache<cr>\|:CtrlP features<cr>
 map <leader>gg :topleft 100 :split Gemfile<cr>
 map <leader>gt :CtrlPClearCache<cr>\|CtrlPTag<cr>
@@ -467,9 +498,9 @@ let g:snips_trigger_key='<F3>'
 imap <F2> <c-r><F3>
 
 " --- yankstack
-if system('uname') =~ "Darwin"
-  set macmeta
-endif
+let g:yankstack_map_keys = 0
+nmap <C-]> <Plug>yankstack_substitute_older_paste
+nmap <C-}> <Plug>yankstack_substitute_newer_paste
 
 " --- Tabular
 if exists(":Tabularize")
@@ -479,7 +510,5 @@ if exists(":Tabularize")
   vmap <leader>b: :Tabularize /:\zs<CR>
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" GUIFONT SETTINGS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set gfn=Source\ Code\ Pro\ Light:h14
+" ---JavaScript Syntax
+let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
