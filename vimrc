@@ -195,7 +195,7 @@ imap <c-l> <space>=><space>
 imap <c-c> <esc>
 " Clear the search buffer when hitting return
 function! MapCR()
-  nnoremap <cr> :nohlsearch<cr>
+  nnoremap <esc> :nohlsearch<cr><esc>
 endfunction
 call MapCR()
 nnoremap <leader><leader> <c-^>
