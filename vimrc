@@ -153,7 +153,7 @@ augroup END
 " CUSTOM FILE COMMANDS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 command! W w !sudo tee % > /dev/null
-command! F setf
+command! -nargs=1 F setf <args>
 command! Fj setf javascript
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
