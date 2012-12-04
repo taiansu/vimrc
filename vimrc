@@ -155,6 +155,7 @@ augroup END
 command! W w !sudo tee % > /dev/null
 command! -nargs=1 F setf <args>
 command! Fj setf javascript
+command! -nargs=1 I exec ":silent !iterm_exec '" . <args>  . "'"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASH LIKE KEYS FOR THE COMMANDLINE
