@@ -490,7 +490,7 @@ set clipboard=unnamed
 " Addons Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " --- Numbers.vim
-nnoremap <C-n> :NumbersToggle<CR>
+nnoremap <C-n> :NumbersToggle<cr>
 
 " --- CtrlP
 " sets local working directory as the nearest ancestor
@@ -521,10 +521,8 @@ nmap <C-}> <Plug>yankstack_substitute_newer_paste
 
 " --- Tabular
 if exists(":Tabularize")
-  nmap <leader>b= :Tabularize /=<CR>
-  vmap <leader>b= :Tabularize /=<CR>
-  nmap <leader>b: :Tabularize /:\zs<CR>
-  vmap <leader>b: :Tabularize /:\zs<CR>
+  nmap <leader>b :Tab<cr>
+  vmap <leader>b :Tab<cr>
 endif
 
 " ---JavaScript Syntax
