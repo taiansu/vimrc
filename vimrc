@@ -17,6 +17,7 @@ fun SetupVAM()
       \ 'github:honza/snipmate-snippets',
       \ 'github:maxbrunsfeld/vim-yankstack',
       \ 'github:scrooloose/nerdtree',
+      \ 'github:jistr/vim-nerdtree-tabs',
       \ 'github:epmatsw/ag.vim',
       \ 'github:kien/ctrlp.vim',
       \ 'github:godlygeek/tabular',
@@ -520,10 +521,12 @@ nmap <C-]> <Plug>yankstack_substitute_older_paste
 nmap <C-}> <Plug>yankstack_substitute_newer_paste
 
 " --- Tabular
-if exists(":Tabularize")
-  nmap <leader>b :Tab<cr>
-  vmap <leader>b :Tab<cr>
-endif
+nmap <leader>b :Tab<cr>
+vmap <leader>b :Tab<cr>
 
 " ---JavaScript Syntax
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
+
+" ---NerdTree-Tabs
+let g:nerdtree_tabs_open_on_gui_startup=0
+map <F4> <plug>NERDTreeTabsOpen<cr>
