@@ -529,4 +529,4 @@ let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
 
 " ---NerdTree-Tabs
 let g:nerdtree_tabs_open_on_gui_startup=0
-map <F4> <plug>NERDTreeTabsOpen<cr>
+map <F4> <plug>NERDTreeTabsToggle<cr>
