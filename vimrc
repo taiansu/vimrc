@@ -30,6 +30,7 @@ fun SetupVAM()
       \ 'github:mattn/webapi-vim',
       \ 'github:mattn/gist-vim',
       \ 'github:myusuf3/numbers.vim',
+      \ 'github:xolox/vim-easytags',
       \ 'github:vim-scripts/ruby-matchit',
       \ 'github:kchmck/vim-coffee-script',
       \ 'github:tpope/vim-haml',
@@ -530,3 +531,6 @@ let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
 " ---NerdTree-Tabs
 let g:nerdtree_tabs_open_on_gui_startup=0
 map <F4> <plug>NERDTreeTabsToggle<cr>
+
+" ---EasyTags
+map <F5> :UpdateTags<cr>
