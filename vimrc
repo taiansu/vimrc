@@ -193,13 +193,13 @@ set equalalways
 set eadirection=both
 " Insert a hash rocket with <c-l>
 imap <c-l> <space>=><space>
-" Can't be bothered to understand ESC vs <c-c> in insert mode
-imap <c-c> <esc>
 " Clear the search buffer when hitting return
 function! MapCR()
-  nnoremap <esc> :nohlsearch<cr><esc>
+  nnoremap <c-[> :nohlsearch<cr><esc>
 endfunction
 call MapCR()
+" Can't be bothered to understand ESC vs <c-c> in insert mode
+imap <c-c> <esc>
 nnoremap <leader><leader> <c-^>
 " format json
 map <leader>j !python -m json.tool<cr>
