@@ -30,6 +30,7 @@ fun SetupVAM()
       \ 'github:mattn/webapi-vim',
       \ 'github:mattn/gist-vim',
       \ 'github:myusuf3/numbers.vim',
+      \ 'github:vim-scripts/matchit.zip',
       \ 'github:vim-scripts/ruby-matchit',
       \ 'github:kchmck/vim-coffee-script',
       \ 'github:tpope/vim-haml',
