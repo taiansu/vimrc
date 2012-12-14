@@ -14,7 +14,8 @@ fun SetupVAM()
     execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '.shellescape(vam_install_path, 1).'/vim-addon-manager'
   endif
   call vam#ActivateAddons([
-      \ 'github:honza/snipmate-snippets',
+      \ 'snipmate',
+      \ 'snipmate-snippets',
       \ 'github:maxbrunsfeld/vim-yankstack',
       \ 'github:scrooloose/nerdtree',
       \ 'github:jistr/vim-nerdtree-tabs',
