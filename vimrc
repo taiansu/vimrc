@@ -17,6 +17,7 @@ fun SetupVAM()
       \ 'snipmate',
       \ 'snipmate-snippets',
       \ 'github:maxbrunsfeld/vim-yankstack',
+      \ 'github:scrooloose/syntastic',
       \ 'github:scrooloose/nerdtree',
       \ 'github:jistr/vim-nerdtree-tabs',
       \ 'github:epmatsw/ag.vim',
@@ -53,6 +54,9 @@ set fileencodings=ucs-bom,utf-8,big5,gb2312,latin1
 " GUIFONT SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set gfn=Source\ Code\ Pro\ Light:h14
+if has("gui_running")
+    set guioptions-=T
+end
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
@@ -132,20 +136,34 @@ augroup vimrcEx
     \   exe "normal g`\"" |
     \ endif
 
-  "for ruby, autoindent with two spaces, always expand tabs
-  autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
-  autocmd FileType python set sw=4 sts=4 et
 
-  autocmd! BufRead,BufNewFile *.sass setfiletype sass 
-
+  " make CSS omnicompletion work for SASS and SCSS
+  autocmd BufNewFile,BufRead *.json             set ft=javascript
+  autocmd BufNewFile,BufRead *.coffee           set ft=coffee
+  autocmd! BufNewFile,BufRead *.scss,*.sass      set ft=scss.css
+  autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
+  autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako source ~/.vim/vim-addons/github-docunext-closetag.vim/plugin/closetag.vim
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
   autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
 
+  "for ruby, autoindent with two spaces, always expand tabs
+  autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
+  autocmd FileType python set sw=4 sts=4 et
   " Indent p tags
   autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
-
   " Don't syntax highlight markdown because it's often wrong
   autocmd! FileType mkd setlocal syn=off
+
+  " Enable omni completion. (Ctrl-X Ctrl-O)
+  autocmd FileType html,haml,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+  autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+  autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+  autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+  autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 
   " Leave the return key alone when in command line windows, since it's used
   " to run commands there.
@@ -198,7 +216,7 @@ set eadirection=both
 imap <c-l> <space>=><space>
 " Clear the search buffer when hitting return
 function! MapCR()
-  nnoremap <c-[> :nohlsearch<cr><esc>
+  nnoremap <c-[> :UpdateTags<cr>:nohlsearch<cr><esc>
 endfunction
 call MapCR()
 " Can't be bothered to understand ESC vs <c-c> in insert mode
@@ -254,7 +272,7 @@ function! PromoteToLet()
   :normal ==
 endfunction
 :command! PromoteToLet :call PromoteToLet()
-":map <leader>l :PromoteToLet<cr>
+:map <leader>l :PromoteToLet<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " EXTRACT VARIABLE (SKETCHY)
@@ -520,8 +538,7 @@ imap <F2> <c-r><F3>
 
 " --- yankstack
 let g:yankstack_map_keys = 0
-nmap <C-]> <Plug>yankstack_substitute_older_paste
-nmap <C-}> <Plug>yankstack_substitute_newer_paste
+nmap <leader>m <Plug>yankstack_substitute_older_paste
 
 " --- Tabular
 nmap <leader>b :Tab<cr>
