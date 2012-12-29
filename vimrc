@@ -24,6 +24,7 @@ fun SetupVAM()
       \ 'github:kien/ctrlp.vim',
       \ 'github:godlygeek/tabular',
       \ 'github:tpope/vim-rails',
+      \ 'github:ervandew/screen',
       \ 'github:tpope/vim-surround',
       \ 'github:tpope/vim-repeat',
       \ 'github:tpope/vim-endwise',
@@ -49,13 +50,24 @@ set encoding=utf-8
 set termencoding=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,big5,gb2312,latin1
+set ffs=unix,mac,dos
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" GUIFONT SETTINGS
+" FONT AND COLOR SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set gfn=Source\ Code\ Pro\ Light:h14
+
+:set t_Co=256 " 256 colors
+:set background=dark
+
+highlight Pmenu ctermbg=94 guibg=#875F00
 if has("gui_running")
     set guioptions-=T
+    set guioptions+=e
+    set guitablabel=%M\ %t
+    :colorscheme codeschool
+else
+    :colorscheme github
 end
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -70,6 +82,8 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set autoindent
+set smartindent
+set wrap
 set laststatus=2
 set showmatch
 set incsearch
@@ -100,15 +114,18 @@ set shell=zsh
 " http://www.shallowsky.com/linux/noaltscreen.html
 set t_ti= t_te=
 " keep more context when scrolling off the end of a buffer
-set scrolloff=3
+set scrolloff=7
 " Store temporary files in a central spot
 set backup
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
+set whichwrap+=<,>,h,l
 " display incomplete commands
 set showcmd
+" For regular expressions turn magic on
+set magic
 " Enable highlighting for syntax
 syntax on
 " Enable file type detection.
@@ -174,7 +191,7 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM FILE COMMANDS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-command! W w !sudo tee % > /dev/null
+command! Sudow w !sudo tee % > /dev/null
 command! -nargs=1 F setf <args>
 command! Fj setf javascript
 command! -nargs=1 I exec ":silent !iterm_exec '" . <args>  . "'"
@@ -185,14 +202,6 @@ command! -nargs=1 I exec ":silent !iterm_exec '" . <args>  . "'"
 cnoremap <C-A>      <Home>
 cnoremap <C-E>      <End>
 cnoremap <C-K>      <C->
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" COLOR
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-:set t_Co=256 " 256 colors
-:set background=dark
-:colorscheme railscasts
-highlight Pmenu ctermbg=94 guibg=#875F00
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " STATUS LINE
@@ -244,8 +253,8 @@ inoremap <s-tab> <c-n>
 " OPEN FILES IN DIRECTORY OF CURRENT FILE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
-map <leader>e :edit %%
-map <leader>v :view %%
+"map <leader>e :edit %%
+"map <leader>v :view %%
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
@@ -541,8 +550,8 @@ let g:yankstack_map_keys = 0
 nmap <leader>m <Plug>yankstack_substitute_older_paste
 
 " --- Tabular
-nmap <leader>b :Tab<cr>
-vmap <leader>b :Tab<cr>
+"nmap <leader>b :Tab<cr>
+"vmap <leader>b :Tab<cr>
 
 " ---JavaScript Syntax
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
@@ -553,3 +562,10 @@ map <F4> <plug>NERDTreeTabsToggle<cr>
 
 " ---EasyTags
 map <F5> :UpdateTags<cr>
+
+" ---Screen
+command -nargs=? -complete=shellcmd W  :w | :call ScreenShellSend("load '".@%."';")
+map <Leader>c :ScreenShellVertical bundle exec rails c<CR>
+map <Leader>r :w<CR> :call ScreenShellSend("rspec ".@% . ':' . line('.'))<CR>
+map <Leader>e :w<CR> :call ScreenShellSend("cucumber --format=pretty ".@% . ':' . line('.'))<CR>
+map <Leader>b :w<CR> :call ScreenShellSend("break ".@% . ':' . line('.'))<CR>
