@@ -185,7 +185,7 @@ augroup vimrcEx
   " Leave the return key alone when in command line windows, since it's used
   " to run commands there.
   autocmd! CmdwinEnter * :unmap <cr>
-  autocmd! CmdwinLeave * :call MapCR()
+  autocmd! CmdwinLeave * :call MapNoHighlight()
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -232,10 +232,10 @@ set eadirection=both
 " Insert a hash rocket with <c-l>
 imap <c-l> <space>=><space>
 " Clear the search buffer when hitting return
-function! MapCR()
-  nnoremap <c-[> :UpdateTags<cr>:nohlsearch<cr><esc>
+function! MapNoHighlight()
+  map <leader>. :nohlsearch<cr>
 endfunction
-call MapCR()
+call MapNoHighlight()
 " Can't be bothered to understand ESC vs <c-c> in insert mode
 imap <c-c> <esc>
 nnoremap <leader><leader> <c-^>
