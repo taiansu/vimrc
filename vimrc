@@ -569,11 +569,19 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 map <F4> <plug>NERDTreeTabsToggle<cr>
 
 " ---EasyTags
-map <F5> :UpdateTags<cr>
+map <leader>u :UpdateTags<cr>
 
 " ---Screen
+let g:ScreenImpl = 'Tmux'
+let g:ScreenShellTmuxInitArgs = '-2'
+let g:ScreenShellInitialFocus = 'shell'
+let g:ScreenShellQuitOnVimExit = 0
+map <F5> :ScreenShellVertical<cr>
 command -nargs=? -complete=shellcmd W  :w | :call ScreenShellSend("load '".@%."';")
-map <Leader>c :ScreenShellVertical bundle exec rails c<CR>
-map <Leader>r :w<CR> :call ScreenShellSend("rspec ".@% . ':' . line('.'))<CR>
-map <Leader>e :w<CR> :call ScreenShellSend("cucumber --format=pretty ".@% . ':' . line('.'))<CR>
-map <Leader>b :w<CR> :call ScreenShellSend("break ".@% . ':' . line('.'))<CR>
+map <leader>c :ScreenShellVertical bundle exec rails c<cr>
+map <leader>r :w<cr> :call ScreenShellSend("rspec ".@% . ':' . line('.'))<cr>
+map <leader>e :w<cr> :call ScreenShellSend("cucumber --format=pretty ".@% . ':' . line('.'))<cr>
+map <leader>b :w<cr> :call ScreenShellSend("break ".@% . ':' . line('.'))<cr>
+
+" Always edit file, even when swap file is found
+set shortmess+=A
