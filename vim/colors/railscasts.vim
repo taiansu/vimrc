@@ -45,36 +45,38 @@ hi link htmlTagName                 xmlTagName
 hi link htmlEndTag                  xmlEndTag
 
 highlight Normal                    guifg=#E6E1DC guibg=#2B2B2B
-highlight CursorColumn              guibg=#444444 gui=none term=reverse ctermbg=242
-highlight CursorLine                guibg=#444444 gui=none cterm=NONE,underline, ctermbg=233
+highlight CursorColumn              guibg=#3A3A3A gui=none term=reverse ctermbg=237
+highlight CursorLine                guibg=#3A3A3A gui=none cterm=NONE ctermbg=237
 
 highlight Comment                   guifg=#BC9458 ctermfg=180 gui=italic
 highlight Constant                  guifg=#6D9CBE ctermfg=73
 highlight Define                    guifg=#CC7833 ctermfg=173
-highlight Error                     guifg=#FFC66D ctermfg=221 guibg=#990000 ctermbg=88
-highlight Function                  guifg=#FFC66D ctermfg=221 gui=NONE cterm=NONE
+highlight Error                     guifg=#FFC66D ctermfg=215 guibg=#990000 ctermbg=88
+highlight Function                  guifg=#FFC66D ctermfg=215 gui=NONE cterm=NONE
 highlight Identifier                guifg=#6D9CBE ctermfg=73 gui=NONE cterm=NONE
 highlight Include                   guifg=#CC7833 ctermfg=173 gui=NONE cterm=NONE
 highlight PreCondit                 guifg=#CC7833 ctermfg=173 gui=NONE cterm=NONE
 highlight Keyword                   guifg=#CC7833 ctermfg=173 cterm=NONE
-highlight LineNr                    guifg=#2B2B2B ctermfg=159 guibg=#C0C0FF
+highlight LineNr                    guifg=#2B2B2B ctermfg=234 guibg=#C0C0FF ctermbg=147
 highlight Number                    guifg=#A5C261 ctermfg=107
 highlight PreProc                   guifg=#E6E1DC ctermfg=103
-highlight Search                    guifg=NONE ctermfg=NONE guibg=#2b2b2b ctermbg=235 gui=underline cterm=underline
+highlight Search                    guifg=NONE ctermfg=NONE guibg=#2b2b2b ctermbg=234 gui=underline cterm=underline
 highlight Statement                 guifg=#CC7833 ctermfg=173 gui=NONE cterm=NONE
 highlight String                    guifg=#A5C261 ctermfg=107
 highlight Title                     guifg=#FFFFFF ctermfg=15
-highlight Type                      guifg=#DA4939 ctermfg=167 gui=NONE cterm=NONE
+highlight Type                      guifg=#DA4939 ctermfg=124 gui=NONE cterm=NONE
 highlight Visual                    guibg=#5A647E ctermbg=60
 
 highlight DiffAdd                   guifg=#E6E1DC ctermfg=7 guibg=#519F50 ctermbg=71
 highlight DiffDelete                guifg=#E6E1DC ctermfg=7 guibg=#660000 ctermbg=52
-highlight Special                   guifg=#DA4939 ctermfg=167 
+highlight DiffChange                guifg=#f0f0f0 guibg=#1c3657 gui=NONE ctermfg=231 ctermbg=23 cterm=NONE
+highlight DiffText                  ctermfg=231 ctermbg=24 cterm=bold guifg=#f0f0f0 guibg=#204a87 gui=bold
+highlight Special                   guifg=#DA4939 ctermfg=124
 
 highlight pythonBuiltin             guifg=#6D9CBE ctermfg=73 gui=NONE cterm=NONE
 highlight rubyBlockParameter        guifg=#FFFFFF ctermfg=15
 highlight rubyClass                 guifg=#FFFFFF ctermfg=15
-highlight rubyConstant              guifg=#DA4939 ctermfg=167
+highlight rubyConstant              guifg=#DA4939 ctermfg=124
 highlight rubyInstanceVariable      guifg=#D0D0FF ctermfg=189
 highlight rubyInterpolation         guifg=#519F50 ctermfg=107
 highlight rubyLocalVariableOrMethod guifg=#D0D0FF ctermfg=189
