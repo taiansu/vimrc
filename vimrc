@@ -60,15 +60,13 @@ set gfn=Source\ Code\ Pro\ Light:h14
 
 :set t_Co=256 " 256 colors
 :set background=dark
+:colorscheme railscasts
 
 highlight Pmenu ctermbg=94 guibg=#875F00
 if has("gui_running")
     set guioptions-=T
     set guioptions+=e
     set guitablabel=%M\ %t
-    :colorscheme codeschool
-else
-    :colorscheme github
 end
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
