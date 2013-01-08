@@ -33,6 +33,7 @@ fun SetupVAM()
       \ 'github:mattn/webapi-vim',
       \ 'github:mattn/gist-vim',
       \ 'github:myusuf3/numbers.vim',
+      \ 'github:docunext/closetag.vim',
       \ 'github:xolox/vim-easytags',
       \ 'github:vim-scripts/matchit.zip',
       \ 'github:vim-scripts/ruby-matchit',
@@ -569,7 +570,7 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 map <F4> <plug>NERDTreeTabsToggle<cr>
 
 " ---EasyTags
-map <leader>u :UpdateTags<cr>
+map <leader>u :UpdateTags -R<cr>
 
 " ---Screen
 let g:ScreenImpl = 'Tmux'
