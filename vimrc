@@ -24,7 +24,6 @@ fun SetupVAM()
       \ 'github:kien/ctrlp.vim',
       \ 'github:godlygeek/tabular',
       \ 'github:tpope/vim-rails',
-      \ 'github:ervandew/screen',
       \ 'github:tpope/vim-surround',
       \ 'github:tpope/vim-repeat',
       \ 'github:tpope/vim-endwise',
@@ -34,7 +33,6 @@ fun SetupVAM()
       \ 'github:mattn/gist-vim',
       \ 'github:myusuf3/numbers.vim',
       \ 'github:docunext/closetag.vim',
-      \ 'github:xolox/vim-easytags',
       \ 'github:vim-scripts/matchit.zip',
       \ 'github:vim-scripts/ruby-matchit',
       \ 'github:kchmck/vim-coffee-script',
@@ -405,86 +403,63 @@ map <leader>z z5<cr>
 " nnoremap <leader>. :call OpenTestAlternate()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RUNNING TESTS
+" RUNNING TEST IN ITERM
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>t :call RunTestFile()<cr>
-map <leader>T :call RunNearestTest()<cr>
-map <leader>a :call RunTests('')<cr>
+let g:vim_terminal="/dev/ttys001"
+let g:use_zeus=0
+map <leader><C-r> :let g:vim_terminal="/dev/ttys001"
+map <leader><C-e> :let g:use_zeus=1<cr>
 
-function! RunTestFile(...)
-    if a:0
-        let command_suffix = a:1
-    else
-        let command_suffix = ""
-    endif
+function! RunInTerminal(file)
+  if g:use_zeus != 0
+    let l:command = 'zeus test --color'
+  elseif match(a:file, '_spec\.rb') != -1
+    let l:command = 'bundle exec rspec --color'
+  elseif match(a:file, '\.feature') != -1
+    let l:command = 'bundle exec cucumber'
+  elseif match(a:file, '\.rb') != -1
+    let l:command = 'ruby'
+  endif
 
-    " Run the tests for the previously-marked file.
-    let in_test_file = match(expand("%"), '\(_test\.rb\|_spec\.rb\|.feature\)$') != -1
-    if in_test_file
-        call SetTestFile()
-    elseif !exists("t:grb_test_file")
-        echo "Can't find any test/spec file."
-        return
-    end
-    call GenerateCommand(t:grb_test_file . command_suffix)
+  if exists("l:command")
+    let g:last_run_in_terminal = a:file
+    let l:run_script = "!osascript ~/.vim/tools/run_command.applescript"
+    silent execute ":up"
+    silent execute l:run_script . " '" . l:command . " " . a:file . "' " . g:vim_terminal . " &"
+    silent execute ":redraw!"
+  else
+    echo "Couldn't figure out how to run " . a:file
+  end
 endfunction
 
-function! RunNearestTest()
-    if match(a:filename, '_test.rb$') != -1
-
-    else
-      let spec_line_number = line('.')
-      call RunTestFile(":" . spec_line_number . " -b")
-    endif
-
+function! RunFileInTerminal()
+  if exists("g:vim_terminal")
+    call RunInTerminal(expand("%"))
+  else
+    echo "You need to set g:vim_terminal to a valid TTY (e.g. /dev/ttys000)"
+  end
+endfunction
+ 
+function! RunFileAtLineInTerminal()
+  if exists("g:vim_terminal")
+    call RunInTerminal(expand("%") . ":" . line("."))
+  else
+    echo "You need to set g:vim_terminal to a valid TTY (e.g. /dev/ttys000)"
+  endif
 endfunction
 
-function! SetTestFile()
-    " Set the spec file that tests will be run for.
-    let t:grb_test_file=@%
+function! ReRunLastFileCommand()
+  if exists("g:vim_terminal") && exists("g:last_run_in_terminal")
+    call RunInTerminal(g:last_run_in_terminal)
+  endif
 endfunction
 
-function! GenerateCommand(filename)
-    if match(a:filename, '_test.rb$') != -1
-        let command =  "ruby " . a:filename
-    elseif match(a:filename, '\.feature$') != -1
-        let command =  "script/features " . a:filename
-    else
-        if filereadable("script/test")
-            let command = "script/test " . a:filename
-        elseif filereadable("Gemfile")
-            let command = "bundle exec rspec --color " . a:filename
-        else
-            let command = "rspec --color " . a:filename
-        end
-    end
-    call RunTests(command)
-endf
-
-function! RunTests(command)
-    if has('gui_running')
-        call RunTestsInIterm(a:command)
-    else
-        call RunTestsInVim(a:command)
-    end
-endf
-
-function! RunTestsInIterm(command)
-    exec ":silent !iterm_exec '" . a:command  . "'"
-endf
-
-function! RunTestsInVim(command)
-    " Write the file and run tests for the given filename
-    :w
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    exec ":!" . a:command
-
-endfunction
+command! RunFileInTerminal call RunFileInTerminal()
+command! RunFileAtLineInTerminal call RunFileAtLineInTerminal()
+command! ReRunLastFileCommand call ReRunLastFileCommand()
+map <leader>a :call RunFileAtLineInTerminal()<cr>
+map <leader>t :call RunFileInTerminal()<cr>
+map <leader>r :call ReRunLastFileCommand()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Md5 COMMAND
@@ -567,20 +542,8 @@ let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
 let g:nerdtree_tabs_open_on_gui_startup=0
 map <F4> <plug>NERDTreeTabsToggle<cr>
 
-" ---EasyTags
-map <leader>u :UpdateTags -R<cr>
-
-" ---Screen
-let g:ScreenImpl = 'Tmux'
-let g:ScreenShellTmuxInitArgs = '-2'
-let g:ScreenShellInitialFocus = 'shell'
-let g:ScreenShellQuitOnVimExit = 0
-map <F5> :ScreenShellVertical<cr>
-command -nargs=? -complete=shellcmd W  :w | :call ScreenShellSend("load '".@%."';")
-map <leader>c :ScreenShellVertical bundle exec rails c<cr>
-map <leader>r :w<cr> :call ScreenShellSend("rspec ".@% . ':' . line('.'))<cr>
-map <leader>e :w<cr> :call ScreenShellSend("cucumber --format=pretty ".@% . ':' . line('.'))<cr>
-map <leader>b :w<cr> :call ScreenShellSend("break ".@% . ':' . line('.'))<cr>
+" ---rails.vim
+map <leader>u :Rtags<cr>
 
 " Always edit file, even when swap file is found
 set shortmess+=A
