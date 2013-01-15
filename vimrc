@@ -407,8 +407,8 @@ map <leader>z z5<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:vim_terminal="/dev/ttys001"
 let g:use_zeus=0
-map <leader><C-r> :let g:vim_terminal="/dev/ttys001"
-map <leader><C-e> :let g:use_zeus=1<cr>
+map <leader><C-t> :let g:vim_terminal="/dev/ttys001"
+map <leader><C-z> :let g:use_zeus=1<cr>
 
 function! RunInTerminal(file)
   if g:use_zeus != 0
