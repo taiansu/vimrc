@@ -31,6 +31,7 @@ fun SetupVAM()
       \ 'github:tpope/vim-commentary',
       \ 'github:mattn/webapi-vim',
       \ 'github:mattn/gist-vim',
+      \ 'github:tomtom/quickfixsigns_vim',
       \ 'github:myusuf3/numbers.vim',
       \ 'github:docunext/closetag.vim',
       \ 'github:vim-scripts/matchit.zip',
