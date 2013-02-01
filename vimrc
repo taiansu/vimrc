@@ -33,10 +33,12 @@ fun SetupVAM()
       \ 'github:mattn/gist-vim',
       \ 'github:tomtom/quickfixsigns_vim',
       \ 'github:myusuf3/numbers.vim',
+      \ 'github:bkad/CamelCaseMotion',
       \ 'github:docunext/closetag.vim',
       \ 'github:vim-scripts/matchit.zip',
       \ 'github:vim-scripts/ruby-matchit',
       \ 'github:kchmck/vim-coffee-script',
+      \ 'github:gkz/vim-ls',
       \ 'github:tpope/vim-haml',
       \ 'github:vim-ruby/vim-ruby'
       \ ], {'auto_install' : 1})
@@ -419,7 +421,7 @@ function! RunInTerminal(file)
   elseif match(a:file, '\.feature') != -1
     let l:command = 'bundle exec cucumber'
   elseif match(a:file, '\.rb') != -1
-    let l:command = 'ruby'
+    let l:command = 'ruby -I./test'
   endif
 
   if exists("l:command")
