@@ -37,8 +37,11 @@ fun SetupVAM()
       \ 'github:docunext/closetag.vim',
       \ 'github:vim-scripts/matchit.zip',
       \ 'github:vim-scripts/ruby-matchit',
+      \ 'github:kana/vim-textobj-user',
+      \ 'github:nelstrom/vim-textobj-rubyblock',
       \ 'github:kchmck/vim-coffee-script',
       \ 'github:gkz/vim-ls',
+      \ 'github:nono/vim-handlebars',
       \ 'github:tpope/vim-haml',
       \ 'github:vim-ruby/vim-ruby'
       \ ], {'auto_install' : 1})
@@ -139,6 +142,15 @@ set wildmode=longest,list
 set wildmenu
 set showbreak=↪
 let mapleader=","
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SHOW INVISIBLES
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Shortcut to rapidly toggle `set list`
+nmap <leader>l :set list!<CR>
+ 
+" Use the same symbols as TextMate for tabstops and EOLs
+set listchars=tab:▸\ ,eol:¬
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
