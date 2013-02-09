@@ -97,6 +97,7 @@ set ignorecase smartcase
 set smarttab
 " highlight current line
 set cursorline
+set cursorcolumn
 set cmdheight=2
 set switchbuf=useopen
 set numberwidth=5
