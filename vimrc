@@ -473,8 +473,11 @@ endfunction
 command! RunFileInTerminal call RunFileInTerminal()
 command! RunFileAtLineInTerminal call RunFileAtLineInTerminal()
 command! ReRunLastFileCommand call ReRunLastFileCommand()
+",a stands for at line
 map <leader>a :call RunFileAtLineInTerminal()<cr>
+",t stand for test all file
 map <leader>t :call RunFileInTerminal()<cr>
+",r stand for repeat
 map <leader>r :call ReRunLastFileCommand()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
