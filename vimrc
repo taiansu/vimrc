@@ -141,6 +141,9 @@ filetype plugin indent on
 set wildmode=longest,list
 " make tab completion for files/buffers act like bash
 set wildmenu
+" set folding method by syntax
+set foldmethod=syntax
+set foldlevelstart=20
 set showbreak=↪
 let mapleader=","
 
