@@ -424,7 +424,7 @@ map <leader>z z5<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RUNNING TEST IN ITERM
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:vim_terminal="/dev/ttys001"
+let g:vim_terminal="/dev/ttys000"
 let g:use_zeus=0
 map <leader><C-t> :let g:vim_terminal="/dev/ttys001"
 map <leader><C-z> :let g:use_zeus=1<cr>
