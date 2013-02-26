@@ -54,7 +54,7 @@ hi Delimiter guifg=#509E50
 " hi erubyDelimiter guifg=NONE
 
 " function name (after def)
-hi Function guifg=#FFC66D gui=NONE
+hi Function guifg=#CFCFFF gui=NONE
 
 "@var, @@var, $var
 hi Identifier guifg=#CFCFFF gui=NONE
@@ -67,7 +67,7 @@ hi! link PreProc Statement
 hi! link PreCondit Statement
 
 " SomeClassName
-hi Type guifg=NONE gui=NONE
+hi Type guifg=#FFC66D gui=NONE
 
 " has_many, respond_to, params
 hi railsMethod guifg=#DA4938 gui=NONE
