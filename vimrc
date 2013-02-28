@@ -64,7 +64,7 @@ set gfn=Source\ Code\ Pro\ Light:h14
 
 :set t_Co=256 " 256 colors
 :set background=dark
-:colorscheme railscasts
+:colorscheme smyck
 
 highlight Pmenu ctermbg=94 guibg=#875F00
 if has("gui_running")
@@ -188,7 +188,7 @@ augroup vimrcEx
   autocmd! FileType mkd setlocal syn=off
 
   " Enable omni completion. (Ctrl-X Ctrl-O)
-  autocmd FileType html,haml,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType html,haml,markdown,handlebars setlocal omnifunc=htmlcomplete#CompleteTags
   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
   autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
@@ -230,7 +230,22 @@ map <Left> :vertical res -2<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " STATUS LINE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+set statusline=
+set statusline +=%1*\ %n\ %*            "buffer number
+set statusline +=%5*%{&ff}%*            "file format
+set statusline +=%3*%y%*                "file type
+set statusline +=%4*\ %<%F%*            "full path
+set statusline +=%2*%m%*                "modified flag
+set statusline +=%1*%=%5l%*             "current line
+set statusline +=%2*/%L%*               "total lines
+set statusline +=%1*%4v\ %*             "virtual column number
+set statusline +=%2*0x%04B\ %*          "character under cursor
+
+set laststatus=2
+if version >= 700
+  au InsertEnter * hi StatusLine term=reverse ctermbg=5 gui=undercurl guisp=Magenta
+  au InsertLeave * hi StatusLine term=reverse ctermfg=0 ctermbg=2 gui=bold,reverse
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
@@ -376,15 +391,16 @@ function! ShowRoutes()
 endfunction
 
 map <leader>gR :call ShowRoutes()<cr>
-map <leader>gr :topleft :split config/routes.rb<cr>
 map <leader>gv :CtrlPClearCache<cr>\|:CtrlP app/views<cr>
 map <leader>gc :CtrlPClearCache<cr>\|:CtrlP app/controllers<cr>
 map <leader>gm :CtrlPClearCache<cr>\|:CtrlP app/models<cr>
 map <leader>gh :CtrlPClearCache<cr>\|:CtrlP app/helpers<cr>
 map <leader>ga :CtrlPClearCache<cr>\|:CtrlP app/assets<cr>
+map <leader>gs :CtrlPClearCache<cr>\|:CtrlP spec/<cr>
 map <leader>gl :CtrlPClearCache<cr>\|:CtrlP lib<cr>
 map <leader>gp :CtrlPClearCache<cr>\|:CtrlP public<cr>
 map <leader>gf :CtrlPClearCache<cr>\|:CtrlP features<cr>
+map <leader>gr :topleft :split config/routes.rb<cr>
 map <leader>gg :topleft 100 :split Gemfile<cr>
 map <leader>gt :CtrlPClearCache<cr>\|CtrlPTag<cr>
 map <leader>f :CtrlPClearCache<cr>\|:CtrlP<cr>
@@ -436,7 +452,7 @@ function! RunInTerminal(file)
     let l:command = 'bundle exec rspec --color'
   elseif match(a:file, '\.feature') != -1
     let l:command = 'bundle exec cucumber'
-  elseif match(a:file, '\.rb') != -1
+  elseif match(a:file, '\_test.rb') != -1
     let l:command = 'ruby -I./test'
   endif
 
