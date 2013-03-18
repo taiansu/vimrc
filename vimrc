@@ -24,6 +24,7 @@ fun SetupVAM()
       \ 'github:kien/ctrlp.vim',
       \ 'github:godlygeek/tabular',
       \ 'github:tpope/vim-rails',
+      \ 'github:tpope/vim-markdown',
       \ 'github:tpope/vim-surround',
       \ 'github:tpope/vim-repeat',
       \ 'github:tpope/vim-endwise',
