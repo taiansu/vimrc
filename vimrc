@@ -16,10 +16,8 @@ fun SetupVAM()
   call vam#ActivateAddons([
       \ 'snipmate',
       \ 'snipmate-snippets',
-      \ 'github:maxbrunsfeld/vim-yankstack',
       \ 'github:scrooloose/syntastic',
       \ 'github:scrooloose/nerdtree',
-      \ 'github:jistr/vim-nerdtree-tabs',
       \ 'github:epmatsw/ag.vim',
       \ 'github:kien/ctrlp.vim',
       \ 'github:godlygeek/tabular',
@@ -30,6 +28,7 @@ fun SetupVAM()
       \ 'github:tpope/vim-endwise',
       \ 'github:tpope/vim-fugitive',
       \ 'github:tpope/vim-commentary',
+      \ 'github:tpope/vim-haml',
       \ 'github:mattn/webapi-vim',
       \ 'github:mattn/gist-vim',
       \ 'github:tomtom/quickfixsigns_vim',
@@ -41,9 +40,7 @@ fun SetupVAM()
       \ 'github:kana/vim-textobj-user',
       \ 'github:nelstrom/vim-textobj-rubyblock',
       \ 'github:kchmck/vim-coffee-script',
-      \ 'github:gkz/vim-ls',
       \ 'github:nono/vim-handlebars',
-      \ 'github:tpope/vim-haml',
       \ 'github:vim-ruby/vim-ruby'
       \ ], {'auto_install' : 1})
 endf
@@ -564,10 +561,6 @@ let g:gist_open_browser_after_post = 1
 let g:snips_trigger_key='<F3>'
 imap <F2> <c-r><F3>
 
-" --- yankstack
-let g:yankstack_map_keys = 0
-nmap <leader>m <Plug>yankstack_substitute_older_paste
-
 " --- Tabular
 "nmap <leader>b :Tab<cr>
 "vmap <leader>b :Tab<cr>
@@ -575,9 +568,8 @@ nmap <leader>m <Plug>yankstack_substitute_older_paste
 " ---JavaScript Syntax
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
 
-" ---NerdTree-Tabs
-let g:nerdtree_tabs_open_on_gui_startup=0
-map <F4> <plug>NERDTreeTabsToggle<cr>
+" ---NerdTree
+map <F4> <plug>NERDTreeToggle<cr>
 
 " ---rails.vim
 map <leader>u :Rtags<cr>
