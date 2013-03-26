@@ -569,7 +569,7 @@ imap <F2> <c-r><F3>
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
 
 " ---NerdTree
-map <F4> <plug>NERDTreeToggle<cr>
+map <F4> :NERDTreeToggle<cr>
 
 " ---rails.vim
 map <leader>u :Rtags<cr>
