@@ -14,8 +14,8 @@ fun SetupVAM()
     execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '.shellescape(vam_install_path, 1).'/vim-addon-manager'
   endif
   call vam#ActivateAddons([
-      \ 'snipmate',
-      \ 'snipmate-snippets',
+      \ 'github:SirVer/ultisnips',
+      \ 'github:ervandew/supertab',
       \ 'github:scrooloose/syntastic',
       \ 'github:scrooloose/nerdtree',
       \ 'github:epmatsw/ag.vim',
@@ -141,7 +141,7 @@ set wildmode=longest,list
 set wildmenu
 " set folding method by syntax
 set foldmethod=syntax
-set foldlevelstart=20
+set foldlevelstart=10
 set showbreak=↪
 let mapleader=","
 
@@ -273,16 +273,16 @@ map <leader>j !python -m json.tool<cr>
 " MULTIPURPOSE TAB KEY
 " Indent if we're at the beginning of a line. Else, do completion.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    else
-        return "\<c-p>"
-    endif
-endfunction
-inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <s-tab> <c-n>
+" function! InsertTabWrapper()
+"     let col = col('.') - 1
+"     if !col || getline('.')[col - 1] !~ '\k'
+"         return "\<tab>"
+"     else
+"         return "\<c-p>"
+"     endif
+" endfunction
+" inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+" inoremap <s-tab> <c-n>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " OPEN FILES IN DIRECTORY OF CURRENT FILE
@@ -441,6 +441,7 @@ let g:use_zeus=0
 map <leader><C-t> :let g:vim_terminal="/dev/ttys001"
 map <leader><C-z> :let g:use_zeus=1<cr>
 
+"TODO refactor this for file execution
 function! RunInTerminal(file)
   if g:use_zeus != 0
     let l:command = 'zeus test --color'
@@ -557,10 +558,6 @@ let g:gist_clip_command = 'pbcopy'
 let g:gist_detect_filytype = 1
 let g:gist_open_browser_after_post = 1
 
-" --- snipMate
-let g:snips_trigger_key='<F3>'
-imap <F2> <c-r><F3>
-
 " --- Tabular
 "nmap <leader>b :Tab<cr>
 "vmap <leader>b :Tab<cr>
@@ -569,7 +566,7 @@ imap <F2> <c-r><F3>
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
 
 " ---NerdTree
-map <F4> :NERDTreeToggle<cr>
+map <leader><C-n> :NERDTreeToggle<cr>
 
 " ---rails.vim
 map <leader>u :Rtags<cr>
