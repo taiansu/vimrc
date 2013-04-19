@@ -142,8 +142,15 @@ set wildmenu
 " set folding method by syntax
 set foldmethod=syntax
 set foldlevelstart=10
+set linebreak
 set showbreak=↪
 let mapleader=","
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" AUTO TRAILING WHITE SPACES
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+autocmd FileType ruby,html,javascript,coffee,css,scss autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SHOW INVISIBLES
