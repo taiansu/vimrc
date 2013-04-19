@@ -139,6 +139,9 @@ filetype plugin indent on
 set wildmode=longest,list
 " make tab completion for files/buffers act like bash
 set wildmenu
+" fix long line render speed
+set synmaxcol=256
+syntax sync minlines=256
 " set folding method by syntax
 set foldmethod=syntax
 set foldlevelstart=10
