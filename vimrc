@@ -14,8 +14,8 @@ fun SetupVAM()
     execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '.shellescape(vam_install_path, 1).'/vim-addon-manager'
   endif
   call vam#ActivateAddons([
+      \ 'github:Valloric/YouCompleteMe',
       \ 'github:SirVer/ultisnips',
-      \ 'github:ervandew/supertab',
       \ 'github:scrooloose/syntastic',
       \ 'github:scrooloose/nerdtree',
       \ 'github:epmatsw/ag.vim',
@@ -602,3 +602,7 @@ let g:SuperTabDefaultCompletionType = "context"
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+" YouCompleteMe
+let g:ycm_key_list_select_completion = ['<c-j>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<c-k>', '<Up>']
