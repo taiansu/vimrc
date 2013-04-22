@@ -41,6 +41,7 @@ fun SetupVAM()
       \ 'github:nelstrom/vim-textobj-rubyblock',
       \ 'github:kchmck/vim-coffee-script',
       \ 'github:nono/vim-handlebars',
+      \ 'github:teramako/jscomplete-vim',
       \ 'github:vim-ruby/vim-ruby'
       \ ], {'auto_install' : 1})
 endf
@@ -190,19 +191,20 @@ augroup vimrcEx
   "for ruby, autoindent with two spaces, always expand tabs
   autocmd FileType ruby,haml,eruby,yaml,html,javascript,coffee,sass,cucumber set ai sw=2 sts=2 et
   autocmd FileType python set sw=4 sts=4 et
+
   " Don't syntax highlight markdown because it's often wrong
   autocmd! FileType mkd setlocal syn=off
 
   " Enable omni completion. (Ctrl-X Ctrl-O)
   autocmd FileType html,haml,markdown,handlebars setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
   autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
   autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-  autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-  autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-  autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-  autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+  autocmd FileType ruby compiler ruby
+  let g:rubycomplete_classes_in_global = 1
+  let g:rubycomplete_buffer_loading = 1
+  let g:rubycomplete_rails = 1
 
   " Leave the return key alone when in command line windows, since it's used
   " to run commands there.
@@ -606,3 +608,14 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 " YouCompleteMe
 let g:ycm_key_list_select_completion = ['<c-j>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<c-k>', '<Up>']
+" let g:ycm_semantic_triggers =  {
+"   \   'c' : ['->', '.'],
+"   \   'objc' : ['->', '.'],
+"   \   'ocaml' : ['.', '#'],
+"   \   'cpp,objcpp' : ['->', '.', '::'],
+"   \   'perl' : ['->'],
+"   \   'php' : ['->', '::'],
+"   \   'cs,java,javascript,d,vim,ruby,python,perl6,scala,vb,elixir,go' : ['.'],
+"   \   'lua' : ['.', ':'],
+"   \   'erlang' : [':'],
+"   \ }
