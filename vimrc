@@ -145,7 +145,9 @@ set synmaxcol=256
 syntax sync minlines=256
 " set folding method by syntax
 set foldmethod=syntax
-set foldlevelstart=10
+set foldlevelstart=1
+set foldnestmax=3
+let javaScript_fold=1
 set linebreak
 set showbreak=↪
 let mapleader=","
