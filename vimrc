@@ -206,7 +206,6 @@ augroup vimrcEx
   autocmd FileType ruby compiler ruby
   let g:rubycomplete_classes_in_global = 1
   let g:rubycomplete_buffer_loading = 1
-  let g:rubycomplete_rails = 1
 
   " Leave the return key alone when in command line windows, since it's used
   " to run commands there.
