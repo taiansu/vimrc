@@ -29,16 +29,11 @@ fun SetupVAM()
       \ 'github:tpope/vim-fugitive',
       \ 'github:tpope/vim-commentary',
       \ 'github:tpope/vim-haml',
-      \ 'github:mattn/webapi-vim',
-      \ 'github:mattn/gist-vim',
       \ 'github:tomtom/quickfixsigns_vim',
       \ 'github:myusuf3/numbers.vim',
-      \ 'github:bkad/CamelCaseMotion',
       \ 'github:docunext/closetag.vim',
       \ 'github:vim-scripts/matchit.zip',
       \ 'github:vim-scripts/ruby-matchit',
-      \ 'github:kana/vim-textobj-user',
-      \ 'github:nelstrom/vim-textobj-rubyblock',
       \ 'github:kchmck/vim-coffee-script',
       \ 'github:nono/vim-handlebars',
       \ 'github:teramako/jscomplete-vim',
@@ -141,16 +136,21 @@ set wildmode=longest,list
 " make tab completion for files/buffers act like bash
 set wildmenu
 " fix long line render speed
-set synmaxcol=256
-syntax sync minlines=256
-" set folding method by syntax
+set synmaxcol=128
+syntax sync minlines=128
 set foldmethod=syntax
-set foldlevelstart=1
+set foldlevelstart=3
 set foldnestmax=3
 let javaScript_fold=1
 set linebreak
 set showbreak=↪
 let mapleader=","
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" DISABLE AUTOMATIC COMMENT INSERTION
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+autocmd FileType css,scss setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AUTO TRAILING WHITE SPACES
@@ -206,7 +206,6 @@ augroup vimrcEx
   autocmd FileType ruby compiler ruby
   let g:rubycomplete_classes_in_global = 1
   let g:rubycomplete_buffer_loading = 1
-  let g:rubycomplete_rails = 1
 
   " Leave the return key alone when in command line windows, since it's used
   " to run commands there.
@@ -270,8 +269,9 @@ set winheight=5
 set winminheight=5
 set equalalways
 set eadirection=both
-" Insert a hash rocket with <c-l>
-imap <c-l> <space>=><space>
+" Insert a hash rocket with <c-f>
+imap <c-f> <space>=><space>
+
 " Clear the search buffer when hitting return
 function! MapNoHighlight()
   map <leader>. :nohlsearch<cr>
@@ -511,12 +511,6 @@ map <leader>t :call RunFileInTerminal()<cr>
 map <leader>r :call ReRunLastFileCommand()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Md5 COMMAND
-" Show the MD5 of the current buffer
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-command! -range Md5 :echo system('echo '.shellescape(join(getline(<line1>, <line2>), '\n')) . '| md5')
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " OpenChangedFiles COMMAND
 " Open a split for each dirty file in git
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -538,12 +532,6 @@ vnoremap < <gv
 vnoremap > >gv
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" InsertTime COMMAND
-" Insert the current time
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-command! InsertTime :normal a<c-r>=strftime('%F %H:%M:%S.0 %z')<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Interact with GUI clipboard
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set clipboard=unnamed
@@ -557,7 +545,7 @@ nnoremap <C-n> :NumbersToggle<cr>
 " --- CtrlP
 " sets local working directory as the nearest ancestor
 " that contains one of these directories or files: .git/
-let g:ctrlp_map = '<C-p>'
+let g:ctrlp_map = '<c-p>'
 let g:ctrlp_working_path_mode = 'ra'
 
 "exclude directories or files from the search
@@ -567,23 +555,18 @@ let g:ctrlp_custom_ignore = {
 \ 'link': 'some_bad_symbolic_links',
 \ }
 
-" --- gist-vim
-let g:gist_clip_command = 'pbcopy'
-let g:gist_detect_filytype = 1
-let g:gist_open_browser_after_post = 1
-
 " --- Tabular
-"nmap <leader>b :Tab<cr>
-"vmap <leader>b :Tab<cr>
+nmap <leader>b :Tabularize /
+vmap <leader>b :Tabularize /
 
 " ---JavaScript Syntax
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
 
 " ---NerdTree
-map <leader><C-n> :NERDTreeToggle<cr>
+map <leader><e> :NERDTreeToggle<cr>
 
 " ---rails.vim
-map <leader>u :Rtags<cr>
+"map <leader>u :Rtags<cr>
 
 " Always edit file, even when swap file is found
 set shortmess+=A
@@ -599,25 +582,24 @@ function! SearchDash()
 endfunction
 map <leader>d :call SearchDash()<CR>
 
-" supertab
-let g:SuperTabDefaultCompletionType = "context"
-
 " UltiSnips
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsListSnippets="<c-l>"
+
 
 " YouCompleteMe
-let g:ycm_key_list_select_completion = ['<c-j>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<c-k>', '<Up>']
-" let g:ycm_semantic_triggers =  {
-"   \   'c' : ['->', '.'],
-"   \   'objc' : ['->', '.'],
-"   \   'ocaml' : ['.', '#'],
-"   \   'cpp,objcpp' : ['->', '.', '::'],
-"   \   'perl' : ['->'],
-"   \   'php' : ['->', '::'],
-"   \   'cs,java,javascript,d,vim,ruby,python,perl6,scala,vb,elixir,go' : ['.'],
-"   \   'lua' : ['.', ':'],
-"   \   'erlang' : [':'],
-"   \ }
+let g:ycm_key_list_select_completion = ['<tab>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<s-tab>', '<Up>']
+let g:ycm_semantic_triggers =  {
+  \   'c' : ['->', '.'],
+  \   'objc' : ['->', '.'],
+  \   'ocaml' : ['.', '#'],
+  \   'cpp,objcpp' : ['->', '.', '::'],
+  \   'perl' : ['->'],
+  \   'php' : ['->', '::'],
+  \   'cs,java,javascript,d,vim,ruby,python,perl6,scala,vb,elixir,go' : ['.'],
+  \   'lua' : ['.', ':'],
+  \   'erlang' : [':'],
+  \ }
