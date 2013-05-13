@@ -114,7 +114,7 @@ set t_ti= t_te=
 " keep more context when scrolling off the end of a buffer
 set scrolloff=7
 " Store temporary files in a central spot
-set backup
+set nobackup
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 " allow backspacing over everything in insert mode
