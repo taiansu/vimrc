@@ -563,7 +563,7 @@ vmap <leader>b :Tabularize /
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
 
 " ---NerdTree
-map <leader><e> :NERDTreeToggle<cr>
+map <leader>e :NERDTreeToggle<cr>
 
 " ---rails.vim
 "map <leader>u :Rtags<cr>
