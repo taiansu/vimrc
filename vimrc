@@ -163,7 +163,7 @@ autocmd FileType ruby,html,javascript,coffee,css,scss autocmd BufWritePre <buffe
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcut to rapidly toggle `set list`
 nmap <leader>l :set list!<CR>
- 
+
 " Use the same symbols as TextMate for tabstops and EOLs
 set listchars=tab:▸\ ,eol:¬
 
@@ -216,10 +216,27 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM FILE COMMANDS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-command! Sudow w !sudo tee % > /dev/null
-command! -nargs=1 F setf <args>
-command! Fj setf javascript
-command! -nargs=1 I exec ":silent !iterm_exec '" . <args>  . "'"
+command! Suw w !sudo tee % > /dev/null
+
+command! -nargs=1 F call QuickFileType(<f-args>)
+function! QuickFileType(file_type)
+    let l:file_type = a:file_type
+
+    if l:file_type == 'j'
+        let l:file_type = 'javascript'
+    elseif l:file_type == 'r'
+        let l:file_type = 'ruby'
+    elseif l:file_type == 'e'
+        let l:file_type = 'eruby'
+    elseif l:file_type == 'h'
+        let l:file_type = 'html'
+    elseif l:file_type == 'ha'
+        let l:file_type = 'handlebars'
+    elseif l:file_type == 's'
+        let l:file_type = 'css'
+    endif
+    exec "setf ".l:file_type
+endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASH LIKE KEYS FOR THE COMMANDLINE
