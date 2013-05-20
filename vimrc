@@ -3,9 +3,9 @@
 
 set nocompatible | filetype indent plugin on | syn on
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SETUP Addons BY VAM
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 fun SetupVAM()
   let vam_install_path = expand('$HOME') . '/.vim/vim-addons'
   exec 'set rtp+='.vam_install_path.'/vim-addon-manager'
@@ -42,18 +42,18 @@ fun SetupVAM()
 endf
 call SetupVAM()
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ENCODING SETTINGS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set encoding=utf-8
 set termencoding=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,big5,gb2312,latin1
 set ffs=unix,mac,dos
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FONT AND COLOR SETTINGS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set gfn=Source\ Code\ Pro\ Light:h14
 
 :set t_Co=256 " 256 colors
@@ -67,9 +67,9 @@ if has("gui_running")
     set guitablabel=%M\ %t
 end
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
 " remember more commands and search history
@@ -146,30 +146,30 @@ set linebreak
 set showbreak=↪
 let mapleader=","
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " DISABLE AUTOMATIC COMMENT INSERTION
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 autocmd FileType css,scss setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AUTO TRAILING WHITE SPACES
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 autocmd FileType ruby,html,javascript,coffee,css,scss autocmd BufWritePre <buffer> :%s/\s\+$//e
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SHOW INVISIBLES
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcut to rapidly toggle `set list`
 nmap <leader>l :set list!<CR>
  
 " Use the same symbols as TextMate for tabstops and EOLs
 set listchars=tab:▸\ ,eol:¬
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup vimrcEx
   " Clear all autocmds in the group
   autocmd!
@@ -209,36 +209,36 @@ augroup vimrcEx
 
   " Leave the return key alone when in command line windows, since it's used
   " to run commands there.
-  autocmd! CmdwinEnter * :unmap <cr>
+  autocmd! CmdwinEnter * :unmap <CR>
   autocmd! CmdwinLeave * :call MapNoHighlight()
 augroup END
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM FILE COMMANDS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 command! Sudow w !sudo tee % > /dev/null
 command! -nargs=1 F setf <args>
 command! Fj setf javascript
 command! -nargs=1 I exec ":silent !iterm_exec '" . <args>  . "'"
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASH LIKE KEYS FOR THE COMMANDLINE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 cnoremap <C-A>      <Home>
 cnoremap <C-E>      <End>
 cnoremap <C-K>      <C->
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RESIZE SPLIT WINDOW
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <Up> :res +2<cr>
-map <Down> :res -2<cr>
-map <Right> :vertical res +2<cr>
-map <Left> :vertical res -2<cr>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <Up> :res +2<CR>
+map <Down> :res -2<CR>
+map <Right> :vertical res +2<CR>
+map <Left> :vertical res -2<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " STATUS LINE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set statusline=
 set statusline +=%1*\ %n\ %*            "buffer number
 set statusline +=%5*%{&ff}%*            "file format
@@ -256,9 +256,9 @@ if version >= 700
   au InsertLeave * hi StatusLine term=reverse ctermfg=0 ctermbg=2 gui=bold,reverse
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>y "*y
 " Move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j<c-w>_
@@ -274,19 +274,19 @@ imap <c-f> <space>=><space>
 
 " Clear the search buffer when hitting return
 function! MapNoHighlight()
-  map <leader>. :nohlsearch<cr>
+  map <leader>/ :nohlsearch<CR>
 endfunction
 call MapNoHighlight()
 " Can't be bothered to understand ESC vs <c-c> in insert mode
 imap <c-c> <esc>
 nnoremap <leader><leader> <c-^>
 " format json
-map <leader>j !python -m json.tool<cr>
+map <leader>j !python -m json.tool<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
 " Indent if we're at the beginning of a line. Else, do completion.
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " function! InsertTabWrapper()
 "     let col = col('.') - 1
 "     if !col || getline('.')[col - 1] !~ '\k'
@@ -295,19 +295,19 @@ map <leader>j !python -m json.tool<cr>
 "         return "\<c-p>"
 "     endif
 " endfunction
-" inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+" inoremap <tab> <c-r>=InsertTabWrapper()<CR>
 " inoremap <s-tab> <c-n>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " OPEN FILES IN DIRECTORY OF CURRENT FILE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-cnoremap %% <C-R>=expand('%:h').'/'<cr>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+cnoremap %% <C-R>=expand('%:h').'/'<CR>
 "map <leader>e :edit %%
 "map <leader>v :view %%
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! RenameFile()
     let old_name = expand('%')
     let new_name = input('New file name: ', expand('%'), 'file')
@@ -317,11 +317,11 @@ function! RenameFile()
         redraw!
     endif
 endfunction
-map <leader>n :call RenameFile()<cr>
+map <leader>n :call RenameFile()<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PROMOTE VARIABLE TO RSPEC LET
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! PromoteToLet()
   :normal! dd
   " :exec '?^\s*it\>'
@@ -330,11 +330,11 @@ function! PromoteToLet()
   :normal ==
 endfunction
 :command! PromoteToLet :call PromoteToLet()
-:map <leader>l :PromoteToLet<cr>
+:map <leader>l :PromoteToLet<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " EXTRACT VARIABLE (SKETCHY)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! ExtractVariable()
     let name = input("Variable name: ")
     if name == ''
@@ -351,11 +351,11 @@ function! ExtractVariable()
     " Paste the original selected text to be the variable value
     normal! $p
 endfunction
-vnoremap <leader>rv :call ExtractVariable()<cr>
+vnoremap <leader>rv :call ExtractVariable()<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " INLINE VARIABLE (SKETCHY)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! InlineVariable()
     " Copy the variable under the cursor into the 'a' register
     :let l:tmp_a = @a
@@ -378,11 +378,11 @@ function! InlineVariable()
     :let @a = l:tmp_a
     :let @b = l:tmp_b
 endfunction
-nnoremap <leader>ri :call InlineVariable()<cr>
+nnoremap <leader>ri :call InlineVariable()<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MAPS TO JUMP TO SPECIFIC CtrlP TARGETS AND FILES
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! ShowRoutes()
   " Requires 'scratch' plugin
   :topleft 100 :split __Routes__
@@ -400,26 +400,26 @@ function! ShowRoutes()
   :normal dd
 endfunction
 
-map <leader>gR :call ShowRoutes()<cr>
-map <leader>gv :CtrlPClearCache<cr>\|:CtrlP app/views<cr>
-map <leader>gc :CtrlPClearCache<cr>\|:CtrlP app/controllers<cr>
-map <leader>gm :CtrlPClearCache<cr>\|:CtrlP app/models<cr>
-map <leader>gh :CtrlPClearCache<cr>\|:CtrlP app/helpers<cr>
-map <leader>ga :CtrlPClearCache<cr>\|:CtrlP app/assets<cr>
-map <leader>gs :CtrlPClearCache<cr>\|:CtrlP spec/<cr>
-map <leader>gl :CtrlPClearCache<cr>\|:CtrlP lib<cr>
-map <leader>gp :CtrlPClearCache<cr>\|:CtrlP public<cr>
-map <leader>gf :CtrlPClearCache<cr>\|:CtrlP features<cr>
-map <leader>gr :topleft :split config/routes.rb<cr>
-map <leader>gg :topleft 100 :split Gemfile<cr>
-map <leader>gt :CtrlPClearCache<cr>\|CtrlPTag<cr>
-map <leader>f :CtrlPClearCache<cr>\|:CtrlP<cr>
-map <leader>F :CtrlPClearCache<cr>\|:CtrlP %%<cr>
-map <leader>z z5<cr>
+map <leader>gR :call ShowRoutes()<CR>
+map <leader>gv :CtrlPClearCache<CR>\|:CtrlP app/views<CR>
+map <leader>gc :CtrlPClearCache<CR>\|:CtrlP app/controllers<CR>
+map <leader>gm :CtrlPClearCache<CR>\|:CtrlP app/models<CR>
+map <leader>gh :CtrlPClearCache<CR>\|:CtrlP app/helpers<CR>
+map <leader>ga :CtrlPClearCache<CR>\|:CtrlP app/assets<CR>
+map <leader>gs :CtrlPClearCache<CR>\|:CtrlP spec/<CR>
+map <leader>gl :CtrlPClearCache<CR>\|:CtrlP lib<CR>
+map <leader>gp :CtrlPClearCache<CR>\|:CtrlP public<CR>
+map <leader>gf :CtrlPClearCache<CR>\|:CtrlP features<CR>
+map <leader>gr :topleft :split config/routes.rb<CR>
+map <leader>gg :topleft 100 :split Gemfile<CR>
+map <leader>gt :CtrlPClearCache<CR>\|CtrlPTag<CR>
+map <leader>f :CtrlPClearCache<CR>\|:CtrlP<CR>
+map <leader>F :CtrlPClearCache<CR>\|:CtrlP %%<CR>
+map <leader>z z5<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SWITCH BETWEEN TEST AND PRODUCTION CODE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " function! OpenTestAlternate()
 "   let new_file = AlternateForCurrentFile()
 "   exec ':e ' . new_file
@@ -445,75 +445,12 @@ map <leader>z z5<cr>
 "   endif
 "   return new_file
 " endfunction
-" nnoremap <leader>. :call OpenTestAlternate()<cr>
+" nnoremap <leader>. :call OpenTestAlternate()<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RUNNING TEST IN ITERM
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:vim_terminal="/dev/ttys000"
-let g:use_zeus=0
-map <leader><C-t> :let g:vim_terminal="/dev/ttys001"
-map <leader><C-z> :let g:use_zeus=1<cr>
-
-"TODO refactor this for file execution
-function! RunInTerminal(file)
-  if g:use_zeus != 0
-    let l:command = 'zeus test --color'
-  elseif match(a:file, '_spec\.rb') != -1
-    let l:command = 'bundle exec rspec --color'
-  elseif match(a:file, '\.feature') != -1
-    let l:command = 'bundle exec cucumber'
-  elseif match(a:file, '\_test.rb') != -1
-    let l:command = 'ruby -I./test'
-  endif
-
-  if exists("l:command")
-    let g:last_run_in_terminal = a:file
-    let l:run_script = "!osascript ~/.vim/tools/run_command.applescript"
-    silent execute ":up"
-    silent execute l:run_script . " '" . l:command . " " . a:file . "' " . g:vim_terminal . " &"
-    silent execute ":redraw!"
-  else
-    echo "Couldn't figure out how to run " . a:file
-  end
-endfunction
-
-function! RunFileInTerminal()
-  if exists("g:vim_terminal")
-    call RunInTerminal(expand("%"))
-  else
-    echo "You need to set g:vim_terminal to a valid TTY (e.g. /dev/ttys000)"
-  end
-endfunction
- 
-function! RunFileAtLineInTerminal()
-  if exists("g:vim_terminal")
-    call RunInTerminal(expand("%") . ":" . line("."))
-  else
-    echo "You need to set g:vim_terminal to a valid TTY (e.g. /dev/ttys000)"
-  endif
-endfunction
-
-function! ReRunLastFileCommand()
-  if exists("g:vim_terminal") && exists("g:last_run_in_terminal")
-    call RunInTerminal(g:last_run_in_terminal)
-  endif
-endfunction
-
-command! RunFileInTerminal call RunFileInTerminal()
-command! RunFileAtLineInTerminal call RunFileAtLineInTerminal()
-command! ReRunLastFileCommand call ReRunLastFileCommand()
-",a stands for at line
-map <leader>a :call RunFileAtLineInTerminal()<cr>
-",t stand for test all file
-map <leader>t :call RunFileInTerminal()<cr>
-",r stand for repeat
-map <leader>r :call ReRunLastFileCommand()<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " OpenChangedFiles COMMAND
 " Open a split for each dirty file in git
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! OpenChangedFiles()
   only " Close all windows, unless they're modified
   let status = system('git status -s | grep "^ \?\(M\|A\|UU\)" | sed "s/^.\{3\}//"')
@@ -525,22 +462,22 @@ function! OpenChangedFiles()
 endfunction
 command! OpenChangedFiles :call OpenChangedFiles()
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " allow multiple indentation/deindentation in visual mode
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 vnoremap < <gv
 vnoremap > >gv
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Interact with GUI clipboard
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set clipboard=unnamed
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Addons Settings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " --- Numbers.vim
-nnoremap <C-n> :NumbersToggle<cr>
+nnoremap <C-n> :NumbersToggle<CR>
 
 " --- CtrlP
 " sets local working directory as the nearest ancestor
@@ -563,10 +500,10 @@ vmap <leader>b :Tabularize /
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
 
 " ---NerdTree
-map <leader>e :NERDTreeToggle<cr>
+map <leader>q :NERDTreeToggle<CR>
 
 " ---rails.vim
-"map <leader>u :Rtags<cr>
+"map <leader>u :Rtags<CR>
 
 " Always edit file, even when swap file is found
 set shortmess+=A
