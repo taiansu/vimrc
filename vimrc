@@ -137,8 +137,6 @@ set wildmode=longest,list
 " make tab completion for files/buffers act like bash
 set wildmenu
 " fix long line render speed
-set synmaxcol=128
-syntax sync minlines=128
 set foldmethod=syntax
 set foldlevelstart=3
 set foldnestmax=3
@@ -146,6 +144,14 @@ let javaScript_fold=1
 set linebreak
 set showbreak=↪
 let mapleader=","
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SYNTAX HIGHLIGHT FIX
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set synmaxcol=256
+syntax sync minlines=256
+noremap <F12> <Esc>:syntax sync fromstart<CR>
+inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " DISABLE AUTOMATIC COMMENT INSERTION
