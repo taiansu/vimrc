@@ -14,6 +14,7 @@ fun SetupVAM()
     execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '.shellescape(vam_install_path, 1).'/vim-addon-manager'
   endif
   call vam#ActivateAddons([
+      \ 'github:mattn/zencoding-vim',
       \ 'github:FredKSchott/CoVim',
       \ 'github:taiansu/InTermsOf.vim',
       \ 'github:Valloric/YouCompleteMe',
@@ -33,7 +34,6 @@ fun SetupVAM()
       \ 'github:tpope/vim-haml',
       \ 'github:tomtom/quickfixsigns_vim',
       \ 'github:myusuf3/numbers.vim',
-      \ 'github:docunext/closetag.vim',
       \ 'github:vim-scripts/matchit.zip',
       \ 'github:vim-scripts/ruby-matchit',
       \ 'github:kchmck/vim-coffee-script',
