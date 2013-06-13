@@ -194,7 +194,6 @@ augroup vimrcEx
   autocmd BufNewFile,BufRead *.coffee           set ft=coffee
   autocmd! BufNewFile,BufRead *.scss,*.sass      set ft=scss.css
   autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
-  autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako source ~/.vim/vim-addons/github-docunext-closetag.vim/plugin/closetag.vim
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
   autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
 
