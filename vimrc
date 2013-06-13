@@ -202,7 +202,7 @@ augroup vimrcEx
   autocmd FileType python set sw=4 sts=4 et
 
   " Don't syntax highlight markdown because it's often wrong
-  autocmd! FileType mkd setlocal syn=off
+  autocmd! FileType mkd,md setlocal syn=off
 
   " Enable omni completion. (Ctrl-X Ctrl-O)
   autocmd FileType html,haml,markdown,handlebars setlocal omnifunc=htmlcomplete#CompleteTags
