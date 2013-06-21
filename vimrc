@@ -286,8 +286,10 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>y "*y
 " Move around splits with <c-hjkl>
-nnoremap <c-j> <c-w>j<c-w>_
-nnoremap <c-k> <c-w>k<c-w>_
+nnoremap <c-J> <c-w>j<c-w>_
+nnoremap <c-K> <c-w>k<c-w>_
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 set winheight=5
