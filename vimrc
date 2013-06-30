@@ -167,6 +167,11 @@ autocmd FileType css,scss setlocal formatoptions-=c formatoptions-=r formatoptio
 autocmd FileType ruby,html,javascript,coffee,css,scss autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SET .ruby AS RUBY FILE FOR RAILS 4
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+au BufNewFile,BufRead *.ruby set filetype=ruby
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SHOW INVISIBLES
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcut to rapidly toggle `set list`
@@ -202,7 +207,7 @@ augroup vimrcEx
   autocmd FileType python set sw=4 sts=4 et
 
   " Don't syntax highlight markdown because it's often wrong
-  autocmd! FileType mkd,md setlocal syn=off
+  " autocmd! FileType mkd,md setlocal syn=off
 
   " Enable omni completion. (Ctrl-X Ctrl-O)
   autocmd FileType html,haml,markdown,handlebars setlocal omnifunc=htmlcomplete#CompleteTags
