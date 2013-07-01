@@ -14,6 +14,7 @@ fun SetupVAM()
     execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '.shellescape(vam_install_path, 1).'/vim-addon-manager'
   endif
   call vam#ActivateAddons([
+      \ 'github:taiansu/vim-marked',
       \ 'github:mattn/zencoding-vim',
       \ 'github:FredKSchott/CoVim',
       \ 'github:taiansu/InTermsOf.vim',
@@ -561,3 +562,7 @@ let g:UltiSnipsListSnippets="<c-l>"
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_key_list_select_completion = ['<tab>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<s-tab>', '<Up>']
+
+" vim-marked
+nnoremap <leader>mm :MarkedOpen!<CR>
+nnoremap <leader>mc :MarkedQuit<CR>
