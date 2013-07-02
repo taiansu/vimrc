@@ -38,6 +38,7 @@ fun SetupVAM()
       \ 'github:vim-scripts/matchit.zip',
       \ 'github:vim-scripts/ruby-matchit',
       \ 'github:kchmck/vim-coffee-script',
+      \ 'github:gkz/vim-ls',
       \ 'github:nono/vim-handlebars',
       \ 'github:teramako/jscomplete-vim',
       \ 'github:vim-ruby/vim-ruby'
