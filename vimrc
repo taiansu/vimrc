@@ -15,9 +15,10 @@ fun SetupVAM()
   endif
   call vam#ActivateAddons([
       \ 'github:taiansu/vim-marked',
-      \ 'github:mattn/zencoding-vim',
-      \ 'github:FredKSchott/CoVim',
       \ 'github:taiansu/InTermsOf.vim',
+      \ 'github:mattn/zencoding-vim',
+      \ 'github:bling/vim-airline',
+      \ 'github:FredKSchott/CoVim',
       \ 'github:Valloric/YouCompleteMe',
       \ 'github:SirVer/ultisnips',
       \ 'github:scrooloose/syntastic',
@@ -144,6 +145,7 @@ set foldmethod=syntax
 set foldlevelstart=3
 set foldnestmax=3
 let javaScript_fold=1
+set lazyredraw
 set linebreak
 set showbreak=↪
 let mapleader=","
@@ -266,26 +268,6 @@ map <Up> :res +2<CR>
 map <Down> :res -2<CR>
 map <Right> :vertical res +2<CR>
 map <Left> :vertical res -2<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" STATUS LINE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set statusline=
-set statusline +=%1*\ %n\ %*            "buffer number
-set statusline +=%5*%{&ff}%*            "file format
-set statusline +=%3*%y%*                "file type
-set statusline +=%4*\ %<%F%*            "full path
-set statusline +=%2*%m%*                "modified flag
-set statusline +=%1*%=%5l%*             "current line
-set statusline +=%2*/%L%*               "total lines
-set statusline +=%1*%4v\ %*             "virtual column number
-set statusline +=%2*0x%04B\ %*          "character under cursor
-
-set laststatus=2
-if version >= 700
-  au InsertEnter * hi StatusLine term=reverse ctermbg=5 gui=undercurl guisp=Magenta
-  au InsertLeave * hi StatusLine term=reverse ctermfg=0 ctermbg=2 gui=bold,reverse
-endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
@@ -566,3 +548,14 @@ let g:ycm_key_list_previous_completion = ['<s-tab>', '<Up>']
 " vim-marked
 nnoremap <leader>mm :MarkedOpen!<CR>
 nnoremap <leader>mc :MarkedQuit<CR>
+
+" vim-airline
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_linecolumn_prefix = '␊ '
+let g:airline_linecolumn_prefix = '␤ '
+let g:airline_linecolumn_prefix = '¶ '
+let g:airline_fugitive_prefix = '⎇ '
+let g:airline_modified_detection=1
+let g:airline_enable_fugitive=1
+let g:airline_enable_syntastic=1
