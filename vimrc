@@ -560,3 +560,12 @@ let g:airline_fugitive_prefix = '⎇ '
 let g:airline_modified_detection=1
 let g:airline_enable_fugitive=1
 let g:airline_enable_syntastic=1
+
+" vim-surround
+vmap <leader>" S"lvi"
+vmap <leader>' S'lvi'
+vmap <leader>` S`lvi`
+vmap <leader>( S)lvi(
+vmap <leader>{ S}lvi{
+vmap <leader>[ S]lvi[
+vmap <leader>< S>lvi<
