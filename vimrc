@@ -265,10 +265,10 @@ cnoremap <C-K>      <C->
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RESIZE SPLIT WINDOW
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <Up> :res +2<CR>
-map <Down> :res -2<CR>
-map <Right> :vertical res +2<CR>
-map <Left> :vertical res -2<CR>
+map <C-Up> :res +2<CR>
+map <C-Down> :res -2<CR>
+" map <C-Right> :vertical res +2<CR>
+" map <C-Left> :vertical res -2<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
