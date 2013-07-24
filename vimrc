@@ -274,28 +274,28 @@ map <C-Down> :res -2<CR>
 " MISC KEY MAPS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>y "*y
-" Move around splits with <c-hjkl>
-nnoremap <c-J> <c-w>j<c-w>_
-nnoremap <c-K> <c-w>k<c-w>_
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
+" Move around splits with <C-hjkl>
+nnoremap <C-J> <C-w>j<C-w>_
+nnoremap <C-K> <C-w>k<C-w>_
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
 set winheight=5
 set winminheight=5
 set equalalways
 set eadirection=both
-" Insert a hash rocket with <c-f>
-imap <c-f> <space>=><space>
+" Insert a hash rocket with <C-f>
+imap <C-f> <space>=><space>
 
 " Clear the search buffer when hitting return
 function! MapNoHighlight()
   map <leader>/ :nohlsearch<CR>
 endfunction
 call MapNoHighlight()
-" Can't be bothered to understand ESC vs <c-c> in insert mode
-imap <c-c> <esc>
-nnoremap <leader><leader> <c-^>
+" Can't be bothered to understand ESC vs <C-c> in insert mode
+imap <C-c> <esc>
+nnoremap <leader><leader> <C-^>
 " format json
 map <leader>j !python -m json.tool<CR>
 
@@ -308,11 +308,11 @@ map <leader>j !python -m json.tool<CR>
 "     if !col || getline('.')[col - 1] !~ '\k'
 "         return "\<tab>"
 "     else
-"         return "\<c-p>"
+"         return "\<C-p>"
 "     endif
 " endfunction
-" inoremap <tab> <c-r>=InsertTabWrapper()<CR>
-" inoremap <s-tab> <c-n>
+" inoremap <tab> <C-r>=InsertTabWrapper()<CR>
+" inoremap <s-tab> <C-n>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " OPEN FILES IN DIRECTORY OF CURRENT FILE
@@ -498,7 +498,7 @@ nnoremap <C-n> :NumbersToggle<CR>
 " --- CtrlP
 " sets local working directory as the nearest ancestor
 " that contains one of these directories or files: .git/
-let g:ctrlp_map = '<c-p>'
+let g:ctrlp_map = '<C-p>'
 let g:ctrlp_working_path_mode = 'ra'
 
 "exclude directories or files from the search
@@ -536,10 +536,10 @@ endfunction
 map <leader>d :call SearchDash()<CR>
 
 " UltiSnips
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-let g:UltiSnipsListSnippets="<c-l>"
+let g:UltiSnipsExpandTrigger="<C-j>"
+let g:UltiSnipsJumpForwardTrigger="<C-j>"
+let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+let g:UltiSnipsListSnippets="<C-l>"
 
 " YouCompleteMe
 let g:ycm_collect_identifiers_from_tags_files = 1
