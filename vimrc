@@ -518,9 +518,6 @@ let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
 " ---NerdTree
 map <leader>q :NERDTreeToggle<CR>
 
-" ---rails.vim
-"map <leader>u :Rtags<CR>
-
 " Always edit file, even when swap file is found
 set shortmess+=A
 
