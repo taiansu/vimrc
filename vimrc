@@ -99,6 +99,7 @@ set cursorline
 set cursorcolumn
 set cmdheight=2
 set switchbuf=useopen
+set number
 set numberwidth=5
 set showtabline=2
 set winwidth=79
