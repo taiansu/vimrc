@@ -18,7 +18,6 @@ fun SetupVAM()
       \ 'github:taiansu/InTermsOf.vim',
       \ 'github:mattn/zencoding-vim',
       \ 'github:bling/vim-airline',
-      \ 'github:FredKSchott/CoVim',
       \ 'github:Valloric/YouCompleteMe',
       \ 'github:SirVer/ultisnips',
       \ 'github:scrooloose/syntastic',
