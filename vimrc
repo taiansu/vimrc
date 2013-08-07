@@ -16,7 +16,7 @@ fun SetupVAM()
   call vam#ActivateAddons([
       \ 'github:taiansu/vim-marked',
       \ 'github:taiansu/InTermsOf.vim',
-      \ 'github:mattn/zencoding-vim',
+      \ 'github:mattn/emmet-vim',
       \ 'github:bling/vim-airline',
       \ 'github:Valloric/YouCompleteMe',
       \ 'github:SirVer/ultisnips',
