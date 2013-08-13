@@ -548,7 +548,7 @@ nnoremap <leader>mm :MarkedOpen!<CR>
 nnoremap <leader>mc :MarkedQuit<CR>
 
 " vim-airline
-let g:airline_theme='ubaryd'
+let g:airline_theme='bubblegum'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_linecolumn_prefix = '¶ '
