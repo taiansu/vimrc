@@ -14,7 +14,7 @@ fun SetupVAM()
     execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '.shellescape(vam_install_path, 1).'/vim-addon-manager'
   endif
   call vam#ActivateAddons([
-      \ 'github:taiansu/vim-marked',
+      \ 'github:itspriddle/vim-marked',
       \ 'github:taiansu/InTermsOf.vim',
       \ 'github:mattn/emmet-vim',
       \ 'github:bling/vim-airline',
