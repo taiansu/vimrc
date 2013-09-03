@@ -25,6 +25,8 @@ fun SetupVAM()
       \ 'github:epmatsw/ag.vim',
       \ 'github:kien/ctrlp.vim',
       \ 'github:godlygeek/tabular',
+      \ 'github:tpope/vim-rake',
+      \ 'github:tpope/vim-bundler',
       \ 'github:tpope/vim-rails',
       \ 'github:tpope/vim-markdown',
       \ 'github:tpope/vim-surround',
