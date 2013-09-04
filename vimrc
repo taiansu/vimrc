@@ -270,20 +270,18 @@ cnoremap <C-K>      <C->
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <C-Up> :res +2<CR>
 map <C-Down> :res -2<CR>
-" map <C-Right> :vertical res +2<CR>
-" map <C-Left> :vertical res -2<CR>
+" map <Right> :vertical res +2<CR>
+" map <Left> :vertical res -2<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>y "*y
 " Move around splits with <C-hjkl>
-nnoremap <C-J> <C-w>j<C-w>_
-nnoremap <C-K> <C-w>k<C-w>_
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
+nnoremap <C-j> <C-w>j<C-w>_
+nnoremap <C-k> <C-w>k<C-w>_
+nnoremap <C-h> <C-w>h<C-w>\|
+nnoremap <C-l> <C-w>l<C-w>\|
 set winheight=5
 set winminheight=5
 set equalalways
