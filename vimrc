@@ -153,6 +153,8 @@ set lazyredraw
 set linebreak
 set showbreak=↪
 let mapleader=","
+" Always edit file, even when swap file is found
+set shortmess+=A
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SYNTAX HIGHLIGHT FIX
@@ -165,13 +167,11 @@ inoremap <F12> <C-o>:syntax sync fromstart<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " DISABLE AUTOMATIC COMMENT INSERTION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 autocmd FileType css,scss setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AUTO TRAILING WHITE SPACES
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 autocmd FileType ruby,html,javascript,coffee,css,scss autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -514,9 +514,6 @@ let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
 
 " ---NerdTree
 map <leader>q :NERDTreeToggle<CR>
-
-" Always edit file, even when swap file is found
-set shortmess+=A
 
 " Search Dash for word under cursor
 function! SearchDash()
