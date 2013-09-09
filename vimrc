@@ -25,7 +25,7 @@ fun SetupVAM()
       \ 'github:scrooloose/nerdtree',
       \ 'github:epmatsw/ag.vim',
       \ 'github:kien/ctrlp.vim',
-      \ 'github:godlygeek/tabular',
+      \ 'github:junegunn/vim-easy-align',
       \ 'github:tpope/vim-rake',
       \ 'github:tpope/vim-bundler',
       \ 'github:tpope/vim-rails',
@@ -509,10 +509,6 @@ let g:ctrlp_custom_ignore = {
 \ 'link': 'some_bad_symbolic_links',
 \ }
 
-" --- Tabular
-nmap <leader>b :Tabularize /
-vmap <leader>b :Tabularize /
-
 " ---JavaScript Syntax
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
 
@@ -569,3 +565,6 @@ vmap <leader>< S>lvi<
 
 " tagbar
 nmap <leader>t :TagbarToggle<CR>
+
+" --- vim-easy-align
+vnoremap <silent><Enter> :EasyAlign<CR>
