@@ -280,8 +280,8 @@ map <leader>y "*y
 " Move around splits with <C-hjkl>
 nnoremap <C-j> <C-w>j<C-w>_
 nnoremap <C-k> <C-w>k<C-w>_
-nnoremap <C-h> <C-w>h<C-w>\|
-nnoremap <C-l> <C-w>l<C-w>\|
+nnoremap <C-h> <C-w>h<C-w>30>
+nnoremap <C-l> <C-w>l<C-w>30>
 set winheight=5
 set winminheight=5
 set equalalways
