@@ -76,6 +76,14 @@ if has("gui_running")
 end
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SYNTAX HIGHLIGHT FIX
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set synmaxcol=1024
+syntax sync minlines=256
+noremap <F8> <Esc>:syntax sync fromstart<CR>:set synmaxcol=
+let &colorcolumn=join(range(81,1024),",")
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " allow unsaved background buffers and remember marks/undo for them
@@ -157,12 +165,10 @@ let mapleader=","
 set shortmess+=A
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SYNTAX HIGHLIGHT FIX
+" Change CursorShape in iTerm2
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set synmaxcol=256
-syntax sync minlines=256
-noremap <F12> <Esc>:syntax sync fromstart<CR>
-inoremap <F12> <C-o>:syntax sync fromstart<CR>
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " DISABLE AUTOMATIC COMMENT INSERTION
