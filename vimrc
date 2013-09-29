@@ -44,6 +44,7 @@ fun SetupVAM()
       \ 'github:gkz/vim-ls',
       \ 'github:digitaltoad/vim-jade',
       \ 'github:nono/vim-handlebars',
+      \ 'github:slim-template/vim-slim',
       \ 'github:teramako/jscomplete-vim',
       \ 'github:vim-ruby/vim-ruby'
       \ ], {'auto_install' : 1})
