@@ -268,9 +268,8 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASH LIKE KEYS FOR THE COMMANDLINE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-cnoremap <C-A>      <Home>
-cnoremap <C-E>      <End>
-cnoremap <C-K>      <C->
+map! <C-A>     <Home>
+map! <C-E>     <End>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RESIZE SPLIT WINDOW
