@@ -181,6 +181,12 @@ autocmd FileType css,scss setlocal formatoptions-=c formatoptions-=r formatoptio
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType ruby,html,javascript,coffee,css,scss autocmd BufWritePre <buffer> :%s/\s\+$//e
 
+function! WhiteSpacesTrailingOff()
+  au! BufWritePre
+  echo 'White spaces trailing is off'
+endfunction
+command! WhiteSpacesTrailingOff :call WhiteSpacesTrailingOff()
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SET .ruby AS RUBY FILE FOR RAILS 4
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -238,7 +244,7 @@ augroup vimrcEx
   " to run commands there.
   autocmd! CmdwinEnter * :unmap <CR>
   autocmd! CmdwinLeave * :call MapNoHighlight()
-augroup END
+augroup end
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM FILE COMMANDS
