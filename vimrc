@@ -36,6 +36,7 @@ fun SetupVAM()
       \ 'github:tpope/vim-fugitive',
       \ 'github:tpope/vim-commentary',
       \ 'github:tpope/vim-haml',
+      \ 'github:tpope/vim-rbenv',
       \ 'github:tomtom/quickfixsigns_vim',
       \ 'github:myusuf3/numbers.vim',
       \ 'github:vim-scripts/matchit.zip',
