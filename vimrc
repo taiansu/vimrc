@@ -15,7 +15,6 @@ fun SetupVAM()
   endif
   call vam#ActivateAddons([
       \ 'github:majutsushi/tagbar',
-      \ 'github:itspriddle/vim-marked',
       \ 'github:taiansu/InTermsOf.vim',
       \ 'github:mattn/emmet-vim',
       \ 'github:bling/vim-airline',
@@ -41,6 +40,7 @@ fun SetupVAM()
       \ 'github:myusuf3/numbers.vim',
       \ 'github:vim-scripts/matchit.zip',
       \ 'github:vim-scripts/ruby-matchit',
+      \ 'github:itspriddle/vim-marked',
       \ 'github:kchmck/vim-coffee-script',
       \ 'github:gkz/vim-ls',
       \ 'github:digitaltoad/vim-jade',
@@ -178,17 +178,6 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 autocmd FileType css,scss setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" AUTO TRAILING WHITE SPACES
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType ruby,html,javascript,coffee,css,scss autocmd BufWritePre <buffer> :%s/\s\+$//e
-
-function! WhiteSpacesTrailingOff()
-  au! BufWritePre
-  echo 'White spaces trailing is off'
-endfunction
-command! WhiteSpacesTrailingOff :call WhiteSpacesTrailingOff()
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SET .ruby AS RUBY FILE FOR RAILS 4
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 au BufNewFile,BufRead *.ruby set filetype=ruby
@@ -271,6 +260,14 @@ function! QuickFileType(file_type)
     endif
     exec "setf ".l:file_type
 endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" TRAILING WHITE SPACES
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! TrailingWhiteSpaces()
+  nmap <leader>c :%s/\s\+$//e<CR>
+endfunction
+call TrailingWhiteSpaces()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASH LIKE KEYS FOR THE COMMANDLINE
