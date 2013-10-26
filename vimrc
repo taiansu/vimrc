@@ -14,6 +14,7 @@ fun SetupVAM()
     execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '.shellescape(vam_install_path, 1).'/vim-addon-manager'
   endif
   call vam#ActivateAddons([
+      \ 'github:Floobits/floobits-vim',
       \ 'github:majutsushi/tagbar',
       \ 'github:taiansu/InTermsOf.vim',
       \ 'github:mattn/emmet-vim',
@@ -22,7 +23,7 @@ fun SetupVAM()
       \ 'github:SirVer/ultisnips',
       \ 'github:scrooloose/syntastic',
       \ 'github:scrooloose/nerdtree',
-      \ 'github:epmatsw/ag.vim',
+      \ 'github:rking/ag.vim',
       \ 'github:kien/ctrlp.vim',
       \ 'github:junegunn/vim-easy-align',
       \ 'github:tpope/vim-rake',
@@ -543,6 +544,7 @@ let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 let g:UltiSnipsListSnippets="<C-l>"
 
 " YouCompleteMe
+let g:ycm_allow_changing_updatetime = 0
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_key_list_select_completion = ['<tab>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<s-tab>', '<Up>']
