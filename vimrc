@@ -47,7 +47,7 @@ fun SetupVAM()
       \ 'github:digitaltoad/vim-jade',
       \ 'github:nono/vim-handlebars',
       \ 'github:slim-template/vim-slim',
-      \ 'github:teramako/jscomplete-vim',
+      \ 'github:mattn/jscomplete-vim',
       \ 'github:vim-ruby/vim-ruby'
       \ ], {'auto_install' : 1})
 endf
@@ -577,3 +577,6 @@ nmap <leader>t :TagbarToggle<CR>
 
 " --- vim-easy-align
 vnoremap <silent><Enter> :EasyAlign<CR>
+
+" --- jscomplete-vim
+:let g:jscomplete_use = ['dom', 'moz']
