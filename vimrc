@@ -65,7 +65,7 @@ set ffs=unix,mac,dos
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FONT AND COLOR SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set gfn=Source\ Code\ Pro\ Light:h14
+set gfn=Source\ Code\ Pro\ Light:h16
 
 :set t_Co=256 " 256 colors
 :set background=dark
