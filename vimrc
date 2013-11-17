@@ -48,6 +48,7 @@ fun SetupVAM()
       \ 'github:nono/vim-handlebars',
       \ 'github:slim-template/vim-slim',
       \ 'github:mattn/jscomplete-vim',
+      \ 'github:vim-scripts/VimClojure',
       \ 'github:vim-ruby/vim-ruby'
       \ ], {'auto_install' : 1})
 endf
