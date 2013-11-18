@@ -14,7 +14,6 @@ fun SetupVAM()
     execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '.shellescape(vam_install_path, 1).'/vim-addon-manager'
   endif
   call vam#ActivateAddons([
-      \ 'github:Floobits/floobits-vim',
       \ 'github:majutsushi/tagbar',
       \ 'github:taiansu/InTermsOf.vim',
       \ 'github:mattn/emmet-vim',
