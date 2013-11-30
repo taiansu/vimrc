@@ -600,10 +600,9 @@ endfunction
 map <leader>d :call SearchDash()<CR>
 
 " UltiSnips
-let g:UltiSnipsExpandTrigger="<CR>"
-let g:UltiSnipsJumpForwardTrigger="<CR>"
-let g:UltiSnipsJumpBackwardTrigger="<s-CR>"
-let g:UltiSnipsListSnippets="<C-l>"
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 " YouCompleteMe
 let g:ycm_allow_changing_updatetime = 0
