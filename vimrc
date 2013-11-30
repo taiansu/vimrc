@@ -600,9 +600,9 @@ endfunction
 map <leader>d :call SearchDash()<CR>
 
 " UltiSnips
-let g:UltiSnipsExpandTrigger="<C-j>"
-let g:UltiSnipsJumpForwardTrigger="<C-j>"
-let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+let g:UltiSnipsExpandTrigger="<CR>"
+let g:UltiSnipsJumpForwardTrigger="<CR>"
+let g:UltiSnipsJumpBackwardTrigger="<s-CR>"
 let g:UltiSnipsListSnippets="<C-l>"
 
 " YouCompleteMe
