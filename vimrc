@@ -92,6 +92,9 @@ fun! SetupVAM()
       \ 'github:mattn/jscomplete-vim',
       \ 'github:vim-scripts/VimClojure',
       \ 'github:elixir-lang/vim-elixir',
+      \ 'github:golangtw/go.vim',
+      \ 'github:golangtw/gocode.vim',
+      \ 'github:jstemmer/gotags',
       \ 'github:vim-ruby/vim-ruby'
       \ ], {'auto_install' : 1})
   " sample: call vam#ActivateAddons(['pluginA','pluginB', ...], {'auto_install' : 0})
