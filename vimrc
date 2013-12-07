@@ -640,4 +640,4 @@ nmap <leader>t :TagbarToggle<CR>
 vnoremap <silent><Enter> :EasyAlign<CR>
 
 " --- jscomplete-vim
-:let g:jscomplete_use = ['dom', 'moz']
+let g:jscomplete_use = ['dom', 'moz']
