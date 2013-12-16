@@ -333,6 +333,14 @@ endfunction
 call TrailingWhiteSpaces()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Fix Ruby Hash Syntax
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! FixRubyHashSyntax()
+  nmap <leader>u :%s/:\(\w*\)\(\s*\)=> /\1:\2/gc<CR>
+endfunction
+call FixRubyHashSyntax()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASH LIKE KEYS FOR THE COMMANDLINE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map! <C-A>     <Home>
