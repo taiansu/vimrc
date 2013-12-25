@@ -89,9 +89,9 @@ fun! SetupVAM()
       \ 'github:digitaltoad/vim-jade',
       \ 'github:nono/vim-handlebars',
       \ 'github:slim-template/vim-slim',
-      \ 'github:mattn/jscomplete-vim',
       \ 'github:vim-scripts/VimClojure',
       \ 'github:elixir-lang/vim-elixir',
+      \ 'github:marijnh/tern_for_vim',
       \ 'github:golangtw/go.vim',
       \ 'github:golangtw/gocode.vim',
       \ 'github:jstemmer/gotags',
@@ -284,7 +284,7 @@ augroup vimrcEx
 
   " Enable omni completion. (Ctrl-X Ctrl-O)
   autocmd FileType html,haml,markdown,handlebars setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
+  " autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS "use tern
   autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
   autocmd FileType css set omnifunc=csscomplete#CompleteCSS
@@ -646,6 +646,3 @@ nmap <leader>t :TagbarToggle<CR>
 
 " --- vim-easy-align
 vnoremap <silent><Enter> :EasyAlign<CR>
-
-" --- jscomplete-vim
-let g:jscomplete_use = ['dom', 'moz']
