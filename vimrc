@@ -131,7 +131,7 @@ set gfn=Source\ Code\ Pro\ Light:h16
 
 :set t_Co=256 " 256 colors
 :set background=dark
-:colorscheme smyck
+:colorscheme Tomorrow-Night
 
 highlight Pmenu ctermbg=94 guibg=#875F00
 if has("gui_running")
