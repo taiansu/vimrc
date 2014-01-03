@@ -1,3 +1,0 @@
-:set nomore
-:UpdateActivatedAddons
-:qa!
