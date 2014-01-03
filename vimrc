@@ -213,6 +213,12 @@ nmap <leader>l :set list!<CR>
 set listchars=tab:▸\ ,eol:¬
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" AUTO SOURCE vimrc AFTER SAVE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" autocmd bufwritepost .vimrc source $MYVIMRC
+" autocmd bufwritepost vimrc source $MYVIMRC
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup vimrcEx
