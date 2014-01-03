@@ -576,6 +576,9 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_key_list_select_completion = ['<tab>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<s-tab>', '<Up>']
 
+" emmet-vim
+let g:user_emmet_leader_key='<c-z>'
+
 " vim-marked
 nnoremap <leader>mm :MarkedOpen!<CR>
 nnoremap <leader>mc :MarkedQuit<CR>
