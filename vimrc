@@ -20,20 +20,20 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
 
+" Essential Plugins
 Bundle 'kien/ctrlp.vim'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-surround'
+Bundle 'rking/ag.vim'
 Bundle 'bling/vim-airline'
 Bundle 'majutsushi/tagbar'
-Bundle 'rking/ag.vim'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-rake'
+
 Bundle 'tpope/vim-bundler'
+Bundle 'tpope/vim-rake'
 Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-rbenv'
-Bundle 'tpope/vim-commentary'
-Bundle 'scrooloose/nerdtree'
 
 " Completer plugins
 Bundle 'Valloric/YouCompleteMe'
@@ -43,19 +43,21 @@ Bundle 'scrooloose/syntastic'
 Bundle 'mattn/emmet-vim'
 
 " Utility plugins
+Bundle 'tpope/vim-unimpaired'
+Bundle 'tpope/vim-rbenv'
 Bundle 'taiansu/InTermsOf.vim'
 Bundle 'tomtom/quickfixsigns_vim'
 Bundle 'myusuf3/numbers.vim'
 Bundle 'vim-scripts/matchit.zip'
-Bundle 'vim-scripts/ruby-matchit'
 Bundle 'itspriddle/vim-marked'
-Bundle 'altercation/vim-colors-solarized'
+Bundle 'kana/vim-textobj-user'
+Bundle 'nelstrom/vim-textobj-rubyblock'
 
 " Syntax plugins
 Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-haml'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'nono/vim-handlebars'
-Bundle 'tpope/vim-haml'
 Bundle 'gkz/vim-ls'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'slim-template/vim-slim'
@@ -556,9 +558,6 @@ let g:ctrlp_custom_ignore = {
 
 " ---JavaScript Syntax
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
-
-" ---NerdTree
-map <leader>q :NERDTreeToggle<CR>
 
 " Search Dash for word under cursor
 function! SearchDash()
