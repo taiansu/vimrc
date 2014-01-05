@@ -114,7 +114,7 @@ let &colorcolumn=join(range(81,1024),",")
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
 " remember more commands and search history
-set history=10000
+set history=1000
 set expandtab
 set tabstop=2
 set shiftwidth=2
@@ -141,8 +141,9 @@ set showtabline=2
 set winwidth=79
 " disable sound on errors
 set noerrorbells
-set novisualbell
-set t_vb=
+" disable visualbell
+set vb t_vb=
+set title
 set tm=500
 " show the cursor wposition all the time
 set ruler
@@ -206,6 +207,13 @@ autocmd FileType css,scss setlocal formatoptions-=c formatoptions-=r formatoptio
 au BufNewFile,BufRead *.ruby set filetype=ruby
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NETRW DEFUAULT SETTING
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:netrw_banner = 0
+let g:netrw_liststyle = 4
+let g:netrw_special_syntax = 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SHOW INVISIBLES
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcut to rapidly toggle `set list`
@@ -219,6 +227,12 @@ set listchars=tab:▸\ ,eol:¬
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " autocmd bufwritepost .vimrc source $MYVIMRC
 " autocmd bufwritepost vimrc source $MYVIMRC
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" JUMP TO THE COLUMN OF MARK
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap ' `
+nnoremap ` '
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
@@ -549,14 +563,14 @@ nnoremap <C-n> :NumbersToggle<CR>
 let g:ctrlp_map = '<C-p>'
 let g:ctrlp_working_path_mode = 'ra'
 
-"exclude directories or files from the search
+" exclude directories or files from the search
 let g:ctrlp_custom_ignore = {
 \ 'dir':  '\.git$\|\.hg$\|\.svn$',
 \ 'file': '\.exe$\|\.so$\|\.dll$',
 \ 'link': 'some_bad_symbolic_links',
 \ }
 
-" ---JavaScript Syntax
+" --- JavaScript Syntax
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
 
 " Search Dash for word under cursor
@@ -570,25 +584,25 @@ function! SearchDash()
 endfunction
 map <leader>d :call SearchDash()<CR>
 
-" UltiSnips
+" ---UltiSnips
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
-" YouCompleteMe
+" --- YouCompleteMe
 let g:ycm_allow_changing_updatetime = 0
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_key_list_select_completion = ['<tab>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<s-tab>', '<Up>']
 
-" emmet-vim
+" --- emmet-vim
 let g:user_emmet_leader_key='<c-z>'
 
-" vim-marked
+" --- vim-marked
 nnoremap <leader>mm :MarkedOpen!<CR>
 nnoremap <leader>mc :MarkedQuit<CR>
 
-" vim-airline
+" --- vim-airline
 let g:airline_theme='bubblegum'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
@@ -598,7 +612,7 @@ let g:airline_branch_prefix = '⎇ '
 let g:airline_modified_detection=1
 let g:airline_enable_syntastic=1
 
-" vim-surround
+" --- vim-surround
 vmap <leader>" S"lvi"
 vmap <leader>' S'lvi'
 vmap <leader>` S`lvi`
@@ -607,7 +621,7 @@ vmap <leader>{ S}lvi{
 vmap <leader>[ S]lvi[
 vmap <leader>< S>lvi<
 
-" tagbar
+" --- tagbar
 nmap <leader>t :TagbarToggle<CR>
 
 " --- vim-easy-align
