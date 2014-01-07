@@ -251,10 +251,8 @@ augroup vimrcEx
   " make CSS omnicompletion work for SASS and SCSS
   autocmd BufNewFile,BufRead *.json             set ft=javascript
   autocmd BufNewFile,BufRead *.coffee           set ft=coffee
-  autocmd! BufNewFile,BufRead *.scss,*.sass      set ft=scss.css
-  autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
-  autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
-  autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
+  autocmd! BufNewFile,BufRead *.scss,*.sass     set ft=scss.css
+  autocmd! Bufread,BufNewFile *.md               set ft=markdown
 
   "for python and java, autoindent with four spaces, always expand tabs
   autocmd FileType python,java,c set ai sw=4 sts=4 et
@@ -263,6 +261,7 @@ augroup vimrcEx
   " autocmd! FileType mkd,md setlocal syn=off
 
   " Enable omni completion. (Ctrl-X Ctrl-O)
+  autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
   autocmd FileType html,haml,markdown,handlebars setlocal omnifunc=htmlcomplete#CompleteTags
   " autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS "use tern
   autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
