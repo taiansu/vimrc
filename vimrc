@@ -43,16 +43,17 @@ Bundle 'scrooloose/syntastic'
 Bundle 'mattn/emmet-vim'
 
 " Utility plugins
+Bundle 'vim-scripts/matchit.zip'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-rbenv'
 Bundle 'taiansu/InTermsOf.vim'
 Bundle 't9md/vim-ruby-xmpfilter'
 Bundle 'tomtom/quickfixsigns_vim'
 Bundle 'myusuf3/numbers.vim'
-Bundle 'vim-scripts/matchit.zip'
 Bundle 'itspriddle/vim-marked'
 Bundle 'kana/vim-textobj-user'
 Bundle 'nelstrom/vim-textobj-rubyblock'
+Bundle 'scrooloose/nerdtree'
 
 " Syntax plugins
 Bundle 'marijnh/tern_for_vim'
@@ -623,6 +624,9 @@ vmap <leader>< S>lvi<
 
 " --- tagbar
 nmap <leader>t :TagbarToggle<CR>
+
+" --- tagbar
+nmap <leader>q :NERDTreeToggle<CR>
 
 " --- vim-ruby-xmpfilter
 autocmd FileType ruby nmap <buffer> <leader>v <Plug>(xmpfilter-mark)
