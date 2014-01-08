@@ -46,6 +46,7 @@ Bundle 'mattn/emmet-vim'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-rbenv'
 Bundle 'taiansu/InTermsOf.vim'
+Bundle 't9md/vim-ruby-xmpfilter'
 Bundle 'tomtom/quickfixsigns_vim'
 Bundle 'myusuf3/numbers.vim'
 Bundle 'vim-scripts/matchit.zip'
@@ -622,6 +623,15 @@ vmap <leader>< S>lvi<
 
 " --- tagbar
 nmap <leader>t :TagbarToggle<CR>
+
+" --- vim-ruby-xmpfilter
+autocmd FileType ruby nmap <buffer> <leader>v <Plug>(xmpfilter-mark)
+autocmd FileType ruby xmap <buffer> <leader>v <Plug>(xmpfilter-mark)
+autocmd FileType ruby imap <buffer> <leader>v <Plug>(xmpfilter-mark)
+
+autocmd FileType ruby nmap <buffer> <leader>b <Plug>(xmpfilter-run)
+autocmd FileType ruby xmap <buffer> <leader>b <Plug>(xmpfilter-run)
+autocmd FileType ruby imap <buffer> <leader>b <Plug>(xmpfilter-run)
 
 " --- vim-easy-align
 vnoremap <silent><Enter> :EasyAlign<CR>
