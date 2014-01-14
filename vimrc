@@ -4,78 +4,116 @@
 set nocompatible | filetype off | syn on
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Setting up Vundle - the vim plugin bundler
+" Setting up Vim Addon Manager
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-if !filereadable(vundle_readme)
-    echo "Installing Vundle.."
-    echo ""
-    silent !mkdir -p ~/.vim/bundle
-    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-    let iCanHazVundle=0
-endif
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
+fun! EnsureVamIsOnDisk(plugin_root_dir)
+  let vam_autoload_dir = a:plugin_root_dir.'/vim-addon-manager/autoload'
+  if isdirectory(vam_autoload_dir)
+    return 1
+  else
+    if 1 == confirm("Clone VAM into ".a:plugin_root_dir."?","&Y\n&N")
+      " I'm sorry having to add this reminder. Eventually it'll pay off.
+      call confirm("Remind yourself that most plugins ship with ".
+                  \"documentation (README*, doc/*.txt). It is your ".
+                  \"first source of knowledge. If you can't find ".
+                  \"the info you're looking for in reasonable ".
+                  \"time ask maintainers to improve documentation")
+      call mkdir(a:plugin_root_dir, 'p')
+      execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '.
+                  \       shellescape(a:plugin_root_dir, 1).'/vim-addon-manager'
+      " VAM runs helptags automatically when you install or update 
+      " plugins
+      exec 'helptags '.fnameescape(a:plugin_root_dir.'/vim-addon-manager/doc')
+    endif
+    return isdirectory(vam_autoload_dir)
+  endif
+endfun
 
-" Essential Plugins
-Bundle 'kien/ctrlp.vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
-Bundle 'rking/ag.vim'
-Bundle 'bling/vim-airline'
-Bundle 'majutsushi/tagbar'
+fun! SetupVAM()
+  " Set advanced options like this:
+  " let g:vim_addon_manager = {}
+  " let g:vim_addon_manager.key = value
+  "     Pipe all output into a buffer which gets written to disk
+  " let g:vim_addon_manager.log_to_buf =1
 
-Bundle 'tpope/vim-bundler'
-Bundle 'tpope/vim-rake'
-Bundle 'tpope/vim-rails'
+  " Example: drop git sources unless git is in PATH. Same plugins can
+  " be installed from www.vim.org. Lookup MergeSources to get more control
+  " let g:vim_addon_manager.drop_git_sources = !executable('git')
+  " let g:vim_addon_manager.debug_activation = 1
 
-" Completer plugins
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'SirVer/ultisnips'
-Bundle 'junegunn/vim-easy-align'
-Bundle 'scrooloose/syntastic'
-Bundle 'mattn/emmet-vim'
+  " VAM install location:
+  let c = get(g:, 'vim_addon_manager', {})
+  let g:vim_addon_manager = c
+  let c.plugin_root_dir = expand('$HOME/.vim/vim-addons', 1)
+  if !EnsureVamIsOnDisk(c.plugin_root_dir)
+    echohl ErrorMsg | echomsg "No VAM found!" | echohl NONE
+    return
+  endif
+  let &rtp.=(empty(&rtp)?'':',').c.plugin_root_dir.'/vim-addon-manager'
 
-" Utility plugins
-Bundle 'vim-scripts/matchit.zip'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'tpope/vim-rbenv'
-Bundle 'taiansu/InTermsOf.vim'
-Bundle 't9md/vim-ruby-xmpfilter'
-Bundle 'tomtom/quickfixsigns_vim'
-Bundle 'myusuf3/numbers.vim'
-Bundle 'itspriddle/vim-marked'
-Bundle 'kana/vim-textobj-user'
-Bundle 'nelstrom/vim-textobj-rubyblock'
-Bundle 'scrooloose/nerdtree'
+  " Tell VAM which plugins to fetch & load:
+  call vam#ActivateAddons([
+  \ "github:kien/ctrlp.vim",
+  \ "github:tpope/vim-fugitive",
+  \ "github:tpope/vim-commentary",
+  \ "github:tpope/vim-endwise",
+  \ "github:tpope/vim-repeat",
+  \ "github:tpope/vim-surround",
+  \ "github:rking/ag.vim",
+  \ "github:bling/vim-airline",
+  \ "github:majutsushi/tagbar",
+  \ "github:tpope/vim-bundler",
+  \ "github:tpope/vim-rake",
+  \ "github:tpope/vim-rails",
+  \ "github:vim-scripts/matchit.zip",
+  \ "github:tpope/vim-unimpaired",
+  \ "github:tpope/vim-rbenv",
+  \ "github:taiansu/InTermsOf.vim",
+  \ "github:t9md/vim-ruby-xmpfilter",
+  \ "github:tomtom/quickfixsigns_vim",
+  \ "github:myusuf3/numbers.vim",
+  \ "github:itspriddle/vim-marked",
+  \ "github:kana/vim-textobj-user",
+  \ "github:nelstrom/vim-textobj-rubyblock",
+  \ "github:scrooloose/nerdtree",
+  \ "github:Valloric/YouCompleteMe",
+  \ "github:junegunn/vim-easy-align",
+  \ "github:SirVer/ultisnips",
+  \ "github:scrooloose/syntastic",
+  \ "github:mattn/emmet-vim",
+  \ "github:marijnh/tern_for_vim",
+  \ "github:tpope/vim-haml",
+  \ "github:kchmck/vim-coffee-script",
+  \ "github:nono/vim-handlebars",
+  \ "github:gkz/vim-ls",
+  \ "github:digitaltoad/vim-jade",
+  \ "github:slim-template/vim-slim",
+  \ "github:vim-scripts/VimClojure",
+  \ "github:elixir-lang/vim-elixir",
+  \ "github:tpope/vim-markdown",
+  \ "github:golangtw/go.vim",
+  \ "github:golangtw/gocode.vim",
+  \ "github:jstemmer/gotags",
+  \ "github:vim-ruby/vim-ruby",
+  \], {'auto_install' : 1})
+  " sample: call vam#ActivateAddons(['pluginA','pluginB', ...], {'auto_install' : 0})
+  " Also See "plugins-per-line" below
 
-" Syntax plugins
-Bundle 'marijnh/tern_for_vim'
-Bundle 'tpope/vim-haml'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'nono/vim-handlebars'
-Bundle 'gkz/vim-ls'
-Bundle 'digitaltoad/vim-jade'
-Bundle 'slim-template/vim-slim'
-Bundle 'vim-scripts/VimClojure'
-Bundle 'elixir-lang/vim-elixir'
-Bundle 'tpope/vim-markdown'
-Bundle 'golangtw/go.vim'
-Bundle 'golangtw/gocode.vim'
-Bundle 'jstemmer/gotags'
-Bundle 'vim-ruby/vim-ruby'
+  " Addons are put into plugin_root_dir/plugin-name directory
+  " unless those directories exist. Then they are activated.
+  " Activating means adding addon dirs to rtp and do some additional
+  " magic
 
-if iCanHazVundle == 0
-    echo "Installing Bundles, please ignore key map error messages"
-    echo ""
-    :BundleInstall
-endif
+  " How to find addon names?
+  " - look up source from pool
+  " - (<c-x><c-p> complete plugin names):
+  " You can use name rewritings to point to sources:
+  "    ..ActivateAddons(["github:foo", .. => github://foo/vim-addon-foo
+  "    ..ActivateAddons(["github:user/repo", .. => github://user/repo
+  " Also see section "2.2. names of addons and addon sources" in VAM's documentation
+endfun
+call SetupVAM()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ENCODING SETTINGS
@@ -585,16 +623,31 @@ function! SearchDash()
 endfunction
 map <leader>d :call SearchDash()<CR>
 
-" ---UltiSnips
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-
 " --- YouCompleteMe
-let g:ycm_allow_changing_updatetime = 0
+let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_key_list_select_completion = ['<tab>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<s-tab>', '<Up>']
+
+" ---UltiSnips
+function! g:UltiSnips_Complete()
+    call UltiSnips_ExpandSnippet()
+    if g:ulti_expand_res == 0
+        if pumvisible()
+            return "\<C-n>"
+        else
+            call UltiSnips_JumpForwards()
+            if g:ulti_jump_forwards_res == 0
+               return "\<TAB>"
+            endif
+        endif
+    endif
+    return ""
+endfunction
+
+let g:UltiSnipsExpandTrigger="<c-j>"
+au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+let g:UltiSnipsListSnippets="<c-k>"
 
 " --- emmet-vim
 let g:user_emmet_leader_key='<c-y>'
