@@ -625,7 +625,7 @@ vmap <leader>< S>lvi<
 " --- tagbar
 nmap <leader>t :TagbarToggle<CR>
 
-" --- tagbar
+" --- NERDTreeToggle
 nmap <leader>q :NERDTreeToggle<CR>
 
 " --- vim-ruby-xmpfilter
