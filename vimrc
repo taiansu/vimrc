@@ -106,13 +106,15 @@ set gfn=Source\ Code\ Pro\ Light:h16
 
 :set t_Co=256 " 256 colors
 :set background=dark
-:colorscheme base16-tomorrow
 
 highlight Pmenu ctermbg=94 guibg=#875F00
 if has("gui_running")
     set guioptions-=T
     set guioptions+=e
     set guitablabel=%M\ %t
+    :colorscheme base16-tomorrow
+else
+    :colorscheme Tomorrow-Night
 end
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -121,7 +123,8 @@ end
 set synmaxcol=1024
 syntax sync minlines=256
 noremap <F8> <Esc>:syntax sync fromstart<CR>:set synmaxcol=
-let &colorcolumn=join(range(81,1024),",")
+" let &colorcolumn=join(range(81,1024),",")
+set colorcolumn=81
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
