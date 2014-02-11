@@ -658,6 +658,7 @@ nmap <leader>t :TagbarToggle<CR>
 
 " --- NERDTreeToggle
 nmap <leader>q :NERDTreeToggle<CR>
+nmap <leader>w :NERDTreeFind<CR>
 
 " --- vim-ruby-xmpfilter
 autocmd FileType ruby nmap <buffer> <leader>v <Plug>(xmpfilter-mark)
