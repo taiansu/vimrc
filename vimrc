@@ -608,13 +608,13 @@ let g:ycm_key_list_select_completion = ['<tab>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<s-tab>', '<Up>']
 
 " ---UltiSnips
-function! g:UltiSnips_Complete()
-    call UltiSnips_ExpandSnippet()
+function! g:UltiSnipsComplete()
+    call UltiSnips#ExpandSnippet()
     if g:ulti_expand_res == 0
         if pumvisible()
             return "\<C-n>"
         else
-            call UltiSnips_JumpForwards()
+            call UltiSnips#JumpForwards()
             if g:ulti_jump_forwards_res == 0
                return "\<TAB>"
             endif
@@ -624,7 +624,7 @@ function! g:UltiSnips_Complete()
 endfunction
 
 let g:UltiSnipsExpandTrigger="<c-j>"
-au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnipsComplete()<cr>"
 let g:UltiSnipsListSnippets="<c-k>"
 
 " --- emmet-vim
