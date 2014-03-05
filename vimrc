@@ -134,13 +134,16 @@ set colorcolumn=80
 set hidden
 " remember more commands and search history
 set history=1000
+" expand tab to space
 set expandtab
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set autoindent
 set smartindent
+" wrap text if lines longer then the lenght of window
 set wrap
+" always show the statusline
 set laststatus=2
 set showmatch
 set incsearch
@@ -151,21 +154,23 @@ set ignorecase smartcase
 set smarttab
 " highlight current line
 set cursorline
+" highlight current column
 set cursorcolumn
+" show the cursor wposition all the time
+set ruler
 set cmdheight=2
 set switchbuf=useopen
 set number
 set numberwidth=5
 set showtabline=2
-set winwidth=79
+set winwidth=100
 " disable sound on errors
 set noerrorbells
 " disable visualbell
 set vb t_vb=
 set title
+" set keyboard timeout
 set tm=500
-" show the cursor wposition all the time
-set ruler
 " auto read when file is changed from outsideyy
 set autoread
 " This makes RVM work inside Vim. I have no idea why.
@@ -347,10 +352,10 @@ map! <C-E>     <End>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RESIZE SPLIT WINDOW
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <C-Up> :res +2<CR>
-map <C-Down> :res -2<CR>
+map <C-Up>    :res +2<CR>
+map <C-Down>  :res -2<CR>
 " map <Right> :vertical res +2<CR>
-" map <Left> :vertical res -2<CR>
+" map <Left>  :vertical res -2<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
@@ -608,7 +613,7 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_key_list_select_completion = ['<tab>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<s-tab>', '<Up>']
 
-" ---UltiSnips
+" --- UltiSnips
 function! g:UltiSnipsComplete()
     call UltiSnips#ExpandSnippet()
     if g:ulti_expand_res == 0
