@@ -125,7 +125,7 @@ set synmaxcol=1024
 syntax sync minlines=256
 noremap <F8> <Esc>:syntax sync fromstart<CR>:set synmaxcol=
 " let &colorcolumn=join(range(81,1024),",")
-set colorcolumn=81
+set colorcolumn=80
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
