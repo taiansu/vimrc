@@ -66,9 +66,10 @@ fun! SetupVAM()
   \ "github:kana/vim-textobj-user",
   \ "github:nelstrom/vim-textobj-rubyblock",
   \ "github:scrooloose/nerdtree",
-  \ "github:Valloric/YouCompleteMe",
   \ "github:junegunn/vim-easy-align",
+  \ "github:honza/vim-snippets",
   \ "github:SirVer/ultisnips",
+  \ "github:Valloric/YouCompleteMe",
   \ "github:scrooloose/syntastic",
   \ "github:mattn/emmet-vim",
   \ "github:marijnh/tern_for_vim",
@@ -622,10 +623,11 @@ function! g:UltiSnipsComplete()
     endif
     return ""
 endfunction
-
-let g:UltiSnipsExpandTrigger="<c-j>"
 au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnipsComplete()<cr>"
-let g:UltiSnipsListSnippets="<c-k>"
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
 
 " --- emmet-vim
 let g:user_emmet_leader_key='<c-y>'
