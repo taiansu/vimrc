@@ -113,8 +113,6 @@ if has("gui_running")
     set guioptions-=T
     set guioptions+=e
     set guitablabel=%M\ %t
-    :colorscheme base16-tomorrow
-else
     :colorscheme Tomorrow-Night
 end
 
