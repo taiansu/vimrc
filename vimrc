@@ -106,18 +106,68 @@ set ffs=unix,mac,dos
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FONT AND COLOR SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set gfn=Source\ Code\ Pro\ Light:h16
 
-:set t_Co=256 " 256 colors
-:set background=dark
+set t_Co=256 " 256 colors
 
-highlight Pmenu ctermbg=94 guibg=#875F00
-if has("gui_running")
+function! SwitchTheme(theme_type)
+  if a:theme_type == "focus"
+    set gfn=Cousine:h16
+    set linespace=5
+    set background=light
+    set colorcolumn=
+    :NumbersDisable
+    :NumbersToggle
+    :GitGutterSignsDisable
+    :colorscheme iawriter
+    let g:current_theme = "focus"
+    :redraw
+  elseif a:theme_type == "presentation"
+    :colorscheme summerfruit256
+    set gfn=Source\ Code\ Pro\ Medium:h24
+    set linespace=0
+    set background=light
     set guioptions-=T
     set guioptions+=e
     set guitablabel=%M\ %t
-    :colorscheme Tomorrow-Night
-end
+    set number
+    set colorcolumn=
+    :GitGutterSignsDisable
+    :NumbersEnable
+    let g:current_theme = "presentation"
+  else
+    set gfn=Source\ Code\ Pro\ Light:h16
+    set background=dark
+    set linespace=0
+    set colorcolumn=80
+    if has("gui_running")
+        set guioptions-=T
+        set guioptions+=e
+        set guitablabel=%M\ %t
+        :colorscheme base16-tomorrow
+    else
+        :colorscheme Tomorrow-Night
+    endif
+    if exists("g:current_theme")
+      set number
+      :GitGutterSignsEnable
+      :NumbersEnable
+    endif
+    let g:current_theme = "code"
+  end
+endfunction
+
+function! ToggleTheme()
+  if g:current_theme == "code"
+    :call SwitchTheme("presentation")
+  else
+    :call SwitchTheme("code")
+  end
+endfunction
+
+command! TT :call ToggleTheme()
+command! TF :call SwitchTheme("focus")
+
+:call SwitchTheme("code")
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SYNTAX HIGHLIGHT FIX
