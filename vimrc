@@ -60,7 +60,10 @@ fun! SetupVAM()
   \ "github:tpope/vim-rbenv",
   \ "github:taiansu/InTermsOf.vim",
   \ "github:t9md/vim-ruby-xmpfilter",
-  \ "github:tomtom/quickfixsigns_vim",
+  \ "github:kshenoy/vim-signature",
+  \ "github:airblade/vim-gitgutter",
+  \ "github:rizzatti/funcoo.vim",
+  \ "github:rizzatti/dash.vim",
   \ "github:myusuf3/numbers.vim",
   \ "github:itspriddle/vim-marked",
   \ "github:kana/vim-textobj-user",
@@ -595,15 +598,7 @@ let g:ctrlp_custom_ignore = {
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
 
 " Search Dash for word under cursor
-function! SearchDash()
-  let s:browser = "/usr/bin/open"
-  let s:wordUnderCursor = expand("<cword>")
-  let s:url = "dash://".s:wordUnderCursor
-  let s:cmd = "silent ! " . s:browser . " " . s:url
-  execute s:cmd
-  redraw!
-endfunction
-map <leader>d :call SearchDash()<CR>
+nmap <silent><leader>d <Plug>DashSearch<CR>
 
 " --- YouCompleteMe
 let g:ycm_add_preview_to_completeopt = 0
