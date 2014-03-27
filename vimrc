@@ -74,6 +74,7 @@ fun! SetupVAM()
   \ "github:SirVer/ultisnips",
   \ "github:Valloric/YouCompleteMe",
   \ "github:scrooloose/syntastic",
+  \ "github:kana/vim-submode",
   \ "github:mattn/emmet-vim",
   \ "github:marijnh/tern_for_vim",
   \ "github:tpope/vim-haml",
@@ -401,26 +402,9 @@ map! <C-A>     <Home>
 map! <C-E>     <End>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RESIZE SPLIT WINDOW
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <C-Up>    :res +2<CR>
-map <C-Down>  :res -2<CR>
-" map <Right> :vertical res +2<CR>
-" map <Left>  :vertical res -2<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>y "*y
-" Move around splits with <C-hjkl>
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
-" nnoremap <C-j> <C-w>j<C-w>_
-" nnoremap <C-k> <C-w>k<C-w>_
-" nnoremap <C-h> <C-w>h<C-w>30>
-" nnoremap <C-l> <C-w>l<C-w>30>
 
 set winheight=5
 set winminheight=5
@@ -439,6 +423,51 @@ imap <C-c> <esc>
 nnoremap <leader><leader> <C-^>
 " format json
 map <leader>j !python -m json.tool<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SPLIT MOTIONS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Move around splits with <C-hjkl>
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+
+nnoremap s <Nop>
+nnoremap sj <C-w>j
+nnoremap sk <C-w>k
+nnoremap sl <C-w>l
+nnoremap sh <C-w>h
+nnoremap sJ <C-w>J
+nnoremap sK <C-w>K
+nnoremap sL <C-w>L
+nnoremap sH <C-w>H
+nnoremap sn gt
+nnoremap sp gT
+nnoremap sr <C-w>r
+nnoremap s= <C-w>=
+nnoremap sw <C-w>w
+nnoremap so <C-w>_<C-w>|
+nnoremap sa <C-w>=
+nnoremap sN :<C-u>bn<CR>
+nnoremap sP :<C-u>bp<CR>
+nnoremap st :<C-u>tabnew<CR>
+" nnoremap sT :<C-u>Unite tab<CR>
+nnoremap ss :<C-u>sp<CR>
+nnoremap sv :<C-u>vs<CR>
+nnoremap sq :<C-u>q<CR>
+nnoremap sQ :<C-u>bd<CR>
+" nnoremap sb :<C-u>Unite buffer_tab -buffer-name=file<CR>
+" nnoremap sB :<C-u>Unite buffer -buffer-name=file<CR>
+
+call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
+call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
+call submode#enter_with('bufmove', 'n', '', 's+', '<C-w>+')
+call submode#enter_with('bufmove', 'n', '', 's-', '<C-w>-')
+call submode#map('bufmove', 'n', '', '>', '<C-w>>')
+call submode#map('bufmove', 'n', '', '<', '<C-w><')
+call submode#map('bufmove', 'n', '', '+', '<C-w>+')
+call submode#map('bufmove', 'n', '', '-', '<C-w>-')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
