@@ -13,8 +13,8 @@ endif
 
 let g:colors_name="iawriter"
 
-hi Cursor       guifg=fg     guibg=#990000 
-hi Normal       guifg=#424242   guibg=#f5f6f6          ctermfg=black    ctermbg=white
+hi Cursor       guifg=white   guibg=#990000
+hi Normal       guifg=#424242 guibg=#f5f6f6          ctermfg=black    ctermbg=white
 hi DiffAdd                    guibg=#c0ffe0                           ctermbg=3
 hi DiffDelete   guifg=#ff8097 guibg=#ffe0f7          ctermfg=4        ctermbg=5
 hi DiffChange                 guibg=#cfefff                           ctermbg=9
@@ -39,7 +39,7 @@ hi Type         guifg=#338855 guibg=bg      gui=NONE ctermfg=darkgreen
 hi StorageClass guifg=#990000 guibg=bg               ctermfg=red
 hi Special      guifg=#6688ff guibg=bg               ctermfg=darkcyan
 hi Function     guifg=#117777 guibg=bg               ctermfg=red
-hi Title        guifg=black   guibg=bg               ctermfg=black   
+hi Title        guifg=black   guibg=bg               ctermfg=black
 
 " showpairs plugin
 "   for cursor on paren
