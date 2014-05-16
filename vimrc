@@ -204,6 +204,7 @@ set hlsearch
 set ignorecase smartcase
 " insert tabs on the start of a line according to context
 set smarttab
+set guicursor+=a:blinkon0
 " highlight current line
 set cursorline
 " highlight current column
