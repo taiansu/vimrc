@@ -125,7 +125,7 @@ function! SwitchTheme(theme_type)
   elseif a:theme_type == "presentation"
     :colorscheme summerfruit256
     set gfn=Source\ Code\ Pro\ Medium:h24
-    set linespace=0
+    set linespace=3
     set background=light
     set guioptions-=T
     set guioptions+=e
@@ -138,7 +138,7 @@ function! SwitchTheme(theme_type)
   else
     set gfn=Source\ Code\ Pro\ Light:h16
     set background=dark
-    set linespace=0
+    set linespace=3
     set colorcolumn=80
     if has("gui_running")
         set guioptions-=T
@@ -216,7 +216,7 @@ set switchbuf=useopen
 set number
 set numberwidth=5
 set showtabline=2
-set winwidth=100
+" set winwidth=100
 " disable sound on errors
 set noerrorbells
 " disable visualbell
