@@ -751,13 +751,25 @@ nmap <leader>q :NERDTreeToggle<CR>
 nmap <leader>w :NERDTreeFind<CR>
 
 " --- vim-ruby-xmpfilter
-autocmd FileType ruby nmap <buffer> <leader>v <Plug>(xmpfilter-mark)
-autocmd FileType ruby xmap <buffer> <leader>v <Plug>(xmpfilter-mark)
-autocmd FileType ruby imap <buffer> <leader>v <Plug>(xmpfilter-mark)
+let g:xmpfilter_cmd = "seeing_is_believing"
 
-autocmd FileType ruby nmap <buffer> <leader>b <Plug>(xmpfilter-run)
-autocmd FileType ruby xmap <buffer> <leader>b <Plug>(xmpfilter-run)
-autocmd FileType ruby imap <buffer> <leader>b <Plug>(xmpfilter-run)
+autocmd FileType ruby nmap <buffer> <D-k> <Plug>(seeing_is_believing-mark)
+autocmd FileType ruby xmap <buffer> <D-k> <Plug>(seeing_is_believing-mark)
+autocmd FileType ruby imap <buffer> <D-k> <Plug>(seeing_is_believing-mark)
+
+autocmd FileType ruby nmap <buffer> <D-r> <Plug>(seeing_is_believing-clean)
+autocmd FileType ruby xmap <buffer> <D-r> <Plug>(seeing_is_believing-clean)
+autocmd FileType ruby imap <buffer> <D-r> <Plug>(seeing_is_believing-clean)
+
+" xmpfilter compatible
+autocmd FileType ruby nmap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
+autocmd FileType ruby xmap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
+autocmd FileType ruby imap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
+
+" auto insert mark at appropriate spot.
+autocmd FileType ruby nmap <buffer> <leader>x <Plug>(seeing_is_believing-run)
+autocmd FileType ruby xmap <buffer> <leader>x <Plug>(seeing_is_believing-run)
+autocmd FileType ruby imap <buffer> <leader>x <Plug>(seeing_is_believing-run)
 
 " --- vim-easy-align
 vnoremap <silent><Enter> :EasyAlign<CR>
