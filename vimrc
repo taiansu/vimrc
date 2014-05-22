@@ -725,13 +725,14 @@ if !exists('g:airline_symbols')
 endif
 
 let g:airline_theme='bubblegum'
-let g:airline_enable_branch=1
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_symbols.branch = '⎇ '
 let g:airline_symbols.linenr = '¶ '
-let g:airline_modified_detection=1
-let g:airline_enable_syntastic=1
+let g:airline_detect_modified=1
+let g:airline#extensions#tagbar#enabled=1
+let g:airline#extensions#branch#enabled=1
+let g:airline#extensions#syntastic#enabled=1
 
 " --- vim-surround
 vmap <leader>" S"lvi"
