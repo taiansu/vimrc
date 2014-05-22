@@ -61,7 +61,7 @@ fun! SetupVAM()
   \ "github:taiansu/InTermsOf.vim",
   \ "github:t9md/vim-ruby-xmpfilter",
   \ "github:kshenoy/vim-signature",
-  \ "github:airblade/vim-gitgutter",
+  \ "github:mhinz/vim-signify",
   \ "github:rizzatti/funcoo.vim",
   \ "github:rizzatti/dash.vim",
   \ "github:myusuf3/numbers.vim",
