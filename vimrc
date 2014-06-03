@@ -33,7 +33,6 @@ fun! SetupVAM()
   \ "github:tpope/vim-bundler",
   \ "github:tpope/vim-rake",
   \ "github:tpope/vim-rails",
-  \ "github:vim-scripts/matchit.zip",
   \ "github:tpope/vim-unimpaired",
   \ "github:tpope/vim-rbenv",
   \ "github:taiansu/InTermsOf.vim",
