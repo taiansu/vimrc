@@ -98,7 +98,6 @@ function! SwitchTheme(theme_type)
     set colorcolumn=
     :NumbersDisable
     :NumbersToggle
-    :GitGutterSignsDisable
     :colorscheme iawriter
     let g:current_theme = "focus"
     :redraw
@@ -112,7 +111,6 @@ function! SwitchTheme(theme_type)
     set guitablabel=%M\ %t
     set number
     set colorcolumn=
-    :GitGutterSignsDisable
     :NumbersEnable
     let g:current_theme = "presentation"
   else
@@ -130,7 +128,6 @@ function! SwitchTheme(theme_type)
     endif
     if exists("g:current_theme")
       set number
-      :GitGutterSignsEnable
       :NumbersEnable
     endif
     let g:current_theme = "code"
@@ -267,7 +264,7 @@ au BufNewFile,BufRead *.ruby set filetype=ruby
 " NETRW DEFUAULT SETTING
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:netrw_banner = 0
-let g:netrw_liststyle = 4
+let g:netrw_liststyle = 3
 let g:netrw_special_syntax = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
