@@ -15,6 +15,7 @@ let g:colors_name="iawriter"
 
 hi Cursor       guifg=white   guibg=#990000
 hi Normal       guifg=#424242 guibg=#f5f6f6          ctermfg=black    ctermbg=white
+hi FoldColumn   guifg=#424242 guibg=#f5f6f6          ctermfg=black    ctermbg=white
 hi DiffAdd                    guibg=#c0ffe0                           ctermbg=3
 hi DiffDelete   guifg=#ff8097 guibg=#ffe0f7          ctermfg=4        ctermbg=5
 hi DiffChange                 guibg=#cfefff                           ctermbg=9

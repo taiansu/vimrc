@@ -92,17 +92,17 @@ set t_Co=256 " 256 colors
 function! SwitchTheme(theme_type)
   if a:theme_type == "focus"
     set gfn=Cousine:h16
+    set foldcolumn=12
     set linespace=5
     set background=light
     set colorcolumn=
-    :NumbersDisable
-    :NumbersToggle
     :colorscheme iawriter
     let g:current_theme = "focus"
     :redraw
   elseif a:theme_type == "presentation"
-    :colorscheme summerfruit256
-    set gfn=Source\ Code\ Pro\ Medium:h24
+    :colorscheme iawriter
+    set gfn=Source\ Code\ Pro\ Medium:h20
+    set foldcolumn=0
     set linespace=3
     set background=light
     set guioptions-=T
@@ -110,10 +110,10 @@ function! SwitchTheme(theme_type)
     set guitablabel=%M\ %t
     set number
     set colorcolumn=
-    :NumbersEnable
     let g:current_theme = "presentation"
   else
     set gfn=Source\ Code\ Pro\ Light:h16
+    set foldcolumn=0
     set background=dark
     set linespace=3
     set colorcolumn=80
@@ -127,9 +127,26 @@ function! SwitchTheme(theme_type)
     endif
     if exists("g:current_theme")
       set number
-      :NumbersEnable
     endif
     let g:current_theme = "code"
+  end
+endfunction
+
+function! ToggleGutters()
+  :SignatureToggleSigns
+  :SignifyToggle
+endfunction
+
+function! ToggleFocus()
+  :call ToggleGutters()
+  if g:current_theme == "code"
+    :NumbersDisable
+    :NumbersToggle
+    :call SwitchTheme("focus")
+  else
+    :NumbersEnable
+    :NumbersToggle
+    :call SwitchTheme("code")
   end
 endfunction
 
@@ -142,7 +159,7 @@ function! ToggleTheme()
 endfunction
 
 command! TT :call ToggleTheme()
-command! TF :call SwitchTheme("focus")
+command! TF :call ToggleFocus()
 
 :call SwitchTheme("code")
 
