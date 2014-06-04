@@ -239,7 +239,7 @@ let javaScript_fold=1
 set lazyredraw
 set linebreak
 set showbreak=↪
-let mapleader=","
+let mapleader="\<space>"
 " Always edit file, even when swap file is found
 set shortmess+=A
 
