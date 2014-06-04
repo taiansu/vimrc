@@ -72,7 +72,7 @@ fun! SetupVAM()
 endfun
 
 call SetupVAM()
-VAMActivate matchit.zip vim-addon-commenting
+VAMActivate matchit.zip
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ENCODING SETTINGS
