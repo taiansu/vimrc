@@ -409,7 +409,7 @@ imap <C-f> <space>=><space>
 
 " Clear the search buffer when hitting return
 function! MapNoHighlight()
-  map <leader>/ :nohlsearch<CR>
+  map <leader>v :nohlsearch<CR>
 endfunction
 call MapNoHighlight()
 " Can't be bothered to understand ESC vs <C-c> in insert mode
