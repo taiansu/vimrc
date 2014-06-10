@@ -709,8 +709,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:user_emmet_leader_key='<c-y>'
 
 " --- vim-marked
-nnoremap <leader>mm :MarkedOpen!<CR>
-nnoremap <leader>mc :MarkedQuit<CR>
+nnoremap <leader>m :ToggleMarked!<CR>
 
 " --- vim-airline
 if !exists('g:airline_symbols')
