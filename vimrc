@@ -39,8 +39,6 @@ fun! SetupVAM()
   \ "github:t9md/vim-ruby-xmpfilter",
   \ "github:kshenoy/vim-signature",
   \ "github:mhinz/vim-signify",
-  \ "github:rizzatti/funcoo.vim",
-  \ "github:rizzatti/dash.vim",
   \ "github:myusuf3/numbers.vim",
   \ "github:itspriddle/vim-marked",
   \ "github:kana/vim-textobj-user",
@@ -674,9 +672,6 @@ let g:ctrlp_custom_ignore = {
 
 " --- JavaScript Syntax
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
-
-" Search Dash for word under cursor
-nmap <silent><leader>d <Plug>DashSearch<CR>
 
 " --- YouCompleteMe
 let g:ycm_add_preview_to_completeopt = 0
