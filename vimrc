@@ -590,7 +590,7 @@ map <leader>gp :CtrlPClearCache<CR>\|:CtrlP public<CR>
 map <leader>gf :CtrlPClearCache<CR>\|:CtrlP features<CR>
 map <leader>gr :topleft :split config/routes.rb<CR>
 map <leader>gg :topleft 100 :split Gemfile<CR>
-map <leader>gt :CtrlPClearCache<CR>\|CtrlPTag<CR>
+map <leader>b :CtrlPClearCache<CR>\|:CtrlPBufTag<CR>
 map <leader>f :CtrlPClearCache<CR>\|:CtrlP<CR>
 map <leader>F :CtrlPClearCache<CR>\|:CtrlP %%<CR>
 map <leader>z z5<CR>
@@ -662,6 +662,8 @@ nnoremap <C-n> :NumbersToggle<CR>
 " that contains one of these directories or files: .git/
 let g:ctrlp_map = '<C-p>'
 let g:ctrlp_working_path_mode = 'ra'
+
+let g:ctrlp_extensions = ['buffertag']
 
 " exclude directories or files from the search
 let g:ctrlp_custom_ignore = {
