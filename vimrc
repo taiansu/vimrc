@@ -30,27 +30,20 @@ fun! SetupVAM()
   \ "github:rking/ag.vim",
   \ "github:bling/vim-airline",
   \ "github:majutsushi/tagbar",
-  \ "github:tpope/vim-bundler",
-  \ "github:tpope/vim-rake",
   \ "github:tpope/vim-rails",
   \ "github:tpope/vim-unimpaired",
-  \ "github:tpope/vim-rbenv",
   \ "github:taiansu/InTermsOf.vim",
   \ "github:t9md/vim-ruby-xmpfilter",
   \ "github:kshenoy/vim-signature",
   \ "github:mhinz/vim-signify",
   \ "github:myusuf3/numbers.vim",
   \ "github:itspriddle/vim-marked",
-  \ "github:kana/vim-textobj-user",
-  \ "github:nelstrom/vim-textobj-rubyblock",
-  \ "github:scrooloose/nerdtree",
   \ "github:junegunn/vim-easy-align",
   \ "github:honza/vim-snippets",
   \ "github:SirVer/ultisnips",
   \ "github:Valloric/YouCompleteMe",
   \ "github:scrooloose/syntastic",
   \ "github:kana/vim-submode",
-  \ "github:mattn/emmet-vim",
   \ "github:marijnh/tern_for_vim",
   \ "github:tpope/vim-haml",
   \ "github:kchmck/vim-coffee-script",
@@ -280,6 +273,10 @@ au BufNewFile,BufRead *.ruby set filetype=ruby
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_special_syntax = 1
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_sort_sequence = '[\/]$,*'
+let g:netrw_winsize = -30
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SHOW INVISIBLES
@@ -682,25 +679,9 @@ let g:ycm_key_list_select_completion = ['<tab>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<s-tab>', '<Up>']
 
 " --- UltiSnips
-function! g:UltiSnipsComplete()
-    call UltiSnips#ExpandSnippet()
-    if g:ulti_expand_res == 0
-        if pumvisible()
-            return "\<C-n>"
-        else
-            call UltiSnips#JumpForwards()
-            if g:ulti_jump_forwards_res == 0
-               return "\<TAB>"
-            endif
-        endif
-    endif
-    return ""
-endfunction
-au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnipsComplete()<cr>"
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-
 
 " --- emmet-vim
 let g:user_emmet_leader_key='<c-y>'
@@ -734,10 +715,6 @@ vmap <leader>< S>lvi<
 
 " --- tagbar
 nmap <leader>t :TagbarToggle<CR>
-
-" --- NERDTreeToggle
-nmap <leader>q :NERDTreeToggle<CR>
-nmap <leader>w :NERDTreeFind<CR>
 
 " --- vim-ruby-xmpfilter
 let g:xmpfilter_cmd = "seeing_is_believing"
