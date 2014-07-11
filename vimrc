@@ -57,6 +57,7 @@ fun! SetupVAM()
   \ "github:golangtw/go.vim",
   \ "github:golangtw/gocode.vim",
   \ "github:jstemmer/gotags",
+  \ "github:othree/yajs.vim",
   \ "github:vim-ruby/vim-ruby",
   \], {'auto_install' : 1})
   " - (<c-x><c-p> complete plugin names):
@@ -243,7 +244,6 @@ set wildmenu
 set foldmethod=syntax
 set foldlevelstart=3
 set foldnestmax=3
-let javaScript_fold=1
 set lazyredraw
 set linebreak
 set showbreak=↪
@@ -328,7 +328,6 @@ augroup vimrcEx
   " Enable omni completion. (Ctrl-X Ctrl-O)
   autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
   autocmd FileType html,haml,markdown,handlebars setlocal omnifunc=htmlcomplete#CompleteTags
-  " autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS "use tern
   autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
   autocmd FileType css set omnifunc=csscomplete#CompleteCSS
