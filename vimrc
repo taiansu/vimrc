@@ -317,7 +317,8 @@ augroup vimrcEx
   autocmd BufNewFile,BufRead *.json             set ft=javascript
   autocmd BufNewFile,BufRead *.coffee           set ft=coffee
   autocmd! BufNewFile,BufRead *.scss,*.sass     set ft=scss.css
-  autocmd! Bufread,BufNewFile *.md               set ft=markdown
+  autocmd! Bufread,BufNewFile *.md              set ft=markdown
+  autocmd! Bufread,BufNewFile *.ex              set ft=elixir
 
   "for python and java, autoindent with four spaces, always expand tabs
   autocmd FileType python,java,c set ai sw=4 sts=4 et
@@ -400,6 +401,9 @@ set equalalways
 set eadirection=both
 " Insert a hash rocket with <C-f>
 imap <C-f> <space>=><space>
+" Insert an arrow with <C-,> & <C-.>
+imap <C-,> <space>-><space>
+imap <C-.> <space><-<space>
 
 " Clear the search buffer when hitting return
 function! MapNoHighlight()
@@ -492,6 +496,7 @@ function! RenameFile()
     endif
 endfunction
 map <leader>n :call RenameFile()<CR>
+map <leader>m :!mkdir -p 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PROMOTE VARIABLE TO RSPEC LET
@@ -711,6 +716,14 @@ vmap <leader>( S)lvi(
 vmap <leader>{ S}lvi{
 vmap <leader>[ S]lvi[
 vmap <leader>< S>lvi<
+
+nmap <leader>" ysw"
+nmap <leader>' ysw'
+nmap <leader>` ysw`
+nmap <leader>( ysw(
+nmap <leader>{ ysw{
+nmap <leader>[ ysw[
+nmap <leader>< ysw<
 
 " --- tagbar
 nmap <leader>t :TagbarToggle<CR>
