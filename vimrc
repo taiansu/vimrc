@@ -34,15 +34,9 @@ fun! SetupVAM()
   \ "github:tpope/vim-unimpaired",
   \ "github:taiansu/InTermsOf.vim",
   \ "github:t9md/vim-ruby-xmpfilter",
-  \ "github:kshenoy/vim-signature",
-  \ "github:mhinz/vim-signify",
   \ "github:myusuf3/numbers.vim",
   \ "github:itspriddle/vim-marked",
   \ "github:junegunn/vim-easy-align",
-  \ "github:honza/vim-snippets",
-  \ "github:SirVer/ultisnips",
-  \ "github:Valloric/YouCompleteMe",
-  \ "github:scrooloose/syntastic",
   \ "github:kana/vim-submode",
   \ "github:marijnh/tern_for_vim",
   \ "github:tpope/vim-haml",
@@ -387,8 +381,8 @@ call FixRubyHashSyntax()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASH LIKE KEYS FOR THE COMMANDLINE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map! <C-A>     <Home>
-map! <C-E>     <End>
+map! <C-a>     <Home>
+map! <C-e>     <End>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
@@ -399,11 +393,11 @@ set winheight=5
 set winminheight=5
 set equalalways
 set eadirection=both
-" Insert a hash rocket with <C-f>
-imap <C-f> <space>=><space>
-" Insert an arrow with <C-,> & <C-.>
-imap <C-,> <space>-><space>
-imap <C-.> <space><-<space>
+" Insert a hash rocket with <C-g>
+imap <C-g> <space>=><space>
+" Insert an arrow with <C-f> & <C-d>
+imap <C-f> <space>->
+imap <C-d> <space><-<space>
 
 " Clear the search buffer when hitting return
 function! MapNoHighlight()
@@ -676,16 +670,6 @@ let g:ctrlp_custom_ignore = {
 " --- JavaScript Syntax
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
 
-" --- YouCompleteMe
-let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_key_list_select_completion = ['<tab>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<s-tab>', '<Up>']
-
-" --- UltiSnips
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 " --- emmet-vim
 let g:user_emmet_leader_key='<c-y>'
