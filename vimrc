@@ -490,7 +490,7 @@ function! RenameFile()
     endif
 endfunction
 map <leader>n :call RenameFile()<CR>
-map <leader>m :!mkdir -p 
+map <leader>m :!mkdir -p
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PROMOTE VARIABLE TO RSPEC LET
@@ -710,7 +710,7 @@ nmap <leader>[ ysw[
 nmap <leader>< ysw<
 
 " --- tagbar
-nmap <leader>t :TagbarToggle<CR>
+nmap <leader>q :TagbarToggle<CR>
 
 " --- vim-ruby-xmpfilter
 let g:xmpfilter_cmd = "seeing_is_believing"
