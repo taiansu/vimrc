@@ -438,13 +438,10 @@ nnoremap sa <C-w>=
 nnoremap sN :<C-u>bn<CR>
 nnoremap sP :<C-u>bp<CR>
 nnoremap st :<C-u>tabnew<CR>
-" nnoremap sT :<C-u>Unite tab<CR>
 nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
 nnoremap sq :<C-u>q<CR>
 nnoremap sQ :<C-u>bd<CR>
-" nnoremap sb :<C-u>Unite buffer_tab -buffer-name=file<CR>
-" nnoremap sB :<C-u>Unite buffer -buffer-name=file<CR>
 
 call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
 call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
@@ -545,99 +542,6 @@ vnoremap > >gv
 " Interact with GUI clipboard
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set clipboard=unnamed
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MULTIPURPOSE TAB KEY
-" Indent if we're at the beginning of a line. Else, do completion.
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" function! InsertTabWrapper()
-"     let col = col('.') - 1
-"     if !col || getline('.')[col - 1] !~ '\k'
-"         return "\<tab>"
-"     else
-"         return "\<C-p>"
-"     endif
-" endfunction
-" inoremap <tab> <C-r>=InsertTabWrapper()<CR>
-" inoremap <s-tab> <C-n>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" EXTRACT VARIABLE (SKETCHY)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" function! ExtractVariable()
-"     let name = input("Variable name: ")
-"     if name == ''
-"         return
-"     endif
-"     " Enter visual mode (not sure why this is needed since we're already in
-"     " visual mode anyway)
-"     normal! gv
-
-"     " Replace selected text with the variable name
-"     exec "normal c" . name
-"     " Define the variable on the line above
-"     exec "normal! O" . name . " = "
-"     " Paste the original selected text to be the variable value
-"     normal! $p
-" endfunction
-" vnoremap <leader>rv :call ExtractVariable()<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" INLINE VARIABLE (SKETCHY)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" function! InlineVariable()
-"     " Copy the variable under the cursor into the 'a' register
-"     :let l:tmp_a = @a
-"     :normal "ayiw
-"     " Delete variable and equals sign
-"     :normal 2daW
-"     " Delete the expression into the 'b' register
-"     :let l:tmp_b = @b
-"     :normal "bd$
-"     " Delete the remnants of the line
-"     :normal dd
-"     " Go to the end of the previous line so we can start our search for the
-"     " usage of the variable to replace. Doing '0' instead of 'k$' doesn't
-"     " work; I'm not sure why.
-"     normal k$
-"     " Find the next occurence of the variable
-"     exec '/\<' . @a . '\>'
-"     " Replace that occurence with the text we yanked
-"     exec ':.s/\<' . @a . '\>/' . @b
-"     :let @a = l:tmp_a
-"     :let @b = l:tmp_b
-" endfunction
-" nnoremap <leader>ri :call InlineVariable()<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SWITCH BETWEEN TEST AND PRODUCTION CODE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" function! OpenTestAlternate()
-"   let new_file = AlternateForCurrentFile()
-"   exec ':e ' . new_file
-" endfunction
-" function! AlternateForCurrentFile()
-"   let current_file = expand("%")
-"   let new_file = current_file
-"   let in_spec = match(current_file, '^spec/') != -1
-"   let going_to_spec = !in_spec
-"   let in_app = match(current_file, '\<controllers\>') != -1 || match(current_file, '\<models\>') != -1 || match(current_file, '\<views\>') != -1 || match(current_file, '\<helpers\>') != -1
-"   if going_to_spec
-"     if in_app
-"       let new_file = substitute(new_file, '^app/', '', '')
-"     end
-"     let new_file = substitute(new_file, '\.rb$', '_spec.rb', '')
-"     let new_file = 'spec/' . new_file
-"   else
-"     let new_file = substitute(new_file, '_spec\.rb$', '.rb', '')
-"     let new_file = substitute(new_file, '^spec/', '', '')
-"     if in_app
-"       let new_file = 'app/' . new_file
-"     end
-"   endif
-"   return new_file
-" endfunction
-" nnoremap <leader>. :call OpenTestAlternate()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Addons Settings
