@@ -21,6 +21,7 @@ fun! SetupVAM()
 
   " Tell VAM which plugins to fetch & load:
   call vam#ActivateAddons([
+  \ "github:ervandew/supertab",
   \ "github:kien/ctrlp.vim",
   \ "github:tpope/vim-fugitive",
   \ "github:tpope/vim-commentary",
@@ -70,6 +71,129 @@ set fileencodings=ucs-bom,utf-8,big5,gb2312,latin1
 set ffs=unix,mac,dos
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SYNTAX HIGHLIGHT FIX
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set synmaxcol=1024
+syntax sync minlines=256
+noremap <F8> <Esc>:syntax sync fromstart<CR>:set synmaxcol=
+" let &colorcolumn=join(range(81,1024),",")
+set colorcolumn=80
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" BASIC EDITING CONFIGURATION
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" allow unsaved background buffers and remember marks/undo for them
+set hidden
+" expand tab to space
+set expandtab
+set autoindent
+set smartindent
+" wrap text if lines longer then the lenght of window
+set wrap
+set showmatch
+set incsearch
+set hlsearch
+" always show the statusline
+set laststatus=2
+" insert tabs on the start of a line according to context
+set smarttab
+" make searches case-sensitive only if they contain upper-case characters
+set ignorecase smartcase
+set guicursor+=a:blinkon0
+" highlight current line
+set cursorline
+" highlight current column
+set cursorcolumn
+set cmdheight=2
+set switchbuf=useopen
+set number
+set numberwidth=5
+set showtabline=2
+" set winwidth=100
+" disable sound on errors
+set noerrorbells
+" disable visualbell
+set vb t_vb=
+set title
+" set keyboard timeout
+set tm=500
+" This makes RVM work inside Vim. I have no idea why.
+set shell=zsh
+" Prevent Vim from clobbering the scrollback buffer. See
+" http://www.shallowsky.com/linux/noaltscreen.html
+set t_ti= t_te=
+" keep more context when scrolling off the end of a buffer
+set scrolloff=7
+" Store temporary files in a central spot
+set nobackup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+set whichwrap+=<,>,h,l
+" display incomplete commands
+set showcmd
+" For regular expressions turn magic on
+set magic
+" Enable highlighting for syntax
+syntax on
+" Enable file type detection.
+" Use the default filetype settings, so that mail gets 'tw' set to 72,
+" 'cindent' is on in C files, etc.
+" Also load indent files, to automatically do language-dependent indenting.
+filetype plugin indent on
+" use emacs-style tab completion when selecting files, etc
+set wildmode=longest,list
+" make tab completion for files/buffers act like bash
+set wildmenu
+" fix long line render speed
+set foldmethod=syntax
+set foldlevelstart=3
+set foldnestmax=3
+set lazyredraw
+set linebreak
+set showbreak=↪
+set history=1000
+" show the cursor wposition all the time
+set ruler
+" auto read when file is changd from outside
+set autoread
+" Always edit file, even when swap file is found
+set shortmess+=A
+set winheight=5
+set winminheight=5
+set equalalways
+set eadirection=both
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CONFIG WITH OPINION
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let mapleader="\<space>"
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SHOW INVISIBLES
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Shortcut to rapidly toggle `set list`
+nmap <leader>l :set list!<CR>
+
+" Use the same symbols as TextMate for tabstops and EOLs
+set listchars=tab:▸\ ,eol:¬
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Change CursorShape in iTerm2
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" DISABLE AUTOMATIC COMMENT INSERTION
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType css,scss setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FONT AND COLOR SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -109,7 +233,7 @@ function! SwitchTheme(theme_type)
         set guitablabel=%M\ %t
         :colorscheme base16-tomorrow
     else
-        :colorscheme Tomorrow-Night
+        :colorscheme smyck
     endif
     if exists("g:current_theme")
       set number
@@ -150,118 +274,6 @@ command! TF :call ToggleFocus()
 :call SwitchTheme("code")
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SYNTAX HIGHLIGHT FIX
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set synmaxcol=1024
-syntax sync minlines=256
-noremap <F8> <Esc>:syntax sync fromstart<CR>:set synmaxcol=
-" let &colorcolumn=join(range(81,1024),",")
-set colorcolumn=80
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" BASIC EDITING CONFIGURATION
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" allow unsaved background buffers and remember marks/undo for them
-set hidden
-" remember more commands and search history
-set history=1000
-" expand tab to space
-set expandtab
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set autoindent
-set smartindent
-" wrap text if lines longer then the lenght of window
-set wrap
-" always show the statusline
-set laststatus=2
-set showmatch
-set incsearch
-set hlsearch
-" make searches case-sensitive only if they contain upper-case characters
-set ignorecase smartcase
-" insert tabs on the start of a line according to context
-set smarttab
-set guicursor+=a:blinkon0
-" highlight current line
-set cursorline
-" highlight current column
-set cursorcolumn
-" show the cursor wposition all the time
-set ruler
-set cmdheight=2
-set switchbuf=useopen
-set number
-set numberwidth=5
-set showtabline=2
-" set winwidth=100
-" disable sound on errors
-set noerrorbells
-" disable visualbell
-set vb t_vb=
-set title
-" set keyboard timeout
-set tm=500
-" auto read when file is changed from outsideyy
-set autoread
-" This makes RVM work inside Vim. I have no idea why.
-set shell=zsh
-" Prevent Vim from clobbering the scrollback buffer. See
-" http://www.shallowsky.com/linux/noaltscreen.html
-set t_ti= t_te=
-" keep more context when scrolling off the end of a buffer
-set scrolloff=7
-" Store temporary files in a central spot
-set nobackup
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-set whichwrap+=<,>,h,l
-" display incomplete commands
-set showcmd
-" For regular expressions turn magic on
-set magic
-" Enable highlighting for syntax
-syntax on
-" Enable file type detection.
-" Use the default filetype settings, so that mail gets 'tw' set to 72,
-" 'cindent' is on in C files, etc.
-" Also load indent files, to automatically do language-dependent indenting.
-filetype plugin indent on
-" use emacs-style tab completion when selecting files, etc
-set wildmode=longest,list
-" make tab completion for files/buffers act like bash
-set wildmenu
-" fix long line render speed
-set foldmethod=syntax
-set foldlevelstart=3
-set foldnestmax=3
-set lazyredraw
-set linebreak
-set showbreak=↪
-let mapleader="\<space>"
-" Always edit file, even when swap file is found
-set shortmess+=A
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Change CursorShape in iTerm2
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" DISABLE AUTOMATIC COMMENT INSERTION
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType css,scss setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SET .ruby AS RUBY FILE FOR RAILS 4
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-au BufNewFile,BufRead *.ruby set filetype=ruby
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NETRW DEFUAULT SETTING
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:netrw_banner = 0
@@ -271,15 +283,6 @@ let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_sort_sequence = '[\/]$,*'
 let g:netrw_winsize = -30
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SHOW INVISIBLES
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Shortcut to rapidly toggle `set list`
-nmap <leader>l :set list!<CR>
-
-" Use the same symbols as TextMate for tabstops and EOLs
-set listchars=tab:▸\ ,eol:¬
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AUTO SOURCE vimrc AFTER SAVE
@@ -308,11 +311,12 @@ augroup vimrcEx
 
 
   " make CSS omnicompletion work for SASS and SCSS
-  autocmd BufNewFile,BufRead *.json             set ft=javascript
-  autocmd BufNewFile,BufRead *.coffee           set ft=coffee
+  autocmd  BufNewFile,BufRead *.json            set ft=javascript
+  autocmd  BufNewFile,BufRead *.coffee          set ft=coffee
   autocmd! BufNewFile,BufRead *.scss,*.sass     set ft=scss.css
   autocmd! Bufread,BufNewFile *.md              set ft=markdown
   autocmd! Bufread,BufNewFile *.ex              set ft=elixir
+  autocmd  BufNewFile,BufRead *.ruby            set filetype=ruby
 
   "for python and java, autoindent with four spaces, always expand tabs
   autocmd FileType python,java,c set ai sw=4 sts=4 et
@@ -354,10 +358,6 @@ function! QuickFileType(file_type)
         let l:file_type = 'eruby'
     elseif l:file_type == 'h'
         let l:file_type = 'html'
-    elseif l:file_type == 'ha'
-        let l:file_type = 'handlebars'
-    elseif l:file_type == 's'
-        let l:file_type = 'css'
     endif
     exec "setf ".l:file_type
 endfunction
@@ -387,12 +387,12 @@ map! <C-e>     <End>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Start non-memorized yank, should follow with a motion.
+" For example, use <leader>y2j will yank 2 line to
+" paste, but without put them into the yank ring.
 map <leader>y "*y
 
-set winheight=5
-set winminheight=5
-set equalalways
-set eadirection=both
 " Insert a hash rocket with <C-g>
 imap <C-g> <space>=><space>
 " Insert an arrow with <C-f> & <C-d>
@@ -456,28 +456,6 @@ call submode#map('bufmove', 'n', '', '+', '<C-w>+')
 call submode#map('bufmove', 'n', '', '-', '<C-w>-')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MULTIPURPOSE TAB KEY
-" Indent if we're at the beginning of a line. Else, do completion.
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" function! InsertTabWrapper()
-"     let col = col('.') - 1
-"     if !col || getline('.')[col - 1] !~ '\k'
-"         return "\<tab>"
-"     else
-"         return "\<C-p>"
-"     endif
-" endfunction
-" inoremap <tab> <C-r>=InsertTabWrapper()<CR>
-" inoremap <s-tab> <C-n>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" OPEN FILES IN DIRECTORY OF CURRENT FILE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-cnoremap %% <C-R>=expand('%:h').'/'<CR>
-"map <leader>e :edit %%
-"map <leader>v :view %%
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! RenameFile()
@@ -504,54 +482,6 @@ function! PromoteToLet()
 endfunction
 :command! PromoteToLet :call PromoteToLet()
 :map <leader>l :PromoteToLet<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" EXTRACT VARIABLE (SKETCHY)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! ExtractVariable()
-    let name = input("Variable name: ")
-    if name == ''
-        return
-    endif
-    " Enter visual mode (not sure why this is needed since we're already in
-    " visual mode anyway)
-    normal! gv
-
-    " Replace selected text with the variable name
-    exec "normal c" . name
-    " Define the variable on the line above
-    exec "normal! O" . name . " = "
-    " Paste the original selected text to be the variable value
-    normal! $p
-endfunction
-vnoremap <leader>rv :call ExtractVariable()<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" INLINE VARIABLE (SKETCHY)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! InlineVariable()
-    " Copy the variable under the cursor into the 'a' register
-    :let l:tmp_a = @a
-    :normal "ayiw
-    " Delete variable and equals sign
-    :normal 2daW
-    " Delete the expression into the 'b' register
-    :let l:tmp_b = @b
-    :normal "bd$
-    " Delete the remnants of the line
-    :normal dd
-    " Go to the end of the previous line so we can start our search for the
-    " usage of the variable to replace. Doing '0' instead of 'k$' doesn't
-    " work; I'm not sure why.
-    normal k$
-    " Find the next occurence of the variable
-    exec '/\<' . @a . '\>'
-    " Replace that occurence with the text we yanked
-    exec ':.s/\<' . @a . '\>/' . @b
-    :let @a = l:tmp_a
-    :let @b = l:tmp_b
-endfunction
-nnoremap <leader>ri :call InlineVariable()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MAPS TO JUMP TO SPECIFIC CtrlP TARGETS AND FILES
@@ -591,6 +521,95 @@ map <leader>F :CtrlPClearCache<CR>\|:CtrlP %%<CR>
 map <leader>z z5<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" OpenChangedFiles COMMAND
+" Open a split for each dirty file in git
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! OpenChangedFiles()
+  only " Close all windows, unless they're modified
+  let status = system('git status -s | grep "^ \?\(M\|A\|UU\)" | sed "s/^.\{3\}//"')
+  let filenames = split(status, "\n")
+  exec "edit " . filenames[0]
+  for filename in filenames[1:]
+    exec "sp " . filename
+  endfor
+endfunction
+command! OpenChangedFiles :call OpenChangedFiles()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" allow multiple indentation/deindentation in visual mode
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+vnoremap < <gv
+vnoremap > >gv
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Interact with GUI clipboard
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set clipboard=unnamed
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MULTIPURPOSE TAB KEY
+" Indent if we're at the beginning of a line. Else, do completion.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" function! InsertTabWrapper()
+"     let col = col('.') - 1
+"     if !col || getline('.')[col - 1] !~ '\k'
+"         return "\<tab>"
+"     else
+"         return "\<C-p>"
+"     endif
+" endfunction
+" inoremap <tab> <C-r>=InsertTabWrapper()<CR>
+" inoremap <s-tab> <C-n>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" EXTRACT VARIABLE (SKETCHY)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" function! ExtractVariable()
+"     let name = input("Variable name: ")
+"     if name == ''
+"         return
+"     endif
+"     " Enter visual mode (not sure why this is needed since we're already in
+"     " visual mode anyway)
+"     normal! gv
+
+"     " Replace selected text with the variable name
+"     exec "normal c" . name
+"     " Define the variable on the line above
+"     exec "normal! O" . name . " = "
+"     " Paste the original selected text to be the variable value
+"     normal! $p
+" endfunction
+" vnoremap <leader>rv :call ExtractVariable()<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" INLINE VARIABLE (SKETCHY)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" function! InlineVariable()
+"     " Copy the variable under the cursor into the 'a' register
+"     :let l:tmp_a = @a
+"     :normal "ayiw
+"     " Delete variable and equals sign
+"     :normal 2daW
+"     " Delete the expression into the 'b' register
+"     :let l:tmp_b = @b
+"     :normal "bd$
+"     " Delete the remnants of the line
+"     :normal dd
+"     " Go to the end of the previous line so we can start our search for the
+"     " usage of the variable to replace. Doing '0' instead of 'k$' doesn't
+"     " work; I'm not sure why.
+"     normal k$
+"     " Find the next occurence of the variable
+"     exec '/\<' . @a . '\>'
+"     " Replace that occurence with the text we yanked
+"     exec ':.s/\<' . @a . '\>/' . @b
+"     :let @a = l:tmp_a
+"     :let @b = l:tmp_b
+" endfunction
+" nnoremap <leader>ri :call InlineVariable()<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SWITCH BETWEEN TEST AND PRODUCTION CODE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " function! OpenTestAlternate()
@@ -619,32 +638,6 @@ map <leader>z z5<CR>
 "   return new_file
 " endfunction
 " nnoremap <leader>. :call OpenTestAlternate()<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" OpenChangedFiles COMMAND
-" Open a split for each dirty file in git
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! OpenChangedFiles()
-  only " Close all windows, unless they're modified
-  let status = system('git status -s | grep "^ \?\(M\|A\|UU\)" | sed "s/^.\{3\}//"')
-  let filenames = split(status, "\n")
-  exec "edit " . filenames[0]
-  for filename in filenames[1:]
-    exec "sp " . filename
-  endfor
-endfunction
-command! OpenChangedFiles :call OpenChangedFiles()
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" allow multiple indentation/deindentation in visual mode
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-vnoremap < <gv
-vnoremap > >gv
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Interact with GUI clipboard
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set clipboard=unnamed
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Addons Settings
