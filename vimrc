@@ -1,8 +1,10 @@
-" Base on Gary Bernhardt's .vimrc file
-" Use CtrlP instead of CommandT
-"
+" By Taian Su
+" http://blog.taian.su
+" You can do what ever you want with this.
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Setting up Vim Addon Manager
+" Vim Addon Manager 插件管理
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible | filetype indent plugin on | syn on
 
@@ -19,7 +21,12 @@ fun! SetupVAM()
         \       shellescape(c.plugin_root_dir.'/vim-addon-manager', 1)
   endif
 
+
+  " 在底下列出想用的 plugin。
+  " 格式為 \ "github:#{user name}/#{plugin name}",
+  " 空行之後是各種語言的 syntax
   " Tell VAM which plugins to fetch & load:
+
   call vam#ActivateAddons([
   \ "github:ervandew/supertab",
   \ "github:kien/ctrlp.vim",
@@ -28,19 +35,21 @@ fun! SetupVAM()
   \ "github:tpope/vim-endwise",
   \ "github:tpope/vim-repeat",
   \ "github:tpope/vim-surround",
+  \ "github:tpope/vim-rails",
+  \ "github:tpope/vim-unimpaired",
   \ "github:rking/ag.vim",
   \ "github:bling/vim-airline",
   \ "github:majutsushi/tagbar",
-  \ "github:tpope/vim-rails",
-  \ "github:tpope/vim-unimpaired",
   \ "github:taiansu/InTermsOf.vim",
   \ "github:t9md/vim-ruby-xmpfilter",
   \ "github:myusuf3/numbers.vim",
   \ "github:itspriddle/vim-marked",
   \ "github:junegunn/vim-easy-align",
   \ "github:kana/vim-submode",
-  \ "github:marijnh/tern_for_vim",
+  \
   \ "github:tpope/vim-haml",
+  \ "github:tpope/vim-markdown",
+  \ "github:marijnh/tern_for_vim",
   \ "github:kchmck/vim-coffee-script",
   \ "github:nono/vim-handlebars",
   \ "github:gkz/vim-ls",
@@ -48,21 +57,20 @@ fun! SetupVAM()
   \ "github:slim-template/vim-slim",
   \ "github:vim-scripts/VimClojure",
   \ "github:elixir-lang/vim-elixir",
-  \ "github:tpope/vim-markdown",
   \ "github:golangtw/go.vim",
   \ "github:golangtw/gocode.vim",
   \ "github:jstemmer/gotags",
   \ "github:othree/yajs.vim",
   \ "github:vim-ruby/vim-ruby",
+  \ "matchit.zip",
   \], {'auto_install' : 1})
   " - (<c-x><c-p> complete plugin names):
 endfun
 
 call SetupVAM()
-VAMActivate matchit.zip
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ENCODING SETTINGS
+" 編碼設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set encoding=utf-8
 set termencoding=utf-8
@@ -72,6 +80,8 @@ set ffs=unix,mac,dos
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SYNTAX HIGHLIGHT FIX
+" 超過 1024 column 或 256 行時停止語法上色，否則 MacVim 會停頓
+" 第 81 個字元底色提醒
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set synmaxcol=1024
 syntax sync minlines=256
@@ -81,6 +91,7 @@ call matchadd('ColorColumn', '\%81v', 100)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
+" 基本設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
@@ -167,14 +178,17 @@ set eadirection=both
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CONFIG WITH OPINION
+" Leader 鍵, 這裡設成空白鍵
+" Tab 長度，這裡設為兩個空白
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader="\<space>"
+let mapleader="\<space>" "you may like "," or "\"
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SHOW INVISIBLES
+" 顯示換行符及空白
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcut to rapidly toggle `set list`
 nmap <leader>l :set list!<CR>
@@ -184,6 +198,7 @@ set listchars=tab:▸\ ,eol:¬
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Change CursorShape in iTerm2
+" Terminal Vim 的游標形狀
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
@@ -205,7 +220,11 @@ function! SwitchTheme(theme_type)
     set foldcolumn=12
     set linespace=5
     set background=light
-    :colorscheme iawriter
+    if has("gui_running")
+      :colorscheme iawriter
+    else
+      :colorscheme Tomorrow-Night
+    endif
     let g:current_theme = "focus"
     :redraw
   elseif a:theme_type == "presentation"
@@ -240,8 +259,6 @@ function! SwitchTheme(theme_type)
 endfunction
 
 function! ToggleGutters()
-  :SignatureToggleSigns
-  :SignifyToggle
 endfunction
 
 function! ToggleFocus()
@@ -318,7 +335,9 @@ augroup vimrcEx
   "for python and java, autoindent with four spaces, always expand tabs
   autocmd FileType python,java,c set ai sw=4 sts=4 et
 
-  " Don't syntax highlight markdown because it's often wrong
+  " Markdown syntax highlight is often wrong
+  " you might like to disable it.
+  " Markdown 的語法上色常常會錯，移除註解可以停止上色
   " autocmd! FileType mkd,md setlocal syn=off
 
   " Enable omni completion. (Ctrl-X Ctrl-O)
@@ -361,6 +380,7 @@ endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TRAILING WHITE SPACES
+" <leader>c 快速移除行尾空白
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! TrailingWhiteSpaces()
   nmap <leader>c :%s/\s\+$//e<CR>
@@ -369,6 +389,7 @@ call TrailingWhiteSpaces()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fix Ruby Hash Syntax
+" 把 Ruby 的 Hash rocket ( => ) 語法換成 :
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! FixRubyHashSyntax()
   nmap <leader>u :%s/:\(\w*\)\(\s*\)=> /\1:\2/gc<CR>
@@ -390,13 +411,13 @@ map! <C-e>     <End>
 " paste, but without put them into the yank ring.
 map <leader>y "*y
 
-" Insert a hash rocket with <C-g>
-imap <C-g> <space>=><space>
+" Insert a hash rocket with <C-t>
+imap <C-t> <space>=><space>
 " Insert an arrow with <C-f> & <C-d>
 imap <C-f> <space>->
 imap <C-d> <space><-<space>
 
-" Clear the search buffer when hitting return
+" Clear the search buffer with <leader>v
 function! MapNoHighlight()
   map <leader>v :nohlsearch<CR>
 endfunction
@@ -531,6 +552,7 @@ command! OpenChangedFiles :call OpenChangedFiles()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " allow multiple indentation/deindentation in visual mode
+" > 及 < 可以縮排多次
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 vnoremap < <gv
 vnoremap > >gv
@@ -542,6 +564,7 @@ set clipboard=unnamed
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Addons Settings
+" 插件設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " --- Numbers.vim
 nnoremap <C-n> :NumbersToggle<CR>
