@@ -76,8 +76,8 @@ set ffs=unix,mac,dos
 set synmaxcol=1024
 syntax sync minlines=256
 noremap <F8> <Esc>:syntax sync fromstart<CR>:set synmaxcol=
-" let &colorcolumn=join(range(81,1024),",")
-set colorcolumn=80
+" set colorcolumn=80
+call matchadd('ColorColumn', '\%81v', 100)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
@@ -205,7 +205,6 @@ function! SwitchTheme(theme_type)
     set foldcolumn=12
     set linespace=5
     set background=light
-    set colorcolumn=
     :colorscheme iawriter
     let g:current_theme = "focus"
     :redraw
@@ -219,14 +218,12 @@ function! SwitchTheme(theme_type)
     set guioptions+=e
     set guitablabel=%M\ %t
     set number
-    set colorcolumn=
     let g:current_theme = "presentation"
   else
     set gfn=Source\ Code\ Pro\ Light:h16
     set foldcolumn=0
     set background=dark
     set linespace=3
-    set colorcolumn=80
     if has("gui_running")
         set guioptions-=T
         set guioptions+=e
