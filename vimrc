@@ -28,7 +28,9 @@ fun! SetupVAM()
   " Tell VAM which plugins to fetch & load:
 
   call vam#ActivateAddons([
-  \ "github:ervandew/supertab",
+  \ "github:Valloric/YouCompleteMe",
+  \ "github:SirVer/ultisnips",
+  \ "github:taiansu/vim-snippets",
   \ "github:kien/ctrlp.vim",
   \ "github:tpope/vim-fugitive",
   \ "github:tpope/vim-commentary",
@@ -652,6 +654,17 @@ autocmd FileType ruby imap <buffer> <leader>x <Plug>(seeing_is_believing-run)
 
 " --- vim-easy-align
 vnoremap <silent><Enter> :EasyAlign<CR>
+
+" --- YouCompleteMe
+" Remember compile YouComPleteMe in plugin directory
+
+" --- UltiSnips
+let g:UltiSnipsExpandTrigger="<C-j>"
+" let g:UltiSnipsJumpForwardTrigger="<C-n>"
+" let g:UltiSnipsJumpBackwardTrigger="<C-p>"
+
+" --- tern_for_vim
+" Remember run npm install in plugin directory
 
 " --- gotags
 let g:tagbar_type_go = {
