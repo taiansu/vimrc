@@ -332,7 +332,7 @@ augroup vimrcEx
   autocmd! BufNewFile,BufRead *.scss,*.sass     set ft=scss.css
   autocmd! Bufread,BufNewFile *.md              set ft=markdown
   autocmd! Bufread,BufNewFile *.ex              set ft=elixir
-  autocmd  BufNewFile,BufRead *.ruby            set filetype=ruby
+  autocmd  BufNewFile,BufRead *.ruby            set ft=ruby
 
   "for python and java, autoindent with four spaces, always expand tabs
   autocmd FileType python,java,c set ai sw=4 sts=4 et
@@ -348,10 +348,10 @@ augroup vimrcEx
   autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
   autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-  autocmd FileType ruby compiler ruby
   autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
   autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
   autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+  autocmd FileType ruby compiler ruby
 
   " Leave the return key alone when in command line windows, since it's used
   " to run commands there.
