@@ -48,6 +48,7 @@ fun! SetupVAM()
   \ "github:itspriddle/vim-marked",
   \ "github:junegunn/vim-easy-align",
   \ "github:kana/vim-submode",
+  \ "github:mattn/gist-vim",
   \
   \ "github:tpope/vim-haml",
   \ "github:tpope/vim-markdown",
@@ -665,6 +666,9 @@ let g:UltiSnipsExpandTrigger="<C-j>"
 
 " --- tern_for_vim
 " Remember run npm install in plugin directory
+
+" --- gist-vim
+let g:gist_clip_command = 'pbcopy'
 
 " --- gotags
 let g:tagbar_type_go = {
