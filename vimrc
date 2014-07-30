@@ -48,6 +48,7 @@ fun! SetupVAM()
   \ "github:itspriddle/vim-marked",
   \ "github:junegunn/vim-easy-align",
   \ "github:kana/vim-submode",
+  \ "github:mattn/webapi-vim",
   \ "github:mattn/gist-vim",
   \
   \ "github:tpope/vim-haml",
@@ -439,6 +440,7 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
+nnoremap <leader>o <C-w>w
 
 nnoremap s <Nop>
 nnoremap sj <C-w>j
