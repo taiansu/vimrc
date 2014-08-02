@@ -28,6 +28,7 @@ fun! SetupVAM()
   " Tell VAM which plugins to fetch & load:
 
   call vam#ActivateAddons([
+  \ "github:scrooloose/nerdtree",
   \ "github:Valloric/YouCompleteMe",
   \ "github:SirVer/ultisnips",
   \ "github:taiansu/vim-snippets",
@@ -539,6 +540,7 @@ map <leader>b :CtrlPClearCache<CR>\|:CtrlPBufTag<CR>
 map <leader>f :CtrlPClearCache<CR>\|:CtrlP<CR>
 map <leader>F :CtrlPClearCache<CR>\|:CtrlP %%<CR>
 map <leader>z z5<CR>
+nnoremap <leader>s :buffers<CR>:buffer<Space>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " OpenChangedFiles COMMAND
@@ -668,6 +670,10 @@ let g:UltiSnipsExpandTrigger="<C-j>"
 
 " --- tern_for_vim
 " Remember run npm install in plugin directory
+"
+
+" -- Nerdtree
+let g:NERDTreeHijackNetrw = 1
 
 " --- gist-vim
 let g:gist_clip_command = 'pbcopy'
