@@ -679,6 +679,7 @@ let g:UltiSnipsExpandTrigger="<C-j>"
 "
 
 " -- Nerdtree
+" use e. or se. or vs. to open file explorer in certain split
 let g:NERDTreeHijackNetrw = 1
 
 " --- gist-vim
