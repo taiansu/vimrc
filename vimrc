@@ -686,6 +686,23 @@ let g:NERDTreeHijackNetrw = 1
 let g:gist_clip_command = 'pbcopy'
 map <F8> :Gist -P
 
+" --- InTermsOf.vim
+" key for changing the target_tty and rails_preloader
+map <leader><C-e> :let g:rails_preloader="spring"
+
+",er stand for repeat
+map <leader>er :call intermsof#repeatPreviousExecution()<cr>
+",ec for run current file
+map <leader>ef :call intermsof#runCurrentFile()<cr>
+",ee stand for run current line
+map <leader>ee :call intermsof#runCurrentLine()<cr>
+",ea stand for run all specs
+map <leader>ea :call intermsof#runAll()<cr>
+",ed for clear the terminal screen
+map <leader>ed :call intermsof#clearScreen()<cr>
+
+"
+
 " --- gotags
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
