@@ -376,9 +376,11 @@ function! QuickFileType(file_type)
     elseif l:file_type == 'r'
         let l:file_type = 'ruby'
     elseif l:file_type == 'e'
-        let l:file_type = 'eruby'
+        let l:file_type = 'elixir'
     elseif l:file_type == 'h'
         let l:file_type = 'html'
+    elseif l:file_type == 'm'
+        let l:file_type = 'markdown'
     endif
     exec "setf ".l:file_type
 endfunction
@@ -422,8 +424,10 @@ map! <C-e>     <End>
 " paste, but without put them into the yank ring.
 map <leader>y "*y
 
-" Insert a hash rocket with <C-t>
-imap <C-t> <space>=><space>
+" Insert a hash rocket with <C-g> & <C-t>
+imap <C-g> <space>=><space>
+imap <C-t> <space><=<space>
+
 " Insert an arrow with <C-f> & <C-d>
 imap <C-f> <space>->
 imap <C-d> <space><-<space>
