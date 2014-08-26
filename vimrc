@@ -334,7 +334,7 @@ augroup vimrcEx
   autocmd  BufNewFile,BufRead *.coffee          set ft=coffee
   autocmd! BufNewFile,BufRead *.scss,*.sass     set ft=scss.css
   autocmd! Bufread,BufNewFile *.md              set ft=markdown
-  autocmd! Bufread,BufNewFile *.ex              set ft=elixir
+  autocmd! Bufread,BufNewFile *.ex, *.exs       set ft=elixir
   autocmd  BufNewFile,BufRead *.ruby            set ft=ruby
 
   "for python and java, autoindent with four spaces, always expand tabs
