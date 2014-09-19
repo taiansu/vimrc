@@ -65,7 +65,6 @@ fun! SetupVAM()
   \ "github:golangtw/gocode.vim",
   \ "github:fatih/vim-go",
   \ "github:jstemmer/gotags",
-  \ "github:othree/yajs.vim",
   \ "github:vim-ruby/vim-ruby",
   \ "matchit.zip",
   \], {'auto_install' : 1})
