@@ -652,9 +652,9 @@ autocmd FileType ruby nmap <buffer> <D-k> <Plug>(seeing_is_believing-mark)
 autocmd FileType ruby xmap <buffer> <D-k> <Plug>(seeing_is_believing-mark)
 autocmd FileType ruby imap <buffer> <D-k> <Plug>(seeing_is_believing-mark)
 
-autocmd FileType ruby nmap <buffer> <D-r> <Plug>(seeing_is_believing-clean)
-autocmd FileType ruby xmap <buffer> <D-r> <Plug>(seeing_is_believing-clean)
-autocmd FileType ruby imap <buffer> <D-r> <Plug>(seeing_is_believing-clean)
+autocmd FileType ruby nmap <buffer> <D-u> <Plug>(seeing_is_believing-clean)
+autocmd FileType ruby xmap <buffer> <D-u> <Plug>(seeing_is_believing-clean)
+autocmd FileType ruby imap <buffer> <D-u> <Plug>(seeing_is_believing-clean)
 
 " xmpfilter compatible
 autocmd FileType ruby nmap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
@@ -679,7 +679,6 @@ let g:UltiSnipsExpandTrigger="<C-j>"
 
 " --- tern_for_vim
 " Remember run npm install in plugin directory
-"
 
 " -- Nerdtree
 " use e. or se. or vs. to open file explorer in certain split
@@ -703,8 +702,6 @@ map <leader>ee :call intermsof#runCurrentLine()<cr>
 map <leader>ea :call intermsof#runAll()<cr>
 ",ed for clear the terminal screen
 map <leader>ed :call intermsof#clearScreen()<cr>
-
-"
 
 " --- gotags
 let g:tagbar_type_go = {
