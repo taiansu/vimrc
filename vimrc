@@ -594,11 +594,7 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_extensions = ['buffertag']
 
 " exclude directories or files from the search
-let g:ctrlp_custom_ignore = {
-\ 'dir':  '\.git$\|\.hg$\|\.svn$',
-\ 'file': '\.exe$\|\.so$\|\.dll$',
-\ 'link': 'some_bad_symbolic_links',
-\ }
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|DS_Store)|(\.(swp|ico|git|hg|svn|exe|so|dll))$'
 
 " --- JavaScript Syntax
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
