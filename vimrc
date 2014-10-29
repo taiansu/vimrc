@@ -87,10 +87,11 @@ set ffs=unix,mac,dos
 " 超過 1024 column 或 256 行時停止語法上色，否則 MacVim 會頓
 " 第 81 個字元底色提醒
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set synmaxcol=1024
-syntax sync minlines=256
-noremap <F5> <Esc>:syntax sync fromstart<CR>:set synmaxcol=
-" set colorcolumn=80
+set synmaxcol=256
+set ttyfast
+set ttyscroll=3
+set lazyredraw
+syntax sync minlines=50
 call matchadd('ColorColumn', '\%81v', 100)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
