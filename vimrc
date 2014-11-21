@@ -54,7 +54,8 @@ fun! SetupVAM()
   \
   \ "github:tpope/vim-haml",
   \ "github:tpope/vim-markdown",
-  \ "github:marijnh/tern_for_vim",
+  \ "github:pangloss/vim-javascript",
+  \ "github:mxw/vim-jsx",
   \ "github:kchmck/vim-coffee-script",
   \ "github:nono/vim-handlebars",
   \ "github:gkz/vim-ls",
