@@ -180,6 +180,7 @@ set winheight=5
 set winminheight=5
 set equalalways
 set eadirection=both
+set textwidth=80
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CONFIG WITH OPINION
