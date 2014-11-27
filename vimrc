@@ -676,16 +676,14 @@ let g:UltiSnipsExpandTrigger="<C-j>"
 " let g:UltiSnipsJumpForwardTrigger="<C-n>"
 " let g:UltiSnipsJumpBackwardTrigger="<C-p>"
 
-" --- tern_for_vim
-" Remember run npm install in plugin directory
-
 " -- Nerdtree
-" use e. or se. or vs. to open file explorer in certain split
+" use e. or vs. to open file explorer in certain split
 let g:NERDTreeHijackNetrw = 1
+map <leader>t :NERDTreeToggle
 
 " --- gist-vim
 let g:gist_clip_command = 'pbcopy'
-map <F8> :Gist -P
+map <leader>i :Gist -P
 
 " --- InTermsOf.vim
 " key for changing the target_tty and rails_preloader
