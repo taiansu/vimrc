@@ -536,23 +536,19 @@ function! ShowRoutes()
   :normal dd
 endfunction
 
-map <leader>gR :call ShowRoutes()<CR>
-map <leader>gv :CtrlPClearCache<CR>\|:CtrlP app/views<CR>
-map <leader>gc :CtrlPClearCache<CR>\|:CtrlP app/controllers<CR>
-map <leader>gm :CtrlPClearCache<CR>\|:CtrlP app/models<CR>
-map <leader>gh :CtrlPClearCache<CR>\|:CtrlP app/helpers<CR>
-map <leader>ga :CtrlPClearCache<CR>\|:CtrlP app/assets<CR>
-map <leader>gs :CtrlPClearCache<CR>\|:CtrlP spec/<CR>
-map <leader>gl :CtrlPClearCache<CR>\|:CtrlP lib<CR>
-map <leader>gp :CtrlPClearCache<CR>\|:CtrlP public<CR>
-map <leader>gf :CtrlPClearCache<CR>\|:CtrlP features<CR>
-map <leader>gr :topleft :split config/routes.rb<CR>
-map <leader>gg :topleft 100 :split Gemfile<CR>
-map <leader>b :CtrlPClearCache<CR>\|:CtrlPBufTag<CR>
-map <leader>f :CtrlPClearCache<CR>\|:CtrlP<CR>
-map <leader>F :CtrlPClearCache<CR>\|:CtrlP %%<CR>
-map <leader>z z5<CR>
-nnoremap <leader>s :buffers<CR>:buffer<Space>
+map <leader>fR :call ShowRoutes()<CR>
+map <leader>fv :CtrlPClearCache<CR>\|:CtrlP app/views<CR>
+map <leader>fc :CtrlPClearCache<CR>\|:CtrlP app/controllers<CR>
+map <leader>fm :CtrlPClearCache<CR>\|:CtrlP app/models<CR>
+map <leader>fh :CtrlPClearCache<CR>\|:CtrlP app/helpers<CR>
+map <leader>fa :CtrlPClearCache<CR>\|:CtrlP app/assets<CR>
+map <leader>fs :CtrlPClearCache<CR>\|:CtrlP spec/<CR>
+map <leader>fl :CtrlPClearCache<CR>\|:CtrlP lib<CR>
+map <leader>fr :topleft :split config/routes.rb<CR>
+map <leader>fg :topleft 100 :split Gemfile<CR>
+map <leader>fb :CtrlPClearCache<CR>\|:CtrlPBufTag<CR>
+map <leader>ff :CtrlPClearCache<CR>\|:CtrlP<CR>
+map <leader>fF :CtrlPClearCache<CR>\|:CtrlP %%<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " OpenChangedFiles COMMAND
@@ -679,11 +675,14 @@ let g:UltiSnipsExpandTrigger="<C-j>"
 " -- Nerdtree
 " use e. or vs. to open file explorer in certain split
 let g:NERDTreeHijackNetrw = 1
-map <leader>t :NERDTreeToggle
+map <leader>t :NERDTreeToggle<CR>
 
 " --- gist-vim
 let g:gist_clip_command = 'pbcopy'
-map <leader>i :Gist -P
+let g:gist_detect_filetype = 1
+let g:gist_open_browser_after_post = 1
+
+map <leader>g :Gist
 
 " --- InTermsOf.vim
 " key for changing the target_tty and rails_preloader
