@@ -387,11 +387,11 @@ function! QuickFileType(file_type)
     exec "setf ".l:file_type
 endfunction
 
-function WriteCreatingDirs()
+function! WriteCreatingDirs()
     execute ':silent !mkdir -p %:h'
     write
 endfunction
-command W call WriteCreatingDirs()
+command! W call WriteCreatingDirs()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TRAILING WHITE SPACES
