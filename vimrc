@@ -1,80 +1,73 @@
 " By Taian Su
 " http://blog.taian.su
 " You can do what ever you want with this.
-
+"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Setting up Vim Addon Manager
-" Vim Addon Manager 插件管理
+" Setup Vim-plug
+" Vim-plug 插件管理
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible | filetype indent plugin on | syn on
+call plug#begin('~/.vim/plugged')
 
-fun! SetupVAM()
-  let c = get(g:, 'vim_addon_manager', {})
-  let g:vim_addon_manager = c
-  let c.plugin_root_dir = expand('$HOME', 1) . '/.vim/vim-addons'
-  " most used options you may want to use:
-  " let c.log_to_buf = 1
-  " let c.auto_install = 0
-  let &rtp.=(empty(&rtp)?'':',').c.plugin_root_dir.'/vim-addon-manager'
-  if !isdirectory(c.plugin_root_dir.'/vim-addon-manager/autoload')
-    execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '
-        \       shellescape(c.plugin_root_dir.'/vim-addon-manager', 1)
+Plug 'kien/ctrlp.vim'
+Plug 'SirVer/ultisnips'
+Plug 'taiansu/vim-snippets'
+Plug 'scrooloose/nerdtree'
+Plug 'junegunn/vim-easy-align'
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'majutsushi/tagbar'
+Plug 'taiansu/InTermsOf.vim'
+Plug 'myusuf3/numbers.vim'
+Plug 'kana/vim-submode'
+Plug 'mattn/webapi-vim'
+Plug 'mattn/gist-vim'
+Plug 'vim-scripts/matchit.zip'
+Plug 'bling/vim-airline'
+
+
+function! BuildYCM(info)
+  " info is a dictionary with 3 fields
+  " - name:   name of the plugin
+  " - status: 'installed', 'updated', or 'unchanged'
+  " - force:  set on PlugInstall! or PlugUpdate!
+  if a:info.status == 'installed' || a:info.force
+    !./install.sh --clang-completer
   endif
+endfunction
 
+Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 
-  " 在底下列出想用的 plugin。
-  " 格式為 \ "github:#{user name}/#{plugin name}",
-  " 空行之後是各種語言的 syntax
-  " Tell VAM which plugins to fetch & load:
+" On-demand loading
+Plug 'rizzatti/dash.vim', {'on': ['Dash', 'DashKeywords']}
+Plug 'itspriddle/vim-marked', {'on': 'MarkedOpen', 'for': 'markdown'}
+Plug 'rking/ag.vim', {'on': 'Ag'}
 
-  call vam#ActivateAddons([
-  \ "github:scrooloose/nerdtree",
-  \ "github:scrooloose/syntastic",
-  \ "github:Valloric/YouCompleteMe",
-  \ "github:SirVer/ultisnips",
-  \ "github:taiansu/vim-snippets",
-  \ "github:kien/ctrlp.vim",
-  \ "github:tpope/vim-fugitive",
-  \ "github:tpope/vim-commentary",
-  \ "github:tpope/vim-endwise",
-  \ "github:tpope/vim-repeat",
-  \ "github:tpope/vim-surround",
-  \ "github:tpope/vim-rails",
-  \ "github:tpope/vim-unimpaired",
-  \ "github:rking/ag.vim",
-  \ "github:bling/vim-airline",
-  \ "github:majutsushi/tagbar",
-  \ "github:taiansu/InTermsOf.vim",
-  \ "github:t9md/vim-ruby-xmpfilter",
-  \ "github:myusuf3/numbers.vim",
-  \ "github:itspriddle/vim-marked",
-  \ "github:junegunn/vim-easy-align",
-  \ "github:kana/vim-submode",
-  \ "github:mattn/webapi-vim",
-  \ "github:mattn/gist-vim",
-  \ "github:rizzatti/dash.vim",
-  \
-  \ "github:tpope/vim-haml",
-  \ "github:tpope/vim-markdown",
-  \ "github:pangloss/vim-javascript",
-  \ "github:mxw/vim-jsx",
-  \ "github:kchmck/vim-coffee-script",
-  \ "github:nono/vim-handlebars",
-  \ "github:gkz/vim-ls",
-  \ "github:digitaltoad/vim-jade",
-  \ "github:slim-template/vim-slim",
-  \ "github:vim-scripts/VimClojure",
-  \ "github:elixir-lang/vim-elixir",
-  \ "github:golangtw/gocode.vim",
-  \ "github:fatih/vim-go",
-  \ "github:jstemmer/gotags",
-  \ "github:vim-ruby/vim-ruby",
-  \ "matchit.zip",
-  \], {'auto_install' : 1})
-  " - (<c-x><c-p> complete plugin names):
-endfun
+" Language specified
+Plug 'tpope/vim-haml', {'for': 'haml'}
+Plug 'nono/vim-handlebars', {'for': 'handlebars'}
+Plug 'tpope/vim-markdown', {'for': 'markdown'}
+Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
+Plug 'tpope/vim-rails', {'for': 'ruby'}
+Plug 't9md/vim-ruby-xmpfilter', {'for': 'ruby'}
+Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+Plug 'mxw/vim-jsx', {'for': 'javascript'}
+Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
+Plug 'gkz/vim-ls', {'for': 'ls'}
+Plug 'digitaltoad/vim-jade', {'for': 'jade'}
+Plug 'slim-template/vim-slim', {'for': 'slim'}
+Plug 'vim-scripts/VimClojure', {'for': 'clojure'}
+Plug 'elixir-lang/vim-elixir', {'for': 'elixir'}
+Plug 'golangtw/gocode.vim', {'for': 'go'}
+Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'jstemmer/gotags', {'for': 'go'}
 
-call SetupVAM()
+call plug#end()
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ENCODING SETTINGS
 " 編碼設定
@@ -605,7 +598,7 @@ let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
 let g:user_emmet_leader_key='<c-y>'
 
 " --- vim-marked
-nnoremap <leader>p :ToggleMarked!<CR>
+nnoremap <leader>p :MarkedOpen<CR>
 
 " --- vim-airline
 if !exists('g:airline_symbols')
