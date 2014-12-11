@@ -29,6 +29,7 @@ fun! SetupVAM()
 
   call vam#ActivateAddons([
   \ "github:scrooloose/nerdtree",
+  \ "github:scrooloose/syntastic",
   \ "github:Valloric/YouCompleteMe",
   \ "github:SirVer/ultisnips",
   \ "github:taiansu/vim-snippets",
@@ -51,6 +52,7 @@ fun! SetupVAM()
   \ "github:kana/vim-submode",
   \ "github:mattn/webapi-vim",
   \ "github:mattn/gist-vim",
+  \ "github:rizzatti/dash.vim",
   \
   \ "github:tpope/vim-haml",
   \ "github:tpope/vim-markdown",
@@ -726,3 +728,11 @@ map <leader>ee :call intermsof#runCurrentLine()<cr>
 map <leader>ea :call intermsof#runAll()<cr>
 ",ed for clear the terminal screen
 map <leader>ed :call intermsof#clearScreen()<cr>
+
+" --- Syntastic
+"let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+let g:syntastic_pupet_checkers=['puppetlint']
+nnoremap <C-w>e :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+
+" --- dash.vim
+map <leader>ds :Dash<cr>
