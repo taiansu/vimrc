@@ -421,13 +421,10 @@ map! <C-e>     <End>
 " paste, but without put them into the yank ring.
 map <leader>y "*y
 
-" Insert a hash rocket with <C-g> & <C-t>
-imap <C-g> <space>=><space>
-imap <C-t> <space><=<space>
-
-" Insert an arrow with <C-f> & <C-d>
-imap <C-f> <space>->
-imap <C-d> <space><-<space>
+"  Insert a hash rocket with <C-f>
+imap <C-f> <space>=><space>
+" Insert an arrow with <C-d>
+imap <C-d> <space>-><space>
 
 " Clear the search buffer with <leader>v
 function! MapNoHighlight()
