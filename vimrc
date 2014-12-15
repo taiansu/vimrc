@@ -49,7 +49,7 @@ Plug 'rking/ag.vim', {'on': 'Ag'}
 
 " Language specified
 Plug 'tpope/vim-haml', {'for': 'haml'}
-Plug 'nono/vim-handlebars', {'for': 'handlebars'}
+Plug 'nono/vim-handlebars', {'for': ['handlebars', 'handlebars.html'] }
 Plug 'tpope/vim-markdown', {'for': 'markdown'}
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
 Plug 'tpope/vim-rails', {'for': 'ruby'}
