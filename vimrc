@@ -41,31 +41,32 @@ function! BuildYCM(info)
   endif
 endfunction
 
-Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+Plug 'Valloric/YouCompleteMe',   { 'do': function('BuildYCM') }
 
 " On-demand loading
-Plug 'rizzatti/dash.vim', {'on': ['Dash', 'DashKeywords']}
-Plug 'itspriddle/vim-marked', {'on': 'MarkedOpen', 'for': 'markdown'}
-Plug 'rking/ag.vim', {'on': 'Ag'}
+Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords']}
+Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown'}
+Plug 'rking/ag.vim',             { 'on': 'Ag'}
 
 " Language specified
-Plug 'tpope/vim-haml', {'for': 'haml'}
-Plug 'nono/vim-handlebars', {'for': ['handlebars', 'handlebars.html'] }
-Plug 'tpope/vim-markdown', {'for': 'markdown'}
-Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
-Plug 'tpope/vim-rails', {'for': 'ruby'}
-Plug 't9md/vim-ruby-xmpfilter', {'for': 'ruby'}
-Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-Plug 'mxw/vim-jsx', {'for': 'javascript'}
-Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
-Plug 'gkz/vim-ls', {'for': 'ls'}
-Plug 'digitaltoad/vim-jade', {'for': 'jade'}
-Plug 'slim-template/vim-slim', {'for': 'slim'}
-Plug 'vim-scripts/VimClojure', {'for': 'clojure'}
-Plug 'elixir-lang/vim-elixir', {'for': 'elixir'}
-Plug 'golangtw/gocode.vim', {'for': 'go'}
-Plug 'fatih/vim-go', {'for': 'go'}
-Plug 'jstemmer/gotags', {'for': 'go'}
+Plug 'tpope/vim-haml',           { 'for': 'haml'}
+Plug 'nono/vim-handlebars',      { 'for': ['handlebars', 'handlebars.html'] }
+Plug 'tpope/vim-markdown',       { 'for': 'markdown'}
+Plug 'vim-ruby/vim-ruby',        { 'for': 'ruby'}
+Plug 'tpope/vim-rails',          { 'for': 'ruby'}
+Plug 't9md/vim-ruby-xmpfilter',  { 'for': 'ruby'}
+Plug 'pangloss/vim-javascript',  { 'for': 'javascript'}
+Plug 'mxw/vim-jsx',              { 'for': 'javascript'}
+Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'}
+Plug 'mtscout6/vim-cjsx',        { 'for': 'coffee.jsx'}
+Plug 'gkz/vim-ls',               { 'for': 'ls'}
+Plug 'digitaltoad/vim-jade',     { 'for': 'jade'}
+Plug 'slim-template/vim-slim',   { 'for': 'slim'}
+Plug 'vim-scripts/VimClojure',   { 'for': 'clojure'}
+Plug 'elixir-lang/vim-elixir',   { 'for': 'elixir'}
+Plug 'golangtw/gocode.vim',      { 'for': 'go'}
+Plug 'fatih/vim-go',             { 'for': 'go'}
+Plug 'jstemmer/gotags',          { 'for': 'go'}
 
 call plug#end()
 
