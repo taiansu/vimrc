@@ -30,7 +30,6 @@ Plug 'vim-scripts/matchit.zip'
 Plug 'bling/vim-airline'
 Plug 'kshenoy/vim-signature'
 
-
 function! BuildYCM(info)
   " info is a dictionary with 3 fields
   " - name:   name of the plugin
@@ -58,7 +57,7 @@ Plug 't9md/vim-ruby-xmpfilter',  { 'for': 'ruby'}
 Plug 'pangloss/vim-javascript',  { 'for': 'javascript'}
 Plug 'mxw/vim-jsx',              { 'for': 'javascript'}
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'}
-Plug 'mtscout6/vim-cjsx',        { 'for': 'coffee.jsx'}
+Plug 'mtscout6/vim-cjsx',        { 'for': 'coffee'}
 Plug 'gkz/vim-ls',               { 'for': 'ls'}
 Plug 'digitaltoad/vim-jade',     { 'for': 'jade'}
 Plug 'slim-template/vim-slim',   { 'for': 'slim'}
