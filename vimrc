@@ -95,6 +95,8 @@ call matchadd('ColorColumn', '\%81v', 100)
 " BASIC EDITING CONFIGURATION
 " 基本設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable highlighting for syntax
+syntax on
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
 " expand tab to space
@@ -148,8 +150,6 @@ set whichwrap+=<,>,h,l
 set showcmd
 " For regular expressions turn magic on
 set magic
-" Enable highlighting for syntax
-syntax on
 " Enable file type detection.
 " Use the default filetype settings, so that mail gets 'tw' set to 72,
 " 'cindent' is on in C files, etc.
@@ -184,7 +184,7 @@ set textwidth=80
 " Leader 鍵, 這裡設成空白鍵
 " Tab 長度，這裡設為兩個空白
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader="\<space>" "you may like "," or "\"
+let mapleader="\<space>" "you may like ',' or '\'
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
@@ -410,19 +410,16 @@ command! W call WriteCreatingDirs()
 " TRAILING WHITE SPACES
 " <leader>c 快速移除行尾空白
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! TrailingWhiteSpaces()
-  nmap <leader>c :%s/\s\+$//e<CR>
-endfunction
-call TrailingWhiteSpaces()
+
+command! TrailingWhiteSpaces %s/\s\+$//e
+nmap <leader>c :TrailingWhiteSpaces<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fix Ruby Hash Syntax
 " 把 Ruby 的 Hash rocket ( => ) 語法換成 :
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! FixRubyHashSyntax()
-  nmap <leader>u :%s/:\(\w*\)\(\s*\)=> /\1:\2/gc<CR>
-endfunction
-call FixRubyHashSyntax()
+
+command! FixRubyHash %s/:\(\w*\)\(\s*\)=> /\1:\2/gc
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASH LIKE KEYS FOR THE COMMANDLINE
@@ -453,7 +450,7 @@ call MapNoHighlight()
 imap <C-c> <esc>
 nnoremap <leader><leader> <C-^>
 " format json
-map <leader>j !python -m json.tool<CR>
+command! Json !python -m json.tool
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SPLIT MOTIONS
@@ -517,7 +514,6 @@ function! RenameFile()
     endif
 endfunction
 map <leader>n :call RenameFile()<CR>
-map <leader>m :!mkdir -p
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PROMOTE VARIABLE TO RSPEC LET
@@ -530,7 +526,6 @@ function! PromoteToLet()
   :normal ==
 endfunction
 :command! PromoteToLet :call PromoteToLet()
-:map <leader>l :PromoteToLet<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MAPS TO JUMP TO SPECIFIC CtrlP TARGETS AND FILES
@@ -715,7 +710,6 @@ autocmd FileType ruby imap <buffer> <leader>x <Plug>(seeing_is_believing-run)
 vnoremap <silent><Enter> :EasyAlign<CR>
 
 " --- YouCompleteMe
-" Remember compile YouComPleteMe in plugin directory
 
 " --- UltiSnips
 let g:UltiSnipsExpandTrigger="<C-j>"
@@ -755,4 +749,8 @@ let g:syntastic_pupet_checkers=['puppetlint']
 nnoremap <C-w>e :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 
 " --- dash.vim
-map <leader>ds :Dash<cr>
+map <leader>d :Dash<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Free leader keys: a b h i j k m r s u w z
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
