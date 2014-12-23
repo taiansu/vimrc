@@ -594,6 +594,12 @@ vnoremap > >gv
 set clipboard=unnamed
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Open with editors
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+command! Subl :silent !open -a /Applications/Sublime\ Text.app %
+command! Atom :silent !open -a /Applications/Atom.app %
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Addons Settings
 " 插件設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
