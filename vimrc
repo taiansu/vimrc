@@ -28,6 +28,7 @@ Plug 'mattn/webapi-vim'
 Plug 'mattn/gist-vim'
 Plug 'vim-scripts/matchit.zip'
 Plug 'bling/vim-airline'
+Plug 'kshenoy/vim-signature'
 
 
 function! BuildYCM(info)
