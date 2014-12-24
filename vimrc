@@ -741,15 +741,15 @@ map <leader>g :Gist
 map <leader><C-e> :let g:rails_preloader="spring"
 
 ",er stand for repeat
-map <leader>er :call intermsof#repeatPreviousExecution()<cr>
+map <leader>er :call intermsof#repeatPreviousExecution()<CR>
 ",ec for run current file
-map <leader>ef :call intermsof#runCurrentFile()<cr>
+map <leader>ef :call intermsof#runCurrentFile()<CR>
 ",ee stand for run current line
-map <leader>ee :call intermsof#runCurrentLine()<cr>
+map <leader>ee :call intermsof#runCurrentLine()<CR>
 ",ea stand for run all specs
-map <leader>ea :call intermsof#runAll()<cr>
+map <leader>ea :call intermsof#runAll()<CR>
 ",ed for clear the terminal screen
-map <leader>ed :call intermsof#clearScreen()<cr>
+map <leader>ed :call intermsof#clearScreen()<CR>
 
 " --- Syntastic
 let g:syntastic_pupet_checkers=['puppetlint']
@@ -758,7 +758,7 @@ let g:syntastic_coffee_coffeelint_args = '--file $HOME/.vim/lib/coffeelint.json'
 " Call :SyntasticToggleMode to passive, if you do so, use :nnoremap <C-w>e :SyntasticCheck<CR> for your convenience
 
 " --- dash.vim
-map <leader>d :Dash<cr>
+map <leader>d :Dash<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: a b h i j k m r s u w z
