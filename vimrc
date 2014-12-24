@@ -13,7 +13,6 @@ Plug 'SirVer/ultisnips'
 Plug 'taiansu/vim-snippets'
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/vim-easy-align'
-Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
@@ -41,6 +40,14 @@ function! BuildYCM(info)
 endfunction
 
 Plug 'Valloric/YouCompleteMe',   { 'do': function('BuildYCM') }
+
+function! InstallLints(info)
+  if a:info.status == 'installed' || a:info.force
+    !npm install -g coffeelint coffee-react-transform
+  endif
+endfunction
+
+Plug 'scrooloose/syntastic',     { 'do': function('InstallLints') }
 
 " On-demand loading
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords']}
@@ -745,9 +752,10 @@ map <leader>ea :call intermsof#runAll()<cr>
 map <leader>ed :call intermsof#clearScreen()<cr>
 
 " --- Syntastic
-"let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 let g:syntastic_pupet_checkers=['puppetlint']
-nnoremap <C-w>e :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+let g:syntastic_coffee_checkers=['coffeelint']
+let g:syntastic_coffee_coffeelint_args = '--file $HOME/.vim/lib/coffeelint.json'
+" Call :SyntasticToggleMode to passive, if you do so, use :nnoremap <C-w>e :SyntasticCheck<CR> for your convenience
 
 " --- dash.vim
 map <leader>d :Dash<cr>
