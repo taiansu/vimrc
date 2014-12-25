@@ -28,6 +28,7 @@ Plug 'mattn/gist-vim'
 Plug 'vim-scripts/matchit.zip'
 Plug 'bling/vim-airline'
 Plug 'kshenoy/vim-signature'
+Plug 'airblade/vim-gitgutter'
 
 function! BuildYCM(info)
   " info is a dictionary with 3 fields
