@@ -384,6 +384,9 @@ augroup vimrcEx
   " to run commands there.
   autocmd! CmdwinEnter * :unmap <CR>
   autocmd! CmdwinLeave * :call MapNoHighlight()
+
+  " Git commit message format
+  autocmd Filetype gitcommit setlocal spell textwidth=72
 augroup end
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
