@@ -667,7 +667,7 @@ nmap <leader>[ ysw[
 nmap <leader>< ysw<
 
 " --- tagbar
-nmap <leader>q :TagbarToggle<CR>
+nmap <leader>t :TagbarToggle<CR>
 
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
@@ -731,7 +731,7 @@ let g:UltiSnipsExpandTrigger="<C-j>"
 " -- Nerdtree
 " use e. or vs. to open file explorer in certain split
 let g:NERDTreeHijackNetrw = 1
-map <leader>t :NERDTreeToggle<CR>
+map <leader>q :NERDTreeToggle<CR>
 
 " --- gist-vim
 let g:gist_clip_command = 'pbcopy'
