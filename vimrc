@@ -255,7 +255,7 @@ function! SwitchTheme(theme_type)
     if exists("g:current_theme")
       set number
     endif
-    let g:airline_theme='bubblegum'
+    let g:airline_theme='jellybeans'
     colorscheme spacegray
   end
 
@@ -637,7 +637,7 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 
-let g:airline_theme='bubblegum'
+let g:airline_theme='jellybeans'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_symbols.branch = '⎇ '
