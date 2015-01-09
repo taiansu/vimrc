@@ -29,6 +29,8 @@ Plug 'vim-scripts/matchit.zip'
 Plug 'bling/vim-airline'
 Plug 'kshenoy/vim-signature'
 Plug 'airblade/vim-gitgutter'
+Plug 'ajh17/Spacegray.vim'
+Plug 'reedes/vim-colors-pencil'
 
 function! BuildYCM(info)
   " info is a dictionary with 3 fields
@@ -228,60 +230,55 @@ set t_Co=256 " 256 colors
 
 function! SwitchTheme(theme_type)
   if a:theme_type == "focus"
+    let g:current_theme = "focus"
     set gfn=Cousine:h16
     set foldcolumn=12
     set linespace=5
     set background=light
-    if has("gui_running")
-      :colorscheme iawriter
-    else
-      :colorscheme Tomorrow-Night
-    endif
-    let g:current_theme = "focus"
-    :redraw
+    let g:airline_theme='pencil'
+    colorscheme pencil
   elseif a:theme_type == "presentation"
-    :colorscheme iawriter
+    let g:current_theme = "presentation"
     set gfn=Source\ Code\ Pro\ Medium:h20
     set foldcolumn=0
     set linespace=3
     set background=light
-    set guioptions-=T
-    set guioptions+=e
-    set guitablabel=%M\ %t
     set number
-    let g:current_theme = "presentation"
+    let g:airline_theme='pencil'
+    colorscheme pencil
   else
+    let g:current_theme = "code"
     set gfn=Source\ Code\ Pro\ Light:h16
     set foldcolumn=0
     set background=dark
     set linespace=3
-    if has("gui_running")
-        set guioptions-=T
-        set guioptions+=e
-        set guitablabel=%M\ %t
-        :colorscheme base16-tomorrow
-    else
-        :colorscheme smyck
-    endif
     if exists("g:current_theme")
       set number
     endif
-    let g:current_theme = "code"
+    let g:airline_theme='bubblegum'
+    colorscheme spacegray
   end
-endfunction
 
-function! ToggleGutters()
+  if has("gui_running")
+      set guioptions-=T
+      set guioptions+=e
+      set guitablabel=%M\ %t
+  endif
+
+  :redraw
+
 endfunction
 
 function! ToggleFocus()
-  :call ToggleGutters()
   if g:current_theme == "code"
     :NumbersDisable
     :NumbersToggle
+    :GitGutterToggle
     :call SwitchTheme("focus")
   else
     :NumbersEnable
     :NumbersToggle
+    :GitGutterToggle
     :call SwitchTheme("code")
   end
 endfunction
@@ -354,15 +351,16 @@ augroup vimrcEx
 
 
   " make CSS omnicompletion work for SASS and SCSS
-  autocmd  BufNewFile,BufRead *.json            set ft=javascript
-  autocmd  BufNewFile,BufRead *.coffee          set ft=coffee
+  autocmd! BufNewFile,BufRead *.json            set ft=javascript
+  autocmd! BufNewFile,BufRead,BufEnter *.coffee set ft=coffee
+  autocmd! BufNewFile,BufRead,BufEnter *.ls     set ft=ls
   autocmd! BufNewFile,BufRead *.scss,*.sass     set ft=scss.css
   autocmd! Bufread,BufNewFile *.md              set ft=markdown
   autocmd! Bufread,BufNewFile *.ex,*.exs        set ft=elixir
-  autocmd  BufNewFile,BufRead *.ruby            set ft=ruby
+  autocmd! BufNewFile,BufRead *.ruby            set ft=ruby
 
   "for python and java, autoindent with four spaces, always expand tabs
-  autocmd FileType python,java,c set ai sw=4 sts=4 et
+  autocmd! FileType python,java,c set ai sw=4 sts=4 et
 
   " Markdown syntax highlight is often wrong
   " you might like to disable it.
