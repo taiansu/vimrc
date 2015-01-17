@@ -125,6 +125,7 @@ set laststatus=2
 set smarttab
 " make searches case-sensitive only if they contain upper-case characters
 set ignorecase smartcase
+set guicursor+=i:hor5-Cursor
 set guicursor+=a:blinkon0
 " highlight current line
 set cursorline
@@ -599,10 +600,10 @@ vnoremap > >gv
 set clipboard=unnamed
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Open with editors
+" Open with Applications
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-command! Subl :silent !open -a /Applications/Sublime\ Text.app %
-command! Atom :silent !open -a /Applications/Atom.app %
+
+map <leader>a :silent !open -a /Applications/
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Addons Settings
@@ -620,17 +621,16 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_extensions = ['buffertag']
 
 " exclude directories or files from the search
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|DS_Store)|(\.(swp|ico|git|hg|svn|exe|so|dll))$'
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|DS_Store)|(\.(swp|ico|git|hg|svn|exe|so|dll)|(\~))$'
 
 " --- JavaScript Syntax
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
-
 
 " --- emmet-vim
 let g:user_emmet_leader_key='<c-y>'
 
 " --- vim-marked
-nnoremap <leader>p :MarkedOpen<CR>
+command! Mo MarkedOpen
 
 " --- vim-airline
 if !exists('g:airline_symbols')
@@ -719,8 +719,6 @@ autocmd FileType ruby imap <buffer> <leader>x <Plug>(seeing_is_believing-run)
 " --- vim-easy-align
 vnoremap <silent><Enter> :EasyAlign<CR>
 
-" --- YouCompleteMe
-
 " --- UltiSnips
 let g:UltiSnipsExpandTrigger="<C-j>"
 " let g:UltiSnipsJumpForwardTrigger="<C-n>"
@@ -763,5 +761,5 @@ let g:syntastic_coffee_coffeelint_args = '--file $HOME/.vim/lib/coffeelint.json'
 map <leader>d :Dash<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: a b h i j k m r s u w z
+" Free leader keys: b h i j k m r s u w z
 """""""""""""""""""""""""""""""""""""""""""""""""""""
