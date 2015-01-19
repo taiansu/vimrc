@@ -423,7 +423,7 @@ command! W call WriteCreatingDirs()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 command! TrailingWhiteSpaces %s/\s\+$//e
-nmap <leader>c :TrailingWhiteSpaces<CR>
+nmap <leader>w :TrailingWhiteSpaces<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fix Ruby Hash Syntax
@@ -712,9 +712,9 @@ autocmd FileType ruby xmap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
 autocmd FileType ruby imap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
 
 " auto insert mark at appropriate spot.
-autocmd FileType ruby nmap <buffer> <leader>x <Plug>(seeing_is_believing-run)
-autocmd FileType ruby xmap <buffer> <leader>x <Plug>(seeing_is_believing-run)
-autocmd FileType ruby imap <buffer> <leader>x <Plug>(seeing_is_believing-run)
+" autocmd FileType ruby nmap <buffer> <leader>x <Plug>(seeing_is_believing-run)
+" autocmd FileType ruby xmap <buffer> <leader>x <Plug>(seeing_is_believing-run)
+" autocmd FileType ruby imap <buffer> <leader>x <Plug>(seeing_is_believing-run)
 
 " --- vim-easy-align
 vnoremap <silent><Enter> :EasyAlign<CR>
@@ -733,8 +733,6 @@ map <leader>q :NERDTreeToggle<CR>
 let g:gist_clip_command = 'pbcopy'
 let g:gist_detect_filetype = 1
 let g:gist_open_browser_after_post = 1
-
-map <leader>g :Gist
 
 " --- InTermsOf.vim
 " key for changing the target_tty and rails_preloader
@@ -761,5 +759,5 @@ let g:syntastic_coffee_coffeelint_args = '--file $HOME/.vim/lib/coffeelint.json'
 map <leader>d :Dash<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: b h i j k m r s u w z
+" Free leader keys: b c g h i j k m r s u x z
 """""""""""""""""""""""""""""""""""""""""""""""""""""
