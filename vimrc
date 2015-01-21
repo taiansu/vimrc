@@ -558,19 +558,17 @@ function! ShowRoutes()
   :normal dd
 endfunction
 
-map <leader>fR :call ShowRoutes()<CR>
+map <leader>fr :call ShowRoutes()<CR>
 map <leader>fv :CtrlPClearCache<CR>\|:CtrlP app/views<CR>
 map <leader>fc :CtrlPClearCache<CR>\|:CtrlP app/controllers<CR>
 map <leader>fm :CtrlPClearCache<CR>\|:CtrlP app/models<CR>
 map <leader>fh :CtrlPClearCache<CR>\|:CtrlP app/helpers<CR>
-map <leader>fa :CtrlPClearCache<CR>\|:CtrlP app/assets<CR>
-map <leader>fs :CtrlPClearCache<CR>\|:CtrlP spec/<CR>
+map <leader>ft :CtrlPClearCache<CR>\|:CtrlP spec/<CR>
 map <leader>fl :CtrlPClearCache<CR>\|:CtrlP lib<CR>
-map <leader>fr :topleft :split config/routes.rb<CR>
 map <leader>fg :topleft 100 :split Gemfile<CR>
 map <leader>fb :CtrlPClearCache<CR>\|:CtrlPBufTag<CR>
-map <leader>ff :CtrlPClearCache<CR>\|:CtrlP<CR>
-map <leader>fF :CtrlPClearCache<CR>\|:CtrlP %%<CR>
+map <leader>fa :CtrlPClearCache<CR>\|:CtrlP<CR>
+map <leader>ff :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " OpenChangedFiles COMMAND
