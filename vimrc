@@ -32,10 +32,6 @@ Plug 'airblade/vim-gitgutter'
 " Colorscheme
 Plug 'ajh17/Spacegray.vim'
 Plug 'reedes/vim-colors-pencil'
-Plug 'sickill/vim-sunburst'
-Plug 'freeo/vim-kalisi'
-Plug 'blerins/flattown'
-Plug 'CruizeMissile/Revolution.vim'
 Plug 'jordwalke/flatlandia'
 
 function! BuildYCM(info)
