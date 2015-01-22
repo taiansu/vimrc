@@ -673,7 +673,7 @@ nmap <leader>[ ysw[
 nmap <leader>< ysw<
 
 " --- tagbar
-nmap <leader>t :TagbarToggle<CR>
+nmap <leader>b :TagbarToggle<CR>
 
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
@@ -766,6 +766,6 @@ let g:syntastic_coffee_coffeelint_args = '--file $HOME/.vim/lib/coffeelint.json'
 " --- dash.vim
 map <leader>d :Dash<CR>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: b c g h i j k m r s u x z
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Free leader keys: c g i j k m p r s t u x z 1 2 3 4 5 6 7 8 9 0 - = | : > /
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
