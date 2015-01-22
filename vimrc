@@ -9,8 +9,7 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'kien/ctrlp.vim'
-Plug 'SirVer/ultisnips'
-Plug 'taiansu/vim-snippets'
+Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-fugitive'
@@ -56,6 +55,16 @@ Plug 'scrooloose/syntastic',     { 'do': function('InstallLints') }
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords']}
 Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown'}
 Plug 'rking/ag.vim',             { 'on': 'Ag'}
+
+" Lazy loading
+Plug 'SirVer/ultisnips',         { 'on': [] }
+Plug 'taiansu/vim-snippets',     { 'on': [] }
+
+augroup load_ultisnips
+  autocmd!
+  autocmd InsertEnter * call plug#load('ultisnips', 'vim-snippets')
+                     \| autocmd! load_ultisnips
+augroup END
 
 " Language specified
 Plug 'tpope/vim-haml',           { 'for': 'haml'}
@@ -642,6 +651,7 @@ let g:airline_symbols.branch = '⎇ '
 let g:airline_symbols.linenr = '¶ '
 let g:airline_detect_modified=1
 let g:airline#extensions#tagbar#enabled=1
+let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#syntastic#enabled=1
 
