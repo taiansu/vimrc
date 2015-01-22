@@ -651,7 +651,6 @@ let g:airline_symbols.branch = '⎇ '
 let g:airline_symbols.linenr = '¶ '
 let g:airline_detect_modified=1
 let g:airline#extensions#tagbar#enabled=1
-let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#syntastic#enabled=1
 
