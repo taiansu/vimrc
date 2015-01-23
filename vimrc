@@ -11,8 +11,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'kien/ctrlp.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'scrooloose/nerdtree'
-Plug 'junegunn/vim-easy-align'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
@@ -22,8 +20,6 @@ Plug 'majutsushi/tagbar'
 Plug 'taiansu/InTermsOf.vim'
 Plug 'myusuf3/numbers.vim'
 Plug 'kana/vim-submode'
-Plug 'mattn/webapi-vim'
-Plug 'mattn/gist-vim'
 Plug 'vim-scripts/matchit.zip'
 Plug 'bling/vim-airline'
 Plug 'kshenoy/vim-signature'
@@ -32,7 +28,6 @@ Plug 'airblade/vim-gitgutter'
 " Colorscheme
 Plug 'ajh17/Spacegray.vim'
 Plug 'reedes/vim-colors-pencil'
-Plug 'jordwalke/flatlandia'
 
 function! BuildYCM(info)
   " info is a dictionary with 3 fields
@@ -55,9 +50,13 @@ endfunction
 Plug 'scrooloose/syntastic',     { 'do': function('InstallLints') }
 
 " On-demand loading
+Plug 'tpope/vim-fugitive',       { 'on': ['Git', 'Gwrite', 'Gread', 'Gremove', 'Gmove', 'Gcommit', 'Gblame'] }
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords']}
 Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown'}
-Plug 'rking/ag.vim',             { 'on': 'Ag'}
+Plug 'rking/ag.vim',             { 'on': 'Ag' }
+Plug 'junegunn/vim-easy-align',  { 'on': 'EasyAlign' }
+Plug 'mattn/webapi-vim',         { 'on': 'Gist' }
+Plug 'mattn/gist-vim',           { 'on': 'Gist' }
 
 " Lazy loading
 Plug 'SirVer/ultisnips',         { 'on': [] }
@@ -72,6 +71,7 @@ augroup END
 " Language specified
 Plug 'tpope/vim-haml',           { 'for': 'haml'}
 Plug 'nono/vim-handlebars',      { 'for': ['handlebars', 'handlebars.html'] }
+Plug 'othree/html5.vim',         { 'for': 'html'}
 Plug 'mattn/emmet-vim',          { 'for': 'html' }
 Plug 'tpope/vim-markdown',       { 'for': 'markdown'}
 Plug 'vim-ruby/vim-ruby',        { 'for': 'ruby'}
@@ -80,8 +80,8 @@ Plug 't9md/vim-ruby-xmpfilter',  { 'for': 'ruby'}
 Plug 'pangloss/vim-javascript',  { 'for': 'javascript'}
 Plug 'mxw/vim-jsx',              { 'for': 'javascript'}
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'}
-Plug 'mtscout6/vim-cjsx',        { 'for': 'coffee'}
 Plug 'gkz/vim-ls',               { 'for': 'ls'}
+Plug 'mtscout6/vim-cjsx',        { 'for': ['coffee', 'ls'] }
 Plug 'digitaltoad/vim-jade',     { 'for': 'jade'}
 Plug 'slim-template/vim-slim',   { 'for': 'slim'}
 Plug 'vim-scripts/VimClojure',   { 'for': 'clojure'}
@@ -743,6 +743,8 @@ map <leader>q :NERDTreeToggle<CR>
 let g:gist_clip_command = 'pbcopy'
 let g:gist_detect_filetype = 1
 let g:gist_open_browser_after_post = 1
+" If using 2 factor authorization in github, write ~/.gist-vim with
+" token 1234567890yourApplicationTokenGenerated
 
 " --- InTermsOf.vim
 " key for changing the target_tty and rails_preloader
