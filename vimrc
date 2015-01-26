@@ -12,7 +12,6 @@ Plug 'kien/ctrlp.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -29,18 +28,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'ajh17/Spacegray.vim'
 Plug 'reedes/vim-colors-pencil'
 
-function! BuildYCM(info)
-  " info is a dictionary with 3 fields
-  " - name:   name of the plugin
-  " - status: 'installed', 'updated', or 'unchanged'
-  " - force:  set on PlugInstall! or PlugUpdate!
-  if a:info.status == 'installed' || a:info.force
-    !./install.sh --clang-completer
-  endif
-endfunction
-
-Plug 'Valloric/YouCompleteMe',   { 'do': function('BuildYCM') }
-
 function! InstallLints(info)
   if a:info.status == 'installed' || a:info.force
     !npm install -g coffeelint coffee-react-transform
@@ -51,44 +38,56 @@ Plug 'scrooloose/syntastic',     { 'do': function('InstallLints') }
 
 " On-demand loading
 Plug 'tpope/vim-fugitive',       { 'on': ['Git', 'Gwrite', 'Gread', 'Gremove', 'Gmove', 'Gcommit', 'Gblame'] }
-Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords']}
-Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown'}
+Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
+Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown' }
 Plug 'rking/ag.vim',             { 'on': 'Ag' }
 Plug 'junegunn/vim-easy-align',  { 'on': 'EasyAlign' }
 Plug 'mattn/webapi-vim',         { 'on': 'Gist' }
 Plug 'mattn/gist-vim',           { 'on': 'Gist' }
 
+
 " Lazy loading
+function! BuildYCM(info)
+  " info is a dictionary with 3 fields
+  " - name:   name of the plugin
+  " - status: 'installed', 'updated', or 'unchanged'
+  " - force:  set on PlugInstall! or PlugUpdate!
+  if a:info.status == 'installed' || a:info.force
+    !./install.sh --clang-completer
+  endif
+endfunction
+
+Plug 'tpope/vim-endwise',        { 'on': [] }
 Plug 'SirVer/ultisnips',         { 'on': [] }
 Plug 'taiansu/vim-snippets',     { 'on': [] }
+Plug 'Valloric/YouCompleteMe',   { 'on': [], 'do': function('BuildYCM') }
 
-augroup load_ultisnips
+augroup load_lazy_plugins
   autocmd!
-  autocmd InsertEnter * call plug#load('ultisnips', 'vim-snippets')
-                     \| autocmd! load_ultisnips
+  autocmd InsertEnter * call plug#load('vim-endwise', 'ultisnips', 'vim-snippets', 'YouCompleteMe')
+                     \| autocmd! load_lazy_plugins
 augroup END
 
 " Language specified
-Plug 'tpope/vim-haml',           { 'for': 'haml'}
+Plug 'tpope/vim-haml',           { 'for': 'haml' }
 Plug 'nono/vim-handlebars',      { 'for': ['handlebars', 'handlebars.html'] }
-Plug 'othree/html5.vim',         { 'for': 'html'}
+Plug 'othree/html5.vim',         { 'for': 'html' }
 Plug 'mattn/emmet-vim',          { 'for': 'html' }
-Plug 'tpope/vim-markdown',       { 'for': 'markdown'}
-Plug 'vim-ruby/vim-ruby',        { 'for': 'ruby'}
-Plug 'tpope/vim-rails',          { 'for': 'ruby'}
-Plug 't9md/vim-ruby-xmpfilter',  { 'for': 'ruby'}
-Plug 'pangloss/vim-javascript',  { 'for': 'javascript'}
-Plug 'mxw/vim-jsx',              { 'for': 'javascript'}
-Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'}
-Plug 'gkz/vim-ls',               { 'for': 'ls'}
+Plug 'tpope/vim-markdown',       { 'for': 'markdown' }
+Plug 'vim-ruby/vim-ruby',        { 'for': 'ruby' }
+Plug 't9md/vim-ruby-xmpfilter',  { 'for': 'ruby' }
+Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
+Plug 'mxw/vim-jsx',              { 'for': 'javascript' }
+Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+Plug 'gkz/vim-ls',               { 'for': 'ls' }
 Plug 'mtscout6/vim-cjsx',        { 'for': ['coffee', 'ls'] }
-Plug 'digitaltoad/vim-jade',     { 'for': 'jade'}
-Plug 'slim-template/vim-slim',   { 'for': 'slim'}
-Plug 'vim-scripts/VimClojure',   { 'for': 'clojure'}
-Plug 'elixir-lang/vim-elixir',   { 'for': 'elixir'}
-Plug 'golangtw/gocode.vim',      { 'for': 'go'}
-Plug 'fatih/vim-go',             { 'for': 'go'}
-Plug 'jstemmer/gotags',          { 'for': 'go'}
+Plug 'digitaltoad/vim-jade',     { 'for': 'jade' }
+Plug 'slim-template/vim-slim',   { 'for': 'slim' }
+Plug 'vim-scripts/VimClojure',   { 'for': 'clojure' }
+Plug 'elixir-lang/vim-elixir',   { 'for': 'elixir' }
+Plug 'golangtw/gocode.vim',      { 'for': 'go' }
+Plug 'fatih/vim-go',             { 'for': 'go' }
+Plug 'jstemmer/gotags',          { 'for': 'go' }
 
 call plug#end()
 
@@ -113,6 +112,10 @@ set ttyscroll=3
 set lazyredraw
 syntax sync minlines=50
 call matchadd('ColorColumn', '\%81v', 100)
+
+function! BreakLoneLine()
+  :s/\s<a/<C-v><CR><a
+endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
@@ -524,6 +527,37 @@ call submode#leave_with('undo/redo', 'n', '', '<Esc>')
 call submode#map('undo/redo', 'n', '', '-', 'g-')
 call submode#map('undo/redo', 'n', '', '+', 'g+')
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SWITCH BETWEEN TEST AND PRODUCTION CODE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! OpenTestAlternate()
+  let new_file = AlternateForCurrentFile()
+  exec ':e ' . new_file
+endfunction
+function! AlternateForCurrentFile()
+  let current_file = expand("%")
+  let new_file = current_file
+  let in_spec = match(current_file, '^spec/') != -1
+  let going_to_spec = !in_spec
+  let in_app = match(current_file, '\<controllers\>') != -1 || match(current_file, '\<models\>') != -1 || match(current_file, '\<views\>') != -1 || match(current_file, '\<helpers\>') != -1
+  if going_to_spec
+    if in_app
+      let new_file = substitute(new_file, '^app/', '', '')
+    end
+    let new_file = substitute(new_file, '\.e\?rb$', '_spec.rb', '')
+    let new_file = 'spec/' . new_file
+  else
+    let new_file = substitute(new_file, '_spec\.rb$', '.rb', '')
+    let new_file = substitute(new_file, '^spec/', '', '')
+    if in_app
+      let new_file = 'app/' . new_file
+    end
+  endif
+  return new_file
+endfunction
+nnoremap <leader>. :call OpenTestAlternate()<cr>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -553,31 +587,14 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MAPS TO JUMP TO SPECIFIC CtrlP TARGETS AND FILES
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! ShowRoutes()
-  " Requires 'scratch' plugin
-  :topleft 100 :split __Routes__
-  " Make sure Vim doesn't write __Routes__ as a file
-  :set buftype=nofile
-  " Delete everything
-  :normal 1GdG
-  " Put routes output in buffer
-  :0r! rake -s routes
-  " Size window to number of lines (1 plus rake output length)
-  :exec ":normal " . line("$") . "_ "
-  " Move cursor to bottom
-  :normal 1GG
-  " Delete empty trailing line
-  :normal dd
-endfunction
-
-map <leader>fr :call ShowRoutes()<CR>
+map <leader>fr :topleft :split config/routes.rb<CR>
+map <leader>fg :topleft 100 :split Gemfile<CR>
 map <leader>fv :CtrlPClearCache<CR>\|:CtrlP app/views<CR>
 map <leader>fc :CtrlPClearCache<CR>\|:CtrlP app/controllers<CR>
 map <leader>fm :CtrlPClearCache<CR>\|:CtrlP app/models<CR>
 map <leader>fh :CtrlPClearCache<CR>\|:CtrlP app/helpers<CR>
 map <leader>ft :CtrlPClearCache<CR>\|:CtrlP spec/<CR>
 map <leader>fl :CtrlPClearCache<CR>\|:CtrlP lib<CR>
-map <leader>fg :topleft 100 :split Gemfile<CR>
 map <leader>fb :CtrlPClearCache<CR>\|:CtrlPBufTag<CR>
 map <leader>fa :CtrlPClearCache<CR>\|:CtrlP<CR>
 map <leader>ff :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
@@ -645,6 +662,10 @@ command! Mo MarkedOpen
 " --- vim-airline
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
+endif
+
+if !has("gui_running")
+  let g:airline#extensions#tabline#enabled = 1
 endif
 
 let g:airline_theme='jellybeans'
