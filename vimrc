@@ -28,6 +28,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'ajh17/Spacegray.vim'
 Plug 'reedes/vim-colors-pencil'
 
+" with Dependency
 function! InstallLints(info)
   if a:info.status == 'installed' || a:info.force
     !npm install -g coffeelint coffee-react-transform
@@ -35,6 +36,18 @@ function! InstallLints(info)
 endfunction
 
 Plug 'scrooloose/syntastic',     { 'do': function('InstallLints') }
+
+function! BuildYCM(info)
+  " info is a dictionary with 3 fields
+  " - name:   name of the plugin
+  " - status: 'installed', 'updated', or 'unchanged'
+  " - force:  set on PlugInstall! or PlugUpdate!
+  if a:info.status == 'installed' || a:info.force
+    !./install.sh --clang-completer
+  endif
+endfunction
+
+Plug 'Valloric/YouCompleteMe',   { 'do': function('BuildYCM') }
 
 " On-demand loading
 Plug 'tpope/vim-fugitive',       { 'on': ['Git', 'Gwrite', 'Gread', 'Gremove', 'Gmove', 'Gcommit', 'Gblame'] }
@@ -47,28 +60,31 @@ Plug 'mattn/gist-vim',           { 'on': 'Gist' }
 
 
 " Lazy loading
-function! BuildYCM(info)
+Plug 'tpope/vim-endwise',        { 'on': [] }
+Plug 'SirVer/ultisnips',         { 'on': [] }
+Plug 'taiansu/vim-snippets',     { 'on': [] }
+
+augroup load_lazy_plugins
+  autocmd!
+  autocmd InsertEnter * call plug#load('vim-endwise', 'ultisnips', 'vim-snippets')
+                     \| autocmd! load_lazy_plugins
+augroup END
+
+" Language specified
+function! InstallTern(info)
   " info is a dictionary with 3 fields
   " - name:   name of the plugin
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status == 'installed' || a:info.force
-    !./install.sh --clang-completer
+    !npm install
   endif
 endfunction
 
-Plug 'tpope/vim-endwise',        { 'on': [] }
-Plug 'SirVer/ultisnips',         { 'on': [] }
-Plug 'taiansu/vim-snippets',     { 'on': [] }
-Plug 'Valloric/YouCompleteMe',   { 'on': [], 'do': function('BuildYCM') }
-
-augroup load_lazy_plugins
-  autocmd!
-  autocmd InsertEnter * call plug#load('vim-endwise', 'ultisnips', 'vim-snippets', 'YouCompleteMe')
-                     \| autocmd! load_lazy_plugins
-augroup END
-
-" Language specified
+Plug 'marijnh/tern_for_vim',     { 'for': 'javascript', 'do': function('InstallTern') }
+Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
+Plug 'mxw/vim-jsx',              { 'for': 'javascript' }
+Plug 'ramitos/jsctags',          { 'for': 'javascript' }
 Plug 'tpope/vim-haml',           { 'for': 'haml' }
 Plug 'nono/vim-handlebars',      { 'for': ['handlebars', 'handlebars.html'] }
 Plug 'othree/html5.vim',         { 'for': 'html' }
@@ -76,9 +92,8 @@ Plug 'mattn/emmet-vim',          { 'for': 'html' }
 Plug 'tpope/vim-markdown',       { 'for': 'markdown' }
 Plug 'vim-ruby/vim-ruby',        { 'for': 'ruby' }
 Plug 't9md/vim-ruby-xmpfilter',  { 'for': 'ruby' }
-Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
-Plug 'mxw/vim-jsx',              { 'for': 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+Plug 'lukaszkorecki/CoffeeTags', { 'for': 'coffee' }
 Plug 'gkz/vim-ls',               { 'for': 'ls' }
 Plug 'mtscout6/vim-cjsx',        { 'for': ['coffee', 'ls'] }
 Plug 'digitaltoad/vim-jade',     { 'for': 'jade' }
@@ -255,7 +270,7 @@ function! SwitchTheme(theme_type)
     colorscheme pencil
   elseif a:theme_type == "presentation"
     let g:current_theme = "presentation"
-    set gfn=Source\ Code\ Pro\ Medium:h20
+    set gfn=Source\ Code\ Pro\ Regular:h20
     set foldcolumn=0
     set linespace=3
     set background=light
@@ -584,20 +599,6 @@ function! PromoteToLet()
 endfunction
 :command! PromoteToLet :call PromoteToLet()
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MAPS TO JUMP TO SPECIFIC CtrlP TARGETS AND FILES
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>fr :topleft :split config/routes.rb<CR>
-map <leader>fg :topleft 100 :split Gemfile<CR>
-map <leader>fv :CtrlPClearCache<CR>\|:CtrlP app/views<CR>
-map <leader>fc :CtrlPClearCache<CR>\|:CtrlP app/controllers<CR>
-map <leader>fm :CtrlPClearCache<CR>\|:CtrlP app/models<CR>
-map <leader>fh :CtrlPClearCache<CR>\|:CtrlP app/helpers<CR>
-map <leader>ft :CtrlPClearCache<CR>\|:CtrlP spec/<CR>
-map <leader>fl :CtrlPClearCache<CR>\|:CtrlP lib<CR>
-map <leader>fb :CtrlPClearCache<CR>\|:CtrlPBufTag<CR>
-map <leader>fa :CtrlPClearCache<CR>\|:CtrlP<CR>
-map <leader>ff :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " OpenChangedFiles COMMAND
@@ -633,11 +634,22 @@ set clipboard=unnamed
 map <leader>a :silent !open -a /Applications/
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MAPS TO JUMP TO SPECIFIC CtrlP TARGETS AND FILES
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>fs :topleft :split
+
+map <leader>fv :CtrlPClearCache<CR>\|:CtrlP app/views<CR>
+map <leader>fc :CtrlPClearCache<CR>\|:CtrlP app/controllers<CR>
+map <leader>fm :CtrlPClearCache<CR>\|:CtrlP app/models<CR>
+map <leader>fa :CtrlPClearCache<CR>\|:CtrlPBufTagAll<CR>
+map <leader>ft :CtrlPClearCache<CR>\|:CtrlPTag<CR>
+map <leader>fd :CtrlPClearCache<CR>\|:CtrlP<CR>
+map <leader>ff :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Addons Settings
 " 插件設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" --- Numbers.vim
-nnoremap <C-n> :NumbersToggle<CR>
 
 " --- CtrlP
 " sets local working directory as the nearest ancestor
@@ -645,10 +657,67 @@ nnoremap <C-n> :NumbersToggle<CR>
 let g:ctrlp_map = '<C-p>'
 let g:ctrlp_working_path_mode = 'ra'
 
-let g:ctrlp_extensions = ['buffertag']
+let g:ctrlp_extensions = ['tag', 'buffertag']
+
+let g:ctrlp_buftag_types = {
+      \ 'go' : {
+          \ 'bin' : 'gotags',
+          \ 'args' : '-sort -silent',
+          \ },
+      \ 'coffee' : {
+          \ 'bin' : 'coffeetags',
+          \ 'args' : '-sort -silent',
+          \ },
+      \ 'javascript' : {
+          \ 'bin' : 'jsctags',
+          \ 'args' : '-f -',
+          \ },
+    \ }
 
 " exclude directories or files from the search
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|DS_Store)|(\.(swp|ico|git|hg|svn|exe|so|dll)|(\~))$'
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|DS_Store|tags)|(\.(swp|ico|git|hg|svn|exe|so|dll)|(\~))$'
+
+" --- tagbar
+nmap <leader>b :TagbarToggle<CR>
+
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
+
+" --- YomCompleteMe
+
+let g:ycm_complete_in_comments = 0
+
+let g:ycm_filetype_blacklist = {
+      \ 'tagbar' : 1,
+      \ 'nerdtree' : 1,
+      \ 'markdown' : 1,
+      \ 'pandoc' : 1,
+      \}
 
 " --- JavaScript Syntax
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
@@ -694,37 +763,6 @@ nmap <leader>( ysw(
 nmap <leader>{ ysw{
 nmap <leader>[ ysw[
 nmap <leader>< ysw<
-
-" --- tagbar
-nmap <leader>b :TagbarToggle<CR>
-
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
 
 " --- vim-ruby-xmpfilter
 let g:xmpfilter_cmd = "seeing_is_believing"
@@ -788,8 +826,14 @@ let g:syntastic_coffee_checkers=['coffeelint']
 let g:syntastic_coffee_coffeelint_args = '--file $HOME/.vim/lib/coffeelint.json'
 " Call :SyntasticToggleMode to passive, if you do so, use :nnoremap <C-w>e :SyntasticCheck<CR> for your convenience
 
+" --- Numbers.vim
+nnoremap <C-n> :NumbersToggle<CR>
+
 " --- dash.vim
 map <leader>d :Dash<CR>
+
+" --- CoffeeTags
+let g:CoffeeAutoTagIncludeVars=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: c g i j k m p r s t u x z 1 2 3 4 5 6 7 8 9 0 - = | : > /
