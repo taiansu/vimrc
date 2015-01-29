@@ -15,6 +15,8 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'craigemery/vim-autotag'
+Plug 'tpope/vim-fugitive',
 Plug 'majutsushi/tagbar'
 Plug 'taiansu/InTermsOf.vim'
 Plug 'myusuf3/numbers.vim'
@@ -50,7 +52,6 @@ endfunction
 Plug 'Valloric/YouCompleteMe',   { 'do': function('BuildYCM') }
 
 " On-demand loading
-Plug 'tpope/vim-fugitive',       { 'on': ['Git', 'Gwrite', 'Gread', 'Gremove', 'Gmove', 'Gcommit', 'Gblame'] }
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
 Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown' }
 Plug 'rking/ag.vim',             { 'on': 'Ag' }
