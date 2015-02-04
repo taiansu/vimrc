@@ -127,11 +127,12 @@ set ttyfast
 set ttyscroll=3
 set lazyredraw
 syntax sync minlines=50
-call matchadd('ColorColumn', '\%81v', 100)
+call matchadd('WildMenu', '\%81v', 100)
 
-function! BreakLoneLine()
-  :s/\s<a/<C-v><CR><a
-endfunction
+" Breaking long lines
+" gq{motion} % format the line that {motion} moves over
+" {Visual}gq % format the visually selected area
+" gqq        % format the current line
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
