@@ -574,6 +574,7 @@ function! AlternateForCurrentFile()
   return new_file
 endfunction
 nnoremap <leader>. :call OpenTestAlternate()<cr>
+command! BumpToAlternateFile :call OpenTestAlternate()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
@@ -599,7 +600,7 @@ function! PromoteToLet()
   :.s/\(\w\+\) = \(.*\)$/let(:\1) { \2 }/
   :normal ==
 endfunction
-:command! PromoteToLet :call PromoteToLet()
+command! PromoteToLet :call PromoteToLet()
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -722,8 +723,6 @@ let g:ycm_filetype_blacklist = {
       \}
 
 " --- vim-dispatch
-nnorenamp <leader>e :Dispatch
-
 autocmd FileType markdown let b:dispatch = 'octodown %'
 
 " --- JavaScript Syntax
@@ -811,7 +810,8 @@ let g:gist_open_browser_after_post = 1
 let g:syntastic_pupet_checkers=['puppetlint']
 let g:syntastic_coffee_checkers=['coffeelint']
 let g:syntastic_coffee_coffeelint_args = '--file $HOME/.vim/lib/coffeelint.json'
-" Call :SyntasticToggleMode to passive, if you do so, use :nnoremap <C-w>e :SyntasticCheck<CR> for your convenience
+" Call :SyntasticToggleMode to passive, if you do so,
+" use :nnoremap <C-w>e :SyntasticCheck<CR> for your convenience
 
 " --- Numbers.vim
 nnoremap <C-n> :NumbersToggle<CR>
