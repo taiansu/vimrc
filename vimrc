@@ -38,18 +38,6 @@ endfunction
 
 Plug 'scrooloose/syntastic',     { 'do': function('InstallLints') }
 
-function! BuildYCM(info)
-  " info is a dictionary with 3 fields
-  " - name:   name of the plugin
-  " - status: 'installed', 'updated', or 'unchanged'
-  " - force:  set on PlugInstall! or PlugUpdate!
-  if a:info.status == 'installed' || a:info.force
-    !./install.sh --clang-completer
-  endif
-endfunction
-
-Plug 'Valloric/YouCompleteMe',   { 'do': function('BuildYCM') }
-
 " On-demand loading
 Plug 'tpope/vim-dispatch',       { 'on': ['Dispatch', 'Focus', 'Start'] }
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
@@ -61,15 +49,26 @@ Plug 'mattn/gist-vim',           { 'on': 'Gist' }
 
 
 " Lazy loading
-Plug 'tpope/vim-endwise',        { 'on': [] }
-Plug 'SirVer/ultisnips',         { 'on': [] }
-Plug 'taiansu/vim-snippets',     { 'on': [] }
+function! BuildYCM(info)
+  " info is a dictionary with 3 fields
+  " - name:   name of the plugin
+  " - status: 'installed', 'updated', or 'unchanged'
+  " - force:  set on PlugInstall! or PlugUpdate!
+  if a:info.status == 'installed' || a:info.force
+    !./install.sh --clang-completer
+  endif
+endfunction
 
 augroup load_lazy_plugins
   autocmd!
-  autocmd InsertEnter * call plug#load('vim-endwise', 'ultisnips', 'vim-snippets')
-                     \| autocmd! load_lazy_plugins
+  autocmd InsertEnter * call plug#load('vim-endwise', 'ultisnips', 'vim-snippets', 'YouCompleteMe')
+                     \| call youcompleteme#Enable() | autocmd! load_lazy_plugins
 augroup END
+
+Plug 'tpope/vim-endwise',        { 'on': [] }
+Plug 'SirVer/ultisnips',         { 'on': [] }
+Plug 'taiansu/vim-snippets',     { 'on': [] }
+Plug 'Valloric/YouCompleteMe',   { 'on': [], 'do': function('BuildYCM') }
 
 " Language specified
 function! InstallTern(info)
