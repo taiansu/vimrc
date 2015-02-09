@@ -822,5 +822,5 @@ map <leader>d :Dash<CR>
 let g:CoffeeAutoTagIncludeVars=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: c g i j k m p r s t u x z 1 2 3 4 5 6 7 8 9 0 - = | : > /
+" Free leader keys: c e g i j k m p r s t u x z 1 2 3 4 5 6 7 8 9 0 - = | : > /
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
