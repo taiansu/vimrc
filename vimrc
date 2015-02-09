@@ -18,7 +18,6 @@ Plug 'tpope/vim-unimpaired'
 Plug 'craigemery/vim-autotag'
 Plug 'tpope/vim-fugitive',
 Plug 'majutsushi/tagbar'
-Plug 'taiansu/InTermsOf.vim'
 Plug 'myusuf3/numbers.vim'
 Plug 'kana/vim-submode'
 Plug 'vim-scripts/matchit.zip'
@@ -52,6 +51,7 @@ endfunction
 Plug 'Valloric/YouCompleteMe',   { 'do': function('BuildYCM') }
 
 " On-demand loading
+Plug 'tpope/vim-dispatch',       { 'on': ['Dispatch', 'Focus', 'Start'] }
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
 Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown' }
 Plug 'rking/ag.vim',             { 'on': 'Ag' }
@@ -721,6 +721,11 @@ let g:ycm_filetype_blacklist = {
       \ 'pandoc' : 1,
       \}
 
+" --- vim-dispatch
+nnorenamp <leader>e :Dispatch
+
+autocmd FileType markdown let b:dispatch = 'octodown %'
+
 " --- JavaScript Syntax
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
 
@@ -782,11 +787,6 @@ autocmd FileType ruby nmap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
 autocmd FileType ruby xmap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
 autocmd FileType ruby imap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
 
-" auto insert mark at appropriate spot.
-" autocmd FileType ruby nmap <buffer> <leader>x <Plug>(seeing_is_believing-run)
-" autocmd FileType ruby xmap <buffer> <leader>x <Plug>(seeing_is_believing-run)
-" autocmd FileType ruby imap <buffer> <leader>x <Plug>(seeing_is_believing-run)
-
 " --- vim-easy-align
 vnoremap <silent><Enter> :EasyAlign<CR>
 
@@ -806,21 +806,6 @@ let g:gist_detect_filetype = 1
 let g:gist_open_browser_after_post = 1
 " If using 2 factor authorization in github, write ~/.gist-vim with
 " token 1234567890yourApplicationTokenGenerated
-
-" --- InTermsOf.vim
-" key for changing the target_tty and rails_preloader
-map <leader><C-e> :let g:rails_preloader="spring"
-
-",er stand for repeat
-map <leader>er :call intermsof#repeatPreviousExecution()<CR>
-",ec for run current file
-map <leader>ef :call intermsof#runCurrentFile()<CR>
-",ee stand for run current line
-map <leader>ee :call intermsof#runCurrentLine()<CR>
-",ea stand for run all specs
-map <leader>ea :call intermsof#runAll()<CR>
-",ed for clear the terminal screen
-map <leader>ed :call intermsof#clearScreen()<CR>
 
 " --- Syntastic
 let g:syntastic_pupet_checkers=['puppetlint']
