@@ -46,7 +46,7 @@ Plug 'rking/ag.vim',             { 'on': 'Ag' }
 Plug 'junegunn/vim-easy-align',  { 'on': 'EasyAlign' }
 Plug 'mattn/webapi-vim',         { 'on': 'Gist' }
 Plug 'mattn/gist-vim',           { 'on': 'Gist' }
-
+Plug 'ryanss/vim-hackernews',    { 'on': 'HackerNews' }
 
 " Lazy loading
 function! BuildYCM(info)
@@ -722,6 +722,8 @@ let g:ycm_filetype_blacklist = {
       \}
 
 " --- vim-dispatch
+nnoremap <leader>e :Dispatch<CR>
+
 autocmd FileType markdown let b:dispatch = 'octodown %'
 
 " --- JavaScript Syntax
@@ -822,5 +824,5 @@ map <leader>d :Dash<CR>
 let g:CoffeeAutoTagIncludeVars=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: c e g i j k m p r s t u x z 1 2 3 4 5 6 7 8 9 0 - = | : > /
+" Free leader keys: c g i j k m p r s t u x z 1 2 3 4 5 6 7 8 9 0 - = | : > /
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
