@@ -481,7 +481,7 @@ map <leader>y "*y
 "  Insert a hash rocket with <C-f>
 imap <C-f> <space>=><space>
 " Insert an arrow with <C-d>
-imap <C-d> <space>-><space>
+imap <C-d> <space>->
 
 " Clear the search buffer with <leader>v
 function! MapNoHighlight()
@@ -719,6 +719,7 @@ let g:ycm_filetype_blacklist = {
       \ 'nerdtree' : 1,
       \ 'markdown' : 1,
       \ 'pandoc' : 1,
+      \ 'hackernews' : 1,
       \}
 
 " --- vim-dispatch
@@ -808,9 +809,23 @@ let g:gist_open_browser_after_post = 1
 " token 1234567890yourApplicationTokenGenerated
 
 " --- Syntastic
+let g:syntastic_mode_map={ 'mode': 'active',
+                         \ 'active_filetypes': [],
+                         \ 'passive_filetypes': ['hackernews', 'nerdtree', 'tagbar'] }
+
+let g:syntastic_eruby_ruby_quiet_messages = {
+                          \ "type":  "syntax",
+                          \ "regex": '^possibly useless use of a variable in void context$' }
+
 let g:syntastic_pupet_checkers=['puppetlint']
 let g:syntastic_coffee_checkers=['coffeelint']
 let g:syntastic_coffee_coffeelint_args = '--file $HOME/.vim/lib/coffeelint.json'
+
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 " Call :SyntasticToggleMode to passive, if you do so,
 " use :nnoremap <C-w>e :SyntasticCheck<CR> for your convenience
 
