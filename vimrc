@@ -15,15 +15,12 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'craigemery/vim-autotag'
 Plug 'tpope/vim-fugitive',
-Plug 'majutsushi/tagbar'
 Plug 'myusuf3/numbers.vim'
 Plug 'kana/vim-submode'
 Plug 'vim-scripts/matchit.zip'
 Plug 'bling/vim-airline'
 Plug 'kshenoy/vim-signature'
-Plug 'airblade/vim-gitgutter'
 
 " Colorscheme
 Plug 'ajh17/Spacegray.vim'
@@ -70,6 +67,13 @@ Plug 'SirVer/ultisnips',         { 'on': [] }
 Plug 'taiansu/vim-snippets',     { 'on': [] }
 Plug 'Valloric/YouCompleteMe',   { 'on': [], 'do': function('BuildYCM') }
 
+" Tags
+" Plug 'craigemery/vim-autotag',   { 'on': [] }
+" Plug 'majutsushi/tagbar',        { 'on': [] }
+" Plug 'lukaszkorecki/CoffeeTags', { 'on': [], 'for': 'coffee' }
+" Plug 'ramitos/jsctags',          { 'on': [], 'for': 'javascript' }
+" Plug 'jstemmer/gotags',          { 'on': [], 'for': 'go' }
+
 " Language specified
 function! InstallTern(info)
   " info is a dictionary with 3 fields
@@ -84,7 +88,6 @@ endfunction
 Plug 'marijnh/tern_for_vim',     { 'for': 'javascript', 'do': function('InstallTern') }
 Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
 Plug 'mxw/vim-jsx',              { 'for': 'javascript' }
-Plug 'ramitos/jsctags',          { 'for': 'javascript' }
 Plug 'tpope/vim-haml',           { 'for': 'haml' }
 Plug 'nono/vim-handlebars',      { 'for': ['handlebars', 'handlebars.html'] }
 Plug 'othree/html5.vim',         { 'for': 'html' }
@@ -93,7 +96,6 @@ Plug 'tpope/vim-markdown',       { 'for': 'markdown' }
 Plug 'vim-ruby/vim-ruby',        { 'for': 'ruby' }
 Plug 't9md/vim-ruby-xmpfilter',  { 'for': 'ruby' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
-Plug 'lukaszkorecki/CoffeeTags', { 'for': 'coffee' }
 Plug 'gkz/vim-ls',               { 'for': 'ls' }
 Plug 'mtscout6/vim-cjsx',        { 'for': ['coffee', 'ls'] }
 Plug 'digitaltoad/vim-jade',     { 'for': 'jade' }
@@ -102,7 +104,6 @@ Plug 'vim-scripts/VimClojure',   { 'for': 'clojure' }
 Plug 'elixir-lang/vim-elixir',   { 'for': 'elixir' }
 Plug 'golangtw/gocode.vim',      { 'for': 'go' }
 Plug 'fatih/vim-go',             { 'for': 'go' }
-Plug 'jstemmer/gotags',          { 'for': 'go' }
 
 call plug#end()
 
@@ -659,56 +660,56 @@ map <leader>ff :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
 let g:ctrlp_map = '<C-p>'
 let g:ctrlp_working_path_mode = 'ra'
 
-let g:ctrlp_extensions = ['tag', 'buffertag']
+let g:ctrlp_extensions = ['buffertag']
 
-let g:ctrlp_buftag_types = {
-      \ 'go' : {
-          \ 'bin' : 'gotags',
-          \ 'args' : '-sort -silent',
-          \ },
-      \ 'coffee' : {
-          \ 'bin' : 'coffeetags',
-          \ 'args' : '-sort -silent',
-          \ },
-      \ 'javascript' : {
-          \ 'bin' : 'jsctags',
-          \ 'args' : '-f -',
-          \ },
-    \ }
+" let g:ctrlp_buftag_types = {
+"       \ 'go' : {
+"           \ 'bin' : 'gotags',
+"           \ 'args' : '-sort -silent',
+"           \ },
+"       \ 'coffee' : {
+"           \ 'bin' : 'coffeetags',
+"           \ 'args' : '-sort -silent',
+"           \ },
+"       \ 'javascript' : {
+"           \ 'bin' : 'jsctags',
+"           \ 'args' : '-f -',
+"           \ },
+"     \ }
 
 " exclude directories or files from the search
 let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|DS_Store|tags)|(\.(swp|ico|git|hg|svn|exe|so|dll)|(\~))$'
 
 " --- tagbar
-nmap <leader>b :TagbarToggle<CR>
+" nmap <leader>b :TagbarToggle<CR>
 
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
+" let g:tagbar_type_go = {
+"     \ 'ctagstype' : 'go',
+"     \ 'kinds'     : [
+"         \ 'p:package',
+"         \ 'i:imports:1',
+"         \ 'c:constants',
+"         \ 'v:variables',
+"         \ 't:types',
+"         \ 'n:interfaces',
+"         \ 'w:fields',
+"         \ 'e:embedded',
+"         \ 'm:methods',
+"         \ 'r:constructor',
+"         \ 'f:functions'
+"     \ ],
+"     \ 'sro' : '.',
+"     \ 'kind2scope' : {
+"         \ 't' : 'ctype',
+"         \ 'n' : 'ntype'
+"     \ },
+"     \ 'scope2kind' : {
+"         \ 'ctype' : 't',
+"         \ 'ntype' : 'n'
+"     \ },
+"     \ 'ctagsbin'  : 'gotags',
+"     \ 'ctagsargs' : '-sort -silent'
+" \ }
 
 " --- YomCompleteMe
 
@@ -751,7 +752,7 @@ let g:airline_right_sep = ''
 let g:airline_symbols.branch = '⎇ '
 let g:airline_symbols.linenr = '¶ '
 let g:airline_detect_modified=1
-let g:airline#extensions#tagbar#enabled=1
+" let g:airline#extensions#tagbar#enabled=1
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#syntastic#enabled=1
 
@@ -835,9 +836,6 @@ nnoremap <C-n> :NumbersToggle<CR>
 " --- dash.vim
 map <leader>d :Dash<CR>
 
-" --- CoffeeTags
-let g:CoffeeAutoTagIncludeVars=1
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: c g i j k m p r s t u x z 1 2 3 4 5 6 7 8 9 0 - = | : > /
+" Free leader keys: b c g i j k m p r s t u x z 1 2 3 4 5 6 7 8 9 0 - = | : > /
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
