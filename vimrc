@@ -27,8 +27,6 @@ Plug 'ajh17/Spacegray.vim'
 Plug 'reedes/vim-colors-pencil'
 
 " Tags
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-easytags'
 Plug 'majutsushi/tagbar'
 Plug 'lukaszkorecki/CoffeeTags', { 'for': 'coffee' }
 Plug 'ramitos/jsctags',          { 'for': 'javascript' }
@@ -713,21 +711,8 @@ let g:tagbar_type_go = {
     \ 'ctagsargs' : '-sort -silent'
 \ }
 
-" --- easytags
-let g:easytags_languages = {
-    \ 'go' : {
-      \ 'bin' : 'gotags',
-      \ 'args' : '-sort -silent',
-    \ },
-    \ 'coffee' : {
-      \ 'bin' : 'coffeetags',
-      \ 'args' : '-sort -silent',
-    \ },
-    \ 'javascript' : {
-      \ 'bin' : 'jsctags',
-      \ 'args' : '-f -',
-    \ },
-\ }
+" -- CoffeeTags
+let g:CoffeeAutoTagIncludeVars=1
 
 " --- YomCompleteMe
 
