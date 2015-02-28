@@ -26,6 +26,14 @@ Plug 'kshenoy/vim-signature'
 Plug 'ajh17/Spacegray.vim'
 Plug 'reedes/vim-colors-pencil'
 
+" Tags
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
+Plug 'majutsushi/tagbar'
+Plug 'lukaszkorecki/CoffeeTags', { 'for': 'coffee' }
+Plug 'ramitos/jsctags',          { 'for': 'javascript' }
+Plug 'jstemmer/gotags',          { 'for': 'go' }
+
 " with Dependency
 function! InstallLints(info)
   if a:info.status == 'installed' || a:info.force
@@ -66,13 +74,6 @@ Plug 'tpope/vim-endwise',        { 'on': [] }
 Plug 'SirVer/ultisnips',         { 'on': [] }
 Plug 'taiansu/vim-snippets',     { 'on': [] }
 Plug 'Valloric/YouCompleteMe',   { 'on': [], 'do': function('BuildYCM') }
-
-" Tags
-" Plug 'craigemery/vim-autotag',   { 'on': [] }
-" Plug 'majutsushi/tagbar',        { 'on': [] }
-" Plug 'lukaszkorecki/CoffeeTags', { 'on': [], 'for': 'coffee' }
-" Plug 'ramitos/jsctags',          { 'on': [], 'for': 'javascript' }
-" Plug 'jstemmer/gotags',          { 'on': [], 'for': 'go' }
 
 " Language specified
 function! InstallTern(info)
@@ -146,6 +147,7 @@ set hidden
 set expandtab
 set autoindent
 set smartindent
+inoremap # X#
 " wrap text if lines longer then the lenght of window
 set wrap
 set showmatch
@@ -385,7 +387,7 @@ augroup vimrcEx
 
   " make CSS omnicompletion work for SASS and SCSS
   autocmd! BufNewFile,BufRead *.json            set ft=javascript
-  autocmd! BufNewFile,BufRead,BufEnter *.coffee set ft=coffee
+  autocmd! BufNewFile,BufRead,BufEnter *.coffee set ft=coffee shiftwidth=2
   autocmd! BufNewFile,BufRead,BufEnter *.ls     set ft=ls
   autocmd! BufNewFile,BufRead *.scss,*.sass     set ft=scss.css
   autocmd! Bufread,BufNewFile *.md              set ft=markdown
@@ -634,7 +636,7 @@ set clipboard=unnamed
 " Open with Applications
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-map <leader>a :silent !open -a /Applications/
+command! Application :slient !open -a /Applications/
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MAPS TO JUMP TO SPECIFIC CtrlP TARGETS AND FILES
@@ -662,54 +664,70 @@ let g:ctrlp_working_path_mode = 'ra'
 
 let g:ctrlp_extensions = ['buffertag']
 
-" let g:ctrlp_buftag_types = {
-"       \ 'go' : {
-"           \ 'bin' : 'gotags',
-"           \ 'args' : '-sort -silent',
-"           \ },
-"       \ 'coffee' : {
-"           \ 'bin' : 'coffeetags',
-"           \ 'args' : '-sort -silent',
-"           \ },
-"       \ 'javascript' : {
-"           \ 'bin' : 'jsctags',
-"           \ 'args' : '-f -',
-"           \ },
-"     \ }
+let g:ctrlp_buftag_types = {
+      \ 'go' : {
+          \ 'bin' : 'gotags',
+          \ 'args' : '-sort -silent',
+          \ },
+      \ 'coffee' : {
+          \ 'bin' : 'coffeetags',
+          \ 'args' : '-sort -silent',
+          \ },
+      \ 'javascript' : {
+          \ 'bin' : 'jsctags',
+          \ 'args' : '-f -',
+          \ },
+    \ }
 
 " exclude directories or files from the search
 let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|DS_Store|tags)|(\.(swp|ico|git|hg|svn|exe|so|dll)|(\~))$'
 
 " --- tagbar
-" nmap <leader>b :TagbarToggle<CR>
+nmap <leader>b :TagbarToggle<CR>
 
-" let g:tagbar_type_go = {
-"     \ 'ctagstype' : 'go',
-"     \ 'kinds'     : [
-"         \ 'p:package',
-"         \ 'i:imports:1',
-"         \ 'c:constants',
-"         \ 'v:variables',
-"         \ 't:types',
-"         \ 'n:interfaces',
-"         \ 'w:fields',
-"         \ 'e:embedded',
-"         \ 'm:methods',
-"         \ 'r:constructor',
-"         \ 'f:functions'
-"     \ ],
-"     \ 'sro' : '.',
-"     \ 'kind2scope' : {
-"         \ 't' : 'ctype',
-"         \ 'n' : 'ntype'
-"     \ },
-"     \ 'scope2kind' : {
-"         \ 'ctype' : 't',
-"         \ 'ntype' : 'n'
-"     \ },
-"     \ 'ctagsbin'  : 'gotags',
-"     \ 'ctagsargs' : '-sort -silent'
-" \ }
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
+
+" --- easytags
+let g:easytags_languages = {
+    \ 'go' : {
+      \ 'bin' : 'gotags',
+      \ 'args' : '-sort -silent',
+    \ },
+    \ 'coffee' : {
+      \ 'bin' : 'coffeetags',
+      \ 'args' : '-sort -silent',
+    \ },
+    \ 'javascript' : {
+      \ 'bin' : 'jsctags',
+      \ 'args' : '-f -',
+    \ },
+\ }
 
 " --- YomCompleteMe
 
@@ -812,7 +830,7 @@ let g:gist_open_browser_after_post = 1
 " --- Syntastic
 let g:syntastic_mode_map={ 'mode': 'active',
                          \ 'active_filetypes': [],
-                         \ 'passive_filetypes': ['hackernews', 'nerdtree', 'tagbar'] }
+                         \ 'passive_filetypes': ['coffee', 'hackernews', 'nerdtree', 'tagbar'] }
 
 let g:syntastic_eruby_ruby_quiet_messages = {
                           \ "type":  "syntax",
@@ -820,15 +838,14 @@ let g:syntastic_eruby_ruby_quiet_messages = {
 
 let g:syntastic_pupet_checkers=['puppetlint']
 let g:syntastic_coffee_checkers=['coffeelint']
-let g:syntastic_coffee_coffeelint_args = '--file $HOME/.vim/lib/coffeelint.json'
+let g:syntastic_coffee_coffeelint_args = '--reporter csv --file $HOME/.vim/lib/coffeelint.json'
 
 let g:syntastic_always_populate_loc_list = 0
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-" Call :SyntasticToggleMode to passive, if you do so,
-" use :nnoremap <C-w>e :SyntasticCheck<CR> for your convenience
+nnoremap <C-w>e :SyntasticCheck<CR>
 
 " --- Numbers.vim
 nnoremap <C-n> :NumbersToggle<CR>
@@ -836,6 +853,9 @@ nnoremap <C-n> :NumbersToggle<CR>
 " --- dash.vim
 map <leader>d :Dash<CR>
 
+" --- ag.vim
+map <leader>a :Ag<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: b c g i j k m p r s t u x z 1 2 3 4 5 6 7 8 9 0 - = | : > /
+" Free leader keys: c g i j k m p r s t u x z 1 2 3 4 5 6 7 8 9 0 - = | : > /
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
