@@ -4,7 +4,6 @@
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Setup Vim-plug
-" Vim-plug 插件管理
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 
@@ -28,8 +27,6 @@ Plug 'reedes/vim-colors-pencil'
 
 " Tags
 Plug 'majutsushi/tagbar'
-Plug 'lukaszkorecki/CoffeeTags', { 'for': 'coffee' }
-Plug 'ramitos/jsctags',          { 'for': 'javascript' }
 Plug 'jstemmer/gotags',          { 'for': 'go' }
 
 " with Dependency
@@ -45,13 +42,14 @@ Plug 'scrooloose/syntastic',     { 'do': function('InstallLints') }
 Plug 'tpope/vim-dispatch',       { 'on': ['Dispatch', 'Focus', 'Start'] }
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
 Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown' }
-Plug 'rking/ag.vim',             { 'on': 'Ag' }
+Plug 'gabesoft/vim-ags',         { 'on': 'Ags' }
 Plug 'junegunn/vim-easy-align',  { 'on': 'EasyAlign' }
 Plug 'mattn/webapi-vim',         { 'on': 'Gist' }
 Plug 'mattn/gist-vim',           { 'on': 'Gist' }
 Plug 'ryanss/vim-hackernews',    { 'on': 'HackerNews' }
 
 " Lazy loading
+
 function! BuildYCM(info)
   " info is a dictionary with 3 fields
   " - name:   name of the plugin
@@ -62,16 +60,16 @@ function! BuildYCM(info)
   endif
 endfunction
 
+Plug 'tpope/vim-endwise',        { 'on': [] }
+Plug 'SirVer/ultisnips',         { 'on': [] }
+Plug 'taiansu/vim-snippets',     { 'on': [] }
+Plug 'Valloric/YouCompleteMe',   { 'on': [], 'do': function('BuildYCM') }
+
 augroup load_lazy_plugins
   autocmd!
   autocmd InsertEnter * call plug#load('vim-endwise', 'ultisnips', 'vim-snippets', 'YouCompleteMe')
                      \| call youcompleteme#Enable() | autocmd! load_lazy_plugins
 augroup END
-
-Plug 'tpope/vim-endwise',        { 'on': [] }
-Plug 'SirVer/ultisnips',         { 'on': [] }
-Plug 'taiansu/vim-snippets',     { 'on': [] }
-Plug 'Valloric/YouCompleteMe',   { 'on': [], 'do': function('BuildYCM') }
 
 " Language specified
 function! InstallTern(info)
@@ -108,7 +106,6 @@ call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ENCODING SETTINGS
-" 編碼設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set encoding=utf-8
 set termencoding=utf-8
@@ -118,14 +115,14 @@ set ffs=unix,mac,dos
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SYNTAX HIGHLIGHT FIX
-" 超過 1024 column 或 256 行時停止語法上色，否則 MacVim 會頓
-" 第 81 個字元底色提醒
+" Stop syntax highlight on 1024 column or 256 line
+" Color hint on the 81th character
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set synmaxcol=256
 set ttyfast
 set ttyscroll=3
-set lazyredraw
 syntax sync minlines=50
+let g:ruby_path=$HOME . "/.rbenv/shims/ruby"
 call matchadd('WildMenu', '\%81v', 100)
 
 " Breaking long lines
@@ -135,7 +132,6 @@ call matchadd('WildMenu', '\%81v', 100)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
-" 基本設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable highlighting for syntax
 syntax on
@@ -222,11 +218,10 @@ set winminheight=5
 set equalalways
 set eadirection=both
 set textwidth=80
+set timeoutlen=1000 ttimeoutlen=0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CONFIG WITH OPINION
-" Leader 鍵, 這裡設成空白鍵
-" Tab 長度，這裡設為兩個空白
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader="\<space>" "you may like ',' or '\'
 set tabstop=2
@@ -235,7 +230,6 @@ set softtabstop=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SHOW INVISIBLES
-" 顯示換行符及空白
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcut to rapidly toggle `set list`
 nmap <leader>l :set list!<CR>
@@ -245,10 +239,9 @@ set listchars=tab:▸\ ,eol:¬
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Change CursorShape in iTerm2
-" Terminal Vim 的游標形狀
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+let &t_SI = "\<Esc>[5 q"
+let &t_EI = "\<Esc>[2 q"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " DISABLE AUTOMATIC COMMENT INSERTION
@@ -330,23 +323,6 @@ command! TF :call ToggleFocus()
 :call SwitchTheme("code")
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Auto trigger `:set paste` when paste stuffs
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if &term =~ "xterm.*"
-    let &t_ti = &t_ti . "\e[?2004h"
-    let &t_te = "\e[?2004l" . &t_te
-    function XTermPasteBegin(ret)
-        set pastetoggle=<Esc>[201~
-        set paste
-        return a:ret
-    endfunction
-    map <expr> <Esc>[200~ XTermPasteBegin("i")
-    imap <expr> <Esc>[200~ XTermPasteBegin("")
-    cmap <Esc>[200~ <nop>
-    cmap <Esc>[201~ <nop>
-endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NETRW DEFUAULT SETTING
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:netrw_banner = 0
@@ -355,7 +331,7 @@ let g:netrw_special_syntax = 1
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_sort_sequence = '[\/]$,*'
-let g:netrw_winsize = -30
+" let g:netrw_winsize = -30
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AUTO SOURCE vimrc AFTER SAVE
@@ -385,12 +361,9 @@ augroup vimrcEx
 
   " make CSS omnicompletion work for SASS and SCSS
   autocmd! BufNewFile,BufRead *.json            set ft=javascript
-  autocmd! BufNewFile,BufRead,BufEnter *.coffee set ft=coffee shiftwidth=2
   autocmd! BufNewFile,BufRead,BufEnter *.ls     set ft=ls
   autocmd! BufNewFile,BufRead *.scss,*.sass     set ft=scss.css
   autocmd! Bufread,BufNewFile *.md              set ft=markdown
-  autocmd! Bufread,BufNewFile *.ex,*.exs        set ft=elixir
-  autocmd! BufNewFile,BufRead *.ruby            set ft=ruby
 
   "for python and java, autoindent with four spaces, always expand tabs
   autocmd! FileType python,java,c set ai sw=4 sts=4 et
@@ -477,7 +450,7 @@ map! <C-e>     <End>
 " Start non-memorized yank, should follow with a motion.
 " For example, use <leader>y2j will yank 2 line to
 " paste, but without put them into the yank ring.
-map <leader>y "*y
+map <leader>y "_y
 
 "  Insert a hash rocket with <C-f>
 imap <C-f> <space>=><space>
@@ -498,13 +471,6 @@ command! Json !python -m json.tool
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SPLIT MOTIONS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Move around splits with <C-hjkl>
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
-nnoremap <leader>o <C-w>w
-
 nnoremap s <Nop>
 nnoremap sj <C-w>j
 nnoremap sk <C-w>k
@@ -543,6 +509,20 @@ call submode#enter_with('undo/redo', 'n', '', 'g+', 'g+')
 call submode#leave_with('undo/redo', 'n', '', '<Esc>')
 call submode#map('undo/redo', 'n', '', '-', 'g-')
 call submode#map('undo/redo', 'n', '', '+', 'g+')
+
+" Move around splits with <C-hjkl>
+nnoremap <leader>o <C-w>w
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Shorts for tabnew tabn tabp
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+ca tn tabnew
+ca th tabp
+ca tl tabn
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SWITCH BETWEEN TEST AND PRODUCTION CODE
@@ -660,22 +640,7 @@ map <leader>ff :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
 let g:ctrlp_map = '<C-p>'
 let g:ctrlp_working_path_mode = 'ra'
 
-let g:ctrlp_extensions = ['buffertag']
-
-let g:ctrlp_buftag_types = {
-      \ 'go' : {
-          \ 'bin' : 'gotags',
-          \ 'args' : '-sort -silent',
-          \ },
-      \ 'coffee' : {
-          \ 'bin' : 'coffeetags',
-          \ 'args' : '-sort -silent',
-          \ },
-      \ 'javascript' : {
-          \ 'bin' : 'jsctags',
-          \ 'args' : '-f -',
-          \ },
-    \ }
+let g:ctrlp_extensions = []
 
 " exclude directories or files from the search
 let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|DS_Store|tags)|(\.(swp|ico|git|hg|svn|exe|so|dll)|(\~))$'
@@ -710,9 +675,6 @@ let g:tagbar_type_go = {
     \ 'ctagsbin'  : 'gotags',
     \ 'ctagsargs' : '-sort -silent'
 \ }
-
-" -- CoffeeTags
-let g:CoffeeAutoTagIncludeVars=1
 
 " --- YomCompleteMe
 
@@ -801,8 +763,8 @@ let g:UltiSnipsExpandTrigger="<C-j>"
 " let g:UltiSnipsJumpBackwardTrigger="<C-p>"
 
 " -- Nerdtree
-" use e. or vs. to open file explorer in certain split
 let g:NERDTreeHijackNetrw = 1
+" use e. or vs. to open file explorer in certain split
 map <leader>q :NERDTreeToggle<CR>
 
 " --- gist-vim
@@ -814,7 +776,6 @@ let g:gist_open_browser_after_post = 1
 
 " --- Syntastic
 let g:syntastic_mode_map={ 'mode': 'active',
-                         \ 'active_filetypes': [],
                          \ 'passive_filetypes': ['coffee', 'hackernews', 'nerdtree', 'tagbar'] }
 
 let g:syntastic_eruby_ruby_quiet_messages = {
@@ -838,8 +799,11 @@ nnoremap <C-n> :NumbersToggle<CR>
 " --- dash.vim
 map <leader>d :Dash<CR>
 
-" --- ag.vim
-map <leader>a :Ag<CR>
+" --- vim-ags
+map <leader>a :Ags<CR>
+
+" --- tern_for_vim
+autocmd BufEnter * set completeopt-=preview
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: c g i j k m p r s t u x z 1 2 3 4 5 6 7 8 9 0 - = | : > /
