@@ -369,7 +369,6 @@ augroup vimrcEx
     \ endif
 
 
-  " make CSS omnicompletion work for SASS and SCSS
   autocmd! BufNewFile,BufRead *.json            set ft=javascript
   autocmd! BufNewFile,BufRead,BufEnter *.ls     set ft=ls
   autocmd! BufNewFile,BufRead *.scss,*.sass     set ft=scss.css
@@ -383,16 +382,18 @@ augroup vimrcEx
   " Markdown 的語法上色常常會錯，移除註解可以停止上色
   " autocmd! FileType mkd,md setlocal syn=off
 
-  " Enable omni completion. (Ctrl-X Ctrl-O)
-  autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
-  autocmd FileType html,haml,markdown,handlebars setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+  autocmd FileType ruby compiler ruby
+  autocmd FileType ruby set foldmethod=indent
   autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
   autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-  autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-  autocmd FileType ruby compiler ruby
+  autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
+  autocmd FileType html,haml,markdown,handlebars setlocal omnifunc=htmlcomplete#CompleteTags
+  " Enable omni completion. (Ctrl-X Ctrl-O)
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd FileType css,sass,scss set omnifunc=csscomplete#CompleteCSS
+  autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 
   " Leave the return key alone when in command line windows, since it's used
   " to run commands there.
