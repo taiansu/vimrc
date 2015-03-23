@@ -149,12 +149,6 @@ set laststatus=2
 set smarttab
 " make searches case-sensitive only if they contain upper-case characters
 set ignorecase smartcase
-set guicursor+=i:hor5-Cursor
-set guicursor+=a:blinkon0
-" highlight current line
-set cursorline
-" highlight current column
-set cursorcolumn
 set cmdheight=2
 set switchbuf=useopen
 set number
@@ -173,8 +167,6 @@ set shell=zsh
 " Prevent Vim from clobbering the scrollback buffer. See
 " http://www.shallowsky.com/linux/noaltscreen.html
 set t_ti= t_te=
-" keep more context when scrolling off the end of a buffer
-set scrolloff=7
 " Store temporary files in a central spot
 set nobackup
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
@@ -199,7 +191,6 @@ set wildmenu
 set foldmethod=syntax
 set foldlevelstart=3
 set foldnestmax=3
-set lazyredraw
 set linebreak
 set showbreak=↪
 set history=1000
@@ -215,6 +206,29 @@ set equalalways
 set eadirection=both
 set textwidth=80
 set timeoutlen=1000 ttimeoutlen=0
+" keep more context when scrolling off the end of a buffer
+set scrolloff=7
+" Solve ruby complete slowness
+set complete-=i
+
+
+if has("gui_running")
+  " highlight current line
+  set cursorline
+  " highlight current column
+  set cursorcolumn
+  set guicursor+=i:hor5-Cursor
+  set guicursor+=a:blinkon0
+else
+  set nocursorline
+  set nocursorcolumn
+  set scrolljump=8
+  set lazyredraw
+  set noshowmatch
+  let html_no_rendering=1
+end
+
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CONFIG WITH OPINION
@@ -604,7 +618,7 @@ vnoremap > >gv
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Interact with GUI clipboard
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set clipboard=unnamed
+set clipboard+=unnamed
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Open with Applications
