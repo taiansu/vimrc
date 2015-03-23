@@ -25,10 +25,6 @@ Plug 'kshenoy/vim-signature'
 Plug 'ajh17/Spacegray.vim'
 Plug 'reedes/vim-colors-pencil'
 
-" Tags
-Plug 'majutsushi/tagbar'
-Plug 'jstemmer/gotags',          { 'for': 'go' }
-
 " with Dependency
 function! InstallLints(info)
   if a:info.status == 'installed' || a:info.force
@@ -645,36 +641,6 @@ let g:ctrlp_extensions = []
 " exclude directories or files from the search
 let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|DS_Store|tags)|(\.(swp|ico|git|hg|svn|exe|so|dll)|(\~))$'
 
-" --- tagbar
-nmap <leader>b :TagbarToggle<CR>
-
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
 
 " --- YomCompleteMe
 
@@ -717,7 +683,7 @@ let g:airline_right_sep = ''
 let g:airline_symbols.branch = '⎇ '
 let g:airline_symbols.linenr = '¶ '
 let g:airline_detect_modified=1
-" let g:airline#extensions#tagbar#enabled=1
+let g:airline#extensions#tagbar#enabled=0
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#syntastic#enabled=1
 
