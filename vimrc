@@ -20,6 +20,7 @@ Plug 'kana/vim-submode'
 Plug 'vim-scripts/matchit.zip'
 Plug 'bling/vim-airline'
 Plug 'kshenoy/vim-signature'
+Plug 'Konfekt/FastFold'
 
 " Colorscheme
 Plug 'ajh17/Spacegray.vim'
@@ -38,6 +39,7 @@ Plug 'scrooloose/syntastic',     { 'do': function('InstallLints') }
 Plug 'tpope/vim-dispatch',       { 'on': ['Dispatch', 'Focus', 'Start'] }
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
 Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown' }
+Plug 'rking/ag.vim',             { 'on': 'Ag' }
 Plug 'gabesoft/vim-ags',         { 'on': 'Ags' }
 Plug 'junegunn/vim-easy-align',  { 'on': 'EasyAlign' }
 Plug 'mattn/webapi-vim',         { 'on': 'Gist' }
@@ -97,6 +99,9 @@ Plug 'vim-scripts/VimClojure',   { 'for': 'clojure' }
 Plug 'elixir-lang/vim-elixir',   { 'for': 'elixir' }
 Plug 'golangtw/gocode.vim',      { 'for': 'go' }
 Plug 'fatih/vim-go',             { 'for': 'go' }
+
+" Local
+Plug '~/Projects/nerdtree-ag'
 
 call plug#end()
 
@@ -187,8 +192,7 @@ filetype plugin indent on
 set wildmode=longest,list
 " make tab completion for files/buffers act like bash
 set wildmenu
-" fix long line render speed
-set foldmethod=syntax
+set foldmethod=indent
 set foldlevelstart=3
 set foldnestmax=3
 set linebreak
@@ -383,7 +387,6 @@ augroup vimrcEx
   " autocmd! FileType mkd,md setlocal syn=off
 
   autocmd FileType ruby compiler ruby
-  autocmd FileType ruby set foldmethod=indent
   autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
   autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
   autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
@@ -757,7 +760,7 @@ let g:gist_open_browser_after_post = 1
 
 " --- Syntastic
 let g:syntastic_mode_map={ 'mode': 'active',
-                         \ 'passive_filetypes': ['coffee', 'hackernews', 'nerdtree', 'tagbar'] }
+                         \ 'passive_filetypes': ['hackernews', 'nerdtree', 'tagbar'] }
 
 let g:syntastic_eruby_ruby_quiet_messages = {
                           \ "type":  "syntax",
@@ -765,7 +768,7 @@ let g:syntastic_eruby_ruby_quiet_messages = {
 
 let g:syntastic_pupet_checkers=['puppetlint']
 let g:syntastic_coffee_checkers=['coffeelint']
-let g:syntastic_coffee_coffeelint_args = '--reporter csv --file $HOME/.vim/lib/coffeelint.json'
+let g:syntastic_coffee_coffeelint_args = '--file $HOME/.vim/lib/coffeelint.json'
 
 let g:syntastic_always_populate_loc_list = 0
 let g:syntastic_auto_loc_list = 0
@@ -780,8 +783,8 @@ nnoremap <C-n> :NumbersToggle<CR>
 " --- dash.vim
 map <leader>d :Dash<CR>
 
-" --- vim-ags
-map <leader>a :Ags<CR>
+" --- ag.vim
+map <leader>a :Ag<CR>
 
 " --- tern_for_vim
 autocmd BufEnter * set completeopt-=preview
