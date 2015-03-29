@@ -19,6 +19,7 @@ Plug 'myusuf3/numbers.vim'
 Plug 'kana/vim-submode'
 Plug 'vim-scripts/matchit.zip'
 Plug 'bling/vim-airline'
+Plug 'airblade/vim-gitgutter'
 Plug 'kshenoy/vim-signature'
 Plug 'Konfekt/FastFold'
 
@@ -232,8 +233,6 @@ else
   let html_no_rendering=1
 end
 
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CONFIG WITH OPINION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -271,15 +270,15 @@ set t_Co=256 " 256 colors
 function! SwitchTheme(theme_type)
   if a:theme_type == "focus"
     let g:current_theme = "focus"
-    set gfn=Cousine:h16
+    set gfn=Cousine:h17
     set foldcolumn=12
     set linespace=5
-    set background=light
+    set background=dark
     let g:airline_theme='pencil'
     colorscheme pencil
   elseif a:theme_type == "presentation"
     let g:current_theme = "presentation"
-    set gfn=Source\ Code\ Pro\ Regular:h20
+    set gfn=Source\ Code\ Pro\ Semibold:h32
     set foldcolumn=0
     set linespace=3
     set background=light
@@ -288,7 +287,7 @@ function! SwitchTheme(theme_type)
     colorscheme pencil
   else
     let g:current_theme = "code"
-    set gfn=Source\ Code\ Pro\ Light:h16
+    set gfn=Source\ Code\ Pro\ Light:h17
     set foldcolumn=0
     set background=dark
     set linespace=3
@@ -313,12 +312,14 @@ function! ToggleFocus()
   if g:current_theme == "code"
     :NumbersDisable
     :NumbersToggle
-    :GitGutterToggle
+    :GitGutterDisable
+    :SignatureToggleSigns
     :call SwitchTheme("focus")
   else
     :NumbersEnable
     :NumbersToggle
-    :GitGutterToggle
+    :GitGutterEnable
+    :SignatureToggleSigns
     :call SwitchTheme("code")
   end
 endfunction
