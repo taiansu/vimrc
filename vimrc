@@ -355,10 +355,6 @@ let g:netrw_sort_sequence = '[\/]$,*'
 " autocmd bufwritepost vimrc source $MYVIMRC
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" JUMP TO THE COLUMN OF MARK
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap ' `
-nnoremap ` '
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
@@ -447,20 +443,21 @@ nmap <leader>w :TrailingWhiteSpaces<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fix Ruby Hash Syntax
-" 把 Ruby 的 Hash rocket ( => ) 語法換成 :
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 command! FixRubyHash %s/:\(\w*\)\(\s*\)=> /\1:\2/gc
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" BASH LIKE KEYS FOR THE COMMANDLINE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map! <C-a>     <Home>
-map! <C-e>     <End>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" JUMP TO THE COLUMN OF MARK
+nnoremap ' `
+nnoremap ` '
+
+" BASH LIKE KEYS FOR THE COMMANDLINE
+map! <C-a>     <Home>
+map! <C-e>     <End>
 
 " Start non-memorized yank, should follow with a motion.
 " For example, use <leader>y2j will yank 2 line to
@@ -473,15 +470,23 @@ imap <C-f> <space>=><space>
 imap <C-d> <space>->
 
 " Clear the search buffer with <leader>v
-function! MapNoHighlight()
-  map <leader>v :nohlsearch<CR>
-endfunction
-call MapNoHighlight()
+map <leader>v :nohlsearch<CR>
+
 " Can't be bothered to understand ESC vs <C-c> in insert mode
 imap <C-c> <esc>
 nnoremap <leader><leader> <C-^>
 " format json
 command! Json !python -m json.tool
+
+" Auto-save a file when leav insert mode
+inoremap jk <esc>:w<cr>
+
+" Start an external command with a single bang
+nnoremap ! :!
+
+" Enter command mode with one key stroke
+" nnoremap ; :
+" nnoremap : ;
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SPLIT MOTIONS
