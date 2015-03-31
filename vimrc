@@ -83,7 +83,7 @@ endfunction
 
 Plug 'marijnh/tern_for_vim',     { 'for': 'javascript', 'do': function('InstallTern') }
 Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
-Plug 'mxw/vim-jsx',              { 'for': 'javascript' }
+Plug 'mxw/vim-jsx',              { 'for': ['javascript', 'html'] }
 Plug 'tpope/vim-haml',           { 'for': 'haml' }
 Plug 'nono/vim-handlebars',      { 'for': ['handlebars', 'handlebars.html'] }
 Plug 'othree/html5.vim',         { 'for': 'html' }
@@ -93,7 +93,7 @@ Plug 'vim-ruby/vim-ruby',        { 'for': 'ruby' }
 Plug 't9md/vim-ruby-xmpfilter',  { 'for': 'ruby' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'gkz/vim-ls',               { 'for': 'ls' }
-Plug 'mtscout6/vim-cjsx',        { 'for': ['coffee', 'ls'] }
+Plug 'mtscout6/vim-cjsx',        { 'for': ['coffee', 'ls', 'html'] }
 Plug 'digitaltoad/vim-jade',     { 'for': 'jade' }
 Plug 'slim-template/vim-slim',   { 'for': 'slim' }
 Plug 'vim-scripts/VimClojure',   { 'for': 'clojure' }
@@ -664,6 +664,8 @@ let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|DS_Store|tags)|(\.(
 
 
 " --- YomCompleteMe
+" let g:ycm_key_list_select_completion = ['<C-n>']
+" let g:ycm_key_list_previous_completion = ['<C-p>']
 
 let g:ycm_complete_in_comments = 0
 
@@ -745,9 +747,10 @@ autocmd FileType ruby imap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
 vnoremap <silent><Enter> :EasyAlign<CR>
 
 " --- UltiSnips
-let g:UltiSnipsExpandTrigger="<C-j>"
-" let g:UltiSnipsJumpForwardTrigger="<C-n>"
-" let g:UltiSnipsJumpBackwardTrigger="<C-p>"
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsListSnippets="<c-l>"
 
 " -- Nerdtree
 let g:NERDTreeHijackNetrw = 1
@@ -769,7 +772,13 @@ let g:syntastic_eruby_ruby_quiet_messages = {
                           \ "type":  "syntax",
                           \ "regex": '^possibly useless use of a variable in void context$' }
 
+let g:syntastic_html_tidy_quiet_messages = {
+                          \ "type":  "syntax",
+                          \ "regex": "^<' + '/' letter not allowed here$" }
+
+let g:syntastic_html_tidy_exec = 'tidy5'
 let g:syntastic_pupet_checkers=['puppetlint']
+let g:syntastic_javascript_checkers=['eslint']
 let g:syntastic_coffee_checkers=['coffeelint']
 let g:syntastic_coffee_coffeelint_args = '--file $HOME/.vim/lib/coffeelint.json'
 
