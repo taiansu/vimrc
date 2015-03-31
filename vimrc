@@ -101,9 +101,6 @@ Plug 'elixir-lang/vim-elixir',   { 'for': 'elixir' }
 Plug 'golangtw/gocode.vim',      { 'for': 'go' }
 Plug 'fatih/vim-go',             { 'for': 'go' }
 
-" Local
-Plug '~/Projects/nerdtree-ag'
-
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -634,7 +631,7 @@ set clipboard+=unnamed
 " Open with Applications
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-command! Application :slient !open -a /Applications/
+command! Application :silent !open -a /Applications/
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MAPS TO JUMP TO SPECIFIC CtrlP TARGETS AND FILES
@@ -794,6 +791,9 @@ map <leader>a :Ag<CR>
 
 " --- tern_for_vim
 autocmd BufEnter * set completeopt-=preview
+
+" --- vim-jsx
+let g:jsx_ext_required = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: c g i j k m p r s t u x z 1 2 3 4 5 6 7 8 9 0 - = | : > /
