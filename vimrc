@@ -212,7 +212,7 @@ set timeoutlen=1000 ttimeoutlen=0
 set scrolloff=7
 " Solve ruby complete slowness
 set complete-=i
-
+set iskeyword+=-
 
 if has("gui_running")
   " highlight current line
@@ -660,8 +660,17 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_extensions = []
 
 " exclude directories or files from the search
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|DS_Store|tags)|(\.(swp|ico|git|hg|svn|exe|so|dll)|(\~))$'
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|bower_components|target|dist|DS_Store|tags)|(\.(swp|ico|git|hg|svn|exe|so|dll)|(\~))$'
 
+" Set delay to prevent extra search
+let g:ctrlp_lazy_update = 350
+
+" Do not clear filenames cache, to improve CtrlP startup
+" You can manualy clear it by <F5>
+let g:ctrlp_clear_cache_on_exit = 0
+
+" Set no file limit, we are building a big project
+let g:ctrlp_max_files = 0
 
 " --- YomCompleteMe
 " let g:ycm_key_list_select_completion = ['<C-n>']
@@ -775,6 +784,10 @@ let g:syntastic_eruby_ruby_quiet_messages = {
 let g:syntastic_html_tidy_quiet_messages = {
                           \ "type":  "syntax",
                           \ "regex": "^<' + '/' letter not allowed here$" }
+
+let g:syntastic_javascript_eslint_quiet_messages = {
+                          \ "type":  "syntax",
+                          \ "regex": "^Unexpect token \<" }
 
 let g:syntastic_html_tidy_exec = 'tidy5'
 let g:syntastic_pupet_checkers=['puppetlint']
