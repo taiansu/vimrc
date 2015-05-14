@@ -481,6 +481,10 @@ inoremap jk <esc>:w<cr>
 " Start an external command with a single bang
 nnoremap ! :!
 
+" More efficient paste on next line
+nnoremap <leader>p :pu<CR>
+nnoremap <leader>P :pu!<CR>
+
 " Enter command mode with one key stroke
 " nnoremap ; :
 " nnoremap : ;
