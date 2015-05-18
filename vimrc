@@ -124,6 +124,10 @@ syntax sync minlines=50
 let g:ruby_path=$HOME . "/.rbenv/shims/ruby"
 call matchadd('WildMenu', '\%81v', 100)
 
+if exists('$TMUX')
+  set term=screen-256-color
+endif
+
 " Breaking long lines
 " gq{motion} % format the line that {motion} moves over
 " {Visual}gq % format the visually selected area
