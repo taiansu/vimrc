@@ -648,12 +648,8 @@ command! Application :silent !open -a /Applications/
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>fs :topleft :split
 
-map <leader>fv :CtrlPClearCache<CR>\|:CtrlP app/views<CR>
-map <leader>fc :CtrlPClearCache<CR>\|:CtrlP app/controllers<CR>
-map <leader>fm :CtrlPClearCache<CR>\|:CtrlP app/models<CR>
 map <leader>fa :CtrlPClearCache<CR>\|:CtrlPBufTagAll<CR>
 map <leader>ft :CtrlPClearCache<CR>\|:CtrlPTag<CR>
-map <leader>fd :CtrlPClearCache<CR>\|:CtrlP<CR>
 map <leader>ff :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -664,7 +660,7 @@ map <leader>ff :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
 " --- CtrlP
 " sets local working directory as the nearest ancestor
 " that contains one of these directories or files: .git/
-let g:ctrlp_map = '<C-p>'
+let g:ctrlp_map = '<D-p>'
 let g:ctrlp_working_path_mode = 'ra'
 
 let g:ctrlp_extensions = []
