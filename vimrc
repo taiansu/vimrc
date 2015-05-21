@@ -22,6 +22,7 @@ Plug 'bling/vim-airline'
 Plug 'airblade/vim-gitgutter'
 Plug 'kshenoy/vim-signature'
 Plug 'Konfekt/FastFold'
+Plug 'reedes/vim-pencil'
 
 " Colorscheme
 Plug 'ajh17/Spacegray.vim'
@@ -480,7 +481,8 @@ nnoremap <leader><leader> <C-^>
 command! Json !python -m json.tool
 
 " Auto-save a file when leav insert mode
-inoremap jk <esc>:w<cr>
+inoremap jk <esc>:TrailingWhiteSpaces<CR>:w<CR>
+
 
 " Start an external command with a single bang
 nnoremap ! :!
