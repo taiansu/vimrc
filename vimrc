@@ -481,8 +481,7 @@ nnoremap <leader><leader> <C-^>
 command! Json !python -m json.tool
 
 " Auto-save a file when leav insert mode
-inoremap jk <esc>:TrailingWhiteSpaces<CR>:w<CR>
-
+inoremap jk <esc>:w<CR>
 
 " Start an external command with a single bang
 nnoremap ! :!
@@ -660,7 +659,7 @@ map <leader>ff :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
 " --- CtrlP
 " sets local working directory as the nearest ancestor
 " that contains one of these directories or files: .git/
-let g:ctrlp_map = '<D-p>'
+let g:ctrlp_map = '<C-p>'
 let g:ctrlp_working_path_mode = 'ra'
 
 let g:ctrlp_extensions = []
