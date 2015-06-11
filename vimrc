@@ -120,7 +120,9 @@ set ffs=unix,mac,dos
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set synmaxcol=256
 set ttyfast
-set ttyscroll=3
+if has("gui_running")
+  set ttyscroll=3
+end
 syntax sync minlines=50
 let g:ruby_path=$HOME . "/.rbenv/shims/ruby"
 call matchadd('WildMenu', '\%81v', 100)
@@ -647,6 +649,7 @@ command! Application :silent !open -a /Applications/
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>fs :topleft :split
 
+map <leader>fd :CtrlP<CR>
 map <leader>fa :CtrlPClearCache<CR>\|:CtrlPBufTagAll<CR>
 map <leader>ft :CtrlPClearCache<CR>\|:CtrlPTag<CR>
 map <leader>ff :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
