@@ -25,7 +25,7 @@ Plug 'Konfekt/FastFold'
 Plug 'reedes/vim-pencil'
 
 " Colorscheme
-Plug 'ajh17/Spacegray.vim'
+Plug 'chriskempson/base16-vim'
 Plug 'reedes/vim-colors-pencil'
 
 " with Dependency
@@ -299,7 +299,7 @@ function! SwitchTheme(theme_type)
       set number
     endif
     let g:airline_theme='jellybeans'
-    colorscheme spacegray
+    colorscheme base16-ocean
   end
 
   if has("gui_running")
