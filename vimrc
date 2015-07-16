@@ -102,6 +102,9 @@ Plug 'elixir-lang/vim-elixir',   { 'for': 'elixir' }
 Plug 'golangtw/gocode.vim',      { 'for': 'go' }
 Plug 'fatih/vim-go',             { 'for': 'go' }
 
+" Local
+Plug '~/Projects/nerdtree-ag'
+
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -125,7 +128,7 @@ if has("gui_running")
 end
 syntax sync minlines=50
 let g:ruby_path=$HOME . "/.rbenv/shims/ruby"
-call matchadd('WildMenu', '\%81v', 100)
+call matchadd('WildMenu', '\%101v', 100)
 
 if exists('$TMUX')
   set term=screen-256-color
@@ -213,7 +216,7 @@ set winheight=5
 set winminheight=5
 set equalalways
 set eadirection=both
-set textwidth=80
+set textwidth=100
 set timeoutlen=1000 ttimeoutlen=0
 " keep more context when scrolling off the end of a buffer
 set scrolloff=7
@@ -236,6 +239,23 @@ else
   set noshowmatch
   let html_no_rendering=1
 end
+
+" Don't override register when pasting
+function! RestoreRegister()
+    let @" = s:restore_reg
+    if &clipboard == "unnamed"
+        let @* = s:restore_reg
+    endif
+    return ''
+endfunction
+
+function! s:Repl()
+    let s:restore_reg = @"
+    return "p@=RestoreRegister()\<cr>"
+endfunction
+
+" NB: this supports "rp that replaces the selection by the contents of @r
+vnoremap <silent> <expr> p <sid>Repl()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CONFIG WITH OPINION
@@ -477,13 +497,15 @@ imap <C-d> <space>->
 map <leader>v :nohlsearch<CR>
 
 " Can't be bothered to understand ESC vs <C-c> in insert mode
-imap <C-c> <esc>
+inoremap <C-c> <esc>
+inoremap <C-[> <esc>
 nnoremap <leader><leader> <C-^>
 " format json
 command! Json !python -m json.tool
 
 " Auto-save a file when leav insert mode
 inoremap jk <esc>:w<CR>
+inoremap <esc> <Nop>
 
 " Start an external command with a single bang
 nnoremap ! :!
@@ -647,9 +669,9 @@ command! Application :silent !open -a /Applications/
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MAPS TO JUMP TO SPECIFIC CtrlP TARGETS AND FILES
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>fs :topleft :split
+map <leader>fs :topleft :split<CR>
 
-map <leader>fd :CtrlP<CR>
+map <leader>fd :CtrlPClearCache<CR>\|:CtrlP<CR>
 map <leader>fa :CtrlPClearCache<CR>\|:CtrlPBufTagAll<CR>
 map <leader>ft :CtrlPClearCache<CR>\|:CtrlPTag<CR>
 map <leader>ff :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
