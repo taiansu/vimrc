@@ -223,6 +223,10 @@ set scrolloff=7
 " Solve ruby complete slowness
 set complete-=i
 set iskeyword+=-
+" Split location
+set splitright
+" Make fugitive diff split vertical
+set diffopt+=vertical
 
 if has("gui_running")
   " highlight current line
@@ -500,12 +504,12 @@ map <leader>v :nohlsearch<CR>
 inoremap <C-c> <esc>
 inoremap <C-[> <esc>
 nnoremap <leader><leader> <C-^>
-" format json
-command! Json !python -m json.tool
 
 " Auto-save a file when leav insert mode
 inoremap jk <esc>:w<CR>
-inoremap <esc> <Nop>
+
+" format json
+command! Json !python -m json.tool
 
 " Start an external command with a single bang
 nnoremap ! :!
@@ -725,7 +729,7 @@ autocmd FileType markdown let b:dispatch = 'octodown %'
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
 
 " --- emmet-vim
-let g:user_emmet_leader_key='<c-y>'
+let g:user_emmet_leader_key='<C-Y>'
 
 " --- vim-marked
 command! Mo MarkedOpen
@@ -833,7 +837,7 @@ let g:syntastic_check_on_wq = 0
 nnoremap <C-w>e :SyntasticCheck<CR>
 
 " --- Numbers.vim
-nnoremap <C-n> :NumbersToggle<CR>
+nnoremap <C-N> :NumbersToggle<CR>
 
 " --- dash.vim
 map <leader>d :Dash<CR>
@@ -848,5 +852,5 @@ autocmd BufEnter * set completeopt-=preview
 let g:jsx_ext_required = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: c g i j k m p r s t u x z 1 2 3 4 5 6 7 8 9 0 - = | : > /
+" Free leader keys: c g j k m p r s t u x z 1 2 3 4 5 6 7 8 9 0 - = | : > /
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
