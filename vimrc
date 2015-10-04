@@ -23,6 +23,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'kshenoy/vim-signature'
 Plug 'Konfekt/FastFold'
 Plug 'reedes/vim-pencil'
+Plug 'michaeljsmith/vim-indent-object'
 
 " Colorscheme
 Plug 'chriskempson/base16-vim'
@@ -56,7 +57,7 @@ function! BuildYCM(info)
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status == 'installed' || a:info.force
-    !./install.sh --clang-completer
+    !./install.py --clang-completer
   endif
 endfunction
 
