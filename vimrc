@@ -24,6 +24,7 @@ Plug 'kshenoy/vim-signature'
 Plug 'Konfekt/FastFold'
 Plug 'reedes/vim-pencil'
 Plug 'michaeljsmith/vim-indent-object'
+Plug 'AndrewRadev/linediff.vim'
 
 " Colorscheme
 Plug 'chriskempson/base16-vim'
@@ -48,6 +49,7 @@ Plug 'junegunn/vim-easy-align',  { 'on': 'EasyAlign' }
 Plug 'mattn/webapi-vim',         { 'on': 'Gist' }
 Plug 'mattn/gist-vim',           { 'on': 'Gist' }
 Plug 'ryanss/vim-hackernews',    { 'on': 'HackerNews' }
+Plug 'rdnetto/YCM-Generator',    { 'branch': 'stable' }
 
 " Lazy loading
 
@@ -468,7 +470,7 @@ command! W call WriteCreatingDirs()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 command! TrailingWhiteSpaces %s/\s\+$//e
-nmap <leader>w :TrailingWhiteSpaces<CR>
+nmap <leader>xd :TrailingWhiteSpaces<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fix Ruby Hash Syntax
@@ -499,7 +501,7 @@ imap <C-f> <space>=><space>
 imap <C-d> <space>->
 
 " Clear the search buffer with <leader>v
-map <leader>v :nohlsearch<CR>
+map <leader>sc :nohlsearch<CR>
 
 " Can't be bothered to understand ESC vs <C-c> in insert mode
 inoremap <C-c> <esc>
@@ -710,6 +712,7 @@ let g:ctrlp_max_files = 0
 " --- YomCompleteMe
 " let g:ycm_key_list_select_completion = ['<C-n>']
 " let g:ycm_key_list_previous_completion = ['<C-p>']
+let g:ycm_global_ycm_extra_conf = '~/.dotfiles/ycm_extra_conf.py'
 
 let g:ycm_complete_in_comments = 0
 
@@ -853,5 +856,5 @@ autocmd BufEnter * set completeopt-=preview
 let g:jsx_ext_required = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: c g j k m p r s t u x z 1 2 3 4 5 6 7 8 9 0 - = | : > /
+" Free leader keys: c g j k m p r t u w x z 1 2 3 4 5 6 7 8 9 0 - = | : > /
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
