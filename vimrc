@@ -85,6 +85,10 @@ function! InstallTern(info)
   endif
 endfunction
 
+function! InstallGoBinary(info)
+  :GoInstallBinaries
+endfunction
+
 Plug 'marijnh/tern_for_vim',     { 'for': 'javascript', 'do': function('InstallTern') }
 Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
 Plug 'mxw/vim-jsx',              { 'for': ['javascript', 'html'] }
@@ -102,8 +106,8 @@ Plug 'digitaltoad/vim-jade',     { 'for': 'jade' }
 Plug 'slim-template/vim-slim',   { 'for': 'slim' }
 Plug 'vim-scripts/VimClojure',   { 'for': 'clojure' }
 Plug 'elixir-lang/vim-elixir',   { 'for': 'elixir' }
+Plug 'fatih/vim-go',             { 'for': 'go', 'do': function('InstallGoBinary') }
 Plug 'golangtw/gocode.vim',      { 'for': 'go' }
-Plug 'fatih/vim-go',             { 'for': 'go' }
 
 " Local
 Plug '~/Projects/nerdtree-ag'
@@ -268,9 +272,6 @@ vnoremap <silent> <expr> p <sid>Repl()
 " CONFIG WITH OPINION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader="\<space>" "you may like ',' or '\'
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SHOW INVISIBLES
@@ -414,6 +415,8 @@ augroup vimrcEx
   " Markdown 的語法上色常常會錯，移除註解可以停止上色
   " autocmd! FileType mkd,md setlocal syn=off
 
+  autocmd FileType ruby,eruby,yaml,coffee set softtabstop=2 shiftwidth=2 tabstop=2
+
   autocmd FileType ruby compiler ruby
   autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
   autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
@@ -425,6 +428,7 @@ augroup vimrcEx
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
   autocmd FileType css,sass,scss set omnifunc=csscomplete#CompleteCSS
   autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+  autocmd FileType go au BufWritePre <buffer> GoFmt
 
   " Leave the return key alone when in command line windows, since it's used
   " to run commands there.
@@ -466,7 +470,7 @@ command! W call WriteCreatingDirs()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TRAILING WHITE SPACES
-" <leader>c 快速移除行尾空白
+" <leader>xd 快速移除行尾空白
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 command! TrailingWhiteSpaces %s/\s\+$//e
@@ -495,12 +499,19 @@ map! <C-e>     <End>
 " paste, but without put them into the yank ring.
 map <leader>y "_y
 
-"  Insert a hash rocket with <C-f>
-imap <C-f> <space>=><space>
-" Insert an arrow with <C-d>
-imap <C-d> <space>->
+"  Insert a hash rocket with <C-v>
+imap <C-v> <space>=><space>
+" Insert an arrow with <C-b>
+imap <C-b> <space>->
 
-" Clear the search buffer with <leader>v
+" Apply Macros with Q and disable ex mode
+nnoremap Q @q
+vnoremap Q :norm @q<cr>
+
+" Clone Paragraph with cp
+nnoremap <leader>cp yap<S-}>p
+
+" Clear the search buffer with <leader>sc
 map <leader>sc :nohlsearch<CR>
 
 " Can't be bothered to understand ESC vs <C-c> in insert mode
@@ -524,6 +535,9 @@ nnoremap <leader>P :pu!<CR>
 " Enter command mode with one key stroke
 " nnoremap ; :
 " nnoremap : ;
+
+" Use + after * to search two words
+nnoremap <silent> + :let @/.= '\\|\<'.expand('<cword>').'\>'<cr>n
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SPLIT MOTIONS
@@ -568,7 +582,7 @@ call submode#map('undo/redo', 'n', '', '-', 'g-')
 call submode#map('undo/redo', 'n', '', '+', 'g+')
 
 " Move around splits with <C-hjkl>
-nnoremap <leader>o <C-w>w
+nnoremap <leader>w <C-w>w
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -712,6 +726,7 @@ let g:ctrlp_max_files = 0
 " --- YomCompleteMe
 " let g:ycm_key_list_select_completion = ['<C-n>']
 " let g:ycm_key_list_previous_completion = ['<C-p>']
+
 let g:ycm_global_ycm_extra_conf = '~/.dotfiles/ycm_extra_conf.py'
 
 let g:ycm_complete_in_comments = 0
@@ -794,10 +809,10 @@ autocmd FileType ruby imap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
 vnoremap <silent><Enter> :EasyAlign<CR>
 
 " --- UltiSnips
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-let g:UltiSnipsListSnippets="<c-l>"
+let g:UltiSnipsExpandTrigger="<C-j>"
+let g:UltiSnipsJumpForwardTrigger="<C-j>"
+let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+let g:UltiSnipsListSnippets="<C-l>"
 
 " -- Nerdtree
 let g:NERDTreeHijackNetrw = 1
@@ -833,8 +848,8 @@ let g:syntastic_javascript_checkers=['eslint']
 let g:syntastic_coffee_checkers=['coffeelint']
 let g:syntastic_coffee_coffeelint_args = '--file $HOME/.vim/lib/coffeelint.json'
 
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
@@ -856,5 +871,5 @@ autocmd BufEnter * set completeopt-=preview
 let g:jsx_ext_required = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: c g j k m p r t u w x z 1 2 3 4 5 6 7 8 9 0 - = | : > /
+" Free leader keys: b c g j k m o p r t u v z 1 2 3 4 5 6 7 8 9 0 - = | : > /
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
