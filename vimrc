@@ -126,7 +126,7 @@ set ffs=unix,mac,dos
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SYNTAX HIGHLIGHT FIX
 " Stop syntax highlight on 1024 column or 256 line
-" Color hint on the 81th character
+" Color hint on the 101th character
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set synmaxcol=256
 set ttyfast
@@ -135,7 +135,7 @@ if has("gui_running")
 end
 syntax sync minlines=50
 let g:ruby_path=$HOME . "/.rbenv/shims/ruby"
-call matchadd('WildMenu', '\%101v', 100)
+call matchadd('WildMenu', '\%101v', &textwidth + 1)
 
 if exists('$TMUX')
   set term=screen-256-color
@@ -153,10 +153,6 @@ endif
 syntax on
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
-" expand tab to space
-set expandtab
-set autoindent
-set smartindent
 inoremap # X#
 " wrap text if lines longer then the lenght of window
 set wrap
@@ -272,6 +268,10 @@ vnoremap <silent> <expr> p <sid>Repl()
 " CONFIG WITH OPINION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader="\<space>" "you may like ',' or '\'
+set expandtab
+set autoindent
+set smartindent
+set tabstop=4 softtabstop=4 shiftwidth=4
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SHOW INVISIBLES
@@ -394,7 +394,6 @@ let g:netrw_sort_sequence = '[\/]$,*'
 augroup vimrcEx
   " Clear all autocmds in the group
   autocmd!
-  autocmd FileType text setlocal textwidth=81
   " Jump to last cursor position unless it's invalid or in an event handler
   autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -407,15 +406,15 @@ augroup vimrcEx
   autocmd! BufNewFile,BufRead *.scss,*.sass     set ft=scss.css
   autocmd! Bufread,BufNewFile *.md              set ft=markdown
 
-  "for python and java, autoindent with four spaces, always expand tabs
-  autocmd! FileType python,java,c set ai sw=4 sts=4 et
+  "Setup indent for each language
+  autocmd! FileType ruby,eruby,yaml,coffee set ai softtabstop=2 shiftwidth=2 et
+  autocmd! FileType python,java,c,javascript,jsx  set ai sw=4 sts=4 et
+  autocmd! FileType go set ai ts=8 sts=8 noexpandtab
 
   " Markdown syntax highlight is often wrong
   " you might like to disable it.
   " Markdown 的語法上色常常會錯，移除註解可以停止上色
   " autocmd! FileType mkd,md setlocal syn=off
-
-  autocmd FileType ruby,eruby,yaml,coffee set softtabstop=2 shiftwidth=2 tabstop=2
 
   autocmd FileType ruby compiler ruby
   autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
@@ -871,5 +870,5 @@ autocmd BufEnter * set completeopt-=preview
 let g:jsx_ext_required = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: b c g j k m o p r t u v z 1 2 3 4 5 6 7 8 9 0 - = | : > /
+" Free leader keys: b c g j k m o r t u v z 1 2 3 4 5 6 7 8 9 0 - = | : > /
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
