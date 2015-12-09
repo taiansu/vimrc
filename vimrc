@@ -538,31 +538,30 @@ nnoremap <leader>P :pu!<CR>
 nnoremap <silent> + :let @/.= '\\|\<'.expand('<cword>').'\>'<cr>n
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SPLIT MOTIONS
+" BUFFER, TAB AND SPLIT MOTIONS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap s <Nop>
-nnoremap sj <C-w>j
-nnoremap sk <C-w>k
-nnoremap sl <C-w>l
-nnoremap sh <C-w>h
+nnoremap sj :<C-u>bn<CR>
+nnoremap sk :<C-u>bp<CR>
+nnoremap sq :<C-u>bd<CR>
+
+nnoremap st :<C-u>tabnew<CR>
+nnoremap sc :on
+nnoremap sl gt
+nnoremap sh gT
+nnoremap sQ :<C-u>q<CR>
+
+nnoremap ss :<C-u>sp<CR>
+nnoremap sv :<C-u>vs<CR>
 nnoremap sJ <C-w>J
 nnoremap sK <C-w>K
 nnoremap sL <C-w>L
 nnoremap sH <C-w>H
-nnoremap sn gt
-nnoremap sp gT
 nnoremap sr <C-w>r
 nnoremap s= <C-w>=
 nnoremap sw <C-w>w
 nnoremap so <C-w>_<C-w>|
-nnoremap sa <C-w>=
-nnoremap sN :<C-u>bn<CR>
-nnoremap sP :<C-u>bp<CR>
-nnoremap st :<C-u>tabnew<CR>
-nnoremap ss :<C-u>sp<CR>
-nnoremap sv :<C-u>vs<CR>
-nnoremap sq :<C-u>q<CR>
-nnoremap sQ :<C-u>bd<CR>
+
 
 call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
 call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
@@ -691,9 +690,9 @@ command! Application :silent !open -a /Applications/
 map <leader>fs :topleft :split<CR>
 
 map <leader>fd :CtrlPClearCache<CR>\|:CtrlP<CR>
-map <leader>fa :CtrlPClearCache<CR>\|:CtrlPBufTagAll<CR>
-map <leader>ft :CtrlPClearCache<CR>\|:CtrlPTag<CR>
+map <leader>fb :CtrlPBuffer<CR>
 map <leader>ff :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
+map <leader>fa :CtrlPMixed<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Addons Settings
@@ -709,7 +708,10 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_extensions = []
 
 " exclude directories or files from the search
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|bower_components|target|dist|DS_Store|tags)|(\.(swp|ico|git|hg|svn|exe|so|dll)|(\~))$'
+let g:ctrlp_custom_ignore = {
+    \ 'dir': '\v[\/](\.(node_modules|bower_components|target|dist|git|hg|svn)|\_site)$',
+    \ 'file': '\v\.(swp|ico|exe|so|dll|DS_Store|tags|class|png|jpg|jpeg)$',
+\ }
 
 " Set delay to prevent extra search
 let g:ctrlp_lazy_update = 350
@@ -756,11 +758,10 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 
-if !has("gui_running")
-  let g:airline#extensions#tabline#enabled = 1
-endif
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
-let g:airline_theme='jellybeans'
+let g:airline_theme='wombat'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_symbols.branch = '⎇ '
