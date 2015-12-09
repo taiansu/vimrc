@@ -676,7 +676,7 @@ vnoremap > >gv
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Interact with GUI clipboard
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set clipboard+=unnamed
+set clipboard+=unnamedplus
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Open with Applications
@@ -738,6 +738,12 @@ let g:ycm_filetype_blacklist = {
       \ 'pandoc' : 1,
       \ 'hackernews' : 1,
       \}
+
+if has('nvim')
+    let g:pyton_host_prog = '/usr/local/bin/python'
+    let g:pyton3_host_prog = '/usr/local/bin/python3'
+    :let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+endif
 
 " --- vim-dispatch
 nnoremap <leader>e :Dispatch<CR>
