@@ -406,9 +406,8 @@ augroup vimrcEx
   autocmd! Bufread,BufNewFile *.md              set ft=markdown
 
   "Setup indent for each language
-  autocmd! FileType ruby,eruby,yaml,coffee set ai softtabstop=2 shiftwidth=2 et
-  autocmd! FileType python,java,c,javascript,jsx  set ai sw=4 sts=4 et
-  autocmd! FileType json  set ai sw=2 sts=2 et
+  autocmd! FileType ruby,eruby,yaml,coffee,json,javascript,jsx,markdown set ai sts=2 sw=2 et
+  autocmd! FileType python,java,c set ai sw=4 sts=4 et
   autocmd! FileType go set ai ts=8 sts=8 noexpandtab
 
   " Markdown syntax highlight is often wrong
