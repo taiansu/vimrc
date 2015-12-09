@@ -39,6 +39,10 @@ endfunction
 
 Plug 'scrooloose/syntastic',     { 'do': function('InstallLints') }
 
+if has('nvim')
+  Plug 'radenling/vim-dispatch-neovim'
+endif
+
 " On-demand loading
 Plug 'tpope/vim-dispatch',       { 'on': ['Dispatch', 'Focus', 'Start'] }
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
@@ -406,7 +410,7 @@ augroup vimrcEx
   autocmd! Bufread,BufNewFile *.md              set ft=markdown
 
   "Setup indent for each language
-  autocmd! FileType ruby,eruby,yaml,coffee,json,javascript,jsx,markdown set ai sts=2 sw=2 et
+  autocmd! FileType ruby,eruby,yaml,coffee,json,javascript,jsx,markdown,vim set ai sts=2 sw=2 et
   autocmd! FileType python,java,c set ai sw=4 sts=4 et
   autocmd! FileType go set ai ts=8 sts=8 noexpandtab
 
@@ -742,7 +746,8 @@ let g:ycm_filetype_blacklist = {
 if has('nvim')
     let g:pyton_host_prog = '/usr/local/bin/python'
     let g:pyton3_host_prog = '/usr/local/bin/python3'
-    :let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+    tnoremap <Esc> <C-\><C-n>
 endif
 
 " --- vim-dispatch
