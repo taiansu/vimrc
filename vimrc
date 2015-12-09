@@ -864,7 +864,7 @@ nnoremap <C-w>e :SyntasticCheck<CR>
 nnoremap <C-N> :NumbersToggle<CR>
 
 " --- dash.vim
-map <leader>d :Dash<CR>
+map <leader>dd :Dash<CR>
 
 " --- ag.vim
 map <leader>a :Ag<CR>
