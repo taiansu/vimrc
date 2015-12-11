@@ -520,7 +520,7 @@ inoremap <C-c> <esc>
 inoremap <C-[> <esc>
 nnoremap <leader><leader> <C-^>
 
-" Auto-save a file when leav insert mode
+" Auto-save a file and leave insert mode
 inoremap jk <esc>:w<CR>
 
 " format json
@@ -547,7 +547,7 @@ nnoremap <silent> + :let @/.= '\\|\<'.expand('<cword>').'\>'<cr>n
 nnoremap s <Nop>
 nnoremap sj :<C-u>bn<CR>
 nnoremap sk :<C-u>bp<CR>
-nnoremap sq :<C-u>bd<CR>
+nnoremap sd :<C-u>bd<CR>
 
 nnoremap st :<C-u>tabnew<CR>
 nnoremap sc :on
@@ -565,7 +565,7 @@ nnoremap sr <C-w>r
 nnoremap s= <C-w>=
 nnoremap sw <C-w>w
 nnoremap so <C-w>_<C-w>|
-
+" nnoremap st :split | :terminal<CR>
 
 call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
 call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
@@ -747,7 +747,7 @@ if has('nvim')
     let g:pyton3_host_prog = '/usr/local/bin/python3'
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
     tnoremap <Esc> <C-\><C-n>
-    :set mouse=
+    " :set mouse=
 endif
 
 " --- vim-dispatch
@@ -771,6 +771,7 @@ endif
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#buffer_min_count = 2
 
 let g:airline_theme='base16'
 let g:airline_left_sep = ''
@@ -851,8 +852,6 @@ let g:syntastic_html_tidy_quiet_messages = {
 let g:syntastic_html_tidy_exec = 'tidy5'
 let g:syntastic_pupet_checkers=['puppetlint']
 let g:syntastic_javascript_checkers=['eslint']
-let g:syntastic_coffee_checkers=['coffeelint']
-let g:syntastic_coffee_coffeelint_args = '--file $HOME/.vim/lib/coffeelint.json'
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
