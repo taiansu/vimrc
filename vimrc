@@ -52,7 +52,6 @@ Plug 'gabesoft/vim-ags',         { 'on': 'Ags' }
 Plug 'junegunn/vim-easy-align',  { 'on': 'EasyAlign' }
 Plug 'mattn/webapi-vim',         { 'on': 'Gist' }
 Plug 'mattn/gist-vim',           { 'on': 'Gist' }
-Plug 'ryanss/vim-hackernews',    { 'on': 'HackerNews' }
 Plug 'rdnetto/YCM-Generator',    { 'branch': 'stable' }
 
 " Lazy loading
@@ -529,6 +528,7 @@ command! Json !python -m json.tool
 
 " Start an external command with a single bang
 nnoremap ! :!
+nnoremap ` :silent !
 
 " More efficient paste on next line
 nnoremap <leader>p :pu<CR>
@@ -740,7 +740,6 @@ let g:ycm_filetype_blacklist = {
       \ 'nerdtree' : 1,
       \ 'markdown' : 1,
       \ 'pandoc' : 1,
-      \ 'hackernews' : 1,
       \}
 
 if has('nvim')
@@ -748,6 +747,7 @@ if has('nvim')
     let g:pyton3_host_prog = '/usr/local/bin/python3'
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
     tnoremap <Esc> <C-\><C-n>
+    :set mouse=
 endif
 
 " --- vim-dispatch
@@ -772,7 +772,7 @@ endif
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
-let g:airline_theme='wombat'
+let g:airline_theme='base16'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_symbols.branch = '⎇ '
@@ -838,7 +838,7 @@ let g:gist_open_browser_after_post = 1
 
 " --- Syntastic
 let g:syntastic_mode_map={ 'mode': 'active',
-                         \ 'passive_filetypes': ['hackernews', 'nerdtree', 'tagbar'] }
+                         \ 'passive_filetypes': ['nerdtree', 'tagbar'] }
 
 let g:syntastic_eruby_ruby_quiet_messages = {
                           \ "type":  "syntax",
@@ -847,10 +847,6 @@ let g:syntastic_eruby_ruby_quiet_messages = {
 let g:syntastic_html_tidy_quiet_messages = {
                           \ "type":  "syntax",
                           \ "regex": "^<' + '/' letter not allowed here$" }
-
-let g:syntastic_javascript_eslint_quiet_messages = {
-                          \ "type":  "syntax",
-                          \ "regex": "^Unexpect token \<" }
 
 let g:syntastic_html_tidy_exec = 'tidy5'
 let g:syntastic_pupet_checkers=['puppetlint']
