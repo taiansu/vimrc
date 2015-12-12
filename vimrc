@@ -409,7 +409,7 @@ augroup vimrcEx
   autocmd! Bufread,BufNewFile *.md              set ft=markdown
 
   "Setup indent for each language
-  autocmd! FileType ruby,eruby,yaml,coffee,json,javascript,jsx,markdown,vim set ai sts=2 sw=2 et
+  autocmd! FileType ruby,eruby,yaml,coffee,json,javascript,jsx,markdown,vim,elixir set ai sts=2 sw=2 et
   autocmd! FileType python,java,c set ai sw=4 sts=4 et
   autocmd! FileType go set ai ts=8 sts=8 noexpandtab
 
@@ -471,11 +471,11 @@ command! W call WriteCreatingDirs()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TRAILING WHITE SPACES
-" <leader>xd 快速移除行尾空白
+" <leader>xc 快速移除行尾空白
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 command! TrailingWhiteSpaces %s/\s\+$//e
-nmap <leader>xd :TrailingWhiteSpaces<CR>
+nmap <leader>xc :TrailingWhiteSpaces<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fix Ruby Hash Syntax
@@ -512,8 +512,8 @@ vnoremap Q :norm @q<cr>
 " Clone Paragraph with cp
 nnoremap <leader>cp yap<S-}>p
 
-" Clear the search buffer with <leader>sc
-map <leader>sc :nohlsearch<CR>
+" Clear the search buffer with <leader>sd
+map <leader>sd :nohlsearch<CR>
 
 " Can't be bothered to understand ESC vs <C-c> in insert mode
 inoremap <C-c> <esc>
