@@ -10,6 +10,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'kien/ctrlp.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -27,7 +28,7 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'AndrewRadev/linediff.vim'
 
 " Colorscheme
-Plug 'chriskempson/base16-vim'
+Plug 'romainl/Apprentice'
 Plug 'reedes/vim-colors-pencil'
 
 " with Dependency
@@ -131,6 +132,7 @@ set ffs=unix,mac,dos
 " Stop syntax highlight on 1024 column or 256 line
 " Color hint on the 101th character
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" let base16colorspace=256  " Access colors present in 256 colorspace
 set synmaxcol=256
 set ttyfast
 if has("gui_running")
@@ -330,7 +332,7 @@ function! SwitchTheme(theme_type)
       set number
     endif
     let g:airline_theme='jellybeans'
-    colorscheme base16-ocean
+    colorscheme apprentice
   end
 
   if has("gui_running")
@@ -492,8 +494,8 @@ nnoremap ' `
 nnoremap ` '
 
 " BASH LIKE KEYS FOR THE COMMANDLINE
-map! <C-a>     <Home>
-map! <C-e>     <End>
+map! <C-a> <Home>
+map! <C-e> <End>
 
 " Start non-memorized yank, should follow with a motion.
 " For example, use <leader>y2j will yank 2 line to
@@ -528,7 +530,6 @@ command! Json !python -m json.tool
 
 " Start an external command with a single bang
 nnoremap ! :!
-nnoremap ` :silent !
 
 " More efficient paste on next line
 nnoremap <leader>p :pu<CR>
@@ -545,22 +546,26 @@ nnoremap <silent> + :let @/.= '\\|\<'.expand('<cword>').'\>'<cr>n
 " BUFFER, TAB AND SPLIT MOTIONS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap s <Nop>
-nnoremap sj :<C-u>bn<CR>
-nnoremap sk :<C-u>bp<CR>
+" nnoremap sj :<C-u>bn<CR>
+" nnoremap sk :<C-u>bp<CR>
+" nnoremap sd :<C-u>bd<CR>
+" nnoremap sl gt
+" nnoremap sh gT
+" nnoremap st :<C-u>tabnew<CR>
+
+nnoremap sj <C-w>J
+nnoremap sk <C-w>K
+nnoremap sl <C-w>L
+nnoremap sh <C-w>H
+nnoremap sm :on
+nnoremap sn :<C-u>bn<CR>
+nnoremap sp :<C-u>bp<CR>
 nnoremap sd :<C-u>bd<CR>
-
-nnoremap st :<C-u>tabnew<CR>
-nnoremap sc :on
-nnoremap sl gt
-nnoremap sh gT
-nnoremap sQ :<C-u>q<CR>
-
+nnoremap sc <C-w>q
 nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
-nnoremap sJ <C-w>J
-nnoremap sK <C-w>K
-nnoremap sL <C-w>L
-nnoremap sH <C-w>H
+
+nnoremap sQ :<C-u>q<CR>
 nnoremap sr <C-w>r
 nnoremap s= <C-w>=
 nnoremap sw <C-w>w
@@ -583,7 +588,25 @@ call submode#map('undo/redo', 'n', '', '-', 'g-')
 call submode#map('undo/redo', 'n', '', '+', 'g+')
 
 " Move around splits with <C-hjkl>
-nnoremap <leader>w <C-w>w
+nnoremap <leader>wk <C-w>k
+nnoremap <leader>wj <C-w>j
+nnoremap <leader>wh <C-w>h
+nnoremap <leader>wl <C-w>l
+nnoremap <leader>wm <C-w>o
+nnoremap <leader>wc <C-w>q
+nnoremap <leader>ws :<C-u>sp<CR>
+nnoremap <leader>wv :<C-u>sv<CR>
+
+map <leader>fs :topleft :split<CR>
+
+map <leader>fd :CtrlPClearCache<CR>\|:CtrlP<CR>
+map <leader>fb :CtrlPBuffer<CR>
+map <leader>ff :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
+map <leader>fa :CtrlPMixed<CR>
+map <leader>fk :<C-u>bd<CR>
+map <leader>fn :<C-u>bn<CR>
+map <leader>fp :<C-u>bp<CR>
+
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -688,15 +711,6 @@ set clipboard+=unnamedplus
 
 command! Application :silent !open -a /Applications/
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MAPS TO JUMP TO SPECIFIC CtrlP TARGETS AND FILES
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>fs :topleft :split<CR>
-
-map <leader>fd :CtrlPClearCache<CR>\|:CtrlP<CR>
-map <leader>fb :CtrlPBuffer<CR>
-map <leader>ff :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
-map <leader>fa :CtrlPMixed<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Addons Settings
@@ -728,6 +742,7 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_max_files = 0
 
 " --- YomCompleteMe
+let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<ENTER>']
 " let g:ycm_key_list_select_completion = ['<C-n>']
 " let g:ycm_key_list_previous_completion = ['<C-p>']
 
