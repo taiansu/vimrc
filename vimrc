@@ -212,7 +212,8 @@ set foldmethod=indent
 set foldlevelstart=3
 set foldnestmax=3
 set linebreak
-set showbreak=↪
+" set showbreak=↪
+set showbreak=⇘
 set history=1000
 " show the cursor wposition all the time
 set ruler
