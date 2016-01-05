@@ -13,6 +13,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive',
@@ -494,14 +495,11 @@ command! FixRubyHash %s/:\(\w*\)\(\s*\)=> /\1:\2/gc
 nnoremap ' `
 nnoremap ` '
 
-" BASH LIKE KEYS FOR THE COMMANDLINE
-map! <C-a> <Home>
-map! <C-e> <End>
-
-" Start non-memorized yank, should follow with a motion.
+" Non-memorized yank and delete, should follow with a motion.
 " For example, use <leader>y2j will yank 2 line to
 " paste, but without put them into the yank ring.
 map <leader>y "_y
+map <leader>d "_d
 
 "  Insert a hash rocket with <C-v>
 imap <C-v> <space>=><space>
@@ -878,9 +876,6 @@ nnoremap <C-w>e :SyntasticCheck<CR>
 
 " --- Numbers.vim
 nnoremap <C-N> :NumbersToggle<CR>
-
-" --- dash.vim
-map <leader>dd :Dash<CR>
 
 " --- ag.vim
 map <leader>a :Ag<CR>
