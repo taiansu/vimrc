@@ -333,7 +333,7 @@ function! SwitchTheme(theme_type)
     if exists("g:current_theme")
       set number
     endif
-    let g:airline_theme='jellybeans'
+    let g:airline_theme='distinguished'
     colorscheme apprentice
   end
 
