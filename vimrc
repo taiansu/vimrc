@@ -503,8 +503,8 @@ map <leader>d "_d
 
 "  Insert a hash rocket with <C-v>
 imap <C-v> <space>=><space>
-" Insert an arrow with <C-b>
-imap <C-b> <space>->
+" Insert an arrow with <C-k>
+imap <C-k> <space>->
 
 " Apply Macros with Q and disable ex mode
 nnoremap Q @q
