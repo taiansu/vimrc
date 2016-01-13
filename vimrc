@@ -741,7 +741,7 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_max_files = 0
 
 " --- YomCompleteMe
-let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<ENTER>']
+let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
 " let g:ycm_key_list_select_completion = ['<C-n>']
 " let g:ycm_key_list_previous_completion = ['<C-p>']
 
