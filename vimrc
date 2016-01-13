@@ -64,7 +64,7 @@ function! BuildYCM(info)
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status == 'installed' || a:info.force
-    !./install.py --clang-completer
+    !./install.py --clang-completer --gocode-completer --tern-completer
   endif
 endfunction
 
@@ -80,21 +80,11 @@ augroup load_lazy_plugins
 augroup END
 
 " Language specified
-function! InstallTern(info)
-  " info is a dictionary with 3 fields
-  " - name:   name of the plugin
-  " - status: 'installed', 'updated', or 'unchanged'
-  " - force:  set on PlugInstall! or PlugUpdate!
-  if a:info.status == 'installed' || a:info.force
-    !npm install
-  endif
-endfunction
 
 function! InstallGoBinary(info)
   :GoInstallBinaries
 endfunction
 
-Plug 'marijnh/tern_for_vim',     { 'for': 'javascript', 'do': function('InstallTern') }
 Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
 Plug 'mxw/vim-jsx',              { 'for': ['javascript', 'html'] }
 Plug 'tpope/vim-haml',           { 'for': 'haml' }
