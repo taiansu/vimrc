@@ -398,9 +398,10 @@ augroup vimrcEx
     \ endif
 
 
-  autocmd! BufNewFile,BufRead,BufEnter *.ls     set ft=ls
-  autocmd! BufNewFile,BufRead *.scss,*.sass     set ft=scss.css
-  autocmd! Bufread,BufNewFile *.md              set ft=markdown
+  autocmd! BufNewFile,BufRead,BufEnter *.ex,*.exs set ft=elixir
+  autocmd! BufNewFile,BufRead,BufEnter *.ls       set ft=ls
+  autocmd! BufNewFile,BufRead *.scss,*.sass       set ft=scss.css
+  autocmd! BufNewFile,BufRead *.md                set ft=markdown
 
   "Setup indent for each language
   autocmd! FileType ruby,eruby,yaml,coffee,json,javascript,jsx,markdown,vim,elixir set ai sts=2 sw=2 et
