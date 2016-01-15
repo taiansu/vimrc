@@ -585,7 +585,7 @@ nnoremap <leader>wl <C-w>l
 nnoremap <leader>wm <C-w>o
 nnoremap <leader>wc <C-w>q
 nnoremap <leader>ws :<C-u>sp<CR>
-nnoremap <leader>wv :<C-u>sv<CR>
+nnoremap <leader>wv :<C-u>vs<CR>
 
 map <leader>fs :topleft :split<CR>
 
