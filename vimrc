@@ -717,7 +717,7 @@ let g:ctrlp_extensions = []
 
 " exclude directories or files from the search
 let g:ctrlp_custom_ignore = {
-    \ 'dir': '\v[\/](\.(node_modules|bower_components|target|dist|git|hg|svn)|\_site)$',
+    \ 'dir': '\v[\/](\.(git|hg|svn)|(\_site|node_modules|bower_components|target|dist|build))$',
     \ 'file': '\v\.(swp|ico|exe|so|dll|DS_Store|tags|class|png|jpg|jpeg)$',
 \ }
 
@@ -754,6 +754,10 @@ if has('nvim')
     tnoremap <Esc> <C-\><C-n>
     " :set mouse=
 endif
+
+" --- end-wise
+let g:endwise_no_mappings = 1
+inoremap <expr> <CR> pumvisible() ? "\<C-R>=ExpandSnippetOrCarriageReturn()\<CR>" : "\<CR>\<C-R>=EndwiseDiscretionary()\<CR>"
 
 " --- vim-dispatch
 nnoremap <leader>e :Dispatch<CR>
