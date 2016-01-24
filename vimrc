@@ -35,7 +35,7 @@ Plug 'reedes/vim-colors-pencil'
 " with Dependency
 function! InstallLints(info)
   if a:info.status == 'installed' || a:info.force
-    !npm install -g coffeelint coffee-react-transform
+    !npm install -g coffeelint coffee-react-transform eslint_d
   endif
 endfunction
 
@@ -82,6 +82,7 @@ augroup END
 " Language specified
 
 function! InstallGoBinary(info)
+  :e tmp.go
   :GoInstallBinaries
 endfunction
 
@@ -468,20 +469,17 @@ command! W call WriteCreatingDirs()
 " TRAILING WHITE SPACES
 " <leader>xc 快速移除行尾空白
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 command! TrailingWhiteSpaces %s/\s\+$//e
 nmap <leader>xc :TrailingWhiteSpaces<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fix Ruby Hash Syntax
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 command! FixRubyHash %s/:\(\w*\)\(\s*\)=> /\1:\2/gc
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " JUMP TO THE COLUMN OF MARK
 nnoremap ' `
 nnoremap ` '
@@ -492,10 +490,10 @@ nnoremap ` '
 map <leader>y "_y
 map <leader>d "_d
 
-"  Insert a hash rocket with <C-v>
-imap <C-v> <space>=><space>
-" Insert an arrow with <C-k>
-imap <C-k> <space>->
+"  Insert a hash rocket with <C-]>
+imap <C-]> <space>=><space>
+" Insert an arrow with <C-\>
+imap <C-\> <space>->
 
 " Apply Macros with Q and disable ex mode
 nnoremap Q @q
@@ -612,7 +610,6 @@ ca tl tabn
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SWITCH BETWEEN TEST AND PRODUCTION CODE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 function! OpenTestAlternate()
   let new_file = AlternateForCurrentFile()
   exec ':e ' . new_file
@@ -667,7 +664,6 @@ function! PromoteToLet()
 endfunction
 command! PromoteToLet :call PromoteToLet()
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " OpenChangedFiles COMMAND
 " Open a split for each dirty file in git
@@ -698,7 +694,6 @@ set clipboard+=unnamedplus
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Open with Applications
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 command! Application :silent !open -a /Applications/
 
 
@@ -756,8 +751,7 @@ if has('nvim')
 endif
 
 " --- end-wise
-let g:endwise_no_mappings = 1
-inoremap <expr> <CR> pumvisible() ? "\<C-R>=ExpandSnippetOrCarriageReturn()\<CR>" : "\<CR>\<C-R>=EndwiseDiscretionary()\<CR>"
+" let g:endwise_no_mappings = 1
 
 " --- vim-dispatch
 nnoremap <leader>e :Dispatch<CR>
@@ -861,6 +855,7 @@ let g:syntastic_html_tidy_quiet_messages = {
 let g:syntastic_html_tidy_exec = 'tidy5'
 let g:syntastic_pupet_checkers=['puppetlint']
 let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_javascript_eslint_exec = 'eslint_d'
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
@@ -880,6 +875,11 @@ autocmd BufEnter * set completeopt-=preview
 
 " --- vim-jsx
 let g:jsx_ext_required = 0
+
+" --- vim-go
+au FileType go nmap <leader>rt <Plug>(go-run-tab)
+au FileType go nmap <Leader>rs <Plug>(go-run-split)
+au FileType go nmap <Leader>rv <Plug>(go-run-vertical)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: b c g j k m o r t u v z 1 2 3 4 5 6 7 8 9 0 - = | : > /
