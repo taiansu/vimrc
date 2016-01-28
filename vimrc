@@ -8,7 +8,6 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'kien/ctrlp.vim'
-Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
@@ -710,9 +709,11 @@ let g:ctrlp_working_path_mode = 'ra'
 
 let g:ctrlp_extensions = []
 
+let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+
 " exclude directories or files from the search
 let g:ctrlp_custom_ignore = {
-    \ 'dir': '\v[\/](\.(git|hg|svn)|(\_site|node_modules|bower_components|target|dist|build))$',
+    \ 'dir': '\v[\/](\.git|\.hg|\.svn|\_site|node_modules|bower_components|target|dist|build)$',
     \ 'file': '\v\.(swp|ico|exe|so|dll|DS_Store|tags|class|png|jpg|jpeg)$',
 \ }
 
