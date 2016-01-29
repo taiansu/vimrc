@@ -466,10 +466,10 @@ command! W call WriteCreatingDirs()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TRAILING WHITE SPACES
-" <leader>xc 快速移除行尾空白
+" <leader>xv 快速移除行尾空白
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 command! TrailingWhiteSpaces %s/\s\+$//e
-nmap <leader>xc :TrailingWhiteSpaces<CR>
+nmap <leader>xv :TrailingWhiteSpaces<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fix Ruby Hash Syntax
@@ -501,8 +501,8 @@ vnoremap Q :norm @q<cr>
 " Clone Paragraph with cp
 nnoremap <leader>cp yap<S-}>p
 
-" Clear the search buffer with <leader>sd
-map <leader>sd :nohlsearch<CR>
+" Clear the search buffer with <leader>xc
+map <leader>xc :nohlsearch<CR>
 
 " Can't be bothered to understand ESC vs <C-c> in insert mode
 inoremap <C-c> <esc>
@@ -547,7 +547,9 @@ nnoremap sh <C-w>H
 nnoremap sm :on
 nnoremap sn :<C-u>bn<CR>
 nnoremap sp :<C-u>bp<CR>
+
 nnoremap sd :<C-u>bd<CR>
+
 nnoremap sc <C-w>q
 nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
@@ -857,6 +859,7 @@ let g:syntastic_html_tidy_exec = 'tidy5'
 let g:syntastic_pupet_checkers=['puppetlint']
 let g:syntastic_javascript_checkers=['eslint']
 let g:syntastic_javascript_eslint_exec = 'eslint_d'
+let g:syntastic_stl_format = '[%E{E: %fe #%e}%B{ / }%W{W: %fw #%w}]'
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
