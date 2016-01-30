@@ -19,7 +19,8 @@ Plug 'tpope/vim-fugitive',
 Plug 'myusuf3/numbers.vim'
 Plug 'kana/vim-submode'
 Plug 'vim-scripts/matchit.zip'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
 Plug 'kshenoy/vim-signature'
 Plug 'Konfekt/FastFold'
@@ -28,7 +29,7 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'AndrewRadev/linediff.vim'
 
 " Colorscheme
-Plug 'romainl/Apprentice'
+Plug 'slindberg/vim-colors-smyck'
 Plug 'reedes/vim-colors-pencil'
 
 " with Dependency
@@ -303,8 +304,8 @@ function! SwitchTheme(theme_type)
     set foldcolumn=12
     set linespace=5
     set background=dark
-    let g:airline_theme='pencil'
     colorscheme pencil
+    let g:airline_theme='pencil'
   elseif a:theme_type == "presentation"
     let g:current_theme = "presentation"
     set gfn=Source\ Code\ Pro\ Semibold:h32
@@ -312,8 +313,8 @@ function! SwitchTheme(theme_type)
     set linespace=3
     set background=light
     set number
-    let g:airline_theme='pencil'
     colorscheme pencil
+    let g:airline_theme='pencil'
   else
     let g:current_theme = "code"
     set gfn=Source\ Code\ Pro\ Light:h17
@@ -323,8 +324,8 @@ function! SwitchTheme(theme_type)
     if exists("g:current_theme")
       set number
     endif
-    let g:airline_theme='distinguished'
-    colorscheme apprentice
+    colorscheme smyck
+    " let g:airline_theme='distinguished'
   end
 
   if has("gui_running")
@@ -779,7 +780,6 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#buffer_min_count = 2
 
-let g:airline_theme='base16'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_symbols.branch = '⎇ '
@@ -788,6 +788,7 @@ let g:airline_detect_modified=1
 let g:airline#extensions#tagbar#enabled=0
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#syntastic#enabled=1
+let g:airline_theme='distinguished'
 
 " --- vim-surround
 vmap <leader>" S"lvi"
