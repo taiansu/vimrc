@@ -30,6 +30,7 @@ Plug 'AndrewRadev/linediff.vim'
 
 " Colorscheme
 Plug 'slindberg/vim-colors-smyck'
+Plug 'blerins/flattown'
 Plug 'reedes/vim-colors-pencil'
 
 " with Dependency
@@ -84,6 +85,7 @@ augroup END
 function! InstallGoBinary(info)
   :e tmp.go
   :GoInstallBinaries
+  :!qa
 endfunction
 
 Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
