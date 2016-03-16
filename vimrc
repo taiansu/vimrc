@@ -82,11 +82,11 @@ augroup END
 
 " Language specified
 
-function! InstallGoBinary(info)
-  :e tmp.go
-  :GoInstallBinaries
-  :!qa
-endfunction
+" function! InstallGoBinary(info)
+  " :e tmp.go
+  " :GoInstallBinaries
+  " :!qa
+" endfunction
 
 Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
 Plug 'mxw/vim-jsx',              { 'for': ['javascript', 'html'] }
@@ -104,7 +104,8 @@ Plug 'digitaltoad/vim-jade',     { 'for': 'jade' }
 Plug 'slim-template/vim-slim',   { 'for': 'slim' }
 Plug 'vim-scripts/VimClojure',   { 'for': 'clojure' }
 Plug 'elixir-lang/vim-elixir',   { 'for': 'elixir' }
-Plug 'fatih/vim-go',             { 'for': 'go', 'do': function('InstallGoBinary') }
+" Plug 'fatih/vim-go',             { 'for': 'go', 'do': function('InstallGoBinary') }
+Plug 'fatih/vim-go',             { 'for': 'go' }
 Plug 'golangtw/gocode.vim',      { 'for': 'go' }
 
 " Local
@@ -317,6 +318,17 @@ function! SwitchTheme(theme_type)
     set number
     colorscheme pencil
     let g:airline_theme='pencil'
+  elseif a:theme_type == "light"
+    let g:current_theme = "light"
+    set gfn=Source\ Code\ Pro:h17
+    set foldcolumn=0
+    set background=light
+    set linespace=3
+    if exists("g:current_theme")
+      set number
+    endif
+    colorscheme pencil
+    let g:airline_theme='pencil'
   else
     let g:current_theme = "code"
     set gfn=Source\ Code\ Pro\ Light:h17
@@ -327,7 +339,7 @@ function! SwitchTheme(theme_type)
       set number
     endif
     colorscheme smyck
-    " let g:airline_theme='distinguished'
+    let g:airline_theme='flattown'
   end
 
   if has("gui_running")
@@ -364,8 +376,17 @@ function! ToggleTheme()
   end
 endfunction
 
+function! ToggleLight()
+  if g:current_theme == "code"
+    :call SwitchTheme("light")
+  else
+    :call SwitchTheme("code")
+  end
+endfunction
+
 command! TT :call ToggleTheme()
 command! TF :call ToggleFocus()
+command! TL :call ToggleLight()
 
 :call SwitchTheme("code")
 
@@ -790,7 +811,6 @@ let g:airline_detect_modified=1
 let g:airline#extensions#tagbar#enabled=0
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#syntastic#enabled=1
-let g:airline_theme='distinguished'
 
 " --- vim-surround
 vmap <leader>" S"lvi"
