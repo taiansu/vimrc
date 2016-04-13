@@ -801,7 +801,7 @@ endif
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline#extensions#tabline#buffer_min_count = 2
+let g:airline#extensions#tabline#buffer_min_count = 1
 
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
@@ -811,23 +811,6 @@ let g:airline_detect_modified=1
 let g:airline#extensions#tagbar#enabled=0
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#syntastic#enabled=1
-
-" --- vim-surround
-vmap <leader>" S"lvi"
-vmap <leader>' S'lvi'
-vmap <leader>` S`lvi`
-vmap <leader>( S)lvi(
-vmap <leader>{ S}lvi{
-vmap <leader>[ S]lvi[
-vmap <leader>< S>lvi<
-
-nmap <leader>" ysw"
-nmap <leader>' ysw'
-nmap <leader>` ysw`
-nmap <leader>( ysw(
-nmap <leader>{ ysw{
-nmap <leader>[ ysw[
-nmap <leader>< ysw<
 
 " --- vim-ruby-xmpfilter
 let g:xmpfilter_cmd = "seeing_is_believing"
