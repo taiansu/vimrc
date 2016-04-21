@@ -36,7 +36,7 @@ Plug 'reedes/vim-colors-pencil'
 " with Dependency
 function! InstallLints(info)
   if a:info.status == 'installed' || a:info.force
-    !npm install -g coffeelint coffee-react-transform eslint_d
+    !npm install -g coffeelint coffee-react-transform eslint-plugin-react eslint_d
   endif
 endfunction
 
@@ -90,18 +90,12 @@ augroup END
 
 Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
 Plug 'mxw/vim-jsx',              { 'for': ['javascript', 'html'] }
-Plug 'tpope/vim-haml',           { 'for': 'haml' }
-Plug 'nono/vim-handlebars',      { 'for': ['handlebars', 'handlebars.html'] }
 Plug 'othree/html5.vim',         { 'for': 'html' }
 Plug 'mattn/emmet-vim',          { 'for': 'html' }
 Plug 'tpope/vim-markdown',       { 'for': 'markdown' }
 Plug 'vim-ruby/vim-ruby',        { 'for': 'ruby' }
 Plug 't9md/vim-ruby-xmpfilter',  { 'for': 'ruby' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
-Plug 'gkz/vim-ls',               { 'for': 'ls' }
-Plug 'mtscout6/vim-cjsx',        { 'for': ['coffee', 'ls', 'html'] }
-Plug 'digitaltoad/vim-jade',     { 'for': 'jade' }
-Plug 'slim-template/vim-slim',   { 'for': 'slim' }
 Plug 'vim-scripts/VimClojure',   { 'for': 'clojure' }
 Plug 'elixir-lang/vim-elixir',   { 'for': 'elixir' }
 " Plug 'fatih/vim-go',             { 'for': 'go', 'do': function('InstallGoBinary') }
@@ -429,7 +423,7 @@ augroup vimrcEx
 
   "Setup indent for each language
   autocmd! FileType ruby,eruby,yaml,coffee,json,javascript,jsx,markdown,vim,elixir set ai sts=2 sw=2 et
-  autocmd! FileType python,java,c set ai sw=4 sts=4 et
+  autocmd! FileType python,java,c,html set ai sw=4 sts=4 et
   autocmd! FileType go set ai ts=8 sts=8 noexpandtab
 
   " Markdown syntax highlight is often wrong
