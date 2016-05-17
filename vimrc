@@ -18,6 +18,9 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive',
 Plug 'myusuf3/numbers.vim'
 Plug 'kana/vim-submode'
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-line'
+Plug 'kana/vim-textobj-indent'
 Plug 'vim-scripts/matchit.zip'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -101,6 +104,11 @@ Plug 'elixir-lang/vim-elixir',   { 'for': 'elixir' }
 " Plug 'fatih/vim-go',             { 'for': 'go', 'do': function('InstallGoBinary') }
 Plug 'fatih/vim-go',             { 'for': 'go' }
 Plug 'golangtw/gocode.vim',      { 'for': 'go' }
+Plug 'vim-erlang/vim-erlang-runtime',       { 'for': 'erlang'}
+Plug 'vim-erlang/vim-erlang-compiler',      { 'for': 'erlang'}
+Plug 'vim-erlang/vim-erlang-skeletons',     { 'for': 'erlang'}
+Plug 'vim-erlang/vim-erlang-omnicomplete',  { 'for': 'erlang'}
+Plug 'vim-erlang/vim-erlang-tags',          { 'for': 'erlang'}
 
 " Local
 Plug '~/Projects/nerdtree-ag'
@@ -297,7 +305,7 @@ set t_Co=256 " 256 colors
 function! SwitchTheme(theme_type)
   if a:theme_type == "focus"
     let g:current_theme = "focus"
-    set gfn=Cousine:h17
+    set gfn=Cousine:h15
     set foldcolumn=12
     set linespace=5
     set background=dark
@@ -325,7 +333,7 @@ function! SwitchTheme(theme_type)
     let g:airline_theme='pencil'
   else
     let g:current_theme = "code"
-    set gfn=Source\ Code\ Pro\ Light:h17
+    set gfn=Source\ Code\ Pro\ Light:h15
     set foldcolumn=0
     set background=dark
     set linespace=3
@@ -551,12 +559,6 @@ nnoremap <silent> + :let @/.= '\\|\<'.expand('<cword>').'\>'<cr>n
 " BUFFER, TAB AND SPLIT MOTIONS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap s <Nop>
-" nnoremap sj :<C-u>bn<CR>
-" nnoremap sk :<C-u>bp<CR>
-" nnoremap sd :<C-u>bd<CR>
-" nnoremap sl gt
-" nnoremap sh gT
-" nnoremap st :<C-u>tabnew<CR>
 
 nnoremap sj <C-w>J
 nnoremap sk <C-w>K
@@ -579,20 +581,20 @@ nnoremap sw <C-w>w
 nnoremap so <C-w>_<C-w>|
 " nnoremap st :split | :terminal<CR>
 
-call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
-call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
-call submode#enter_with('bufmove', 'n', '', 's+', '<C-w>+')
-call submode#enter_with('bufmove', 'n', '', 's-', '<C-w>-')
-call submode#map('bufmove', 'n', '', '>', '<C-w>>')
-call submode#map('bufmove', 'n', '', '<', '<C-w><')
-call submode#map('bufmove', 'n', '', '+', '<C-w>+')
-call submode#map('bufmove', 'n', '', '-', '<C-w>-')
+call submode#enter_with('bufsize', 'n', '', '<C-w>>', '<C-w>>')
+call submode#enter_with('bufsize', 'n', '', '<C-w><', '<C-w><')
+call submode#enter_with('bufsize', 'n', '', '<C-w>+', '<C-w>+')
+call submode#enter_with('bufsize', 'n', '', '<C-w>-', '<C-w>-')
+call submode#map('bufsize', 'n', '', '>', '<C-w>>')
+call submode#map('bufsize', 'n', '', '<', '<C-w><')
+call submode#map('bufsize', 'n', '', '+', '<C-w>+')
+call submode#map('bufsize', 'n', '', '-', '<C-w>-')
 
 call submode#enter_with('undo/redo', 'n', '', 'g-', 'g-')
 call submode#enter_with('undo/redo', 'n', '', 'g+', 'g+')
-call submode#leave_with('undo/redo', 'n', '', '<Esc>')
 call submode#map('undo/redo', 'n', '', '-', 'g-')
 call submode#map('undo/redo', 'n', '', '+', 'g+')
+" call submode#leave_with('undo/redo', 'n', '', '<Esc>')
 
 " Move around splits with <C-hjkl>
 nnoremap <leader>wk <C-w>k
@@ -618,7 +620,6 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shorts for tabnew tabn tabp
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -826,10 +827,10 @@ autocmd FileType ruby imap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
 vnoremap <silent><Enter> :EasyAlign<CR>
 
 " --- UltiSnips
-let g:UltiSnipsExpandTrigger="<C-j>"
-let g:UltiSnipsJumpForwardTrigger="<C-j>"
-let g:UltiSnipsJumpBackwardTrigger="<C-k>"
-let g:UltiSnipsListSnippets="<C-l>"
+let g:UltiSnipsExpandTrigger="<M-/>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+let g:UltiSnipsListSnippets="<M-l>"
 
 " -- Nerdtree
 let g:NERDTreeHijackNetrw = 1
@@ -845,7 +846,7 @@ let g:gist_open_browser_after_post = 1
 
 " --- Syntastic
 let g:syntastic_mode_map={ 'mode': 'active',
-                         \ 'passive_filetypes': ['nerdtree', 'tagbar'] }
+                         \ 'passive_filetypes': ['nerdtree', 'tagbar', 'elixir'] }
 
 let g:syntastic_eruby_ruby_quiet_messages = {
                           \ "type":  "syntax",
@@ -856,11 +857,12 @@ let g:syntastic_html_tidy_quiet_messages = {
                           \ "regex": "^<' + '/' letter not allowed here$" }
 
 let g:syntastic_html_tidy_exec = 'tidy5'
-let g:syntastic_pupet_checkers=['puppetlint']
 let g:syntastic_javascript_checkers=['eslint']
 let g:syntastic_javascript_eslint_exec = 'eslint_d'
+let g:syntastic_elixir_checkers=['elixir']
 let g:syntastic_stl_format = '[%E{E: %fe #%e}%B{ / }%W{W: %fw #%w}]'
 
+let g:syntastic_enable_elixir_checker = 1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 1
