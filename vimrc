@@ -827,10 +827,10 @@ autocmd FileType ruby imap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
 vnoremap <silent><Enter> :EasyAlign<CR>
 
 " --- UltiSnips
-let g:UltiSnipsExpandTrigger="<M-/>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
-let g:UltiSnipsListSnippets="<M-l>"
+let g:UltiSnipsExpandTrigger="<M-;>"
+let g:UltiSnipsJumpForwardTrigger="<M-;>"
+let g:UltiSnipsJumpBackwardTrigger="<M-'>"
+let g:UltiSnipsListSnippets="<M-/>"
 
 " -- Nerdtree
 let g:NERDTreeHijackNetrw = 1
