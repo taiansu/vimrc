@@ -14,6 +14,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive',
 Plug 'myusuf3/numbers.vim'
@@ -30,11 +31,12 @@ Plug 'Konfekt/FastFold'
 Plug 'reedes/vim-pencil'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'AndrewRadev/linediff.vim'
+Plug 'Yggdroot/indentLine'
 
 " Colorscheme
-Plug 'slindberg/vim-colors-smyck'
+Plug 'mxgrn/smyck'
 Plug 'blerins/flattown'
-Plug 'reedes/vim-colors-pencil'
+Plug 'jonathanfilip/vim-lucius'
 
 " with Dependency
 function! InstallLints(info)
@@ -91,7 +93,7 @@ augroup END
   " :!qa
 " endfunction
 
-Plug 'pangloss/vim-javascript',  { 'for': 'javascript' }
+Plug 'othree/yajs.vim',  { 'for': 'javascript' }
 Plug 'mxw/vim-jsx',              { 'for': ['javascript', 'html'] }
 Plug 'othree/html5.vim',         { 'for': 'html' }
 Plug 'mattn/emmet-vim',          { 'for': 'html' }
@@ -274,7 +276,7 @@ let mapleader="\<space>" "you may like ',' or '\'
 set expandtab
 set autoindent
 set smartindent
-set tabstop=4 softtabstop=4 shiftwidth=4
+set tabstop=2 softtabstop=2 shiftwidth=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SHOW INVISIBLES
@@ -309,8 +311,7 @@ function! SwitchTheme(theme_type)
     set foldcolumn=12
     set linespace=5
     set background=dark
-    colorscheme pencil
-    let g:airline_theme='pencil'
+    colorscheme lucius
   elseif a:theme_type == "presentation"
     let g:current_theme = "presentation"
     set gfn=Source\ Code\ Pro\ Semibold:h32
@@ -318,8 +319,7 @@ function! SwitchTheme(theme_type)
     set linespace=3
     set background=light
     set number
-    colorscheme pencil
-    let g:airline_theme='pencil'
+    colorscheme lucius
   elseif a:theme_type == "light"
     let g:current_theme = "light"
     set gfn=Source\ Code\ Pro:h17
@@ -329,8 +329,7 @@ function! SwitchTheme(theme_type)
     if exists("g:current_theme")
       set number
     endif
-    colorscheme pencil
-    let g:airline_theme='pencil'
+    colorscheme lucius
   else
     let g:current_theme = "code"
     set gfn=Source\ Code\ Pro\ Light:h15
@@ -370,25 +369,17 @@ function! ToggleFocus()
   end
 endfunction
 
-function! ToggleTheme()
+function! ToggleTheme(theme)
   if g:current_theme == "code"
-    :call SwitchTheme("presentation")
+    :call SwitchTheme(a:theme)
   else
     :call SwitchTheme("code")
   end
 endfunction
 
-function! ToggleLight()
-  if g:current_theme == "code"
-    :call SwitchTheme("light")
-  else
-    :call SwitchTheme("code")
-  end
-endfunction
-
-command! TT :call ToggleTheme()
 command! TF :call ToggleFocus()
-command! TL :call ToggleLight()
+command! TP :call ToggleTheme("presentation")
+command! TL :call ToggleTheme("light")
 
 :call SwitchTheme("code")
 
@@ -428,11 +419,6 @@ augroup vimrcEx
   autocmd! BufNewFile,BufRead,BufEnter *.ls       set ft=ls
   autocmd! BufNewFile,BufRead *.scss,*.sass       set ft=scss.css
   autocmd! BufNewFile,BufRead *.md                set ft=markdown
-
-  "Setup indent for each language
-  autocmd! FileType ruby,eruby,yaml,coffee,json,javascript,jsx,markdown,vim,elixir set ai sts=2 sw=2 et
-  autocmd! FileType python,java,c,html set ai sw=4 sts=4 et
-  autocmd! FileType go set ai ts=8 sts=8 noexpandtab
 
   " Markdown syntax highlight is often wrong
   " you might like to disable it.
