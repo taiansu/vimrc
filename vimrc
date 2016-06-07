@@ -31,7 +31,6 @@ Plug 'Konfekt/FastFold'
 Plug 'reedes/vim-pencil'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'AndrewRadev/linediff.vim'
-Plug 'Yggdroot/indentLine'
 
 " Colorscheme
 Plug 'mxgrn/smyck'
@@ -87,30 +86,23 @@ augroup END
 
 " Language specified
 
-" function! InstallGoBinary(info)
-  " :e tmp.go
-  " :GoInstallBinaries
-  " :!qa
-" endfunction
-
-Plug 'othree/yajs.vim',  { 'for': 'javascript' }
-Plug 'mxw/vim-jsx',              { 'for': ['javascript', 'html'] }
-Plug 'othree/html5.vim',         { 'for': 'html' }
-Plug 'mattn/emmet-vim',          { 'for': 'html' }
-Plug 'tpope/vim-markdown',       { 'for': 'markdown' }
-Plug 'vim-ruby/vim-ruby',        { 'for': 'ruby' }
-Plug 't9md/vim-ruby-xmpfilter',  { 'for': 'ruby' }
-Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
-Plug 'vim-scripts/VimClojure',   { 'for': 'clojure' }
-Plug 'elixir-lang/vim-elixir',   { 'for': 'elixir' }
-" Plug 'fatih/vim-go',             { 'for': 'go', 'do': function('InstallGoBinary') }
-Plug 'fatih/vim-go',             { 'for': 'go' }
-Plug 'golangtw/gocode.vim',      { 'for': 'go' }
-Plug 'vim-erlang/vim-erlang-runtime',       { 'for': 'erlang'}
-Plug 'vim-erlang/vim-erlang-compiler',      { 'for': 'erlang'}
-Plug 'vim-erlang/vim-erlang-skeletons',     { 'for': 'erlang'}
-Plug 'vim-erlang/vim-erlang-omnicomplete',  { 'for': 'erlang'}
-Plug 'vim-erlang/vim-erlang-tags',          { 'for': 'erlang'}
+Plug 'othree/yajs.vim',                    { 'for': 'javascript' }
+Plug 'mxw/vim-jsx',                        { 'for': ['javascript', 'html'] }
+Plug 'othree/html5.vim',                   { 'for': 'html' }
+Plug 'mattn/emmet-vim',                    { 'for': 'html' }
+Plug 'tpope/vim-markdown',                 { 'for': 'markdown' }
+Plug 'vim-ruby/vim-ruby',                  { 'for': 'ruby' }
+Plug 't9md/vim-ruby-xmpfilter',            { 'for': 'ruby' }
+Plug 'kchmck/vim-coffee-script',           { 'for': 'coffee' }
+Plug 'vim-scripts/VimClojure',             { 'for': 'clojure' }
+Plug 'elixir-lang/vim-elixir',             { 'for': 'elixir' }
+Plug 'fatih/vim-go',                       { 'for': 'go' }
+Plug 'golangtw/gocode.vim',                { 'for': 'go' }
+Plug 'vim-erlang/vim-erlang-runtime',      { 'for': 'erlang'}
+Plug 'vim-erlang/vim-erlang-compiler',     { 'for': 'erlang'}
+Plug 'vim-erlang/vim-erlang-skeletons',    { 'for': 'erlang'}
+Plug 'vim-erlang/vim-erlang-omnicomplete', { 'for': 'erlang'}
+Plug 'vim-erlang/vim-erlang-tags',         { 'for': 'erlang'}
 
 " Local
 Plug '~/Projects/nerdtree-ag'
@@ -711,12 +703,23 @@ command! Application :silent !open -a /Applications/
 " --- CtrlP
 " sets local working directory as the nearest ancestor
 " that contains one of these directories or files: .git/
-let g:ctrlp_map = '<C-p>'
+let g:ctrlp_map               = '<C-p>'
 let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_follow_symlinks   = 1
+" let g:ctrlp_by_filename       = 1
+let g:ctrlp_extensions        = ['mixed', 'bookmarkdir', 'funky']
+" if has('python')
+"   let g:ctrlp_match_func      = {'match': 'pymatcher#PyMatch'}
+" endif
+" Do not clear filenames cache, to improve CtrlP startup
+" You can manualy clear it by <F5>
+let g:ctrlp_clear_cache_on_exit = 0
 
-let g:ctrlp_extensions = []
+" Set delay to prevent extra search
+" let g:ctrlp_lazy_update = 350
 
-let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+" Set no file limit, we are building a big project
+let g:ctrlp_max_files = 0
 
 " exclude directories or files from the search
 let g:ctrlp_custom_ignore = {
@@ -724,15 +727,35 @@ let g:ctrlp_custom_ignore = {
     \ 'file': '\v\.(swp|ico|exe|so|dll|DS_Store|tags|class|png|jpg|jpeg)$',
 \ }
 
-" Set delay to prevent extra search
-let g:ctrlp_lazy_update = 350
-
-" Do not clear filenames cache, to improve CtrlP startup
-" You can manualy clear it by <F5>
-let g:ctrlp_clear_cache_on_exit = 0
-
-" Set no file limit, we are building a big project
-let g:ctrlp_max_files = 0
+if has('unix')
+  " The 'while read fname' section sorts the filenames in descending order by length thereby allowing to find the
+  " shortest occurence of a string
+  let g:ctrlp_user_command = {
+                             \ 'types': {
+                               \ 1: ['.git', 'cd %s && git ls-files --cached --exclude-standard --others'],
+                               \ 2: ['.hg', 'hg --cwd %s status -numac -I . $(hg root)'],
+                               \ 3: ['P4CONFIG', "find %s " .
+                                 \ "-type d \\( -iname .svn -o -iname .git -o -iname .hg \\) -prune " .
+                                 \ "-o -type d \\( -name _env -o -name dfx -o -name emu -o -name env_squash -o -name fp ".
+                                 \ "-o -name import -o -name libs -o -name powerPro -o -name tools -o -name build" .
+                                 \ "-o -wholename '*/ch/tc' -o -wholename '*/ch/tb' -o -wholename '*/ch/verif/dft' " .
+                                 \ "-o -wholename '*/txn/gen' -o -wholename '*/generated' \\) -prune " .
+                                 \ "-o -type f ! \\( -name '.*' -o -iname '*.log' -o -iname '*.out' -o -iname '*.so' " .
+                                 \ "-o -iname '*.cc.o' -o -iname '*tags*' \\) -print "
+                                 \ ]
+                               \ },
+                             \ 'fallback': "find %s " .
+                                 \ "-type d \\( -iname .svn -o -iname .git -o -iname .hg \\) -prune " .
+                                 \ "-o -type f ! \\( -name '.*' -o -iname '*.log' -o -iname '*.out' -o -iname '*.so' " .
+                                 \ "-o -iname '*.cc.o' -o -iname *tags*' \\) -print " .
+                                 \ "| while read filename; do echo ${#filename} $filename; done " .
+                                 \ "| sort -n | awk '{print $2}'"
+                             \ }
+elseif executable('pt')
+  let g:ctrlp_user_command = 'pt %s -l --nocolor -g ""'
+elseif executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
 
 " --- YomCompleteMe
 let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
@@ -876,7 +899,6 @@ au FileType go nmap <Leader>rv <Plug>(go-run-vertical)
 " --- vim-markdown
 let g:markdown_fenced_languages = ['html', 'javascript', 'bash=sh', 'ruby']
 let g:markdown_syntax_conceal = 0
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: b c g j k m o r t u v z 1 2 3 4 5 6 7 8 9 0 - = | : > /
