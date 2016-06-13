@@ -54,8 +54,8 @@ endif
 Plug 'tpope/vim-dispatch',       { 'on': ['Dispatch', 'Focus', 'Start'] }
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
 Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown' }
+Plug 'nazo/pt.vim',              { 'on': 'Pt' }
 Plug 'rking/ag.vim',             { 'on': 'Ag' }
-Plug 'gabesoft/vim-ags',         { 'on': 'Ags' }
 Plug 'junegunn/vim-easy-align',  { 'on': 'EasyAlign' }
 Plug 'mattn/webapi-vim',         { 'on': 'Gist' }
 Plug 'mattn/gist-vim',           { 'on': 'Gist' }
@@ -255,7 +255,7 @@ endfunction
 
 function! s:Repl()
     let s:restore_reg = @"
-    return "p@=RestoreRegister()\<cr>"
+    return "p@=RestoreRegister()\<CR>"
 endfunction
 
 " NB: this supports "rp that replaces the selection by the contents of @r
@@ -500,7 +500,7 @@ imap <C-\> <space>->
 
 " Apply Macros with Q and disable ex mode
 nnoremap Q @q
-vnoremap Q :norm @q<cr>
+vnoremap Q :norm @q<CR>
 
 " Clone Paragraph with cp
 nnoremap <leader>cp yap<S-}>p
@@ -531,7 +531,10 @@ nnoremap <leader>P :pu!<CR>
 " nnoremap : ;
 
 " Use + after * to search two words
-nnoremap <silent> + :let @/.= '\\|\<'.expand('<cword>').'\>'<cr>n
+nnoremap <silent> + :let @/.= '\\|\<'.expand('<cword>').'\>'<CR>n
+
+" bind K to grep word under cursor
+nnoremap K :grep!  "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BUFFER, TAB AND SPLIT MOTIONS
@@ -707,6 +710,7 @@ let g:ctrlp_map               = '<C-p>'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_follow_symlinks   = 1
 " let g:ctrlp_by_filename       = 1
+let g:ctrlp_root_markers        = ['P4CONFIG']
 let g:ctrlp_extensions        = ['mixed', 'bookmarkdir', 'funky']
 " if has('python')
 "   let g:ctrlp_match_func      = {'match': 'pymatcher#PyMatch'}
@@ -747,7 +751,7 @@ if has('unix')
                              \ 'fallback': "find %s " .
                                  \ "-type d \\( -iname .svn -o -iname .git -o -iname .hg \\) -prune " .
                                  \ "-o -type f ! \\( -name '.*' -o -iname '*.log' -o -iname '*.out' -o -iname '*.so' " .
-                                 \ "-o -iname '*.cc.o' -o -iname *tags*' \\) -print " .
+                                 \ "-o -iname '*.cc.o' -o -iname '*tags*' \\) -print " .
                                  \ "| while read filename; do echo ${#filename} $filename; done " .
                                  \ "| sort -n | awk '{print $2}'"
                              \ }
@@ -845,6 +849,7 @@ let g:UltiSnipsListSnippets="<M-/>"
 let g:NERDTreeHijackNetrw = 1
 " use e. or vs. to open file explorer in certain split
 map <leader>q :NERDTreeToggle<CR>
+map <leader>\ :NERDTreeFind<CR>
 
 " --- gist-vim
 let g:gist_clip_command = 'pbcopy'
@@ -882,8 +887,20 @@ nnoremap <C-w>e :SyntasticCheck<CR>
 " --- Numbers.vim
 nnoremap <C-N> :NumbersToggle<CR>
 
-" --- ag.vim
-map <leader>a :Ag<CR>
+" --- pt.vim || ag.vim
+if executable('pt')
+  " Use pt over grep
+  set grepprg=pt\ --noroup\ --nocolor
+
+  " command -nargs=+ -complete=file -bar Pt silent! grep! <args>|cwindow|redraw!
+  nnoremap \ :Pt<space>
+elseif executable('ag')
+  " Use pt over grep
+  set grepprg=ag\ --noroup\ --nocolor
+
+  " command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+  nnoremap \ :At<space>
+endif
 
 " --- tern_for_vim
 autocmd BufEnter * set completeopt-=preview
