@@ -418,16 +418,21 @@ augroup vimrcEx
   " autocmd! FileType mkd,md setlocal syn=off
 
   autocmd FileType ruby compiler ruby
-  autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-  autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
   autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
   autocmd FileType html,haml,markdown,handlebars setlocal omnifunc=htmlcomplete#CompleteTags
+
   " Enable omni completion. (Ctrl-X Ctrl-O)
   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
   autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
   autocmd FileType css,sass,scss set omnifunc=csscomplete#CompleteCSS
-  autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+  autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+  autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+
+  if !has('nvim')
+    autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+  endif
+
   autocmd FileType go au BufWritePre <buffer> GoFmt
 
   " Leave the return key alone when in command line windows, since it's used
@@ -916,6 +921,11 @@ au FileType go nmap <Leader>rv <Plug>(go-run-vertical)
 " --- vim-markdown
 let g:markdown_fenced_languages = ['html', 'javascript', 'bash=sh', 'ruby']
 let g:markdown_syntax_conceal = 0
+
+" --- YouCompleteMe
+let g:ycm_filetype_blacklist = {
+  \ 'ctrlsf' : 1
+  \}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: b c g j k m o r t u v z 1 2 3 4 5 6 7 8 9 0 - = | : > /
