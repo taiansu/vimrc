@@ -695,7 +695,7 @@ vnoremap > >gv
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Interact with GUI clipboard
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set clipboard+=unnamedplus
+set clipboard^=unnamed,unnamedplus
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Open with Applications
