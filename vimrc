@@ -98,11 +98,15 @@ Plug 'vim-scripts/VimClojure',             { 'for': 'clojure' }
 Plug 'elixir-lang/vim-elixir',             { 'for': 'elixir' }
 Plug 'fatih/vim-go',                       { 'for': 'go' }
 Plug 'golangtw/gocode.vim',                { 'for': 'go' }
-Plug 'vim-erlang/vim-erlang-runtime',      { 'for': 'erlang'}
-Plug 'vim-erlang/vim-erlang-compiler',     { 'for': 'erlang'}
-Plug 'vim-erlang/vim-erlang-skeletons',    { 'for': 'erlang'}
-Plug 'vim-erlang/vim-erlang-omnicomplete', { 'for': 'erlang'}
-Plug 'vim-erlang/vim-erlang-tags',         { 'for': 'erlang'}
+Plug 'vim-erlang/vim-erlang-runtime',      { 'for': 'erlang' }
+Plug 'vim-erlang/vim-erlang-compiler',     { 'for': 'erlang' }
+Plug 'vim-erlang/vim-erlang-skeletons',    { 'for': 'erlang' }
+Plug 'vim-erlang/vim-erlang-omnicomplete', { 'for': 'erlang' }
+Plug 'vim-erlang/vim-erlang-tags',         { 'for': 'erlang' }
+Plug 'neovimhaskell/haskell-vim',          { 'for': 'haskell' }
+Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
+Plug 'derekelkins/agda-vim',               { 'for': 'agda' }
+Plug 'lervag/vimtex',                      { 'for': 'latex' }
 
 " Local
 Plug '~/Projects/nerdtree-ag'
@@ -274,7 +278,7 @@ set tabstop=2 softtabstop=2 shiftwidth=2
 " SHOW INVISIBLES
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcut to rapidly toggle `set list`
-nmap <leader>l :set list!<CR>
+nmap <leader>h :set list!<CR>
 
 " Use the same symbols as TextMate for tabstops and EOLs
 set listchars=tab:▸\ ,eol:¬
@@ -411,6 +415,7 @@ augroup vimrcEx
   autocmd! BufNewFile,BufRead,BufEnter *.ls       set ft=ls
   autocmd! BufNewFile,BufRead *.scss,*.sass       set ft=scss.css
   autocmd! BufNewFile,BufRead *.md                set ft=markdown
+  autocmd! BufNewFile,BufRead *.agda              set ft=agda
 
   " Markdown syntax highlight is often wrong
   " you might like to disable it.
@@ -501,7 +506,7 @@ map <leader>d "_d
 "  Insert a hash rocket with <C-]>
 imap <C-]> <space>=><space>
 " Insert an arrow with <C-\>
-imap <C-\> <space>->
+imap <C-\> <space>-><space>
 
 " Apply Macros with Q and disable ex mode
 nnoremap Q @q
