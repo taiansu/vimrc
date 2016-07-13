@@ -503,10 +503,12 @@ nnoremap ` '
 map <leader>y "_y
 map <leader>d "_d
 
-"  Insert a hash rocket with <C-]>
-imap <C-]> <space>=><space>
-" Insert an arrow with <C-\>
-imap <C-\> <space>-><space>
+"  Insert a hash rocket
+imap <M-m>  <space>=><space>
+" Insert an arrow
+imap <M-.> <space>-><space>
+"  Insert a backward arrow
+imap <M-,> <space><-<space>
 
 " Apply Macros with Q and disable ex mode
 nnoremap Q @q
