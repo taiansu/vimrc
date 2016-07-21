@@ -31,6 +31,7 @@ Plug 'Konfekt/FastFold'
 Plug 'reedes/vim-pencil'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'AndrewRadev/linediff.vim'
+Plug 'chrisbra/unicode.vim'
 
 " Colorscheme
 Plug 'mxgrn/smyck'
@@ -107,6 +108,7 @@ Plug 'neovimhaskell/haskell-vim',          { 'for': 'haskell' }
 Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
 Plug 'derekelkins/agda-vim',               { 'for': 'agda' }
 Plug 'lervag/vimtex',                      { 'for': 'latex' }
+Plug 'elmcast/elm-vim',                    { 'for': 'elm' }
 
 " Local
 Plug '~/Projects/nerdtree-ag'
@@ -789,6 +791,10 @@ let g:ycm_filetype_blacklist = {
       \ 'pandoc' : 1,
       \}
 
+let g:ycm_semantic_triggers = {
+     \ 'elm' : ['.'],
+     \}
+
 if has('nvim')
     let g:pyton_host_prog = '/usr/local/bin/python'
     let g:pyton3_host_prog = '/usr/local/bin/python3'
@@ -858,7 +864,6 @@ let g:UltiSnipsJumpBackwardTrigger="<M-'>"
 let g:UltiSnipsListSnippets="<M-/>"
 
 " -- Nerdtree
-let g:NERDTreeHijackNetrw = 1
 " use e. or vs. to open file explorer in certain split
 map <leader>q :NERDTreeToggle<CR>
 map <leader>\ :NERDTreeFind<CR>
@@ -929,10 +934,8 @@ au FileType go nmap <Leader>rv <Plug>(go-run-vertical)
 let g:markdown_fenced_languages = ['html', 'javascript', 'bash=sh', 'ruby']
 let g:markdown_syntax_conceal = 0
 
-" --- YouCompleteMe
-let g:ycm_filetype_blacklist = {
-  \ 'ctrlsf' : 1
-  \}
+" --- elm-vim
+let g:elm_setup_keybindings = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: b c g j k m o r t u v z 1 2 3 4 5 6 7 8 9 0 - = | : > /
