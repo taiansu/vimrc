@@ -41,7 +41,7 @@ Plug 'jonathanfilip/vim-lucius'
 " with Dependency
 function! InstallLints(info)
   if a:info.status == 'installed' || a:info.force
-    !npm install -g coffeelint coffee-react-transform eslint-plugin-react eslint_d
+    !npm install -g coffeelint coffee-react-transform eslint-plugin-react eslint
   endif
 endfunction
 
@@ -889,7 +889,7 @@ let g:syntastic_html_tidy_quiet_messages = {
 
 let g:syntastic_html_tidy_exec = 'tidy5'
 let g:syntastic_javascript_checkers=['eslint']
-let g:syntastic_javascript_eslint_exec = 'eslint_d'
+let g:syntastic_javascript_eslint_exec = 'eslint'
 let g:syntastic_elixir_checkers=['elixir']
 let g:syntastic_stl_format = '[%E{E: %fe #%e}%B{ / }%W{W: %fw #%w}]'
 
