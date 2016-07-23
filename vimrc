@@ -45,7 +45,7 @@ function! InstallLints(info)
   endif
 endfunction
 
-Plug 'scrooloose/syntastic',     { 'do': function('InstallLints') }
+Plug 'neomake/neomake', { 'do': function('InstallLints') }
 
 if has('nvim')
   Plug 'radenling/vim-dispatch-neovim'
@@ -836,7 +836,7 @@ let g:airline_symbols.linenr = '¶ '
 let g:airline_detect_modified=1
 let g:airline#extensions#tagbar#enabled=0
 let g:airline#extensions#branch#enabled=1
-let g:airline#extensions#syntastic#enabled=1
+let g:airline#extensions#neomake#enabled=1
 
 " --- vim-ruby-xmpfilter
 let g:xmpfilter_cmd = "seeing_is_believing"
@@ -875,32 +875,6 @@ let g:gist_open_browser_after_post = 1
 " If using 2 factor authorization in github, write ~/.gist-vim with
 " token 1234567890yourApplicationTokenGenerated
 
-" --- Syntastic
-let g:syntastic_mode_map={ 'mode': 'active',
-                         \ 'passive_filetypes': ['nerdtree', 'tagbar', 'elixir'] }
-
-let g:syntastic_eruby_ruby_quiet_messages = {
-                          \ "type":  "syntax",
-                          \ "regex": '^possibly useless use of a variable in void context$' }
-
-let g:syntastic_html_tidy_quiet_messages = {
-                          \ "type":  "syntax",
-                          \ "regex": "^<' + '/' letter not allowed here$" }
-
-let g:syntastic_html_tidy_exec = 'tidy5'
-let g:syntastic_javascript_checkers=['eslint']
-let g:syntastic_javascript_eslint_exec = 'eslint'
-let g:syntastic_elixir_checkers=['elixir']
-let g:syntastic_stl_format = '[%E{E: %fe #%e}%B{ / }%W{W: %fw #%w}]'
-
-let g:syntastic_enable_elixir_checker = 1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-nnoremap <C-w>e :SyntasticCheck<CR>
-
 " --- Numbers.vim
 nnoremap <C-N> :NumbersToggle<CR>
 
@@ -927,8 +901,8 @@ let g:jsx_ext_required = 0
 
 " --- vim-go
 au FileType go nmap <leader>rt <Plug>(go-run-tab)
-au FileType go nmap <Leader>rs <Plug>(go-run-split)
-au FileType go nmap <Leader>rv <Plug>(go-run-vertical)
+au FileType go nmap <leader>rs <Plug>(go-run-split)
+au FileType go nmap <leader>rv <Plug>(go-run-vertical)
 
 " --- vim-markdown
 let g:markdown_fenced_languages = ['html', 'javascript', 'bash=sh', 'ruby']
@@ -937,6 +911,11 @@ let g:markdown_syntax_conceal = 0
 " --- elm-vim
 let g:elm_setup_keybindings = 0
 
+" --- neomake
+autocmd! BufWritePost * Neomake
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_jsx_enabled_makers = ['eslint']
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: b c g j k m o r t u v z 1 2 3 4 5 6 7 8 9 0 - = | : > /
+" Free leader keys: b c g j k m o r t u v z 1 2 3 4 5 6 7 8 9 0 - = | : > / , .
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
