@@ -90,7 +90,7 @@ augroup END
 Plug 'othree/yajs.vim',                    { 'for': 'javascript' }
 Plug 'mxw/vim-jsx',                        { 'for': ['javascript', 'html'] }
 Plug 'othree/html5.vim',                   { 'for': 'html' }
-Plug 'mattn/emmet-vim',                    { 'for': 'html' }
+Plug 'mattn/emmet-vim',                    { 'for': ['html', 'eruby', 'eelixir'] }
 Plug 'tpope/vim-markdown',                 { 'for': 'markdown' }
 Plug 'vim-ruby/vim-ruby',                  { 'for': 'ruby' }
 Plug 't9md/vim-ruby-xmpfilter',            { 'for': 'ruby' }
@@ -815,7 +815,7 @@ autocmd FileType markdown let b:dispatch = 'octodown %'
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
 
 " --- emmet-vim
-let g:user_emmet_leader_key='<C-Y>'
+let g:user_emmet_leader_key='<C-y>'
 
 " --- vim-marked
 command! Mo MarkedOpen
