@@ -280,7 +280,7 @@ set tabstop=2 softtabstop=2 shiftwidth=2
 " SHOW INVISIBLES
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcut to rapidly toggle `set list`
-nmap <leader>h :set list!<CR>
+nmap <leader>+ :set list!<CR>
 
 " Use the same symbols as TextMate for tabstops and EOLs
 set listchars=tab:▸\ ,eol:¬
@@ -916,6 +916,9 @@ autocmd! BufWritePost * Neomake
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_jsx_enabled_makers = ['eslint']
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: b c g j k m o r t u v z 1 2 3 4 5 6 7 8 9 0 - = | : > / , .
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>l; :lopen<CR>
+map <leader>lj :lnext<CR>
+map <leader>lk :lprevious<CR>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Free leader keys: b g j k l m o r t u v z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > / , . '
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
