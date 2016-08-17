@@ -107,7 +107,7 @@ Plug 'vim-erlang/vim-erlang-tags',         { 'for': 'erlang' }
 Plug 'neovimhaskell/haskell-vim',          { 'for': 'haskell' }
 Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
 Plug 'derekelkins/agda-vim',               { 'for': 'agda' }
-Plug 'lervag/vimtex',                      { 'for': 'latex' }
+Plug 'LaTeX-Box-Team/LaTeX-Box',           { 'for': 'latex' }
 Plug 'elmcast/elm-vim',                    { 'for': 'elm' }
 
 " Local
@@ -919,6 +919,13 @@ let g:neomake_jsx_enabled_makers = ['eslint']
 map <leader>l; :lopen<CR>
 map <leader>lj :lnext<CR>
 map <leader>lk :lprevious<CR>
+
+" --- LaTeX-Box
+let s:extfname = expand("%:e")
+if s:extfname ==? "tex"
+  let g:LatexBox_split_type="new"
+endif
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: b g j k l m o r t u v z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > / , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
