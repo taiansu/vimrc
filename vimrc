@@ -859,10 +859,10 @@ autocmd FileType ruby imap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
 vnoremap <silent><Enter> :EasyAlign<CR>
 
 " --- UltiSnips
-let g:UltiSnipsExpandTrigger="<M-;>"
-let g:UltiSnipsJumpForwardTrigger="<M-;>"
-let g:UltiSnipsJumpBackwardTrigger="<M-'>"
-let g:UltiSnipsListSnippets="<M-/>"
+let g:UltiSnipsExpandTrigger="<M-j>"
+let g:UltiSnipsJumpForwardTrigger="<M-j>"
+let g:UltiSnipsJumpBackwardTrigger="<M-k>"
+let g:UltiSnipsListSnippets="<M-l>"
 
 " -- Nerdtree
 " use e. or vs. to open file explorer in certain split
@@ -940,7 +940,7 @@ endif
 
 " --- boshiamy.vim
 let g:boshiamy_toogle_key = ',,'
-let g:boshiamy_cancel_key = '<C-h>'
+let g:boshiamy_cancel_key = '<M-h>'
 inoremap <space> <C-R>=bshiamy#send_key()<CR>
 
 if has('autocmd')
@@ -962,7 +962,6 @@ function! s:airline_init()
     \ 'boshiamy'
   \])
 endfunction
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: b g j k l m o r t u v z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > / , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
