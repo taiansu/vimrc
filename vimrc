@@ -32,6 +32,7 @@ Plug 'reedes/vim-pencil'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'AndrewRadev/linediff.vim'
 Plug 'chrisbra/unicode.vim'
+Plug 'pi314/boshiamy.vim'
 
 " Colorscheme
 Plug 'mxgrn/smyck'
@@ -936,6 +937,31 @@ let s:extfname = expand("%:e")
 if s:extfname ==? "tex"
   let g:LatexBox_split_type="new"
 endif
+
+" --- boshiamy.vim
+let g:boshiamy_toogle_key = ',,'
+let g:boshiamy_cancel_key = '<C-h>'
+inoremap <space> <C-R>=bshiamy#send_key()<CR>
+
+if has('autocmd')
+  augroup airline_init
+    autocmd!
+    autocmd User AirlineAfterInit
+      \ call s:airline_init()
+  augroup END
+endif
+
+call airline#parts#define_function(
+  \ 'boshiamy',
+  \ 'boshiamy#status'
+\)
+
+function! s:airline_init()
+  let l:spc = g:airline_symbols.space
+  let g:airline_section_y = airline#section#create_right([
+    \ 'boshiamy'
+  \])
+endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: b g j k l m o r t u v z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > / , . '
