@@ -879,18 +879,18 @@ let g:gist_open_browser_after_post = 1
 nnoremap <C-N> :NumbersToggle<CR>
 
 " --- pt.vim || ag.vim
-if executable('pt')
-  " Use pt over grep
-  set grepprg=pt\ --noroup\ --nocolor
-
-  " command -nargs=+ -complete=file -bar Pt silent! grep! <args>|cwindow|redraw!
-  nnoremap \ :Pt<space>
-elseif executable('ag')
-  " Use pt over grep
+if executable('ag')
+  " Use AG over grep
   set grepprg=ag\ --noroup\ --nocolor
 
   " command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-  nnoremap \ :At<space>
+  nnoremap \ :Ag<space><cword><CR>
+elseif executable('pt')
+  " Use PT over grep
+  set grepprg=pt\ --noroup\ --nocolor
+
+  " command -nargs=+ -complete=file -bar Pt silent! grep! <args>|cwindow|redraw!
+  nnoremap \ :Pt<space><cword><CR>
 endif
 
 " --- tern_for_vim
