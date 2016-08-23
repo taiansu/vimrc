@@ -916,6 +916,17 @@ autocmd! BufWritePost * Neomake
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_jsx_enabled_makers = ['eslint']
 
+let g:neomake_elixir_mix_maker = {
+      \ 'exe' : 'mix',
+      \ 'args': ['compile', '--warnings-as-errors'],
+      \ 'cwd': getcwd(),
+      \ 'errorformat':
+        \ '** %s %f:%l: %m,' .
+        \ '%f:%l: warning: %m'
+      \ }
+
+let g:neomake_elixir_enabled_makers = ['mix']
+
 map <leader>l; :lopen<CR>
 map <leader>lj :lnext<CR>
 map <leader>lk :lprevious<CR>
