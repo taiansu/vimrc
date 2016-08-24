@@ -783,7 +783,9 @@ let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
 
 let g:ycm_global_ycm_extra_conf = '~/.dotfiles/ycm_extra_conf.py'
 
-let g:ycm_complete_in_comments = 0
+let g:ycm_complete_in_comments = 1
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
 
 let g:ycm_filetype_blacklist = {
       \ 'tagbar' : 1,
@@ -859,10 +861,10 @@ autocmd FileType ruby imap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
 vnoremap <silent><Enter> :EasyAlign<CR>
 
 " --- UltiSnips
-let g:UltiSnipsExpandTrigger="<M-j>"
-let g:UltiSnipsJumpForwardTrigger="<M-j>"
-let g:UltiSnipsJumpBackwardTrigger="<M-k>"
-let g:UltiSnipsListSnippets="<M-l>"
+let g:UltiSnipsExpandTrigger="<C-Space>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsListSnippets="<C-l>"
 
 " -- Nerdtree
 " use e. or vs. to open file explorer in certain split
