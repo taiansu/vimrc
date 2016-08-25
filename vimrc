@@ -873,7 +873,6 @@ map <leader>\ :NERDTreeFind<CR>
 " --- gist-vim
 let g:gist_clip_command = 'pbcopy'
 let g:gist_detect_filetype = 1
-let g:gist_open_browser_after_post = 1
 let g:gist_post_private = 1
 " If using 2 factor authorization in github, write ~/.gist-vim with
 " token 1234567890yourApplicationTokenGenerated
@@ -959,7 +958,6 @@ call airline#parts#define_function(
 \)
 
 function! s:airline_init()
-  let l:spc = g:airline_symbols.space
   let g:airline_section_y = airline#section#create_right([
     \ 'boshiamy'
   \])
