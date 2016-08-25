@@ -71,7 +71,7 @@ function! BuildYCM(info)
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status == 'installed' || a:info.force
-    !./install.py --clang-completer --gocode-completer --tern-completer
+    !./install.py --clang-completer --gocode-completer --racer-completer  --tern-completer
   endif
 endfunction
 
@@ -107,7 +107,6 @@ Plug 'vim-erlang/vim-erlang-omnicomplete', { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-tags',         { 'for': 'erlang' }
 Plug 'neovimhaskell/haskell-vim',          { 'for': 'haskell' }
 Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
-Plug 'derekelkins/agda-vim',               { 'for': 'agda' }
 Plug 'LaTeX-Box-Team/LaTeX-Box',           { 'for': 'latex' }
 Plug 'elmcast/elm-vim',                    { 'for': 'elm' }
 
@@ -861,10 +860,10 @@ autocmd FileType ruby imap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
 vnoremap <silent><Enter> :EasyAlign<CR>
 
 " --- UltiSnips
-let g:UltiSnipsExpandTrigger="<C-Space>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsListSnippets="<C-l>"
+let g:UltiSnipsExpandTrigger="<M-j>"
+let g:UltiSnipsJumpForwardTrigger="<M-j>"
+let g:UltiSnipsJumpBackwardTrigger="<M-k>"
+let g:UltiSnipsListSnippets="<M-l>"
 
 " -- Nerdtree
 " use e. or vs. to open file explorer in certain split
@@ -875,6 +874,7 @@ map <leader>\ :NERDTreeFind<CR>
 let g:gist_clip_command = 'pbcopy'
 let g:gist_detect_filetype = 1
 let g:gist_open_browser_after_post = 1
+let g:gist_post_private = 1
 " If using 2 factor authorization in github, write ~/.gist-vim with
 " token 1234567890yourApplicationTokenGenerated
 
