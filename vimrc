@@ -225,7 +225,7 @@ set eadirection=both
 set textwidth=100
 set timeoutlen=1000 ttimeoutlen=0
 " keep more context when scrolling off the end of a buffer
-set scrolloff=7
+set scrolloff=3
 " Solve ruby complete slowness
 set complete-=i
 set iskeyword+=-
@@ -236,14 +236,14 @@ set diffopt+=vertical
 
 if has("gui_running")
   " highlight current line
-  set cursorline
+  set nocursorline
   " highlight current column
   set cursorcolumn
   set guicursor+=i:hor5-Cursor
   set guicursor+=a:blinkon0
 else
   set nocursorline
-  set nocursorcolumn
+  set cursorcolumn
   set scrolljump=8
   set lazyredraw
   set noshowmatch
@@ -607,9 +607,9 @@ map <leader>fd :CtrlPClearCache<CR>\|:CtrlP<CR>
 map <leader>fb :CtrlPBuffer<CR>
 map <leader>ff :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
 map <leader>fa :CtrlPMixed<CR>
-map <leader>fk :<C-u>bd<CR>
-map <leader>fn :<C-u>bn<CR>
-map <leader>fp :<C-u>bp<CR>
+map <leader>f; :<C-u>bd!<CR>
+map <leader>fj :<C-u>bn<CR>
+map <leader>fk :<C-u>bp<CR>
 
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
