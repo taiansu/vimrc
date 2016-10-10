@@ -34,7 +34,8 @@ Plug 'chrisbra/unicode.vim'
 Plug 'pi314/boshiamy.vim'
 
 " Colorscheme
-Plug 'mxgrn/smyck'
+Plug 'romainl/Apprentice'
+Plug 'brendonrapp/smyck-vim'
 Plug 'blerins/flattown'
 Plug 'jonathanfilip/vim-lucius'
 
