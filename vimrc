@@ -531,18 +531,11 @@ inoremap <C-c> <esc>
 inoremap <C-[> <esc>
 nnoremap <leader><leader> <C-^>
 
-" Auto-save a file and leave insert mode
-inoremap jk <esc>:w<CR>
-
 " format json
 command! Json !python -m json.tool
 
 " Start an external command with a single bang
 nnoremap ! :!
-
-" More efficient paste on next line
-nnoremap <leader>p :pu<CR>
-nnoremap <leader>P :pu!<CR>
 
 " Enter command mode with one key stroke
 " nnoremap ; :
@@ -564,19 +557,12 @@ nnoremap sk <C-w>K
 nnoremap sl <C-w>L
 nnoremap sh <C-w>H
 nnoremap sm :on
-nnoremap sn :<C-u>bn<CR>
-nnoremap sp :<C-u>bp<CR>
-
-nnoremap sd :<C-u>bd<CR>
 
 nnoremap sc <C-w>q
 nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
 
-nnoremap sQ :<C-u>q<CR>
 nnoremap sr <C-w>r
-nnoremap s= <C-w>=
-nnoremap sw <C-w>w
 nnoremap so <C-w>_<C-w>|
 " nnoremap st :split | :terminal<CR>
 
@@ -595,7 +581,7 @@ call submode#map('undo/redo', 'n', '', '-', 'g-')
 call submode#map('undo/redo', 'n', '', '+', 'g+')
 " call submode#leave_with('undo/redo', 'n', '', '<Esc>')
 
-" Move around splits with <C-hjkl>
+" Move around splits with <leader> keys
 nnoremap <leader>wk <C-w>k
 nnoremap <leader>wj <C-w>j
 nnoremap <leader>wh <C-w>h
@@ -611,14 +597,7 @@ map <leader>fd :CtrlPClearCache<CR>\|:CtrlP<CR>
 map <leader>fb :CtrlPBuffer<CR>
 map <leader>ff :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
 map <leader>fa :CtrlPMixed<CR>
-map <leader>f; :<C-u>bd!<CR>
-map <leader>fj :<C-u>bn<CR>
-map <leader>fk :<C-u>bp<CR>
 
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shorts for tabnew tabn tabp
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
