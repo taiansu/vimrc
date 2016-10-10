@@ -8,7 +8,6 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'kien/ctrlp.vim'
-Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
@@ -105,13 +104,14 @@ Plug 'vim-erlang/vim-erlang-compiler',     { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-skeletons',    { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-omnicomplete', { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-tags',         { 'for': 'erlang' }
+Plug 'vim-erlang/vim-rebar',               { 'for': 'erlang' }
+Plug 'vim-erlang/vim-dialyzer',            { 'for': 'erlang' }
 Plug 'neovimhaskell/haskell-vim',          { 'for': 'haskell' }
 Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
 Plug 'LaTeX-Box-Team/LaTeX-Box',           { 'for': 'latex' }
 Plug 'elmcast/elm-vim',                    { 'for': 'elm' }
 
 " Local
-Plug '~/Projects/nerdtree-ag'
 
 call plug#end()
 
@@ -390,7 +390,8 @@ let g:netrw_special_syntax = 1
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_sort_sequence = '[\/]$,*'
-" let g:netrw_winsize = -30
+let g:netrw_winsize = -30
+map <leader>q :Vex<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AUTO SOURCE vimrc AFTER SAVE
@@ -864,11 +865,6 @@ let g:UltiSnipsExpandTrigger="<M-j>"
 let g:UltiSnipsJumpForwardTrigger="<M-j>"
 let g:UltiSnipsJumpBackwardTrigger="<M-k>"
 let g:UltiSnipsListSnippets="<M-l>"
-
-" -- Nerdtree
-" use e. or vs. to open file explorer in certain split
-map <leader>q :NERDTreeToggle<CR>
-map <leader>\ :NERDTreeFind<CR>
 
 " --- gist-vim
 let g:gist_clip_command = 'pbcopy'
