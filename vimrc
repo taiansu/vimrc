@@ -97,7 +97,9 @@ Plug 'vim-ruby/vim-ruby',                  { 'for': 'ruby' }
 Plug 't9md/vim-ruby-xmpfilter',            { 'for': 'ruby' }
 Plug 'kchmck/vim-coffee-script',           { 'for': 'coffee' }
 Plug 'vim-scripts/VimClojure',             { 'for': 'clojure' }
-Plug 'elixir-lang/vim-elixir',             { 'for': 'elixir' }
+Plug 'larrylv/ycm-elixir',                 { 'for': ['elixir', 'eelixir'] }
+Plug 'elixir-lang/vim-elixir',             { 'for': ['elixir', 'eelixir'] }
+Plug 'slashmili/alchemist.vim',            { 'for': ['elixir', 'eelixir'] }
 Plug 'fatih/vim-go',                       { 'for': 'go' }
 Plug 'golangtw/gocode.vim',                { 'for': 'go' }
 Plug 'vim-erlang/vim-erlang-runtime',      { 'for': 'erlang' }
