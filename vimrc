@@ -492,11 +492,6 @@ command! TrailingWhiteSpaces %s/\s\+$//e
 nmap <leader>xv :TrailingWhiteSpaces<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Fix Ruby Hash Syntax
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-command! FixRubyHash %s/:\(\w*\)\(\s*\)=> /\1:\2/gc
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " JUMP TO THE COLUMN OF MARK
@@ -919,8 +914,11 @@ endif
 
 " --- boshiamy.vim
 let g:boshiamy_toogle_key = ',,'
-let g:boshiamy_cancel_key = '<M-h>'
+let g:boshiamy_cancel_key = '<M-[>'
 inoremap <space> <C-R>=bshiamy#send_key()<CR>
+
+" --- dash.vim
+map <leader>/ :Dash<cr>
 
 if has('autocmd')
   augroup airline_init
@@ -941,5 +939,5 @@ function! s:airline_init()
   \])
 endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: b g j k l m o r t u v z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > / , . '
+" Free leader keys: b g j k l m o r t u v z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
