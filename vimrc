@@ -89,6 +89,7 @@ augroup END
 " Language specified
 
 Plug 'othree/yajs.vim',                    { 'for': 'javascript' }
+Plug 'ternjs/tern_for_vim',                { 'for': 'javascript' }
 Plug 'mxw/vim-jsx',                        { 'for': ['javascript', 'html'] }
 Plug 'othree/html5.vim',                   { 'for': 'html' }
 Plug 'mattn/emmet-vim',                    { 'for': ['html', 'eruby', 'eelixir'] }
