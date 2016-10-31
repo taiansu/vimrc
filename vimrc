@@ -677,14 +677,10 @@ let g:ctrlp_map               = '<C-p>'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_follow_symlinks   = 1
 " let g:ctrlp_by_filename       = 1
-let g:ctrlp_root_markers        = ['P4CONFIG']
 let g:ctrlp_extensions        = ['mixed', 'bookmarkdir', 'funky']
 " if has('python')
 "   let g:ctrlp_match_func      = {'match': 'pymatcher#PyMatch'}
 " endif
-" Do not clear filenames cache, to improve CtrlP startup
-" You can manualy clear it by <F5>
-let g:ctrlp_clear_cache_on_exit = 0
 
 " Set delay to prevent extra search
 " let g:ctrlp_lazy_update = 350
@@ -695,38 +691,8 @@ let g:ctrlp_max_files = 0
 " exclude directories or files from the search
 let g:ctrlp_custom_ignore = {
     \ 'dir': '\v[\/](\.git|\.hg|\.svn|\_site|node_modules|bower_components|target|dist|build)$',
-    \ 'file': '\v\.(swp|ico|exe|so|dll|DS_Store|tags|class|png|jpg|jpeg)$',
+    \ 'file': '\v\.(swp|ico|exe|so|dll|DS_Store|tags|class|png|jpg|jpeg|beam)$',
 \ }
-
-if has('unix')
-  " The 'while read fname' section sorts the filenames in descending order by length thereby allowing to find the
-  " shortest occurence of a string
-  let g:ctrlp_user_command = {
-                             \ 'types': {
-                               \ 1: ['.git', 'cd %s && git ls-files --cached --exclude-standard --others'],
-                               \ 2: ['.hg', 'hg --cwd %s status -numac -I . $(hg root)'],
-                               \ 3: ['P4CONFIG', "find %s " .
-                                 \ "-type d \\( -iname .svn -o -iname .git -o -iname .hg \\) -prune " .
-                                 \ "-o -type d \\( -name _env -o -name dfx -o -name emu -o -name env_squash -o -name fp ".
-                                 \ "-o -name import -o -name libs -o -name powerPro -o -name tools -o -name build" .
-                                 \ "-o -wholename '*/ch/tc' -o -wholename '*/ch/tb' -o -wholename '*/ch/verif/dft' " .
-                                 \ "-o -wholename '*/txn/gen' -o -wholename '*/generated' \\) -prune " .
-                                 \ "-o -type f ! \\( -name '.*' -o -iname '*.log' -o -iname '*.out' -o -iname '*.so' " .
-                                 \ "-o -iname '*.cc.o' -o -iname '*tags*' \\) -print "
-                                 \ ]
-                               \ },
-                             \ 'fallback': "find %s " .
-                                 \ "-type d \\( -iname .svn -o -iname .git -o -iname .hg \\) -prune " .
-                                 \ "-o -type f ! \\( -name '.*' -o -iname '*.log' -o -iname '*.out' -o -iname '*.so' " .
-                                 \ "-o -iname '*.cc.o' -o -iname '*tags*' \\) -print " .
-                                 \ "| while read filename; do echo ${#filename} $filename; done " .
-                                 \ "| sort -n | awk '{print $2}'"
-                             \ }
-elseif executable('pt')
-  let g:ctrlp_user_command = 'pt %s -l --nocolor -g ""'
-elseif executable('ag')
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
 
 " --- YomCompleteMe
 let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
@@ -893,7 +859,7 @@ let g:boshiamy_cancel_key = '<M-[>'
 inoremap <space> <C-R>=bshiamy#send_key()<CR>
 
 " --- dash.vim
-map <leader>/ :Dash<cr>
+map <leader>/ :Dash<CR>
 
 if has('autocmd')
   augroup airline_init
