@@ -546,22 +546,6 @@ nnoremap K :grep!  "\b<C-R><C-W>\b"<CR>:cw<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BUFFER, TAB AND SPLIT MOTIONS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap s <Nop>
-
-nnoremap sj <C-w>J
-nnoremap sk <C-w>K
-nnoremap sl <C-w>L
-nnoremap sh <C-w>H
-nnoremap sm :on
-
-nnoremap sc <C-w>q
-nnoremap ss :<C-u>sp<CR>
-nnoremap sv :<C-u>vs<CR>
-
-nnoremap sr <C-w>r
-nnoremap so <C-w>_<C-w>|
-" nnoremap st :split | :terminal<CR>
-
 call submode#enter_with('bufsize', 'n', '', '<C-w>>', '<C-w>>')
 call submode#enter_with('bufsize', 'n', '', '<C-w><', '<C-w><')
 call submode#enter_with('bufsize', 'n', '', '<C-w>+', '<C-w>+')
