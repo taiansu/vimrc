@@ -561,22 +561,12 @@ call submode#map('undo/redo', 'n', '', '-', 'g-')
 call submode#map('undo/redo', 'n', '', '+', 'g+')
 " call submode#leave_with('undo/redo', 'n', '', '<Esc>')
 
-" Move around splits with <leader> keys
-nnoremap <leader>wk <C-w>k
-nnoremap <leader>wj <C-w>j
-nnoremap <leader>wh <C-w>h
-nnoremap <leader>wl <C-w>l
-nnoremap <leader>wm <C-w>o
-nnoremap <leader>wc <C-w>q
-nnoremap <leader>ws :<C-u>sp<CR>
-nnoremap <leader>wv :<C-u>vs<CR>
+" map <leader>fs :topleft :split<CR>
 
-map <leader>fs :topleft :split<CR>
-
-map <leader>fd :CtrlPClearCache<CR>\|:CtrlP<CR>
-map <leader>fb :CtrlPBuffer<CR>
-map <leader>ff :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
-map <leader>fa :CtrlPMixed<CR>
+" map <leader>fd :CtrlPClearCache<CR>\|:CtrlP<CR>
+map <leader>bb :CtrlPBuffer<CR>
+map <leader>bv :CtrlPMixed<CR>
+map <leader>bf :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shorts for tabnew tabn tabp
@@ -924,5 +914,5 @@ function! s:airline_init()
   \])
 endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: b g j k l m o r t u v z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
+" Free leader keys: f g j k l m o p r t u v z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
