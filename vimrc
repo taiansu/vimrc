@@ -50,6 +50,7 @@ Plug 'neomake/neomake', { 'do': function('InstallLints') }
 
 if has('nvim')
   Plug 'radenling/vim-dispatch-neovim'
+  Plug 'awetzel/elixir.nvim',           { 'for': ['elixir', 'eelixir'] }
 endif
 
 " On-demand loading
@@ -75,14 +76,14 @@ function! BuildYCM(info)
   endif
 endfunction
 
-Plug 'tpope/vim-endwise',        { 'on': [] }
+" Plug 'tpope/vim-endwise',        { 'on': [] }
 Plug 'SirVer/ultisnips',         { 'on': [] }
 Plug 'taiansu/vim-snippets',     { 'on': [] }
 Plug 'Valloric/YouCompleteMe',   { 'on': [], 'do': function('BuildYCM') }
 
 augroup load_lazy_plugins
   autocmd!
-  autocmd InsertEnter * call plug#load('vim-endwise', 'ultisnips', 'vim-snippets', 'YouCompleteMe')
+  autocmd InsertEnter * call plug#load('ultisnips', 'vim-snippets', 'YouCompleteMe')
                      \| call youcompleteme#Enable() | autocmd! load_lazy_plugins
 augroup END
 
@@ -100,7 +101,8 @@ Plug 'kchmck/vim-coffee-script',           { 'for': 'coffee' }
 Plug 'vim-scripts/VimClojure',             { 'for': 'clojure' }
 Plug 'larrylv/ycm-elixir',                 { 'for': ['elixir', 'eelixir'] }
 Plug 'elixir-lang/vim-elixir',             { 'for': ['elixir', 'eelixir'] }
-Plug 'slashmili/alchemist.vim',            { 'for': ['elixir', 'eelixir'] }
+" Plug 'slashmili/alchemist.vim',            { 'for': ['elixir', 'eelixir'] }
+Plug 'avdgaag/vim-phoenix',                { 'for': ['elixir', 'eelixir'] }
 Plug 'fatih/vim-go',                       { 'for': 'go' }
 Plug 'golangtw/gocode.vim',                { 'for': 'go' }
 Plug 'vim-erlang/vim-erlang-runtime',      { 'for': 'erlang' }
@@ -685,6 +687,23 @@ command! Application :silent !open -a /Applications/
 " Addons Settings
 " 插件設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" --- pt.vim || ag.vim
+if executable('ag')
+  " Use AG over grep
+  set grepprg=ag\ --noroup\ --nocolor
+
+  " command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+  map <leader>/ :Ag<space><cword><CR>
+elseif executable('pt')
+  " Use PT over grep
+  set grepprg=pt\ --noroup\ --nocolor
+
+  " command -nargs=+ -complete=file -bar Pt silent! grep! <args>|cwindow|redraw!
+  map <leader>/ :Pt<space><cword><CR>
+endif
+
+" --- dash.vim
+map <leader>\ :Dash<CR>
 
 " --- CtrlP
 " sets local working directory as the nearest ancestor
@@ -810,21 +829,6 @@ let g:gist_post_private = 1
 " --- Numbers.vim
 nnoremap <C-N> :NumbersToggle<CR>
 
-" --- pt.vim || ag.vim
-if executable('ag')
-  " Use AG over grep
-  set grepprg=ag\ --noroup\ --nocolor
-
-  " command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-  nnoremap \ :Ag<space><cword><CR>
-elseif executable('pt')
-  " Use PT over grep
-  set grepprg=pt\ --noroup\ --nocolor
-
-  " command -nargs=+ -complete=file -bar Pt silent! grep! <args>|cwindow|redraw!
-  nnoremap \ :Pt<space><cword><CR>
-endif
-
 " --- tern_for_vim
 autocmd BufEnter * set completeopt-=preview
 
@@ -870,12 +874,11 @@ if s:extfname ==? "tex"
 endif
 
 " --- boshiamy.vim
-let g:boshiamy_toogle_key = ',,'
-let g:boshiamy_cancel_key = '<M-[>'
-inoremap <space> <C-R>=bshiamy#send_key()<CR>
-
-" --- dash.vim
-map <leader>/ :Dash<CR>
+" if exists(":boshiamy") && exists("*boshiamy#send_key")
+  let g:boshiamy_toogle_key = ',,'
+  let g:boshiamy_cancel_key = '<M-[>'
+  inoremap <space> <C-R>=boshiamy#send_key()<CR>
+" endif
 
 if has('autocmd')
   augroup airline_init
@@ -883,18 +886,22 @@ if has('autocmd')
     autocmd User AirlineAfterInit
       \ call s:airline_init()
   augroup END
+
+  call airline#parts#define_function(
+    \ 'boshiamy',
+    \ 'boshiamy#mode'
+  \)
 endif
 
-call airline#parts#define_function(
-  \ 'boshiamy',
-  \ 'boshiamy#status'
-\)
-
 function! s:airline_init()
-  let g:airline_section_y = airline#section#create_right([
-    \ 'boshiamy'
-  \])
+  " if exists(':boshiamy') && exists("*boshiamy#mode")
+    let g:airline_section_y = airline#section#create_right([
+      \ 'boshiamy'
+    \])
+  " endif
 endfunction
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: f g j k l m o p r t u v z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim: set ft=vim :
