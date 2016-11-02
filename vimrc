@@ -35,7 +35,6 @@ Plug 'chrisbra/unicode.vim'
 Plug 'pi314/boshiamy.vim'
 
 " Colorscheme
-Plug 'romainl/Apprentice'
 Plug 'brendonrapp/smyck-vim'
 Plug 'blerins/flattown'
 Plug 'jonathanfilip/vim-lucius'
@@ -293,6 +292,13 @@ nmap <leader>+ :set list!<CR>
 set listchars=tab:▸\ ,eol:¬
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MacVim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if has("gui_macvim")
+  set macmeta
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Change CursorShape in iTerm2
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let &t_SI = "\<Esc>[5 q"
@@ -353,7 +359,7 @@ function! SwitchTheme(theme_type)
     colorscheme lucius
   else
     let g:current_theme = "code"
-    set gfn=Source\ Code\ Pro\ Light:h15
+    set gfn=Source\ Code\ Pro:h15
     set foldcolumn=0
     set background=dark
     set linespace=3
