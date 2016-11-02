@@ -17,6 +17,7 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive',
 Plug 'myusuf3/numbers.vim'
+Plug 'majutsushi/tagbar'
 Plug 'kana/vim-submode'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
@@ -585,6 +586,7 @@ call submode#map('undo/redo', 'n', '', '+', 'g+')
 map <leader>bb :CtrlPBuffer<CR>
 map <leader>bv :CtrlPMixed<CR>
 map <leader>bf :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
+map <M-p> :CtrlP<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shorts for tabnew tabn tabp
@@ -790,7 +792,7 @@ let g:airline_right_sep = ''
 let g:airline_symbols.branch = '⎇ '
 let g:airline_symbols.linenr = '¶ '
 let g:airline_detect_modified=1
-let g:airline#extensions#tagbar#enabled=0
+let g:airline#extensions#tagbar#enabled=1
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#neomake#enabled=1
 
@@ -901,7 +903,27 @@ function! s:airline_init()
   " endif
 endfunction
 
+" --- tagbar
+let g:tagbar_left=1
+nmap <leader>t :TagbarToggle<CR>
+
+let g:tagbar_type_elixir = {
+    \ 'ctagstype' : 'elixir',
+    \ 'kinds' : [
+        \ 'f:functions',
+        \ 'functions:functions',
+        \ 'c:callbacks',
+        \ 'd:delegates',
+        \ 'e:exceptions',
+        \ 'i:implementations',
+        \ 'a:macros',
+        \ 'o:operators',
+        \ 'm:modules',
+        \ 'p:protocols',
+        \ 'r:records'
+    \ ]
+\ }
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: f g j k l m o p r t u v z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
+" Free leader keys: f g j k l m o p r u v z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim: set ft=vim :
