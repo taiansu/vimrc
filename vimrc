@@ -18,6 +18,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive',
 Plug 'myusuf3/numbers.vim'
 Plug 'majutsushi/tagbar'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'kana/vim-submode'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
@@ -50,19 +51,16 @@ Plug 'neomake/neomake', { 'do': function('InstallLints') }
 
 if has('nvim')
   Plug 'radenling/vim-dispatch-neovim'
-  Plug 'awetzel/elixir.nvim',           { 'for': ['elixir', 'eelixir'] }
 endif
 
 " On-demand loading
 Plug 'tpope/vim-dispatch',       { 'on': ['Dispatch', 'Focus', 'Start'] }
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
 Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown' }
-Plug 'nazo/pt.vim',              { 'on': 'Pt' }
 Plug 'rking/ag.vim',             { 'on': 'Ag' }
 Plug 'junegunn/vim-easy-align',  { 'on': 'EasyAlign' }
 Plug 'mattn/webapi-vim',         { 'on': 'Gist' }
 Plug 'mattn/gist-vim',           { 'on': 'Gist' }
-Plug 'rdnetto/YCM-Generator',    { 'branch': 'stable' }
 
 " Lazy loading
 
@@ -76,10 +74,10 @@ function! BuildYCM(info)
   endif
 endfunction
 
-" Plug 'tpope/vim-endwise',        { 'on': [] }
-Plug 'SirVer/ultisnips',         { 'on': [] }
-Plug 'taiansu/vim-snippets',     { 'on': [] }
-Plug 'Valloric/YouCompleteMe',   { 'on': [], 'do': function('BuildYCM') }
+Plug 'SirVer/ultisnips'
+Plug 'taiansu/vim-snippets'
+Plug 'rdnetto/YCM-Generator',    { 'branch': 'stable' }
+Plug 'Valloric/YouCompleteMe',   { 'do': function('BuildYCM') }
 
 augroup load_lazy_plugins
   autocmd!
@@ -88,23 +86,17 @@ augroup load_lazy_plugins
 augroup END
 
 " Language specified
+Plug 'sheerun/vim-polyglot'
 
 Plug 'othree/yajs.vim',                    { 'for': 'javascript' }
 Plug 'ternjs/tern_for_vim',                { 'for': 'javascript' }
-Plug 'mxw/vim-jsx',                        { 'for': ['javascript', 'html'] }
-Plug 'othree/html5.vim',                   { 'for': 'html' }
 Plug 'mattn/emmet-vim',                    { 'for': ['html', 'eruby', 'eelixir'] }
-Plug 'tpope/vim-markdown',                 { 'for': 'markdown' }
-Plug 'vim-ruby/vim-ruby',                  { 'for': 'ruby' }
 Plug 't9md/vim-ruby-xmpfilter',            { 'for': 'ruby' }
-Plug 'kchmck/vim-coffee-script',           { 'for': 'coffee' }
-Plug 'vim-scripts/VimClojure',             { 'for': 'clojure' }
+Plug 'thinca/vim-ref'
+Plug 'awetzel/elixir.nvim',                { 'do': 'yes \| ./install.sh' }
 Plug 'larrylv/ycm-elixir',                 { 'for': ['elixir', 'eelixir'] }
-Plug 'elixir-lang/vim-elixir',             { 'for': ['elixir', 'eelixir'] }
-" Plug 'slashmili/alchemist.vim',            { 'for': ['elixir', 'eelixir'] }
+Plug 'slashmili/alchemist.vim',            { 'for': ['elixir', 'eelixir'] }
 Plug 'avdgaag/vim-phoenix',                { 'for': ['elixir', 'eelixir'] }
-Plug 'fatih/vim-go',                       { 'for': 'go' }
-Plug 'golangtw/gocode.vim',                { 'for': 'go' }
 Plug 'vim-erlang/vim-erlang-runtime',      { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-compiler',     { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-skeletons',    { 'for': 'erlang' }
@@ -112,10 +104,8 @@ Plug 'vim-erlang/vim-erlang-omnicomplete', { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-tags',         { 'for': 'erlang' }
 Plug 'vim-erlang/vim-rebar',               { 'for': 'erlang' }
 Plug 'vim-erlang/vim-dialyzer',            { 'for': 'erlang' }
-Plug 'neovimhaskell/haskell-vim',          { 'for': 'haskell' }
 Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
 Plug 'LaTeX-Box-Team/LaTeX-Box',           { 'for': 'latex' }
-Plug 'elmcast/elm-vim',                    { 'for': 'elm' }
 
 " Local
 
@@ -420,7 +410,8 @@ let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_sort_sequence = '[\/]$,*'
 let g:netrw_winsize = -30
-map <leader>q :Vex<CR>
+let g:netrw_retmap = 1
+map <leader>q :Lex<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AUTO SOURCE vimrc AFTER SAVE
@@ -447,7 +438,6 @@ augroup vimrcEx
   autocmd! BufNewFile,BufRead,BufEnter *.ls       set ft=ls
   autocmd! BufNewFile,BufRead *.scss,*.sass       set ft=scss.css
   autocmd! BufNewFile,BufRead *.md                set ft=markdown
-  autocmd! BufNewFile,BufRead *.agda              set ft=agda
 
   " Markdown syntax highlight is often wrong
   " you might like to disable it.
@@ -695,19 +685,13 @@ command! Application :silent !open -a /Applications/
 " Addons Settings
 " 插件設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" --- pt.vim || ag.vim
+" --- ag.vim
 if executable('ag')
   " Use AG over grep
   set grepprg=ag\ --noroup\ --nocolor
 
   " command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
   map <leader>/ :Ag<space><cword><CR>
-elseif executable('pt')
-  " Use PT over grep
-  set grepprg=pt\ --noroup\ --nocolor
-
-  " command -nargs=+ -complete=file -bar Pt silent! grep! <args>|cwindow|redraw!
-  map <leader>/ :Pt<space><cword><CR>
 endif
 
 " --- dash.vim
@@ -929,7 +913,15 @@ let g:tagbar_type_elixir = {
         \ 'r:records'
     \ ]
 \ }
+
+" --- YouCompleteMe
+let g:ycm_python_binary_path = '/usr/local/bin/python3'
+let g:ycm_server_python_interpreter = '/usr/local/bin/python3'
+
+" --- vim-gutentags
+let g:gutentags_cache_dir = '~/.tags_cache'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: f g j k l m o p r u v z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
+" Free leader keys: f g j k l m o p r s u v z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim: set ft=vim :
