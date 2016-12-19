@@ -581,6 +581,7 @@ call submode#map('undo/redo', 'n', '', '+', 'g+')
 map <leader>bb :CtrlPBuffer<CR>
 map <leader>bv :CtrlPMixed<CR>
 map <leader>bf :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
+map <leader>bc :CtrlPClearCache<CR>
 map <M-p> :CtrlP<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
