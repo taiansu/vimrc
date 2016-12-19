@@ -33,7 +33,6 @@ Plug 'reedes/vim-pencil'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'AndrewRadev/linediff.vim'
 Plug 'chrisbra/unicode.vim'
-Plug 'pi314/boshiamy.vim'
 
 " Colorscheme
 Plug 'brendonrapp/smyck-vim'
@@ -864,34 +863,6 @@ let s:extfname = expand("%:e")
 if s:extfname ==? "tex"
   let g:LatexBox_split_type="new"
 endif
-
-" --- boshiamy.vim
-" if exists(":boshiamy") && exists("*boshiamy#send_key")
-  let g:boshiamy_toogle_key = ',,'
-  let g:boshiamy_cancel_key = '<M-[>'
-  inoremap <space> <C-R>=boshiamy#send_key()<CR>
-" endif
-
-if has('autocmd')
-  augroup airline_init
-    autocmd!
-    autocmd User AirlineAfterInit
-      \ call s:airline_init()
-  augroup END
-
-  call airline#parts#define_function(
-    \ 'boshiamy',
-    \ 'boshiamy#mode'
-  \)
-endif
-
-function! s:airline_init()
-  " if exists(':boshiamy') && exists("*boshiamy#mode")
-    let g:airline_section_y = airline#section#create_right([
-      \ 'boshiamy'
-    \])
-  " endif
-endfunction
 
 " --- tagbar
 let g:tagbar_left=1
