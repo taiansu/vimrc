@@ -8,6 +8,9 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'kien/ctrlp.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
@@ -410,7 +413,7 @@ let g:netrw_altv = 1
 let g:netrw_sort_sequence = '[\/]$,*'
 let g:netrw_winsize = -30
 let g:netrw_retmap = 1
-map <leader>q :Lex<CR>
+map <leader>q :NERDTreeToggle<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AUTO SOURCE vimrc AFTER SAVE
@@ -721,6 +724,12 @@ let g:ctrlp_custom_ignore = {
     \ 'file': '\v\.(swp|ico|exe|so|dll|DS_Store|tags|class|png|jpg|jpeg|beam)$',
 \ }
 
+" --- NERDTree
+let NERDTreeIgnore=['\.pyc','\~$','\.swp']
+let NERDTreeShowBookmarks=1
+let NERDTreeAutoCenter=1
+let NERDTreeWinSize=31
+
 " --- YomCompleteMe
 let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
 " let g:ycm_key_list_select_completion = ['<C-n>']
@@ -894,6 +903,6 @@ let g:ycm_server_python_interpreter = '/usr/local/bin/python3'
 let g:gutentags_cache_dir = '~/.tags_cache'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: f g j k l m o p r s u v z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
+" Free leader keys: f g j k l m o p r s u v w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim: set ft=vim :
