@@ -532,7 +532,7 @@ vnoremap Q :norm @q<CR>
 nnoremap <leader>cp yap<S-}>p
 
 " Clear the search buffer with <leader>xc
-map <leader>xc :nohlsearch<CR>
+map <CR> :nohlsearch<CR>
 
 " Can't be bothered to understand ESC vs <C-c> in insert mode
 inoremap <C-c> <esc>
