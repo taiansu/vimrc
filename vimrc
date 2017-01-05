@@ -9,7 +9,6 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'kien/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
@@ -33,7 +32,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'kshenoy/vim-signature'
 Plug 'Konfekt/FastFold'
 Plug 'reedes/vim-pencil'
-Plug 'michaeljsmith/vim-indent-object'
 Plug 'AndrewRadev/linediff.vim'
 Plug 'chrisbra/unicode.vim'
 
@@ -90,16 +88,13 @@ augroup END
 " Language specified
 Plug 'sheerun/vim-polyglot'
 
-Plug 'othree/yajs.vim',                    { 'for': 'javascript' }
-Plug 'ternjs/tern_for_vim',                { 'for': 'javascript' }
 Plug 'mattn/emmet-vim',                    { 'for': ['html', 'eruby', 'eelixir'] }
+Plug 'ternjs/tern_for_vim',                { 'for': 'javascript' }
 Plug 't9md/vim-ruby-xmpfilter',            { 'for': 'ruby' }
-Plug 'thinca/vim-ref'
 Plug 'awetzel/elixir.nvim',                { 'do': 'yes \| ./install.sh' }
 Plug 'larrylv/ycm-elixir',                 { 'for': ['elixir', 'eelixir'] }
 Plug 'slashmili/alchemist.vim',            { 'for': ['elixir', 'eelixir'] }
 Plug 'avdgaag/vim-phoenix',                { 'for': ['elixir', 'eelixir'] }
-Plug 'vim-erlang/vim-erlang-runtime',      { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-compiler',     { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-skeletons',    { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-omnicomplete', { 'for': 'erlang' }
