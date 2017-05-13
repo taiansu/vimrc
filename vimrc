@@ -15,7 +15,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive',
 Plug 'myusuf3/numbers.vim'
@@ -39,11 +38,12 @@ Plug 'chrisbra/unicode.vim'
 Plug 'brendonrapp/smyck-vim'
 Plug 'blerins/flattown'
 Plug 'jonathanfilip/vim-lucius'
+Plug 'mhinz/vim-janah'
 
 " with Dependency
 function! InstallLints(info)
   if a:info.status == 'installed' || a:info.force
-    !npm install -g coffeelint coffee-react-transform eslint-plugin-react eslint
+    !npm install -g eslint-plugin-react eslint
   endif
 endfunction
 
@@ -90,11 +90,10 @@ Plug 'sheerun/vim-polyglot'
 
 Plug 'mattn/emmet-vim',                    { 'for': ['html', 'eruby', 'eelixir'] }
 Plug 'ternjs/tern_for_vim',                { 'for': 'javascript' }
-Plug 't9md/vim-ruby-xmpfilter',            { 'for': 'ruby' }
-Plug 'awetzel/elixir.nvim',                { 'do': 'yes \| ./install.sh' }
+" Plug 't9md/vim-ruby-xmpfilter',            { 'for': 'ruby' }
 Plug 'larrylv/ycm-elixir',                 { 'for': ['elixir', 'eelixir'] }
 Plug 'slashmili/alchemist.vim',            { 'for': ['elixir', 'eelixir'] }
-Plug 'avdgaag/vim-phoenix',                { 'for': ['elixir', 'eelixir'] }
+" Plug 'avdgaag/vim-phoenix',                { 'for': ['elixir', 'eelixir'] }
 Plug 'vim-erlang/vim-erlang-compiler',     { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-skeletons',    { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-omnicomplete', { 'for': 'erlang' }
@@ -102,7 +101,7 @@ Plug 'vim-erlang/vim-erlang-tags',         { 'for': 'erlang' }
 Plug 'vim-erlang/vim-rebar',               { 'for': 'erlang' }
 Plug 'vim-erlang/vim-dialyzer',            { 'for': 'erlang' }
 Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
-Plug 'LaTeX-Box-Team/LaTeX-Box',           { 'for': 'latex' }
+" Plug 'LaTeX-Box-Team/LaTeX-Box',           { 'for': 'latex' }
 
 " Local
 
@@ -791,20 +790,20 @@ let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#neomake#enabled=1
 
 " --- vim-ruby-xmpfilter
-let g:xmpfilter_cmd = "seeing_is_believing"
+" let g:xmpfilter_cmd = "seeing_is_believing"
 
-autocmd FileType ruby nmap <buffer> <D-k> <Plug>(seeing_is_believing-mark)
-autocmd FileType ruby xmap <buffer> <D-k> <Plug>(seeing_is_believing-mark)
-autocmd FileType ruby imap <buffer> <D-k> <Plug>(seeing_is_believing-mark)
+" autocmd FileType ruby nmap <buffer> <D-k> <Plug>(seeing_is_believing-mark)
+" autocmd FileType ruby xmap <buffer> <D-k> <Plug>(seeing_is_believing-mark)
+" autocmd FileType ruby imap <buffer> <D-k> <Plug>(seeing_is_believing-mark)
 
-autocmd FileType ruby nmap <buffer> <D-u> <Plug>(seeing_is_believing-clean)
-autocmd FileType ruby xmap <buffer> <D-u> <Plug>(seeing_is_believing-clean)
-autocmd FileType ruby imap <buffer> <D-u> <Plug>(seeing_is_believing-clean)
+" autocmd FileType ruby nmap <buffer> <D-u> <Plug>(seeing_is_believing-clean)
+" autocmd FileType ruby xmap <buffer> <D-u> <Plug>(seeing_is_believing-clean)
+" autocmd FileType ruby imap <buffer> <D-u> <Plug>(seeing_is_believing-clean)
 
-" xmpfilter compatible
-autocmd FileType ruby nmap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
-autocmd FileType ruby xmap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
-autocmd FileType ruby imap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
+" " xmpfilter compatible
+" autocmd FileType ruby nmap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
+" autocmd FileType ruby xmap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
+" autocmd FileType ruby imap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
 
 " --- vim-easy-align
 vnoremap <silent><Enter> :EasyAlign<CR>
