@@ -531,7 +531,7 @@ vnoremap Q :norm @q<CR>
 nnoremap <leader>cp yap<S-}>p
 
 " Clear the search buffer with <leader>xc
-map <CR> :nohlsearch<CR>
+map <leader>xc :nohlsearch<CR>
 
 " Can't be bothered to understand ESC vs <C-c> in insert mode
 inoremap <C-c> <esc>
@@ -579,6 +579,7 @@ map <leader>bb :CtrlPBuffer<CR>
 map <leader>bv :CtrlPMixed<CR>
 map <leader>bf :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
 map <leader>bc :CtrlPClearCache<CR>
+map <leader>bd :bdelete!<CR>
 map <M-p> :CtrlP<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -749,9 +750,8 @@ let g:ycm_semantic_triggers = {
 if has('nvim')
     let g:pyton_host_prog = '/usr/local/bin/python'
     let g:pyton3_host_prog = '/usr/local/bin/python3'
-    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-    tnoremap <Esc> <C-\><C-n>
-    " :set mouse=
+    noremap <Esc> <C-\><C-n>
+    :set mouse=a
 endif
 
 " --- end-wise
@@ -869,7 +869,7 @@ if s:extfname ==? "tex"
 endif
 
 " --- tagbar
-let g:tagbar_left=1
+let g:tagbar_left=0
 nmap <leader>t :TagbarToggle<CR>
 
 let g:tagbar_type_elixir = {
