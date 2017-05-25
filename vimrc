@@ -44,7 +44,11 @@ Plug 'mhinz/vim-janah'
 " with Dependency
 function! InstallLints(info)
   if a:info.status == 'installed' || a:info.force
-    !npm install -g eslint-plugin-react eslint
+    if executable('yarn')
+      !yarn global add eslint-plugin-react eslint
+    else
+      !npm install -g eslint-plugin-react eslint
+    endif
   endif
 endfunction
 
@@ -71,7 +75,11 @@ function! BuildYCM(info)
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status == 'installed' || a:info.force
-    !./install.py --clang-completer --gocode-completer --racer-completer  --tern-completer
+    if executable('python3')
+      !python3 install.py --clang-completer --gocode-completer --omnisharp-completer --tern-completer
+    else
+      !./install.py --clang-completer --gocode-completer --omnisharp-completer  --tern-completer
+    endif
   endif
 endfunction
 
@@ -866,8 +874,10 @@ let g:tagbar_type_elixir = {
 \ }
 
 " --- YouCompleteMe
-let g:ycm_python_binary_path = '/usr/local/bin/python3'
-let g:ycm_server_python_interpreter = '/usr/local/bin/python3'
+if executable('python3')
+  let g:ycm_python_binary_path = '/usr/local/bin/python3'
+  let g:ycm_server_python_interpreter = '/usr/local/bin/python3'
+endif
 
 " --- vim-gutentags
 let g:gutentags_cache_dir = '~/.tags_cache'
