@@ -33,6 +33,7 @@ Plug 'Konfekt/FastFold'
 Plug 'reedes/vim-pencil'
 Plug 'AndrewRadev/linediff.vim'
 Plug 'chrisbra/unicode.vim'
+Plug 'schickling/vim-bufonly'
 
 " Colorscheme
 Plug 'brendonrapp/smyck-vim'
@@ -580,6 +581,7 @@ map <leader>bv :CtrlPMixed<CR>
 map <leader>bf :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
 map <leader>bc :CtrlPClearCache<CR>
 map <leader>bd :bdelete!<CR>
+map <leader>bo :BufOnly<CR>
 map <M-p> :CtrlP<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
