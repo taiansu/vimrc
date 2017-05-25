@@ -268,24 +268,6 @@ endfunction
 vnoremap <silent> <expr> p <sid>Repl()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CONFIG WITH OPINION
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader="\<space>" "you may like ',' or '\'
-set expandtab
-set autoindent
-set smartindent
-set tabstop=2 softtabstop=2 shiftwidth=2
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SHOW INVISIBLES
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Shortcut to rapidly toggle `set list`
-nmap <leader>+ :set list!<CR>
-
-" Use the same symbols as TextMate for tabstops and EOLs
-set listchars=tab:▸\ ,eol:¬
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MacVim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("gui_macvim")
@@ -319,10 +301,91 @@ if &term =~ "xterm.*"
     cmap <Esc>[200~ <nop>
     cmap <Esc>[201~ <nop>
 endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NETRW DEFUAULT SETTING
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_special_syntax = 1
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_sort_sequence = '[\/]$,*'
+let g:netrw_winsize = -30
+let g:netrw_retmap = 1
+map <leader>q :NERDTreeToggle<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" AUTO SOURCE vimrc AFTER SAVE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" autocmd bufwritepost .vimrc source $MYVIMRC
+" autocmd bufwritepost vimrc source $MYVIMRC
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CUSTOM AUTOCMDS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup vimrcEx
+  " Clear all autocmds in the group
+  autocmd!
+  " Jump to last cursor position unless it's invalid or in an event handler
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+
+
+  autocmd! BufNewFile,BufRead,BufEnter *.ex,*.exs set ft=elixir
+  autocmd! BufNewFile,BufRead,BufEnter *.ls       set ft=ls
+  autocmd! BufNewFile,BufRead *.scss,*.sass       set ft=scss.css
+  autocmd! BufNewFile,BufRead *.md                set ft=markdown
+
+  " Markdown syntax highlight is often wrong
+  " you might like to disable it.
+  " Markdown 的語法上色常常會錯，移除註解可以停止上色
+  " autocmd! FileType mkd,md setlocal syn=off
+
+  autocmd FileType ruby compiler ruby
+  autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
+  autocmd FileType html,haml,markdown,handlebars setlocal omnifunc=htmlcomplete#CompleteTags
+
+  " Enable omni completion. (Ctrl-X Ctrl-O)
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd FileType css,sass,scss set omnifunc=csscomplete#CompleteCSS
+  autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+  autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+
+  if !has('nvim')
+    autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+  endif
+
+  autocmd FileType go au BufWritePre <buffer> GoFmt
+
+  " Leave the return key alone when in command line windows, since it's used
+  " to run commands there.
+  autocmd! CmdwinEnter * :unmap <CR>
+  autocmd! CmdwinLeave * :call MapNoHighlight()
+
+  " Git commit message format
+  autocmd Filetype gitcommit setlocal spell textwidth=72
+augroup end
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Interact with GUI clipboard
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set clipboard^=unnamed,unnamedplus
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Open with Applications
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+command! Application :silent !open -a /Applications/
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FONT AND COLOR SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 set t_Co=256 " 256 colors
 
 function! SwitchTheme(theme_type)
@@ -405,75 +468,22 @@ command! TL :call ToggleTheme("light")
 :call SwitchTheme("code")
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NETRW DEFUAULT SETTING
+" CONFIG WITH OPINION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_special_syntax = 1
-let g:netrw_browse_split = 4
-let g:netrw_altv = 1
-let g:netrw_sort_sequence = '[\/]$,*'
-let g:netrw_winsize = -30
-let g:netrw_retmap = 1
-map <leader>q :NERDTreeToggle<CR>
+set expandtab
+set autoindent
+set smartindent
+set tabstop=2 softtabstop=2 shiftwidth=2
+" Use the same symbols as TextMate for tabstops and EOLs
+set listchars=tab:▸\ ,eol:¬
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" AUTO SOURCE vimrc AFTER SAVE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" autocmd bufwritepost .vimrc source $MYVIMRC
-" autocmd bufwritepost vimrc source $MYVIMRC
+let mapleader="\<space>" "you may like ',' or '\'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" SHOW INVISIBLES
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CUSTOM AUTOCMDS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup vimrcEx
-  " Clear all autocmds in the group
-  autocmd!
-  " Jump to last cursor position unless it's invalid or in an event handler
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
-
-
-  autocmd! BufNewFile,BufRead,BufEnter *.ex,*.exs set ft=elixir
-  autocmd! BufNewFile,BufRead,BufEnter *.ls       set ft=ls
-  autocmd! BufNewFile,BufRead *.scss,*.sass       set ft=scss.css
-  autocmd! BufNewFile,BufRead *.md                set ft=markdown
-
-  " Markdown syntax highlight is often wrong
-  " you might like to disable it.
-  " Markdown 的語法上色常常會錯，移除註解可以停止上色
-  " autocmd! FileType mkd,md setlocal syn=off
-
-  autocmd FileType ruby compiler ruby
-  autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
-  autocmd FileType html,haml,markdown,handlebars setlocal omnifunc=htmlcomplete#CompleteTags
-
-  " Enable omni completion. (Ctrl-X Ctrl-O)
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  autocmd FileType css,sass,scss set omnifunc=csscomplete#CompleteCSS
-  autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-  autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-
-  if !has('nvim')
-    autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-  endif
-
-  autocmd FileType go au BufWritePre <buffer> GoFmt
-
-  " Leave the return key alone when in command line windows, since it's used
-  " to run commands there.
-  autocmd! CmdwinEnter * :unmap <CR>
-  autocmd! CmdwinLeave * :call MapNoHighlight()
-
-  " Git commit message format
-  autocmd Filetype gitcommit setlocal spell textwidth=72
-augroup end
+" Shortcut to rapidly toggle `set list`
+nmap <leader>+ :set list!<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM FILE COMMANDS
@@ -582,7 +592,6 @@ call submode#map('undo/redo', 'n', '', '+', 'g+')
 
 " map <leader>fs :topleft :split<CR>
 
-" map <leader>fd :CtrlPClearCache<CR>\|:CtrlP<CR>
 map <leader>bb :CtrlPBuffer<CR>
 map <leader>bv :CtrlPMixed<CR>
 map <leader>bf :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
@@ -676,17 +685,6 @@ command! OpenChangedFiles :call OpenChangedFiles()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 vnoremap < <gv
 vnoremap > >gv
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Interact with GUI clipboard
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set clipboard^=unnamed,unnamedplus
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Open with Applications
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-command! Application :silent !open -a /Applications/
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Addons Settings
