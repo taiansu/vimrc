@@ -15,23 +15,19 @@
 
 ## BASIC TUTORIAL
 
-* <leader> key
-  <space>
+### `<leader>` key: `<space>`
 
-  Or change it at vimrc's line 480 (or around)
+  Or change it at vimrc's line _480_ (or around)
 
-* Toggle NERDTree
-  <leader>q
+### Toggle NERDTree: `<leader>q`
 
-* Search file by Ctrlp
-  <option>p
+### Search file by Ctrlp: `<option> + p`
 
-* Toggle tagbar
-  <leader>t
+### Toggle tagbar: `<leader>t`
 
-Find other useful keys in vimrc, mostly after line 480
+> Find other useful keys in vimrc, mostly after line _480_
 
 ---
 
-Happy Hacking～
+# Happy Hacking～
 
