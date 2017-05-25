@@ -91,7 +91,6 @@ Plug 'sheerun/vim-polyglot'
 
 Plug 'mattn/emmet-vim',                    { 'for': ['html', 'eruby', 'eelixir'] }
 Plug 'ternjs/tern_for_vim',                { 'for': 'javascript' }
-" Plug 't9md/vim-ruby-xmpfilter',            { 'for': 'ruby' }
 Plug 'larrylv/ycm-elixir',                 { 'for': ['elixir', 'eelixir'] }
 Plug 'slashmili/alchemist.vim',            { 'for': ['elixir', 'eelixir'] }
 " Plug 'avdgaag/vim-phoenix',                { 'for': ['elixir', 'eelixir'] }
@@ -790,22 +789,6 @@ let g:airline_detect_modified=1
 let g:airline#extensions#tagbar#enabled=1
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#neomake#enabled=1
-
-" --- vim-ruby-xmpfilter
-" let g:xmpfilter_cmd = "seeing_is_believing"
-
-" autocmd FileType ruby nmap <buffer> <D-k> <Plug>(seeing_is_believing-mark)
-" autocmd FileType ruby xmap <buffer> <D-k> <Plug>(seeing_is_believing-mark)
-" autocmd FileType ruby imap <buffer> <D-k> <Plug>(seeing_is_believing-mark)
-
-" autocmd FileType ruby nmap <buffer> <D-u> <Plug>(seeing_is_believing-clean)
-" autocmd FileType ruby xmap <buffer> <D-u> <Plug>(seeing_is_believing-clean)
-" autocmd FileType ruby imap <buffer> <D-u> <Plug>(seeing_is_believing-clean)
-
-" " xmpfilter compatible
-" autocmd FileType ruby nmap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
-" autocmd FileType ruby xmap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
-" autocmd FileType ruby imap <buffer> <D-j> <Plug>(seeing_is_believing-run_-x)
 
 " --- vim-easy-align
 vnoremap <silent><Enter> :EasyAlign<CR>
