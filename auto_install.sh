@@ -2,7 +2,7 @@
 VIMHOME=~/.vim
 REPO_NAME=taiansu/vimrc
 LOCAL_NAME=vimrc
-REPO_PATH=$(printf "git://github.com/%s.git %s" $REPO_NAME $LOCAL_NAME)
+REPO_PATH=$(printf "git://github.com/%s.git" $REPO_NAME)
 VIM_DIR=$(printf "%s/%s/vim" $(pwd) $LOCAL_NAME)
 VIMRC=$(printf "%s/%s/vimrc" $(pwd) $LOCAL_NAME)
 GVIMRC=$(printf "%s/%s/gvimrc" $(pwd) $LOCAL_NAME)
