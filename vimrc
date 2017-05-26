@@ -134,7 +134,7 @@ set synmaxcol=256
 set ttyfast
 if has("gui_running")
   set ttyscroll=3
-end
+endif
 syntax sync minlines=50
 let g:ruby_path=$HOME . "/.rbenv/shims/ruby"
 call matchadd('WildMenu', '\%101v', &textwidth + 1)
@@ -313,7 +313,6 @@ let g:netrw_altv = 1
 let g:netrw_sort_sequence = '[\/]$,*'
 let g:netrw_winsize = -30
 let g:netrw_retmap = 1
-map <leader>q :NERDTreeToggle<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AUTO SOURCE vimrc AFTER SAVE
@@ -731,6 +730,7 @@ let NERDTreeIgnore=['\.pyc','\~$','\.swp']
 let NERDTreeShowBookmarks=1
 let NERDTreeAutoCenter=1
 let NERDTreeWinSize=31
+map <leader>q :NERDTreeToggle<CR>
 
 " --- YomCompleteMe
 let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
@@ -851,8 +851,6 @@ endif
 
 " --- tagbar
 let g:tagbar_left=0
-nmap <leader>t :TagbarToggle<CR>
-
 let g:tagbar_type_elixir = {
     \ 'ctagstype' : 'elixir',
     \ 'kinds' : [
@@ -870,6 +868,8 @@ let g:tagbar_type_elixir = {
         \ 't:tests'
     \ ]
 \ }
+
+nmap <leader>t :TagbarToggle<CR>
 
 " --- YouCompleteMe
 if executable('python3')
