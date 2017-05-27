@@ -36,10 +36,11 @@ Plug 'chrisbra/unicode.vim'
 Plug 'schickling/vim-bufonly'
 
 " Colorscheme
-Plug 'brendonrapp/smyck-vim'
+Plug 'reedes/vim-thematic'
+Plug 'taiansu/smyck.vim'
 Plug 'blerins/flattown'
 Plug 'jonathanfilip/vim-lucius'
-Plug 'mhinz/vim-janah'
+Plug 'reedes/vim-colors-pencil'
 
 " with Dependency
 function! InstallLints(info)
@@ -131,6 +132,8 @@ set ffs=unix,mac,dos
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " let base16colorspace=256  " Access colors present in 256 colorspace
 set synmaxcol=256
+set t_Co=256 " 256 colors
+
 set ttyfast
 if has("gui_running")
   set ttyscroll=3
@@ -380,91 +383,13 @@ set clipboard^=unnamed,unnamedplus
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Open with Applications
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-command! Application :silent !open -a /Applications/
+command! App :silent !open -a /Applications/
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" FONT AND COLOR SETTINGS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set t_Co=256 " 256 colors
-
-function! SwitchTheme(theme_type)
-  if a:theme_type == "focus"
-    let g:current_theme = "focus"
-    set gfn=Cousine:h15
-    set foldcolumn=12
-    set linespace=5
-    set background=dark
-    colorscheme lucius
-  elseif a:theme_type == "presentation"
-    let g:current_theme = "presentation"
-    set gfn=Source\ Code\ Pro\ Semibold:h32
-    set foldcolumn=0
-    set linespace=3
-    set background=light
-    set number
-    colorscheme lucius
-  elseif a:theme_type == "light"
-    let g:current_theme = "light"
-    set gfn=Source\ Code\ Pro:h17
-    set foldcolumn=0
-    set background=light
-    set linespace=3
-    if exists("g:current_theme")
-      set number
-    endif
-    colorscheme lucius
-  else
-    let g:current_theme = "code"
-    set gfn=Source\ Code\ Pro:h15
-    set foldcolumn=0
-    set background=dark
-    set linespace=3
-    if exists("g:current_theme")
-      set number
-    endif
-    colorscheme smyck
-    let g:airline_theme='flattown'
-  end
-
-  if has("gui_running")
-      set guioptions-=T
-      set guioptions+=e
-      set guitablabel=%M\ %t
-  endif
-
-  :redraw
-
-endfunction
-
-function! ToggleFocus()
-  if g:current_theme == "code"
-    :NumbersDisable
-    :NumbersToggle
-    :GitGutterDisable
-    :SignatureToggleSigns
-    :call SwitchTheme("focus")
-  else
-    :NumbersEnable
-    :NumbersToggle
-    :GitGutterEnable
-    :SignatureToggleSigns
-    :call SwitchTheme("code")
-  end
-endfunction
-
-function! ToggleTheme(theme)
-  if g:current_theme == "code"
-    :call SwitchTheme(a:theme)
-  else
-    :call SwitchTheme("code")
-  end
-endfunction
-
-command! TF :call ToggleFocus()
-command! TP :call ToggleTheme("presentation")
-command! TL :call ToggleTheme("light")
-
-:call SwitchTheme("code")
+if has("gui_running")
+    set guioptions-=T
+    set guioptions+=e
+    set guitablabel=%M\ %t
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CONFIG WITH OPINION
@@ -879,6 +804,49 @@ endif
 
 " --- vim-gutentags
 let g:gutentags_cache_dir = '~/.tags_cache'
+
+" -- vim-gitgutter
+" let g:gitgutter_override_sign_column_highlight = 0
+" -- vim-thematic
+let g:thematic#themes = {
+\   'coding': {
+\     'colorscheme': 'smyck',
+\     'background':  'dark',
+\     'typeface':    'Source Code Pro',
+\     'font-size':   15,
+\     'linespace':   3,
+\     'numbercolumn': 1,
+\     'airline-theme': 'flattown',
+\     'diff-color-fix': 1,
+\     'sign-column-color-fix': 1,
+\     'fold-column-color-mute': 1,
+\     'number-column-color-mute': 1,
+\   },
+\   'writing': {
+\     'colorscheme': 'lucius',
+\     'background':  'dark',
+\     'typeface':    'Cousine',
+\     'font-size':   15,
+\     'linespace':   5,
+\     'sign-column-color-fix': 1,
+\     'diff-color-fix': 1,
+\   },
+\   'stage': {
+\     'colorscheme': 'lucius',
+\     'background':  'light',
+\     'typeface':    'Source Code Pro Bold',
+\     'font-size':   32,
+\     'linespace':   3,
+\     'sign-column-color-fix': 1,
+\     'diff-color-fix': 1,
+\   },
+\ }
+
+let g:thematic#theme_name = 'coding'
+autocmd FileType markdown set foldcolumn=12 textwidth=74
+
+" autocmd VimEnter *
+"       \ call gittgutter#highlight#define_sign_column_highlight()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: f g j k l m o p r s u v w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
