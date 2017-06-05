@@ -843,7 +843,7 @@ let g:thematic#themes = {
 \ }
 
 let g:thematic#theme_name = 'coding'
-autocmd FileType markdown set foldcolumn=12 textwidth=74
+" autocmd FileType markdown set foldcolumn=12 textwidth=74
 
 " autocmd VimEnter *
 "       \ call gittgutter#highlight#define_sign_column_highlight()
