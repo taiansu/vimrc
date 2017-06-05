@@ -38,9 +38,10 @@ Plug 'schickling/vim-bufonly'
 " Colorscheme
 Plug 'reedes/vim-thematic'
 Plug 'taiansu/smyck.vim'
+Plug 'cseelus/vim-colors-clearance'
+Plug 'queyenth/oxeded.vim'
 Plug 'blerins/flattown'
 Plug 'jonathanfilip/vim-lucius'
-Plug 'reedes/vim-colors-pencil'
 
 " with Dependency
 function! InstallLints(info)
