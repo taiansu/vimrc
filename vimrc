@@ -808,7 +808,12 @@ let g:gutentags_cache_dir = '~/.tags_cache'
 
 " -- vim-gitgutter
 " let g:gitgutter_override_sign_column_highlight = 0
+"
 " -- vim-thematic
+if has('nvim')
+  " set termguicolors
+endif
+
 let g:thematic#themes = {
 \   'coding': {
 \     'colorscheme': 'smyck',
