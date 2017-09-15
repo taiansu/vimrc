@@ -34,6 +34,7 @@ Plug 'reedes/vim-pencil'
 Plug 'AndrewRadev/linediff.vim'
 Plug 'chrisbra/unicode.vim'
 Plug 'schickling/vim-bufonly'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'dyng/ctrlsf.vim'
 
 " Colorscheme
@@ -101,6 +102,7 @@ Plug 'sheerun/vim-polyglot'
 
 Plug 'mattn/emmet-vim',                    { 'for': ['html', 'eruby', 'eelixir'] }
 Plug 'ternjs/tern_for_vim',                { 'for': 'javascript' }
+Plug 'Vimjas/vim-python-pep8-indent',      { 'for': 'python' }
 Plug 'larrylv/ycm-elixir',                 { 'for': ['elixir', 'eelixir'] }
 Plug 'slashmili/alchemist.vim',            { 'for': ['elixir', 'eelixir'] }
 " Plug 'avdgaag/vim-phoenix',                { 'for': ['elixir', 'eelixir'] }
@@ -116,6 +118,12 @@ Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
 " Local
 
 call plug#end()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" AUTO RELOAD CONFIG
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ENCODING SETTINGS
@@ -365,7 +373,7 @@ augroup vimrcEx
     autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
   endif
 
-  autocmd FileType go au BufWritePre <buffer> GoFmt
+  " autocmd FileType go au BufWritePre <buffer> GoFmt
 
   " Leave the return key alone when in command line windows, since it's used
   " to run commands there.
@@ -460,11 +468,11 @@ map <leader>y "_y
 map <leader>d "_d
 
 "  Insert a hash rocket
-imap <M-m>  <space>=><space>
+imap <M-,> <space>=><space>
 " Insert an arrow
 imap <M-.> <space>-><space>
 "  Insert a backward arrow
-imap <M-,> <space><-<space>
+imap <M-[> <space><-<space>
 
 " Apply Macros with Q and disable ex mode
 nnoremap Q @q
@@ -611,6 +619,12 @@ command! OpenChangedFiles :call OpenChangedFiles()
 vnoremap < <gv
 vnoremap > >gv
 
+"""
+"""
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Addons Settings
 " 插件設定
@@ -749,7 +763,7 @@ let g:gist_post_private = 1
 " token 1234567890yourApplicationTokenGenerated
 
 " --- Numbers.vim
-nnoremap <C-N> :NumbersToggle<CR>
+nnoremap <C-t> :NumbersToggle<CR>
 
 " --- tern_for_vim
 autocmd BufEnter * set completeopt-=preview
@@ -774,10 +788,14 @@ autocmd! BufWritePost * Neomake
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_jsx_enabled_makers = ['eslint']
 let g:neomake_elixir_enabled_makers = ['mix', 'credo']
+let g:neomake_markdown_enabled_makers = []
 
 map <leader>l; :lopen<CR>
 map <leader>lj :lnext<CR>
 map <leader>lk :lprevious<CR>
+
+let g:neomake_warning_sign={'text': '⚠', 'texthl': 'WarningMsg'}
+let g:neomake_highlight_columns=0
 
 " --- LaTeX-Box
 let s:extfname = expand("%:e")
@@ -786,7 +804,7 @@ if s:extfname ==? "tex"
 endif
 
 " --- tagbar
-let g:tagbar_left=0
+let g:tagbar_left=1
 let g:tagbar_type_elixir = {
     \ 'ctagstype' : 'elixir',
     \ 'kinds' : [
@@ -813,6 +831,15 @@ if executable('python3')
   let g:ycm_server_python_interpreter = '/usr/local/bin/python3'
 endif
 
+let g:ycm_complete_in_comments=1
+let g:ycm_min_num_of_chars_for_completion=1
+let g:ycm_cache_omnifunc=0
+let g:ycm_seed_indentifiers_wit_syntax=1
+set completeopt-=preview
+
+nnoremap <leader>sd :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>sc :YcmCompleter GoToDefinition<CR>
+
 " --- vim-gutentags
 let g:gutentags_cache_dir = '~/.tags_cache'
 
@@ -835,8 +862,8 @@ let g:thematic#themes = {
 \     'airline-theme': 'flattown',
 \     'diff-color-fix': 1,
 \     'sign-column-color-fix': 1,
-\     'fold-column-color-mute': 1,
-\     'number-column-color-mute': 1,
+\     'fold-column-color-mute': 0,
+\     'number-column-color-mute': 0,
 \   },
 \   'light': {
 \     'colorscheme': 'lucius',
@@ -848,8 +875,8 @@ let g:thematic#themes = {
 \     'airline-theme': 'lucius',
 \     'diff-color-fix': 1,
 \     'sign-column-color-fix': 1,
-\     'fold-column-color-mute': 1,
-\     'number-column-color-mute': 1,
+\     'fold-column-color-mute': 0,
+\     'number-column-color-mute': 0,
 \   },
 \   'writing': {
 \     'colorscheme': 'lucius',
@@ -878,6 +905,6 @@ let g:thematic#theme_name = 'coding'
 "       \ call gittgutter#highlight#define_sign_column_highlight()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: f g j k l m o p r s u v w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
+" Free leader keys: <tab> f g j k l m o p r u v w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim: set ft=vim :
