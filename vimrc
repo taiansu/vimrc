@@ -34,6 +34,7 @@ Plug 'reedes/vim-pencil'
 Plug 'AndrewRadev/linediff.vim'
 Plug 'chrisbra/unicode.vim'
 Plug 'schickling/vim-bufonly'
+Plug 'dyng/ctrlsf.vim'
 
 " Colorscheme
 Plug 'reedes/vim-thematic'
@@ -64,7 +65,6 @@ endif
 Plug 'tpope/vim-dispatch',       { 'on': ['Dispatch', 'Focus', 'Start'] }
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
 Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown' }
-Plug 'rking/ag.vim',             { 'on': 'Ag' }
 Plug 'junegunn/vim-easy-align',  { 'on': 'EasyAlign' }
 Plug 'mattn/webapi-vim',         { 'on': 'Gist' }
 Plug 'mattn/gist-vim',           { 'on': 'Gist' }
@@ -615,15 +615,6 @@ vnoremap > >gv
 " Addons Settings
 " 插件設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" --- ag.vim
-if executable('ag')
-  " Use AG over grep
-  set grepprg=ag\ --noroup\ --nocolor
-
-  " command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-  map <leader>/ :Ag<space><cword><CR>
-endif
-
 " --- dash.vim
 map <leader>\ :Dash<CR>
 
@@ -650,6 +641,11 @@ let g:ctrlp_custom_ignore = {
     \ 'dir': '\v[\/](\.git|\.hg|\.svn|\_site|node_modules|bower_components|target|dist|build)$',
     \ 'file': '\v\.(swp|ico|exe|so|dll|DS_Store|tags|class|png|jpg|jpeg|beam)$',
 \ }
+
+" --- CtrlSF
+nmap <leader>sf <Plug>CtrlSFPrompt
+nnoremap <leader>ss :CtrlSF<CR>
+nnoremap <leader>/ :CtrlSF<CR>
 
 " --- NERDTree
 let NERDTreeIgnore=['\.pyc','\~$','\.swp']
