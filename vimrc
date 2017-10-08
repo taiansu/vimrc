@@ -36,6 +36,7 @@ Plug 'chrisbra/unicode.vim'
 Plug 'schickling/vim-bufonly'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'dyng/ctrlsf.vim'
+" Plug 'guns/xterm-color-table.vim'
 
 " Colorscheme
 Plug 'reedes/vim-thematic'
@@ -59,6 +60,7 @@ endfunction
 Plug 'neomake/neomake', { 'do': function('InstallLints') }
 
 if has('nvim')
+  Plug 'kassio/neoterm'
   Plug 'radenling/vim-dispatch-neovim'
 endif
 
@@ -490,7 +492,7 @@ inoremap <C-[> <esc>
 nnoremap <leader><leader> <C-^>
 
 " format json
-command! Json !python -m json.tool
+" command! Json !python -m json.tool
 
 " Start an external command with a single bang
 nnoremap ! :!
@@ -823,7 +825,7 @@ let g:tagbar_type_elixir = {
     \ ]
 \ }
 
-nmap <leader>t :TagbarToggle<CR>
+nmap <silent><leader>tb :TagbarToggle<CR>
 
 " --- YouCompleteMe
 if executable('python3')
@@ -845,7 +847,18 @@ let g:gutentags_cache_dir = '~/.tags_cache'
 
 " -- vim-gitgutter
 " let g:gitgutter_override_sign_column_highlight = 0
-"
+
+" -- neoterm
+if has('nvim')
+  let g:neoterm_position = 'vertical'
+  nnoremap <silent><leader><Tab> :Ttoggle<CR>
+  nnoremap <silent><leader>cl :call neoterm#clear()<CR>
+  nnoremap <silent><leader>cc :call neoterm#kill()<CR>
+  nnoremap <leader>; :T<space>
+endif
+
+nnoremap <leader>m :map <leader>f<space>:
+
 " -- vim-thematic
 if has('nvim')
   " set termguicolors
@@ -853,14 +866,14 @@ endif
 
 let g:thematic#themes = {
 \   'coding': {
-\     'colorscheme': 'smyck',
+\     'colorscheme': 'smyck256',
 \     'background':  'dark',
 \     'typeface':    'Source Code Pro',
 \     'font-size':   15,
 \     'linespace':   3,
 \     'numbercolumn': 1,
 \     'airline-theme': 'flattown',
-\     'diff-color-fix': 1,
+\     'diff-color-fix': 0,
 \     'sign-column-color-fix': 1,
 \     'fold-column-color-mute': 0,
 \     'number-column-color-mute': 0,
@@ -873,7 +886,7 @@ let g:thematic#themes = {
 \     'linespace':   3,
 \     'numbercolumn': 1,
 \     'airline-theme': 'lucius',
-\     'diff-color-fix': 1,
+\     'diff-color-fix': 0,
 \     'sign-column-color-fix': 1,
 \     'fold-column-color-mute': 0,
 \     'number-column-color-mute': 0,
@@ -885,7 +898,7 @@ let g:thematic#themes = {
 \     'font-size':   15,
 \     'linespace':   5,
 \     'sign-column-color-fix': 1,
-\     'diff-color-fix': 1,
+\     'diff-color-fix': 0,
 \   },
 \   'stage': {
 \     'colorscheme': 'lucius',
@@ -894,7 +907,7 @@ let g:thematic#themes = {
 \     'font-size':   32,
 \     'linespace':   3,
 \     'sign-column-color-fix': 1,
-\     'diff-color-fix': 1,
+\     'diff-color-fix': 0,
 \   },
 \ }
 
@@ -905,6 +918,6 @@ let g:thematic#theme_name = 'coding'
 "       \ call gittgutter#highlight#define_sign_column_highlight()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: <tab> f g j k l m o p r u v w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
+" Free leader keys: f g j k l m o p r u v w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim: set ft=vim :
