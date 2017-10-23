@@ -17,7 +17,6 @@ Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive',
-Plug 'myusuf3/numbers.vim'
 Plug 'majutsushi/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'kana/vim-submode'
@@ -36,6 +35,7 @@ Plug 'chrisbra/unicode.vim'
 Plug 'schickling/vim-bufonly'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'dyng/ctrlsf.vim'
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
 " Plug 'guns/xterm-color-table.vim'
 
 " Colorscheme
@@ -764,8 +764,8 @@ let g:gist_post_private = 1
 " If using 2 factor authorization in github, write ~/.gist-vim with
 " token 1234567890yourApplicationTokenGenerated
 
-" --- Numbers.vim
-nnoremap <C-t> :NumbersToggle<CR>
+" --- vim-numbertoggle
+nnoremap <leader>r :set relativenumber<CR>
 
 " --- tern_for_vim
 autocmd BufEnter * set completeopt-=preview
