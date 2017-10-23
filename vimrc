@@ -664,6 +664,8 @@ nnoremap <leader>ss :CtrlSF<CR>
 nnoremap <leader>/ :CtrlSF<CR>
 
 " --- NERDTree
+autocmd FileType nerdtree :vert resize 30
+
 let NERDTreeIgnore=['\.pyc','\~$','\.swp']
 let NERDTreeShowBookmarks=1
 let NERDTreeAutoCenter=1
@@ -849,15 +851,17 @@ let g:gutentags_cache_dir = '~/.tags_cache'
 " let g:gitgutter_override_sign_column_highlight = 0
 
 " -- neoterm
+" au FileType neoterm :set nonumber
 if has('nvim')
-  let g:neoterm_position = 'vertical'
+  " let g:neoterm_position = 'horzontal'
   nnoremap <silent><leader><Tab> :Ttoggle<CR>
   nnoremap <silent><leader>cl :call neoterm#clear()<CR>
   nnoremap <silent><leader>cc :call neoterm#kill()<CR>
-  nnoremap <leader>; :T<space>
 endif
 
-nnoremap <leader>m :map <leader>f<space>:
+let g:neoterm_autoscroll=1
+let g:neoterm_automap_keys="<space>;"
+let g:neoterm_size=20
 
 " -- vim-thematic
 if has('nvim')
@@ -918,6 +922,6 @@ let g:thematic#theme_name = 'coding'
 "       \ call gittgutter#highlight#define_sign_column_highlight()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: f g j k l m o p r u v w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
+" Free leader keys: f g j k l m o p t u v w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim: set ft=vim :
