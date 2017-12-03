@@ -35,16 +35,18 @@ Plug 'chrisbra/unicode.vim'
 Plug 'schickling/vim-bufonly'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'dyng/ctrlsf.vim'
-Plug 'jeffkreeftmeijer/vim-numbertoggle'
 " Plug 'guns/xterm-color-table.vim'
 
 " Colorscheme
-Plug 'reedes/vim-thematic'
+" Plug 'reedes/vim-thematic'
 Plug 'taiansu/smyck.vim'
-Plug 'cseelus/vim-colors-clearance'
-Plug 'queyenth/oxeded.vim'
 Plug 'blerins/flattown'
 Plug 'jonathanfilip/vim-lucius'
+Plug 'jacoborus/tender.vim'
+Plug 'trevordmiller/nova-vim'
+Plug 'kamwitsta/nordisk'
+Plug '0ax1/lxvc'
+Plug 'vim-scripts/rdark'
 
 " with Dependency
 function! InstallLints(info)
@@ -141,7 +143,10 @@ set ffs=unix,mac,dos
 " Stop syntax highlight on 1024 column or 256 line
 " Color hint on the 101th character
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let base16colorspace=256  " Access colors present in 256 colorspace
+if(has("termguicolors"))
+  set termguicolors
+endif
+
 set synmaxcol=256
 set t_Co=256 " 256 colors
 
@@ -156,6 +161,10 @@ call matchadd('WildMenu', '\%101v', &textwidth + 1)
 if exists('$TMUX')
   set term=screen-256-color
 endif
+
+colorscheme tender
+" let g:airline_theme = 'tender'
+let g:airline_theme='flattown'
 
 " Breaking long lines
 " gq{motion} % format the line that {motion} moves over
@@ -766,9 +775,6 @@ let g:gist_post_private = 1
 " If using 2 factor authorization in github, write ~/.gist-vim with
 " token 1234567890yourApplicationTokenGenerated
 
-" --- vim-numbertoggle
-nnoremap <leader>r :set relativenumber<CR>
-
 " --- tern_for_vim
 autocmd BufEnter * set completeopt-=preview
 
@@ -864,58 +870,55 @@ let g:neoterm_automap_keys="<space>;"
 let g:neoterm_size=20
 
 " -- vim-thematic
-if has('nvim')
-  " set termguicolors
-endif
+" let g:thematic#themes = {
+" \   'coding': {
+" \     'colorscheme': 'smyck',
+" \     'background':  'dark',
+" \     'typeface':    'Source Code Pro',
+" \     'font-size':   15,
+" \     'linespace':   3,
+" \     'numbercolumn': 1,
+" \     'airline-theme': 'flattown',
+" \     'diff-color-fix': 0,
+" \     'sign-column-color-fix': 1,
+" \     'fold-column-color-mute': 0,
+" \     'number-column-color-mute': 0,
+" \   },
+" \   'light': {
+" \     'colorscheme': 'lucius',
+" \     'background':  'light',
+" \     'typeface':    'Source Code Pro',
+" \     'font-size':   15,
+" \     'linespace':   3,
+" \     'numbercolumn': 1,
+" \     'airline-theme': 'lucius',
+" \     'diff-color-fix': 0,
+" \     'sign-column-color-fix': 1,
+" \     'fold-column-color-mute': 0,
+" \     'number-column-color-mute': 0,
+" \   },
+" \   'writing': {
+" \     'colorscheme': 'lucius',
+" \     'background':  'dark',
+" \     'typeface':    'Cousine',
+" \     'font-size':   15,
+" \     'linespace':   5,
+" \     'sign-column-color-fix': 1,
+" \     'diff-color-fix': 0,
+" \   },
+" \   'stage': {
+" \     'colorscheme': 'lucius',
+" \     'background':  'light',
+" \     'typeface':    'Source Code Pro Bold',
+" \     'font-size':   32,
+" \     'linespace':   3,
+" \     'sign-column-color-fix': 1,
+" \     'diff-color-fix': 0,
+" \   },
+" \ }
 
-let g:thematic#themes = {
-\   'coding': {
-\     'colorscheme': 'smyck256',
-\     'background':  'dark',
-\     'typeface':    'Source Code Pro',
-\     'font-size':   15,
-\     'linespace':   3,
-\     'numbercolumn': 1,
-\     'airline-theme': 'flattown',
-\     'diff-color-fix': 0,
-\     'sign-column-color-fix': 1,
-\     'fold-column-color-mute': 0,
-\     'number-column-color-mute': 0,
-\   },
-\   'light': {
-\     'colorscheme': 'lucius',
-\     'background':  'light',
-\     'typeface':    'Source Code Pro',
-\     'font-size':   15,
-\     'linespace':   3,
-\     'numbercolumn': 1,
-\     'airline-theme': 'lucius',
-\     'diff-color-fix': 0,
-\     'sign-column-color-fix': 1,
-\     'fold-column-color-mute': 0,
-\     'number-column-color-mute': 0,
-\   },
-\   'writing': {
-\     'colorscheme': 'lucius',
-\     'background':  'dark',
-\     'typeface':    'Cousine',
-\     'font-size':   15,
-\     'linespace':   5,
-\     'sign-column-color-fix': 1,
-\     'diff-color-fix': 0,
-\   },
-\   'stage': {
-\     'colorscheme': 'lucius',
-\     'background':  'light',
-\     'typeface':    'Source Code Pro Bold',
-\     'font-size':   32,
-\     'linespace':   3,
-\     'sign-column-color-fix': 1,
-\     'diff-color-fix': 0,
-\   },
-\ }
+" let g:thematic#theme_name = 'coding'
 
-let g:thematic#theme_name = 'coding'
 " autocmd FileType markdown set foldcolumn=12 textwidth=74
 
 " autocmd VimEnter *
