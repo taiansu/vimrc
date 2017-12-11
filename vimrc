@@ -34,16 +34,15 @@ Plug 'AndrewRadev/linediff.vim'
 Plug 'chrisbra/unicode.vim'
 Plug 'schickling/vim-bufonly'
 Plug 'dyng/ctrlsf.vim'
-" Plug 'guns/xterm-color-table.vim'
+Plug 'Shougo/echodoc.vim'
 
 " Colorscheme
+" Plug 'guns/xterm-color-table.vim'
 Plug 'taiansu/smyck.vim'
 Plug 'blerins/flattown'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'jacoborus/tender.vim'
-Plug 'trevordmiller/nova-vim'
 Plug 'kamwitsta/nordisk'
-Plug '0ax1/lxvc'
 Plug 'vim-scripts/rdark'
 
 " with Dependency
