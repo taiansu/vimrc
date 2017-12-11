@@ -37,7 +37,6 @@ Plug 'dyng/ctrlsf.vim'
 " Plug 'guns/xterm-color-table.vim'
 
 " Colorscheme
-" Plug 'reedes/vim-thematic'
 Plug 'taiansu/smyck.vim'
 Plug 'blerins/flattown'
 Plug 'jonathanfilip/vim-lucius'
@@ -864,56 +863,6 @@ endif
 let g:neoterm_autoscroll=1
 let g:neoterm_automap_keys="<space>;"
 let g:neoterm_size=20
-
-" -- vim-thematic
-" let g:thematic#themes = {
-" \   'coding': {
-" \     'colorscheme': 'smyck',
-" \     'background':  'dark',
-" \     'typeface':    'Source Code Pro',
-" \     'font-size':   15,
-" \     'linespace':   3,
-" \     'numbercolumn': 1,
-" \     'airline-theme': 'flattown',
-" \     'diff-color-fix': 0,
-" \     'sign-column-color-fix': 1,
-" \     'fold-column-color-mute': 0,
-" \     'number-column-color-mute': 0,
-" \   },
-" \   'light': {
-" \     'colorscheme': 'lucius',
-" \     'background':  'light',
-" \     'typeface':    'Source Code Pro',
-" \     'font-size':   15,
-" \     'linespace':   3,
-" \     'numbercolumn': 1,
-" \     'airline-theme': 'lucius',
-" \     'diff-color-fix': 0,
-" \     'sign-column-color-fix': 1,
-" \     'fold-column-color-mute': 0,
-" \     'number-column-color-mute': 0,
-" \   },
-" \   'writing': {
-" \     'colorscheme': 'lucius',
-" \     'background':  'dark',
-" \     'typeface':    'Cousine',
-" \     'font-size':   15,
-" \     'linespace':   5,
-" \     'sign-column-color-fix': 1,
-" \     'diff-color-fix': 0,
-" \   },
-" \   'stage': {
-" \     'colorscheme': 'lucius',
-" \     'background':  'light',
-" \     'typeface':    'Source Code Pro Bold',
-" \     'font-size':   32,
-" \     'linespace':   3,
-" \     'sign-column-color-fix': 1,
-" \     'diff-color-fix': 0,
-" \   },
-" \ }
-
-" let g:thematic#theme_name = 'coding'
 
 " autocmd FileType markdown set foldcolumn=12 textwidth=74
 
