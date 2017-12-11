@@ -73,30 +73,26 @@ Plug 'mattn/gist-vim',           { 'on': 'Gist' }
 
 " Lazy loading
 
-function! BuildYCM(info)
-  " info is a dictionary with 3 fields
-  " - name:   name of the plugin
-  " - status: 'installed', 'updated', or 'unchanged'
-  " - force:  set on PlugInstall! or PlugUpdate!
-  if a:info.status == 'installed' || a:info.force
-    if executable('python3')
-      !python3 install.py --clang-completer --gocode-completer --omnisharp-completer --tern-completer
-    else
-      !./install.py --clang-completer --gocode-completer --omnisharp-completer  --tern-completer
-    endif
-  endif
-endfunction
-
 Plug 'SirVer/ultisnips'
 Plug 'taiansu/vim-snippets'
 Plug 'rdnetto/YCM-Generator',    { 'branch': 'stable' }
-Plug 'Valloric/YouCompleteMe',   { 'do': function('BuildYCM') }
 
 augroup load_lazy_plugins
   autocmd!
-  autocmd InsertEnter * call plug#load('ultisnips', 'vim-snippets', 'YouCompleteMe')
-                     \| call youcompleteme#Enable() | autocmd! load_lazy_plugins
+  autocmd InsertEnter * call plug#load('ultisnips', 'vim-snippets')
+                     \| autocmd! load_lazy_plugins
 augroup END
+
+Plug 'autozimu/LanguageClient-neovim', {'do': ':UpdateRemotePlugions'}
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
 
 " Language specified
 Plug 'sheerun/vim-polyglot'
@@ -106,7 +102,6 @@ Plug 'ternjs/tern_for_vim',                { 'for': 'javascript' }
 Plug 'Vimjas/vim-python-pep8-indent',      { 'for': 'python' }
 Plug 'larrylv/ycm-elixir',                 { 'for': ['elixir', 'eelixir'] }
 Plug 'slashmili/alchemist.vim',            { 'for': ['elixir', 'eelixir'] }
-" Plug 'avdgaag/vim-phoenix',                { 'for': ['elixir', 'eelixir'] }
 Plug 'vim-erlang/vim-erlang-compiler',     { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-skeletons',    { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-omnicomplete', { 'for': 'erlang' }
@@ -114,6 +109,7 @@ Plug 'vim-erlang/vim-erlang-tags',         { 'for': 'erlang' }
 Plug 'vim-erlang/vim-rebar',               { 'for': 'erlang' }
 Plug 'vim-erlang/vim-dialyzer',            { 'for': 'erlang' }
 Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
+Plug 'reasonml-editor/vim-reason-plus'
 " Plug 'LaTeX-Box-Team/LaTeX-Box',           { 'for': 'latex' }
 
 " Local
@@ -829,20 +825,28 @@ let g:tagbar_type_elixir = {
 
 nmap <silent><leader>tb :TagbarToggle<CR>
 
-" --- YouCompleteMe
-if executable('python3')
-  let g:ycm_python_binary_path = '/usr/local/bin/python3'
-  let g:ycm_server_python_interpreter = '/usr/local/bin/python3'
-endif
+" --- LanguageClient-neovim
+set hidden
 
-let g:ycm_complete_in_comments=1
-let g:ycm_min_num_of_chars_for_completion=1
-let g:ycm_cache_omnifunc=0
-let g:ycm_seed_indentifiers_wit_syntax=1
-set completeopt-=preview
+let g:LanguageClient_serverCommands = {
+  \ 'reason': ['ocaml-language-server', '--stdio'],
+  \ 'ocaml': ['ocaml-language-server', '--stdio'],
+  \ }
 
-nnoremap <leader>sd :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>sc :YcmCompleter GoToDefinition<CR>
+let g:LanguageClient_autoStart = 1
+
+" --- deoplete.nvim
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+
+inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ deoplete#mappings#manual_complete()
+    function! s:check_back_space() abort "{{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+  endfunction"}}}
 
 " --- vim-gutentags
 let g:gutentags_cache_dir = '~/.tags_cache'
