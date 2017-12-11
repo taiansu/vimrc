@@ -33,7 +33,6 @@ Plug 'reedes/vim-pencil'
 Plug 'AndrewRadev/linediff.vim'
 Plug 'chrisbra/unicode.vim'
 Plug 'schickling/vim-bufonly'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'dyng/ctrlsf.vim'
 " Plug 'guns/xterm-color-table.vim'
 
@@ -502,9 +501,6 @@ nnoremap <leader><leader> <C-^>
 
 " format json
 " command! Json !python -m json.tool
-
-" Start an external command with a single bang
-nnoremap ! :!
 
 " Enter command mode with one key stroke
 " nnoremap ; :
