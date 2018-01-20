@@ -456,7 +456,7 @@ command! W call WriteCreatingDirs()
 " <leader>xv 快速移除行尾空白
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 command! TrailingWhiteSpaces %s/\s\+$//e
-nmap <leader>xv :TrailingWhiteSpaces<CR>
+nmap <leader>xv :TrailingWhiteSpaces<CR>:nohlsearch<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
