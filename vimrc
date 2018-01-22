@@ -72,10 +72,8 @@ Plug 'mattn/webapi-vim',         { 'on': 'Gist' }
 Plug 'mattn/gist-vim',           { 'on': 'Gist' }
 
 " Lazy loading
-
 Plug 'SirVer/ultisnips'
 Plug 'taiansu/vim-snippets'
-Plug 'rdnetto/YCM-Generator',    { 'branch': 'stable' }
 
 augroup load_lazy_plugins
   autocmd!
@@ -108,7 +106,7 @@ Plug 'vim-erlang/vim-erlang-omnicomplete', { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-tags',         { 'for': 'erlang' }
 Plug 'vim-erlang/vim-rebar',               { 'for': 'erlang' }
 Plug 'vim-erlang/vim-dialyzer',            { 'for': 'erlang' }
-Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
+" Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
 Plug 'reasonml-editor/vim-reason-plus'
 " Plug 'LaTeX-Box-Team/LaTeX-Box',           { 'for': 'latex' }
 
@@ -148,7 +146,7 @@ if has("gui_running")
   set ttyscroll=3
 endif
 syntax sync minlines=50
-let g:ruby_path=$HOME . "/.rbenv/shims/ruby"
+let g:ruby_path=$HOME . "/.asdf/shims/ruby"
 call matchadd('WildMenu', '\%101v', &textwidth + 1)
 
 if exists('$TMUX')
@@ -784,11 +782,12 @@ let g:markdown_syntax_conceal = 0
 let g:elm_setup_keybindings = 0
 
 " --- neomake
-autocmd! BufWritePost * Neomake
+call neomake#configure#automake('nw', 750)
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_jsx_enabled_makers = ['eslint']
 let g:neomake_elixir_enabled_makers = ['mix', 'credo']
 let g:neomake_markdown_enabled_makers = []
+let g:neomake_haskell_enabled_makers = ['cabal']
 
 map <leader>l; :lopen<CR>
 map <leader>lj :lnext<CR>
@@ -838,15 +837,27 @@ let g:LanguageClient_autoStart = 1
 " --- deoplete.nvim
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
+let g:deoplete#max_list=20
+
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>cr_with_indent()<CR>
+function! s:cr_with_indent() abort
+  return deoplete#close_popup() . "\<CR>"
+endfunction
 
 inoremap <silent><expr> <TAB>
     \ pumvisible() ? "\<C-n>" :
     \ <SID>check_back_space() ? "\<TAB>" :
     \ deoplete#mappings#manual_complete()
-    function! s:check_back_space() abort "{{{
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-  endfunction"}}}
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+" --- echodoc.vim
+set cmdheight=2
+" :EchoDocEnable
 
 " --- vim-gutentags
 let g:gutentags_cache_dir = '~/.tags_cache'
