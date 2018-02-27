@@ -42,8 +42,6 @@ Plug 'taiansu/smyck.vim'
 Plug 'blerins/flattown'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'jacoborus/tender.vim'
-Plug 'kamwitsta/nordisk'
-Plug 'vim-scripts/rdark'
 
 " with Dependency
 function! InstallLints(info)
