@@ -79,16 +79,14 @@ augroup load_lazy_plugins
                      \| autocmd! load_lazy_plugins
 augroup END
 
-Plug 'autozimu/LanguageClient-neovim', {'do': ':UpdateRemotePlugions'}
-
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+  Plug 'autozimu/LanguageClient-neovim', {'do': ':UpdateRemotePlugions'}
+  Plug 'Shougo/deoplete.nvim',           {'do': ':UpdateRemotePlugins'}
 else
   Plug 'Shougo/deoplete.nvim'
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
-
 
 " Language specified
 Plug 'sheerun/vim-polyglot'
@@ -352,7 +350,6 @@ augroup vimrcEx
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal g`\"" |
     \ endif
-
 
   autocmd! BufNewFile,BufRead,BufEnter *.ex,*.exs set ft=elixir
   autocmd! BufNewFile,BufRead,BufEnter *.ls       set ft=ls
