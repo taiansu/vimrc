@@ -674,49 +674,6 @@ let NERDTreeAutoCenter=1
 let NERDTreeWinSize=31
 map <leader>q :NERDTreeToggle<CR>
 
-" --- YomCompleteMe
-let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
-" let g:ycm_key_list_select_completion = ['<C-n>']
-" let g:ycm_key_list_previous_completion = ['<C-p>']
-
-let g:ycm_global_ycm_extra_conf = '~/.dotfiles/ycm_extra_conf.py'
-
-let g:ycm_complete_in_comments = 1
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-
-let g:ycm_filetype_blacklist = {
-      \ 'tagbar' : 1,
-      \ 'nerdtree' : 1,
-      \ 'markdown' : 1,
-      \ 'pandoc' : 1,
-      \}
-
-let g:ycm_semantic_triggers = {
-     \ 'elm' : ['.'],
-     \}
-
-if has('nvim')
-    let g:pyton_host_prog = '/usr/local/bin/python'
-    let g:pyton3_host_prog = '/usr/local/bin/python3'
-    noremap <A-'> :vsplit term://zsh<cr>A
-    :tnoremap <Esc> <C-\><C-n>
-    :tnoremap <C-[> <C-\><C-n>
-    :tnoremap <A-h> <C-\><C-n><C-w>h
-    :tnoremap <A-j> <C-\><C-n><C-w>j
-    :tnoremap <A-k> <C-\><C-n><C-w>k
-    :tnoremap <A-l> <C-\><C-n><C-w>l
-    :inoremap <A-h> <C-\><C-n><C-w>h
-    :inoremap <A-j> <C-\><C-n><C-w>j
-    :inoremap <A-k> <C-\><C-n><C-w>k
-    :inoremap <A-l> <C-\><C-n><C-w>l
-    :nnoremap <A-h> <C-w>h
-    :nnoremap <A-j> <C-w>j
-    :nnoremap <A-k> <C-w>k
-    :nnoremap <A-l> <C-w>l
-    :set mouse=a
-endif
-
 " --- end-wise
 " let g:endwise_no_mappings = 1
 
