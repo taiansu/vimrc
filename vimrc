@@ -7,7 +7,8 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 
-Plug 'kien/ctrlp.vim'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-abolish'
@@ -33,7 +34,6 @@ Plug 'reedes/vim-pencil'
 Plug 'AndrewRadev/linediff.vim'
 Plug 'chrisbra/unicode.vim'
 Plug 'schickling/vim-bufonly'
-Plug 'dyng/ctrlsf.vim'
 Plug 'Shougo/echodoc.vim'
 
 " Colorscheme
@@ -529,13 +529,8 @@ call submode#map('undo/redo', 'n', '', '+', 'g+')
 
 " map <leader>fs :topleft :split<CR>
 
-map <leader>bb :CtrlPBuffer<CR>
-map <leader>bv :CtrlPMixed<CR>
-map <leader>bf :CtrlPClearCache<CR>\|:CtrlPCurFile<CR>
-map <leader>bc :CtrlPClearCache<CR>
 map <leader>bd :bdelete!<CR>
 map <leader>bo :BufOnly<CR>
-map <M-p> :CtrlP<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shorts for tabnew tabn tabp
@@ -636,34 +631,29 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 " --- dash.vim
 map <leader>\ :Dash<CR>
 
-" --- CtrlP
-" sets local working directory as the nearest ancestor
-" that contains one of these directories or files: .git/
-let g:ctrlp_map               = '<C-p>'
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_follow_symlinks   = 1
-" let g:ctrlp_by_filename       = 1
-let g:ctrlp_extensions        = ['mixed', 'bookmarkdir', 'funky']
-" if has('python')
-"   let g:ctrlp_match_func      = {'match': 'pymatcher#PyMatch'}
-" endif
+" --- fzf.vim
+map <M-p> :FZF<CR>
+nnoremap <leader>/ :Ag<CR>
+nnoremap <leader>sf :FZF<CR>
+nnoremap <leader>sa :Ag<CR>
+nnoremap <leader>st :Tags<CR>
+nnoremap <leader>sg :GFlies<CR>
 
-" Set delay to prevent extra search
-" let g:ctrlp_lazy_update = 350
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
 
-" Set no file limit, we are building a big project
-let g:ctrlp_max_files = 0
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
 
-" exclude directories or files from the search
-let g:ctrlp_custom_ignore = {
-    \ 'dir': '\v[\/](\.git|\.hg|\.svn|\_site|node_modules|bower_components|target|dist|build)$',
-    \ 'file': '\v\.(swp|ico|exe|so|dll|DS_Store|tags|class|png|jpg|jpeg|beam)$',
-\ }
-
-" --- CtrlSF
-nmap <leader>sf <Plug>CtrlSFPrompt
-nnoremap <leader>ss :CtrlSF<CR>
-nnoremap <leader>/ :CtrlSF<CR>
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 " --- NERDTree
 autocmd FileType nerdtree :vert resize 30
