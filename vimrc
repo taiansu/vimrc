@@ -70,14 +70,12 @@ Plug 'tpope/vim-dispatch',       { 'on': ['Dispatch', 'Focus', 'Start'] }
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
 Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown' }
 Plug 'junegunn/vim-easy-align',  { 'on': 'EasyAlign' }
-Plug 'mattn/webapi-vim',         { 'on': 'Gist' }
-Plug 'mattn/gist-vim',           { 'on': 'Gist' }
 
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
-Plug 'roxma/python-support.nvim',      {'do': ':PythonSupportInitPython3'}
+Plug 'roxma/python-support.nvim',      {'do': [':PythonSupportInitPython3', ':PythonSupportInitPython2']}
 Plug 'Shougo/deoplete.nvim',           {'do': ':UpdateRemotePlugins'}
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
@@ -92,12 +90,10 @@ Plug 'Shougo/neosnippet-snippets'
 
 " Language specified
 Plug 'sheerun/vim-polyglot'
-
 Plug 'mattn/emmet-vim',                    { 'for': ['html', 'eruby', 'eelixir'] }
 " Plug 'ternjs/tern_for_vim',                { 'for': 'javascript' }
 Plug 'carlitux/deoplete-ternjs',           { 'for': 'javascript', 'do': 'npm install -g tern' }
 Plug 'Vimjas/vim-python-pep8-indent',      { 'for': 'python' }
-" Plug 'larrylv/ycm-elixir',                 { 'for': ['elixir', 'eelixir'] }
 Plug 'slashmili/alchemist.vim',            { 'for': ['elixir', 'eelixir'] }
 Plug 'vim-erlang/vim-erlang-compiler',     { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-skeletons',    { 'for': 'erlang' }
@@ -105,7 +101,7 @@ Plug 'vim-erlang/vim-erlang-omnicomplete', { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-tags',         { 'for': 'erlang' }
 Plug 'vim-erlang/vim-rebar',               { 'for': 'erlang' }
 Plug 'vim-erlang/vim-dialyzer',            { 'for': 'erlang' }
-" Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
+Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
 Plug 'reasonml-editor/vim-reason-plus'
 " Plug 'LaTeX-Box-Team/LaTeX-Box',           { 'for': 'latex' }
 
@@ -775,13 +771,6 @@ xmap <M-m> <Plug>(neosnippet_expand_target)
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
-
-" --- gist-vim
-let g:gist_clip_command = 'pbcopy'
-let g:gist_detect_filetype = 1
-let g:gist_post_private = 1
-" If using 2 factor authorization in github, write ~/.gist-vim with
-" token 1234567890yourApplicationTokenGenerated
 
 " --- tern_for_vim
 autocmd BufEnter * set completeopt-=preview
