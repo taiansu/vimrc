@@ -18,8 +18,10 @@ Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive',
+Plug 'tpope/vim-vinegar'
 Plug 'majutsushi/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'skywind3000/gutentags_plus'
 Plug 'kana/vim-submode'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
@@ -34,7 +36,7 @@ Plug 'reedes/vim-pencil'
 Plug 'AndrewRadev/linediff.vim'
 Plug 'chrisbra/unicode.vim'
 Plug 'schickling/vim-bufonly'
-Plug 'Shougo/echodoc.vim'
+Plug 'roxma/python-support.nvim'
 
 " Colorscheme
 " Plug 'guns/xterm-color-table.vim'
@@ -57,8 +59,10 @@ endfunction
 Plug 'neomake/neomake', { 'do': function('InstallLints') }
 
 if has('nvim')
-  Plug 'kassio/neoterm'
   Plug 'radenling/vim-dispatch-neovim'
+else
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
 " On-demand loading
@@ -69,32 +73,31 @@ Plug 'junegunn/vim-easy-align',  { 'on': 'EasyAlign' }
 Plug 'mattn/webapi-vim',         { 'on': 'Gist' }
 Plug 'mattn/gist-vim',           { 'on': 'Gist' }
 
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+Plug 'roxma/python-support.nvim',      {'do': ':PythonSupportInitPython3'}
+Plug 'Shougo/deoplete.nvim',           {'do': ':UpdateRemotePlugins'}
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+
 " Lazy loading
-Plug 'SirVer/ultisnips'
-Plug 'taiansu/vim-snippets'
 
-augroup load_lazy_plugins
-  autocmd!
-  autocmd InsertEnter * call plug#load('ultisnips', 'vim-snippets')
-                     \| autocmd! load_lazy_plugins
-augroup END
-
-if has('nvim')
-  Plug 'autozimu/LanguageClient-neovim', {'do': ':UpdateRemotePlugions'}
-  Plug 'Shougo/deoplete.nvim',           {'do': ':UpdateRemotePlugins'}
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
+" augroup load_lazy_plugins
+"   autocmd!
+"   autocmd InsertEnter * call plug#load('ultisnips', 'vim-snippets')
+"                      \| autocmd! load_lazy_plugins
+" augroup END
 
 " Language specified
 Plug 'sheerun/vim-polyglot'
 
 Plug 'mattn/emmet-vim',                    { 'for': ['html', 'eruby', 'eelixir'] }
-Plug 'ternjs/tern_for_vim',                { 'for': 'javascript' }
+" Plug 'ternjs/tern_for_vim',                { 'for': 'javascript' }
+Plug 'carlitux/deoplete-ternjs',           { 'for': 'javascript', 'do': 'npm install -g tern' }
 Plug 'Vimjas/vim-python-pep8-indent',      { 'for': 'python' }
-Plug 'larrylv/ycm-elixir',                 { 'for': ['elixir', 'eelixir'] }
+" Plug 'larrylv/ycm-elixir',                 { 'for': ['elixir', 'eelixir'] }
 Plug 'slashmili/alchemist.vim',            { 'for': ['elixir', 'eelixir'] }
 Plug 'vim-erlang/vim-erlang-compiler',     { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-skeletons',    { 'for': 'erlang' }
@@ -140,6 +143,7 @@ set t_Co=256 " 256 colors
 set ttyfast
 if has("gui_running")
   set ttyscroll=3
+  set guifont=Source\ Code\ Pro:h15
 endif
 syntax sync minlines=50
 let g:ruby_path=$HOME . "/.asdf/shims/ruby"
@@ -241,8 +245,13 @@ set complete-=i
 set iskeyword+=-
 " Split location
 set splitright
+set splitbelow
 " Make fugitive diff split vertical
 set diffopt+=vertical
+
+set tabpagemax=40
+
+set undodir=~/.vim/undodir
 
 if has("gui_running")
   " highlight current line
@@ -277,6 +286,8 @@ endfunction
 " NB: this supports "rp that replaces the selection by the contents of @r
 vnoremap <silent> <expr> p <sid>Repl()
 
+cabbr <expr> %% expand('%:p:h')
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MacVim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -288,8 +299,40 @@ endif
 " NeoVim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("nvim")
+
   set mouse=a mousemodel=popup_setpos
+  " Terminal mode:
+  tnoremap <M-[> <C-\><C-n>
+  " tnoremap <M-[> <Esc>
+  tnoremap <C-v><Esc> <Esc>
+
+  tnoremap <M-h> <c-\><c-n><c-w>h
+  tnoremap <M-j> <c-\><c-n><c-w>j
+  tnoremap <M-k> <c-\><c-n><c-w>k
+  tnoremap <M-l> <c-\><c-n><c-w>l
+
+  command! -nargs=* St split | terminal <args>
+  command! -nargs=* Vt vsplit | terminal <args>
+
+  nnoremap <M-v> :vsplit term://zsh<CR>
+  nnoremap <M-s> :split term://zsh<CR>
 endif
+
+" Insert mode:
+inoremap <M-h> <Esc><c-w>h
+inoremap <M-j> <Esc><c-w>j
+inoremap <M-k> <Esc><c-w>k
+inoremap <M-l> <Esc><c-w>l
+" Visual mode:
+vnoremap <M-h> <Esc><c-w>h
+vnoremap <M-j> <Esc><c-w>j
+vnoremap <M-k> <Esc><c-w>k
+vnoremap <M-l> <Esc><c-w>l
+" Normal mode:
+nnoremap <M-h> <c-w>h
+nnoremap <M-j> <c-w>j
+nnoremap <M-k> <c-w>k
+nnoremap <M-l> <c-w>l
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Change CursorShape in iTerm2
@@ -322,14 +365,14 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NETRW DEFUAULT SETTING
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_special_syntax = 1
-let g:netrw_browse_split = 4
+" let g:netrw_banner = 0
+" let g:netrw_liststyle = 3
+" let g:netrw_special_syntax = 1
+" let g:netrw_browse_split = 4
 let g:netrw_altv = 1
-let g:netrw_sort_sequence = '[\/]$,*'
+" let g:netrw_sort_sequence = '[\/]$,*'
 let g:netrw_winsize = -30
-let g:netrw_retmap = 1
+" let g:netrw_retmap = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AUTO SOURCE vimrc AFTER SAVE
@@ -377,7 +420,12 @@ augroup vimrcEx
     autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
   endif
 
-  " autocmd FileType go au BufWritePre <buffer> GoFmt
+  autocmd BufEnter,BufWinEnter,WinEnter term://* startinsert
+  autocmd BufLeave term://* stopinsert
+
+  " augroup Exfmt
+  "   autocmd BufWritePost *.ex,*.exs silent execute '!mix format %'
+  " augroup End
 
   " Leave the return key alone when in command line windows, since it's used
   " to run commands there.
@@ -386,7 +434,6 @@ augroup vimrcEx
 
   " Git commit message format
   autocmd Filetype gitcommit setlocal spell textwidth=72
-augroup end
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Interact with GUI clipboard
@@ -421,6 +468,12 @@ let mapleader="\<space>" "you may like ',' or '\'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcut to rapidly toggle `set list`
 nmap <leader>+ :set list!<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SILENT SHELL COMMAND
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+nmap <leader>! :sil !
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM FILE COMMANDS
@@ -489,8 +542,8 @@ nnoremap <leader>cp yap<S-}>p
 map <leader>xc :nohlsearch<CR>
 
 " Can't be bothered to understand ESC vs <C-c> in insert mode
-inoremap <C-c> <esc>
-inoremap <C-[> <esc>
+inoremap <C-c> <ESC>
+inoremap <C-[> <ESC>
 nnoremap <leader><leader> <C-^>
 
 " format json
@@ -630,10 +683,10 @@ map <leader>\ :Dash<CR>
 
 " --- fzf.vim
 map <M-p> :FZF<CR>
-nnoremap <leader>/ :Ag<CR>
+nnoremap <leader>/ :call fzf#vim#ag(expand('<cword>'), fzf#vim#with_preview('up:50%'), 1)<CR>
 nnoremap <leader>sf :FZF<CR>
-nnoremap <leader>sa :Ag<CR>
-nnoremap <leader>st :Tags<CR>
+nnoremap <leader>sa :call fzf#vim#ag(expand('<cword>'), fzf#vim#with_preview('right:50%'))<CR>
+nnoremap <leader>st :call fzf#vim#tags(expand('<cword>'))
 nnoremap <leader>sg :GFlies<CR>
 
 function! s:fzf_statusline()
@@ -699,11 +752,29 @@ let g:airline#extensions#neomake#enabled=1
 " --- vim-easy-align
 vnoremap <silent><Enter> :EasyAlign<CR>
 
-" --- UltiSnips
-let g:UltiSnipsExpandTrigger="<M-j>"
-let g:UltiSnipsJumpForwardTrigger="<M-j>"
-let g:UltiSnipsJumpBackwardTrigger="<M-k>"
-let g:UltiSnipsListSnippets="<M-l>"
+" --- neosnippets
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+" let g:neosnippet#enable_completed_snippet = 1
+
+imap <M-m> <Plug>(neosnippet_expand_or_jump)
+smap <M-m> <Plug>(neosnippet_expand_or_jump)
+xmap <M-m> <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+" imap <expr><TAB>
+"  \ pumvisible() ? "\<C-n>" :
+"  \ neosnippet#expandable_or_jumpable() ?
+"  \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+" \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
 
 " --- gist-vim
 let g:gist_clip_command = 'pbcopy'
@@ -734,11 +805,11 @@ let g:elm_setup_keybindings = 0
 call neomake#configure#automake('nw', 750)
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_jsx_enabled_makers = ['eslint']
-let g:neomake_elixir_enabled_makers = ['mix', 'credo']
+let g:neomake_elixir_enabled_makers = ['mix']
+let g:neomake_haskell_enabled_makers = ['hdevtools', 'hlint']
 let g:neomake_markdown_enabled_makers = []
-let g:neomake_haskell_enabled_makers = ['cabal']
 
-map <leader>l; :lopen<CR>
+map <leader>lo :lopen<CR>
 map <leader>lj :lnext<CR>
 map <leader>lk :lprevious<CR>
 
@@ -771,7 +842,39 @@ let g:tagbar_type_elixir = {
     \ ]
 \ }
 
-nmap <silent><leader>tb :TagbarToggle<CR>
+let g:tagbar_type_haskell = {
+    \ 'ctagsbin'  : 'hasktags',
+    \ 'ctagsargs' : '-x -c -o-',
+    \ 'kinds'     : [
+        \  'm:modules:0:1',
+        \  'd:data: 0:1',
+        \  'd_gadt: data gadt:0:1',
+        \  't:type names:0:1',
+        \  'nt:new types:0:1',
+        \  'c:classes:0:1',
+        \  'cons:constructors:1:1',
+        \  'c_gadt:constructor gadt:1:1',
+        \  'c_a:constructor accessors:1:1',
+        \  'ft:function types:1:1',
+        \  'fi:function implementations:0:1',
+        \  'o:others:0:1'
+    \ ],
+    \ 'sro'        : '.',
+    \ 'kind2scope' : {
+        \ 'm' : 'module',
+        \ 'c' : 'class',
+        \ 'd' : 'data',
+        \ 't' : 'type'
+    \ },
+    \ 'scope2kind' : {
+        \ 'module' : 'm',
+        \ 'class'  : 'c',
+        \ 'data'   : 'd',
+        \ 'type'   : 't'
+    \ }
+\ }
+
+nmap <silent><leader>t :TagbarToggle<CR>
 
 " --- LanguageClient-neovim
 set hidden
@@ -799,33 +902,23 @@ inoremap <silent><expr> <TAB>
     \ <SID>check_back_space() ? "\<TAB>" :
     \ deoplete#mappings#manual_complete()
 
-function! s:check_back_space() abort
+function! s:check_back_space() abort "{{{
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-" --- echodoc.vim
-set cmdheight=2
-" :EchoDocEnable
+endfunction"}}}
 
 " --- vim-gutentags
-let g:gutentags_cache_dir = '~/.tags_cache'
+let g:gutentags_modules = ['ctags', 'gtags_cscope']
+let g:gutentags_project_root = ['.root']
+let g:gutentags_cache_dir = expand('~/.cache/tags')
+let g:gutentags_project_info = [ {'type': 'python', 'file': 'setup.py'},
+                               \ {'type': 'ruby', 'file': 'Gemfile'},
+                               \ {'type': 'haskell', 'file': 'Setup.hs'} ]
+let g:gutentags_ctags_executable_haskell = 'gutenhasktags'
+" let g:gutentags_trace = 1
 
 " -- vim-gitgutter
 " let g:gitgutter_override_sign_column_highlight = 0
-
-" -- neoterm
-" au FileType neoterm :set nonumber
-if has('nvim')
-  " let g:neoterm_position = 'horzontal'
-  nnoremap <silent><leader><Tab> :Ttoggle<CR>
-  nnoremap <silent><leader>cl :call neoterm#clear()<CR>
-  nnoremap <silent><leader>cc :call neoterm#kill()<CR>
-endif
-
-let g:neoterm_autoscroll=1
-let g:neoterm_automap_keys="<space>;"
-let g:neoterm_size=20
 
 " autocmd FileType markdown set foldcolumn=12 textwidth=74
 
