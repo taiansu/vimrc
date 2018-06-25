@@ -18,7 +18,6 @@ Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive',
-Plug 'tpope/vim-vinegar'
 Plug 'majutsushi/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'skywind3000/gutentags_plus'
@@ -247,7 +246,7 @@ set diffopt+=vertical
 
 set tabpagemax=40
 
-set undodir=~/.vim/undodir
+set undodir=~/.vim/undo
 
 if has("gui_running")
   " highlight current line
@@ -361,14 +360,12 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NETRW DEFUAULT SETTING
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:netrw_banner = 0
-" let g:netrw_liststyle = 3
-" let g:netrw_special_syntax = 1
-" let g:netrw_browse_split = 4
-let g:netrw_altv = 1
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_special_syntax = 1
 " let g:netrw_sort_sequence = '[\/]$,*'
 let g:netrw_winsize = -30
-" let g:netrw_retmap = 1
+let g:netrw_altv = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AUTO SOURCE vimrc AFTER SAVE
@@ -708,7 +705,14 @@ let NERDTreeIgnore=['\.pyc','\~$','\.swp']
 let NERDTreeShowBookmarks=1
 let NERDTreeAutoCenter=1
 let NERDTreeWinSize=31
-map <leader>q :NERDTreeToggle<CR>
+map <expr><leader>q
+  \ <SID>current_buffer_type() ?
+  \ ":NERDTreeToggle<CR>" : ":NERDTreeFind<CR>"
+
+function! s:current_buffer_type() abort
+  let s:current_buffer_name = expand('%:t')
+  return s:current_buffer_name == '' || &ft == 'nerdtree'
+endfunction
 
 " --- end-wise
 " let g:endwise_no_mappings = 1
@@ -759,13 +763,13 @@ xmap <M-m> <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-" imap <expr><TAB>
-"  \ pumvisible() ? "\<C-n>" :
-"  \ neosnippet#expandable_or_jumpable() ?
-"  \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+imap <expr><TAB>
+ \ pumvisible() ? "\<C-n>" :
+ \ neosnippet#expandable_or_jumpable() ?
+ \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-" \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " For conceal markers.
 if has('conceal')
@@ -813,6 +817,7 @@ endif
 
 " --- tagbar
 let g:tagbar_left=1
+let g:tagbar_width=35
 let g:tagbar_type_elixir = {
     \ 'ctagstype' : 'elixir',
     \ 'kinds' : [
