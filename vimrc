@@ -496,6 +496,26 @@ endfunction
 command! W call WriteCreatingDirs()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Memorize
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" function! s:Memorize()
+"   if !exists("w:memorized_cmd")
+"     let w:memorized_cmd = put(":)
+"     redraw
+"   endif
+"   execute w:memorized_cmd
+" endfunction
+
+" function! s:MemorizeClear()
+"   unlet w:memorized_cmd
+" endfunction
+
+" command! MemorizeClear call <SID>MemorizeClear()
+
+" nnoremap <leader>f Memorize
+nnoremap <leader>f @:
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TRAILING WHITE SPACES
 " <leader>xv 快速移除行尾空白
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
