@@ -35,7 +35,6 @@ Plug 'reedes/vim-pencil'
 Plug 'AndrewRadev/linediff.vim'
 Plug 'chrisbra/unicode.vim'
 Plug 'schickling/vim-bufonly'
-Plug 'roxma/python-support.nvim'
 
 " Colorscheme
 " Plug 'guns/xterm-color-table.vim'
@@ -74,7 +73,6 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
-Plug 'roxma/python-support.nvim',      {'do': [':PythonSupportInitPython3', ':PythonSupportInitPython2']}
 Plug 'Shougo/deoplete.nvim',           {'do': ':UpdateRemotePlugins'}
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
