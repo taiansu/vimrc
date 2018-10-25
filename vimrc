@@ -556,6 +556,10 @@ nnoremap <leader>cp yap<S-}>p
 " Clear the search buffer with <leader>xc
 map <leader>xc :nohlsearch<CR>
 
+" Show next matched string at the center of screen
+nnoremap n nzz
+nnoremap N Nzz
+
 " Can't be bothered to understand ESC vs <C-c> in insert mode
 inoremap <C-c> <ESC>
 inoremap <C-[> <ESC>
