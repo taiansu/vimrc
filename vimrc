@@ -725,7 +725,10 @@ nnoremap <leader>e :Dispatch<CR>
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
 
 " --- emmet-vim
-let g:user_emmet_leader_key='<C-y>'
+" let g:user_emmet_leader_key='<C-y>'
+
+" let g:user_emmet_install_global = 0
+" autocmd FileType html,eelixir,erb,vue,css EmmetInstall
 
 " --- vim-marked
 command! Mo MarkedOpen
