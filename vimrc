@@ -575,9 +575,6 @@ nnoremap <leader><leader> <C-^>
 " Use + after * to search two words
 nnoremap <silent> + :let @/.= '\\|\<'.expand('<cword>').'\>'<CR>n
 
-" bind K to grep word under cursor
-nnoremap K :grep!  "\b<C-R><C-W>\b"<CR>:cw<CR>
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BUFFER, TAB AND SPLIT MOTIONS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -608,37 +605,6 @@ ca tn tabnew
 ca th tabp
 ca tl tabn
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SWITCH BETWEEN TEST AND PRODUCTION CODE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! OpenTestAlternate()
-  let new_file = AlternateForCurrentFile()
-  exec ':e ' . new_file
-endfunction
-function! AlternateForCurrentFile()
-  let current_file = expand("%")
-  let new_file = current_file
-  let in_spec = match(current_file, '^spec/') != -1
-  let going_to_spec = !in_spec
-  let in_app = match(current_file, '\<controllers\>') != -1 || match(current_file, '\<models\>') != -1 || match(current_file, '\<views\>') != -1 || match(current_file, '\<helpers\>') != -1
-  if going_to_spec
-    if in_app
-      let new_file = substitute(new_file, '^app/', '', '')
-    end
-    let new_file = substitute(new_file, '\.e\?rb$', '_spec.rb', '')
-    let new_file = 'spec/' . new_file
-  else
-    let new_file = substitute(new_file, '_spec\.rb$', '.rb', '')
-    let new_file = substitute(new_file, '^spec/', '', '')
-    if in_app
-      let new_file = 'app/' . new_file
-    end
-  endif
-  return new_file
-endfunction
-nnoremap <leader>. :call OpenTestAlternate()<cr>
-command! BumpToAlternateFile :call OpenTestAlternate()
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -656,14 +622,14 @@ map <leader>n :call RenameFile()<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PROMOTE VARIABLE TO RSPEC LET
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! PromoteToLet()
-  :normal! dd
-  " :exec '?^\s*it\>'
-  :normal! P
-  :.s/\(\w\+\) = \(.*\)$/let(:\1) { \2 }/
-  :normal ==
-endfunction
-command! PromoteToLet :call PromoteToLet()
+" function! PromoteToLet()
+"   :normal! dd
+"   " :exec '?^\s*it\>'
+"   :normal! P
+"   :.s/\(\w\+\) = \(.*\)$/let(:\1) { \2 }/
+"   :normal ==
+" endfunction
+" command! PromoteToLet :call PromoteToLet()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " OpenChangedFiles COMMAND
@@ -746,7 +712,7 @@ endfunction
 " --- vim-dispatch
 nnoremap <leader>e :Dispatch<CR>
 
-autocmd FileType markdown let b:dispatch = 'octodown %'
+" autocmd FileType markdown let b:dispatch = 'octodown %'
 
 " --- JavaScript Syntax
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
@@ -935,7 +901,6 @@ let g:gutentags_project_info = [ {'type': 'python', 'file': 'setup.py'},
                                \ {'type': 'ruby', 'file': 'Gemfile'},
                                \ {'type': 'haskell', 'file': 'Setup.hs'} ]
 let g:gutentags_ctags_executable_haskell = 'gutenhasktags'
-" let g:gutentags_trace = 1
 
 " -- vim-gitgutter
 " let g:gitgutter_override_sign_column_highlight = 0
