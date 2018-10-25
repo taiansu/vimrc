@@ -597,6 +597,8 @@ call submode#map('undo/redo', 'n', '', '+', 'g+')
 
 map <leader>bd :bdelete!<CR>
 map <leader>bo :BufOnly<CR>
+" nnoremap <C-b> <C-^>
+" inoremap <C-b> <esc><C-^>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shorts for tabnew tabn tabp
@@ -663,6 +665,9 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 " Addons Settings
 " 插件設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" --- vim-polyglot
+let g:vim_markdown_conceal = 0
+
 " --- dash.vim
 map <leader>\ :Dash<CR>
 
@@ -712,6 +717,8 @@ function! s:current_buffer_type() abort
   let s:current_buffer_name = expand('%:t')
   return s:current_buffer_name == '' || &ft == 'nerdtree'
 endfunction
+
+nnoremap <leader>vr :NERDTreeFocus<CR> :vert res 30<CR><C-w>l
 
 " --- end-wise
 " let g:endwise_no_mappings = 1
@@ -870,17 +877,37 @@ let g:tagbar_type_haskell = {
     \ }
 \ }
 
+let g:tagbar_type_markdown = {
+    \ 'ctagstype': 'markdown',
+    \ 'kinds': [
+        \ 'h:headings',
+    \ ],
+    \ 'sort': 0
+\ }
+
 nmap <silent><leader>t :TagbarToggle<CR>
 
 " --- LanguageClient-neovim
 set hidden
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_loggingLevel = 'DEBUG'
 
 let g:LanguageClient_serverCommands = {
+  \ 'rust': ['~/.asdf/shims/rustup', 'run', 'stable', 'rls'],
   \ 'reason': ['ocaml-language-server', '--stdio'],
   \ 'ocaml': ['ocaml-language-server', '--stdio'],
   \ }
 
-let g:LanguageClient_autoStart = 1
+augroup elixir_lsp
+  au!
+  au User lsp_setup call lsp#register_server({
+    \ 'name': 'elixir-ls',
+    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'env ERL_LIBS=~/Projects/scripts/elixir-ls mix elixir_ls.language_server']},
+    \ 'whitelist': ['elixir', 'eelixir'],
+    \ })
+augroup END
+
+nnoremap <silent><leader>k :call LanguageClient_contextMenu()<CR>
 
 " --- deoplete.nvim
 let g:deoplete#enable_at_startup = 1
@@ -912,6 +939,9 @@ let g:gutentags_project_info = [ {'type': 'python', 'file': 'setup.py'},
                                \ {'type': 'haskell', 'file': 'Setup.hs'} ]
 let g:gutentags_ctags_executable_haskell = 'gutenhasktags'
 
+" --- alchemist.vim
+let g:alchemist#elixir_erlang_src = "~/Projects/source"
+
 " -- vim-gitgutter
 " let g:gitgutter_override_sign_column_highlight = 0
 
@@ -921,6 +951,6 @@ let g:gutentags_ctags_executable_haskell = 'gutenhasktags'
 "       \ call gittgutter#highlight#define_sign_column_highlight()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: f g j k l m o p t u v w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
+" Free leader keys: g j k l m o p t u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim: set ft=vim :
