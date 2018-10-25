@@ -667,12 +667,19 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 map <leader>\ :Dash<CR>
 
 " --- fzf.vim
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 map <M-p> :FZF<CR>
 nnoremap <leader>/ :call fzf#vim#ag(expand('<cword>'), fzf#vim#with_preview('up:50%'), 1)<CR>
 nnoremap <leader>sf :FZF<CR>
 nnoremap <leader>sa :call fzf#vim#ag(expand('<cword>'), fzf#vim#with_preview('right:50%'))<CR>
 nnoremap <leader>st :call fzf#vim#tags(expand('<cword>'))
 nnoremap <leader>sg :GFlies<CR>
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
 
 function! s:fzf_statusline()
   " Override statusline as you like
