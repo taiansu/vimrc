@@ -519,6 +519,10 @@ nnoremap <leader>f @:
 " TRAILING WHITE SPACES
 " <leader>xv 快速移除行尾空白
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" highlight trailing whitespace
+match ErrorMsg '\s\+$'
+
 command! TrailingWhiteSpaces %s/\s\+$//e
 nmap <leader>xv :TrailingWhiteSpaces<CR>:nohlsearch<CR>
 
