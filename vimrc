@@ -72,18 +72,9 @@ Plug 'Shougo/deoplete.nvim',           {'do': ':UpdateRemotePlugins'}
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
-" Lazy loading
-
-" augroup load_lazy_plugins
-"   autocmd!
-"   autocmd InsertEnter * call plug#load('ultisnips', 'vim-snippets')
-"                      \| autocmd! load_lazy_plugins
-" augroup END
-
 " Language specified
 Plug 'sheerun/vim-polyglot'
 Plug 'mattn/emmet-vim',                    { 'for': ['html', 'eruby', 'eelixir'] }
-" Plug 'ternjs/tern_for_vim',                { 'for': 'javascript' }
 Plug 'carlitux/deoplete-ternjs',           { 'for': 'javascript', 'do': 'npm install -g tern' }
 Plug 'Vimjas/vim-python-pep8-indent',      { 'for': 'python' }
 Plug 'slashmili/alchemist.vim',            { 'for': ['elixir', 'eelixir'] }
