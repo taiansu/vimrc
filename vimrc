@@ -68,11 +68,6 @@ Plug 'tpope/vim-dispatch',       { 'on': ['Dispatch', 'Focus', 'Start'] }
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
 Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown' }
 Plug 'junegunn/vim-easy-align',  { 'on': 'EasyAlign' }
-
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
 Plug 'Shougo/deoplete.nvim',           {'do': ':UpdateRemotePlugins'}
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
@@ -886,28 +881,6 @@ let g:tagbar_type_markdown = {
 \ }
 
 nmap <silent><leader>t :TagbarToggle<CR>
-
-" --- LanguageClient-neovim
-set hidden
-let g:LanguageClient_autoStart = 1
-let g:LanguageClient_loggingLevel = 'DEBUG'
-
-let g:LanguageClient_serverCommands = {
-  \ 'rust': ['~/.asdf/shims/rustup', 'run', 'stable', 'rls'],
-  \ 'reason': ['ocaml-language-server', '--stdio'],
-  \ 'ocaml': ['ocaml-language-server', '--stdio'],
-  \ }
-
-augroup elixir_lsp
-  au!
-  au User lsp_setup call lsp#register_server({
-    \ 'name': 'elixir-ls',
-    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'env ERL_LIBS=~/Projects/scripts/elixir-ls mix elixir_ls.language_server']},
-    \ 'whitelist': ['elixir', 'eelixir'],
-    \ })
-augroup END
-
-nnoremap <silent><leader>k :call LanguageClient_contextMenu()<CR>
 
 " --- deoplete.nvim
 let g:deoplete#enable_at_startup = 1
