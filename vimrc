@@ -73,6 +73,7 @@ Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
 " Language specified
+Plug 'w0rp/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'mattn/emmet-vim',                    { 'for': ['html', 'eruby', 'eelixir'] }
 Plug 'carlitux/deoplete-ternjs',           { 'for': 'javascript', 'do': 'npm install -g tern' }
@@ -905,6 +906,24 @@ let g:gutentags_ctags_executable_haskell = 'gutenhasktags'
 
 " --- alchemist.vim
 let g:alchemist#elixir_erlang_src = "~/Projects/source"
+
+" -- ale
+" autocmd FileType elixir nnoremap <c-]> :ALEGoToDefinition<cr>
+let g:ale_completion_enabled = 0
+
+let g:ale_linters = {}
+let g:ale_linters.scss = ['stylelint']
+let g:ale_linters.css = ['stylelint']
+
+let g:ale_fixers = {}
+let g:ale_fixers.javascript = ['eslint']
+let g:ale_fixers.scss = ['stylelint']
+let g:ale_fixers.css = ['stylelint']
+let g:ale_fixers.elm = ['format']
+let g:ale_fixers.ruby = ['rubocop']
+let g:ale_fixers.elixir = ['mix_format']
+
+let g:ale_elixir_elixir_ls_release = '~/Projects/scripts/elixir-ls/rel'
 
 " -- vim-gitgutter
 " let g:gitgutter_override_sign_column_highlight = 0
