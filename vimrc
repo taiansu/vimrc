@@ -11,6 +11,7 @@ Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
@@ -153,12 +154,7 @@ inoremap # X#
 " wrap text if lines longer then the lenght of window
 set wrap
 set showmatch
-set incsearch
 set hlsearch
-" always show the statusline
-set laststatus=2
-" insert tabs on the start of a line according to context
-set smarttab
 " make searches case-sensitive only if they contain upper-case characters
 set ignorecase smartcase
 set cmdheight=2
@@ -183,8 +179,6 @@ set t_ti= t_te=
 set nobackup
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
 set whichwrap+=<,>,h,l
 " display incomplete commands
 set showcmd
@@ -194,22 +188,14 @@ set magic
 " Use the default filetype settings, so that mail gets 'tw' set to 72,
 " 'cindent' is on in C files, etc.
 " Also load indent files, to automatically do language-dependent indenting.
-filetype plugin indent on
 " use emacs-style tab completion when selecting files, etc
 set wildmode=longest,list
-" make tab completion for files/buffers act like bash
-set wildmenu
 set foldmethod=indent
 set foldlevelstart=3
 set foldnestmax=3
 set linebreak
 " set showbreak=↪
 set showbreak=⇘
-set history=1000
-" show the cursor wposition all the time
-set ruler
-" auto read when file is changd from outside
-set autoread
 " Always edit file, even when swap file is found
 set shortmess+=A
 set winheight=5
@@ -221,15 +207,13 @@ set timeoutlen=1000 ttimeoutlen=0
 " keep more context when scrolling off the end of a buffer
 set scrolloff=3
 " Solve ruby complete slowness
-set complete-=i
+" set complete-=i
 set iskeyword+=-
 " Split location
 set splitright
 set splitbelow
 " Make fugitive diff split vertical
 set diffopt+=vertical
-
-set tabpagemax=40
 
 set undodir=~/.vim/undo
 
@@ -433,11 +417,10 @@ endif
 " CONFIG WITH OPINION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set expandtab
-set autoindent
 set smartindent
 set tabstop=2 softtabstop=2 shiftwidth=2
 " Use the same symbols as TextMate for tabstops and EOLs
-set listchars=tab:▸\ ,eol:¬
+" set listchars=tab:▸\ ,eol:¬
 
 let mapleader="\<space>" "you may like ',' or '\'
 
