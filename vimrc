@@ -756,13 +756,13 @@ xmap <M-m> <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <expr><TAB>
- \ pumvisible() ? "\<C-n>" :
- \ neosnippet#expandable_or_jumpable() ?
- \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" imap <expr><TAB>
+"  \ pumvisible() ? "\<C-n>" :
+"  \ neosnippet#expandable_or_jumpable() ?
+"  \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+" \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " For conceal markers.
 if has('conceal')
@@ -799,10 +799,10 @@ let g:neomake_warning_sign={'text': '⚠', 'texthl': 'WarningMsg'}
 let g:neomake_highlight_columns=0
 
 " --- LaTeX-Box
-let s:extfname = expand("%:e")
-if s:extfname ==? "tex"
-  let g:LatexBox_split_type="new"
-endif
+" let s:extfname = expand("%:e")
+" if s:extfname ==? "tex"
+"   let g:LatexBox_split_type="new"
+" endif
 
 " --- tagbar
 let g:tagbar_left=1
