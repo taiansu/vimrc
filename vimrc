@@ -711,6 +711,11 @@ nnoremap <leader>e :Dispatch<CR>
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
 
 " --- emmet-vim
+let g:user_emmet_settings = {
+  \  'javascript.jsx' : {
+    \      'extends' : 'jsx',
+    \  },
+  \}
 " let g:user_emmet_leader_key='<C-y>'
 
 " let g:user_emmet_install_global = 0
