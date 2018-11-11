@@ -870,7 +870,10 @@ nmap <silent><leader>t :TagbarToggle<CR>
 " --- deoplete.nvim
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
-let g:deoplete#max_list=20
+let g:deoplete#max_list=15
+call deoplete#custom#option('smart_case', v:true)
+call deoplete#custom#source('alchemist', 'rank', 500)
+call deoplete#custom#source('ultisnips', 'rank', 700)
 
 " <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>cr_with_indent()<CR>
