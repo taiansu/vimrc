@@ -460,7 +460,7 @@ function! QuickFileType(file_type)
 endfunction
 
 function! WriteCreatingDirs()
-    execute ':silent !mkdir -p %:h'
+    call mkdir(expand('%:h'), 'p')
     write
 endfunction
 command! W call WriteCreatingDirs()
@@ -625,8 +625,17 @@ command! OpenChangedFiles :call OpenChangedFiles()
 vnoremap < <gv
 vnoremap > >gv
 
-"""
-"""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Open quickfix box
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+map <leader>lo :lopen<CR>
+map <leader>lj :lnext<CR>
+map <leader>lk :lprevious<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ?
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
@@ -780,10 +789,6 @@ let g:neomake_jsx_enabled_makers = ['eslint']
 let g:neomake_elixir_enabled_makers = ['mix']
 let g:neomake_haskell_enabled_makers = ['hdevtools', 'hlint']
 let g:neomake_markdown_enabled_makers = []
-
-map <leader>lo :lopen<CR>
-map <leader>lj :lnext<CR>
-map <leader>lk :lprevious<CR>
 
 let g:neomake_warning_sign={'text': '⚠', 'texthl': 'WarningMsg'}
 let g:neomake_highlight_columns=0
