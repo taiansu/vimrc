@@ -56,6 +56,7 @@ function! InstallLints(info)
 endfunction
 
 Plug 'neomake/neomake', { 'do': function('InstallLints') }
+" Plug 'w0rp/ale', { 'do': function('InstallLints') }
 
 if has('nvim')
   Plug 'radenling/vim-dispatch-neovim'
@@ -74,7 +75,6 @@ Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
 " Language specified
-Plug 'w0rp/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'mattn/emmet-vim',                    { 'for': ['html', 'eruby', 'eelixir'] }
 Plug 'carlitux/deoplete-ternjs',           { 'for': 'javascript', 'do': 'npm install -g tern' }
@@ -741,6 +741,7 @@ let g:airline_detect_modified=1
 let g:airline#extensions#tagbar#enabled=1
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#neomake#enabled=1
+" let g:airline#extensions#ale#enabled=1
 
 " --- vim-easy-align
 vnoremap <silent><Enter> :EasyAlign<CR>
@@ -905,21 +906,31 @@ let g:alchemist#elixir_erlang_src = "~/Projects/source"
 
 " -- ale
 " autocmd FileType elixir nnoremap <c-]> :ALEGoToDefinition<cr>
-let g:ale_completion_enabled = 0
 
-let g:ale_linters = {}
-let g:ale_linters.scss = ['stylelint']
-let g:ale_linters.css = ['stylelint']
+" let g:ale_set_highlights = 0
+" let g:ale_completion_enabled = 0
 
-let g:ale_fixers = {}
-let g:ale_fixers.javascript = ['eslint']
-let g:ale_fixers.scss = ['stylelint']
-let g:ale_fixers.css = ['stylelint']
-let g:ale_fixers.elm = ['format']
-let g:ale_fixers.ruby = ['rubocop']
-let g:ale_fixers.elixir = ['mix_format']
+" let g:ale_linters = {}
+" let g:ale_linters.scss = ['stylelint']
+" let g:ale_linters.css = ['stylelint']
+" let g:ale_linters.haskell = ['hdevtools', 'hlint']
+" let g:ale_linters.elixir = ['elixir-ls', 'mix']
 
-let g:ale_elixir_elixir_ls_release = '~/Projects/scripts/elixir-ls/rel'
+" let g:ale_fixers = {}
+" let g:ale_fixers.javascript = ['eslint']
+" let g:ale_fixers.jsx = ['eslint', 'stylelint']
+" let g:ale_fixers.scss = ['stylelint']
+" let g:ale_fixers.css = ['stylelint']
+" let g:ale_fixers.elm = ['format']
+" let g:ale_fixers.ruby = ['rubocop']
+" let g:ale_fixers.elixir = ['mix_format']
+
+" let g:ale_elixir_elixir_ls_release = '/Users/tai/Projects/scripts/elixir-ls/rel'
+" let g:ale_elixir_elixir_ls_config = {
+"     \   'elixirLS': {
+"     \     'dialyzerEnabled': v:false,
+"     \   },
+"     \ }
 
 " -- vim-gitgutter
 " let g:gitgutter_override_sign_column_highlight = 0
