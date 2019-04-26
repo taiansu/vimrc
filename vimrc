@@ -19,6 +19,7 @@ Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive',
+Plug 'tpope/vim-sleuth',
 Plug 'majutsushi/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'skywind3000/gutentags_plus'
@@ -36,37 +37,43 @@ Plug 'reedes/vim-pencil'
 Plug 'AndrewRadev/linediff.vim'
 Plug 'chrisbra/unicode.vim'
 Plug 'schickling/vim-bufonly'
+Plug 'kassio/neoterm'
+Plug 'janko-m/vim-test'
 
 " Colorscheme
 " Plug 'guns/xterm-color-table.vim'
-Plug 'taiansu/smyck.vim'
 Plug 'blerins/flattown'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'jacoborus/tender.vim'
 
 " with Dependency
-function! InstallLints(info)
-  if a:info.status == 'installed' || a:info.force
-    if executable('yarn')
-      !yarn global add eslint-plugin-react eslint
-    else
-      !npm install -g eslint-plugin-react eslint
-    endif
-  endif
-endfunction
+" function! InstallLints(info)
+"   if a:info.status == 'installed' || a:info.force
+"     if executable('yarn')
+"       !yarn global add eslint-plugin-react eslint
+"     else
+"       !npm install -g eslint-plugin-react eslint
+"     endif
+"   endif
+" endfunction
+" Plug 'neomake/neomake', { 'do': function('InstallLints') }
 
-Plug 'neomake/neomake', { 'do': function('InstallLints') }
+Plug 'neomake/neomake'
+Plug 'sbdchd/neoformat'
+
 " Plug 'w0rp/ale', { 'do': function('InstallLints') }
+Plug 'autozimu/LanguageClient-neovim', {
+  \ 'branch': 'next',
+  \ 'do': 'bash install.sh'
+  \ }
 
 if has('nvim')
-  Plug 'radenling/vim-dispatch-neovim'
 else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
 " On-demand loading
-Plug 'tpope/vim-dispatch',       { 'on': ['Dispatch', 'Focus', 'Start'] }
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
 Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown' }
 Plug 'junegunn/vim-easy-align',  { 'on': 'EasyAlign' }
@@ -88,6 +95,8 @@ Plug 'vim-erlang/vim-rebar',               { 'for': 'erlang' }
 Plug 'vim-erlang/vim-dialyzer',            { 'for': 'erlang' }
 Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
 Plug 'reasonml-editor/vim-reason-plus'
+Plug 'pearofducks/ansible-vim'
+Plug 'jaawerth/nrun.vim'
 " Plug 'LaTeX-Box-Team/LaTeX-Box',           { 'for': 'latex' }
 
 " Local
@@ -125,6 +134,7 @@ set ttyfast
 if has("gui_running")
   set ttyscroll=3
   set guifont=Source\ Code\ Pro:h15
+  " set guifont=B612\ Mono:h15
 endif
 syntax sync minlines=50
 let g:ruby_path=$HOME . "/.asdf/shims/ruby"
@@ -135,7 +145,6 @@ if exists('$TMUX')
 endif
 
 colorscheme tender
-" let g:airline_theme = 'tender'
 let g:airline_theme='flattown'
 
 " Breaking long lines
@@ -216,6 +225,9 @@ set splitbelow
 set diffopt+=vertical
 
 set undodir=~/.vim/undo
+
+let g:python3_host_prog = '/usr/local/bin/python3'
+let g:python_host_prog = '/usr/local/bin/python'
 
 if has("gui_running")
   " highlight current line
@@ -336,6 +348,12 @@ let g:netrw_special_syntax = 1
 let g:netrw_winsize = -30
 let g:netrw_altv = 1
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" delmarks
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap dm :execute 'delmarks '.nr2char(getchar())<CR>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AUTO SOURCE vimrc AFTER SAVE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -385,10 +403,6 @@ augroup vimrcEx
   autocmd BufEnter,BufWinEnter,WinEnter term://* startinsert
   autocmd BufLeave term://* stopinsert
 
-  " augroup Exfmt
-  "   autocmd BufWritePost *.ex,*.exs silent execute '!mix format %'
-  " augroup End
-
   " Leave the return key alone when in command line windows, since it's used
   " to run commands there.
   autocmd! CmdwinEnter * :unmap <CR>
@@ -397,6 +411,7 @@ augroup vimrcEx
   " Git commit message format
   autocmd Filetype gitcommit setlocal spell textwidth=72
 
+augroup End
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Interact with GUI clipboard
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -468,22 +483,21 @@ command! W call WriteCreatingDirs()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Memorize
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" function! s:Memorize()
-"   if !exists("w:memorized_cmd")
-"     let w:memorized_cmd = put(":)
-"     redraw
-"   endif
-"   execute w:memorized_cmd
-" endfunction
+function! s:Memorize()
+  if !exists("w:memorized_cmd")
+    let w:memorized_cmd = put(":)
+    redraw
+  endif
+  execute w:memorized_cmd
+endfunction
 
-" function! s:MemorizeClear()
-"   unlet w:memorized_cmd
-" endfunction
+function! s:MemorizeClear()
+  unlet w:memorized_cmd
+endfunction
 
-" command! MemorizeClear call <SID>MemorizeClear()
+command! MemorizeClear call <SID>MemorizeClear()
 
-" nnoremap <leader>f Memorize
-nnoremap <leader>f @:
+nnoremap <leader>f Memorize
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TRAILING WHITE SPACES
@@ -645,19 +659,28 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 " 插件設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " --- vim-polyglot
-let g:vim_markdown_conceal = 0
 
 " --- dash.vim
 map <leader>\ :Dash<CR>
 
 " --- fzf.vim
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+if (executable('ag'))
+  let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
+endif
+
 map <M-p> :FZF<CR>
-nnoremap <leader>/ :call fzf#vim#ag(expand('<cword>'), fzf#vim#with_preview('up:50%'), 1)<CR>
-nnoremap <leader>sf :FZF<CR>
-nnoremap <leader>sa :call fzf#vim#ag(expand('<cword>'), fzf#vim#with_preview('right:50%'))<CR>
-nnoremap <leader>st :call fzf#vim#tags(expand('<cword>'))
-nnoremap <leader>sg :GFlies<CR>
+
+if has('nvim')
+  nmap <D-p> :FZF<CR>
+endif
+
+nnoremap <leader>/ :call fzf#vim#ag(expand('<cword>'), fzf#vim#with_preview('up:75%'), 1)<CR>
+" nnoremap <leader>vf :FZF<CR>
+nnoremap <leader>vg :Files<CR>
+nnoremap <leader>va :Ag<CR>
+nnoremap <leader>vb :Buffers<CR>
+nnoremap <leader>vm :Marks<CR>
+nnoremap <leader>vt :call fzf#vim#tags(expand('<cword>'))
 
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
@@ -683,6 +706,7 @@ autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 " --- NERDTree
 autocmd FileType nerdtree :vert resize 30
+let g:NERDTreeQuitOnOpen=1
 
 let NERDTreeIgnore=['\.pyc','\~$','\.swp']
 let NERDTreeShowBookmarks=1
@@ -701,11 +725,6 @@ nnoremap <leader>vr :NERDTreeFocus<CR> :vert res 30<CR><C-w>l
 
 " --- end-wise
 " let g:endwise_no_mappings = 1
-
-" --- vim-dispatch
-nnoremap <leader>e :Dispatch<CR>
-
-" autocmd FileType markdown let b:dispatch = 'octodown %'
 
 " --- JavaScript Syntax
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
@@ -777,27 +796,38 @@ autocmd BufEnter * set completeopt-=preview
 let g:jsx_ext_required = 0
 
 " --- vim-go
-au FileType go nmap <leader>rt <Plug>(go-run-tab)
-au FileType go nmap <leader>rs <Plug>(go-run-split)
-au FileType go nmap <leader>rv <Plug>(go-run-vertical)
+" au FileType go nmap <leader>rt <Plug>(go-run-tab)
+" au FileType go nmap <leader>rs <Plug>(go-run-split)
+" au FileType go nmap <leader>rv <Plug>(go-run-vertical)
 
 " --- vim-markdown
-let g:markdown_fenced_languages = ['html', 'javascript', 'bash=sh', 'ruby']
-let g:markdown_syntax_conceal = 0
+" let g:markdown_fenced_languages = ['html', 'javascript', 'bash=sh', 'ruby']
+" let g:markdown_syntax_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
+
 
 " --- elm-vim
 let g:elm_setup_keybindings = 0
 
 " --- neomake
+let $MIX_ENV = 'test'
 call neomake#configure#automake('nw', 750)
+let b:neomake_javascript_eslint_exe = nrun#Which('eslint')
+let g:flow#flowpath = nrun#Which('flow')
+let g:neomake_c_enabled_makers = ['clang']
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_jsx_enabled_makers = ['eslint']
+let g:neomake_python_enabled_makers = ['flake8']
 let g:neomake_elixir_enabled_makers = ['mix']
 let g:neomake_haskell_enabled_makers = ['hdevtools', 'hlint']
 let g:neomake_markdown_enabled_makers = []
 
 let g:neomake_warning_sign={'text': '⚠', 'texthl': 'WarningMsg'}
 let g:neomake_highlight_columns=0
+
+" --- Neoformat
+nnoremap <leader>vf :Neoformat<CR>
+let g:neoformat_enabled_javascript = ['prettier', 'prettier-eslint']
 
 " --- LaTeX-Box
 " let s:extfname = expand("%:e")
@@ -904,6 +934,30 @@ let g:gutentags_ctags_executable_haskell = 'gutenhasktags'
 " --- alchemist.vim
 let g:alchemist#elixir_erlang_src = "~/Projects/source"
 
+function! ToggleMixFormatAutoGroup()
+  if !exists('#MixFormatAutogroup#BufWritePost')
+    autocmd BufWritePost *.ex,*.exs :silent !mix format
+  else
+    augroup MixFormatAutogroup
+      autocmd!
+    augroup END
+  endif
+endfunction
+
+nnoremap <leader>xt :call ToggleMixFormatAutoGroup()<cr>
+
+" ---
+if has("nvim")
+  let test#strategy = "neovim"
+else
+  let test#strategy = "vimterminal"
+endif
+
+" --- LanguageClient
+" let g:LanguageClient_serverCommands = {
+"       \ 'reason': [],
+"       \ }
+
 " -- ale
 " autocmd FileType elixir nnoremap <c-]> :ALEGoToDefinition<cr>
 
@@ -941,6 +995,6 @@ let g:alchemist#elixir_erlang_src = "~/Projects/source"
 "       \ call gittgutter#highlight#define_sign_column_highlight()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: g j k l m o p t u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
+" Free leader keys: g j k l m o p r s t u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim: set ft=vim :
