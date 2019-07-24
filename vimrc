@@ -39,6 +39,8 @@ Plug 'chrisbra/unicode.vim'
 Plug 'schickling/vim-bufonly'
 Plug 'kassio/neoterm'
 Plug 'janko-m/vim-test'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " Colorscheme
 " Plug 'guns/xterm-color-table.vim'
@@ -77,9 +79,9 @@ endif
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
 Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown' }
 Plug 'junegunn/vim-easy-align',  { 'on': 'EasyAlign' }
-Plug 'Shougo/deoplete.nvim',           {'do': ':UpdateRemotePlugins'}
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/deoplete.nvim',     {'do': ':UpdateRemotePlugins'}
+Plug 'tbodt/deoplete-tabnine',   {'do': './install.sh'}
+" Plug 'zxqfl/tabnine-vim'
 
 " Language specified
 Plug 'sheerun/vim-polyglot'
@@ -770,9 +772,9 @@ vnoremap <silent><Enter> :EasyAlign<CR>
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 " let g:neosnippet#enable_completed_snippet = 1
 
-imap <M-m> <Plug>(neosnippet_expand_or_jump)
-smap <M-m> <Plug>(neosnippet_expand_or_jump)
-xmap <M-m> <Plug>(neosnippet_expand_target)
+" imap <M-m> <Plug>(neosnippet_expand_or_jump)
+" smap <M-m> <Plug>(neosnippet_expand_or_jump)
+" xmap <M-m> <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
@@ -785,9 +787,15 @@ xmap <M-m> <Plug>(neosnippet_expand_target)
 " \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
+" if has('conceal')
+"   set conceallevel=2 concealcursor=niv
+" endif
+
+
+" --- ultisnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<m-tab>"
 
 " --- tern_for_vim
 autocmd BufEnter * set completeopt-=preview
@@ -812,12 +820,12 @@ let g:elm_setup_keybindings = 0
 " --- neomake
 let $MIX_ENV = 'test'
 call neomake#configure#automake('nw', 750)
-let b:neomake_javascript_eslint_exe = nrun#Which('eslint')
-let g:flow#flowpath = nrun#Which('flow')
+" let b:neomake_javascript_eslint_exe = nrun#Which('eslint')
+" let g:flow#flowpath = nrun#Which('flow')
 let g:neomake_c_enabled_makers = ['clang']
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_jsx_enabled_makers = ['eslint']
-let g:neomake_python_enabled_makers = ['flake8']
+let g:neomake_javascript_enabled_makers = []
+let g:neomake_jsx_enabled_makers = []
+let g:neomake_python_enabled_makers = ['mypy', 'pep8']
 let g:neomake_elixir_enabled_makers = ['mix']
 let g:neomake_haskell_enabled_makers = ['hdevtools', 'hlint']
 let g:neomake_markdown_enabled_makers = []
@@ -827,7 +835,7 @@ let g:neomake_highlight_columns=0
 
 " --- Neoformat
 nnoremap <leader>vf :Neoformat<CR>
-let g:neoformat_enabled_javascript = ['prettier', 'prettier-eslint']
+let g:neoformat_enabled_javascript = ['prettier']
 
 " --- LaTeX-Box
 " let s:extfname = expand("%:e")
