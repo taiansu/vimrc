@@ -666,13 +666,15 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 map <leader>\ :Dash<CR>
 
 " --- fzf.vim
-if (executable('ag'))
+if (executable('fd'))
+  let $FZF_DEFAULT_COMMAND = 'fd --type f'
+elseif (executable('ag'))
   let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 endif
 
 map <M-p> :FZF<CR>
 
-if has('nvim')
+if has('mvim')
   nmap <D-p> :FZF<CR>
 endif
 
@@ -965,34 +967,6 @@ endif
 " let g:LanguageClient_serverCommands = {
 "       \ 'reason': [],
 "       \ }
-
-" -- ale
-" autocmd FileType elixir nnoremap <c-]> :ALEGoToDefinition<cr>
-
-" let g:ale_set_highlights = 0
-" let g:ale_completion_enabled = 0
-
-" let g:ale_linters = {}
-" let g:ale_linters.scss = ['stylelint']
-" let g:ale_linters.css = ['stylelint']
-" let g:ale_linters.haskell = ['hdevtools', 'hlint']
-" let g:ale_linters.elixir = ['elixir-ls', 'mix']
-
-" let g:ale_fixers = {}
-" let g:ale_fixers.javascript = ['eslint']
-" let g:ale_fixers.jsx = ['eslint', 'stylelint']
-" let g:ale_fixers.scss = ['stylelint']
-" let g:ale_fixers.css = ['stylelint']
-" let g:ale_fixers.elm = ['format']
-" let g:ale_fixers.ruby = ['rubocop']
-" let g:ale_fixers.elixir = ['mix_format']
-
-" let g:ale_elixir_elixir_ls_release = '/Users/tai/Projects/scripts/elixir-ls/rel'
-" let g:ale_elixir_elixir_ls_config = {
-"     \   'elixirLS': {
-"     \     'dialyzerEnabled': v:false,
-"     \   },
-"     \ }
 
 " -- vim-gitgutter
 " let g:gitgutter_override_sign_column_highlight = 0
