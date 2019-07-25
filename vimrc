@@ -39,7 +39,7 @@ Plug 'chrisbra/unicode.vim'
 Plug 'schickling/vim-bufonly'
 Plug 'kassio/neoterm'
 Plug 'janko-m/vim-test'
-Plug 'SirVer/ultisnips'
+Plug 'Shougo/neosnippet.vim'
 Plug 'honza/vim-snippets'
 
 " Colorscheme
@@ -771,33 +771,32 @@ vnoremap <silent><Enter> :EasyAlign<CR>
 
 " --- neosnippets
 " Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-" let g:neosnippet#enable_completed_snippet = 1
+let g:neosnippet#enable_completed_snippet = 1
 
-" imap <M-m> <Plug>(neosnippet_expand_or_jump)
-" smap <M-m> <Plug>(neosnippet_expand_or_jump)
-" xmap <M-m> <Plug>(neosnippet_expand_target)
+let g:neosnippet#disable_runtime_snippets = {
+\ '_' : 1,
+\ }
+
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+
 " imap <expr><TAB>
 "  \ pumvisible() ? "\<C-n>" :
 "  \ neosnippet#expandable_or_jumpable() ?
 "  \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
 " smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 " \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " For conceal markers.
-" if has('conceal')
-"   set conceallevel=2 concealcursor=niv
-" endif
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
 
-
-" --- ultisnips
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<m-tab>"
+let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/snippets'
 
 " --- tern_for_vim
 autocmd BufEnter * set completeopt-=preview
