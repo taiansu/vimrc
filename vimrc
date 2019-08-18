@@ -561,6 +561,10 @@ nnoremap <leader><leader> <C-^>
 " Use + after * to search two words
 nnoremap <silent> + :let @/.= '\\|\<'.expand('<cword>').'\>'<CR>n
 
+" paste to line below/above
+nmap <silent><leader>p ]p
+nmap <silent><leader>P [p
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BUFFER, TAB AND SPLIT MOTIONS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -976,6 +980,6 @@ endif
 "       \ call gittgutter#highlight#define_sign_column_highlight()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: g j k l m o p r s t u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
+" Free leader keys: g j k l m o r s t u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim: set ft=vim :
