@@ -800,7 +800,7 @@ if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
-let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/snippets'
+let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/UltiSnips'
 
 " --- tern_for_vim
 autocmd BufEnter * set completeopt-=preview
@@ -833,6 +833,7 @@ let g:neomake_jsx_enabled_makers = []
 let g:neomake_python_enabled_makers = ['mypy', 'pep8']
 let g:neomake_elixir_enabled_makers = ['mix']
 let g:neomake_haskell_enabled_makers = ['hdevtools', 'hlint']
+let g:neomake_rust_enabled_makers = ['cargo']
 let g:neomake_markdown_enabled_makers = []
 
 let g:neomake_warning_sign={'text': '⚠', 'texthl': 'WarningMsg'}
