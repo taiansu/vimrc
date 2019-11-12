@@ -880,6 +880,7 @@ let g:tagbar_type_haskell = {
         \  'c_a:constructor accessors:1:1',
         \  'ft:function types:1:1',
         \  'fi:function implementations:0:1',
+        \  'i:instance:0:1',
         \  'o:others:0:1'
     \ ],
     \ 'sro'        : '.',
@@ -887,13 +888,15 @@ let g:tagbar_type_haskell = {
         \ 'm' : 'module',
         \ 'c' : 'class',
         \ 'd' : 'data',
-        \ 't' : 'type'
+        \ 't' : 'type',
+        \ 'i' : 'instance'
     \ },
     \ 'scope2kind' : {
-        \ 'module' : 'm',
-        \ 'class'  : 'c',
-        \ 'data'   : 'd',
-        \ 'type'   : 't'
+        \ 'module'   : 'm',
+        \ 'class'    : 'c',
+        \ 'data'     : 'd',
+        \ 'type'     : 't',
+        \ 'instance' : 'i'
     \ }
 \ }
 
