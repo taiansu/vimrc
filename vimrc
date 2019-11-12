@@ -795,7 +795,7 @@ if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
-let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/UltiSnips'
+let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/snippets'
 
 " --- tern_for_vim
 autocmd BufEnter * set completeopt-=preview
