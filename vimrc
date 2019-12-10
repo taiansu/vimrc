@@ -39,7 +39,21 @@ Plug 'chrisbra/unicode.vim'
 Plug 'schickling/vim-bufonly'
 Plug 'kassio/neoterm'
 Plug 'janko-m/vim-test'
-Plug 'Shougo/neosnippet.vim'
+
+" coc
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'} " mru and stuff
+Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'} " color highlighting
+Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-rls'
+Plug 'amiralies/coc-elixir'
+
 Plug 'honza/vim-snippets'
 
 " Colorscheme
@@ -47,43 +61,19 @@ Plug 'honza/vim-snippets'
 Plug 'blerins/flattown'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'jacoborus/tender.vim'
+Plug 'dim13/smyck.vim'
 
-" with Dependency
-" function! InstallLints(info)
-"   if a:info.status == 'installed' || a:info.force
-"     if executable('yarn')
-"       !yarn global add eslint-plugin-react eslint
-"     else
-"       !npm install -g eslint-plugin-react eslint
-"     endif
-"   endif
-" endfunction
-" Plug 'neomake/neomake', { 'do': function('InstallLints') }
-
-Plug 'neomake/neomake'
 Plug 'sbdchd/neoformat'
-
-
-if has('nvim')
-else
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
 
 " On-demand loading
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
 Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown' }
 Plug 'junegunn/vim-easy-align',  { 'on': 'EasyAlign' }
-Plug 'Shougo/deoplete.nvim',     {'do': ':UpdateRemotePlugins'}
-Plug 'tbodt/deoplete-tabnine',   {'do': './install.sh'}
-" Plug 'zxqfl/tabnine-vim'
 
 " Language specified
 Plug 'sheerun/vim-polyglot'
 Plug 'mattn/emmet-vim',                    { 'for': ['html', 'eruby', 'eelixir'] }
-Plug 'carlitux/deoplete-ternjs',           { 'for': 'javascript', 'do': 'npm install -g tern' }
 Plug 'Vimjas/vim-python-pep8-indent',      { 'for': 'python' }
-Plug 'slashmili/alchemist.vim',            { 'for': ['elixir', 'eelixir'] }
 Plug 'vim-erlang/vim-erlang-compiler',     { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-skeletons',    { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-omnicomplete', { 'for': 'erlang' }
@@ -92,11 +82,9 @@ Plug 'vim-erlang/vim-rebar',               { 'for': 'erlang' }
 Plug 'vim-erlang/vim-dialyzer',            { 'for': 'erlang' }
 Plug 'bitc/vim-hdevtools',                 { 'for': 'haskell' }
 Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
-" Plug 'rob-b/gutenhasktags',                { 'for': 'haskell' }
 Plug 'reasonml-editor/vim-reason-plus'
 Plug 'pearofducks/ansible-vim'
 Plug 'jaawerth/nrun.vim'
-" Plug 'LaTeX-Box-Team/LaTeX-Box',           { 'for': 'latex' }
 
 " Local
 
@@ -205,7 +193,7 @@ set linebreak
 " set showbreak=↪
 set showbreak=⇘
 " Always edit file, even when swap file is found
-set shortmess+=A
+set shortmess+=Ac
 set winheight=5
 set winminheight=5
 set equalalways
@@ -450,48 +438,11 @@ nmap <leader>! :sil !
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 command! Suw w !sudo tee % > /dev/null
 
-command! -nargs=1 F call QuickFileType(<f-args>)
-function! QuickFileType(file_type)
-    let l:file_type = a:file_type
-
-    if l:file_type == 'j'
-        let l:file_type = 'javascript'
-    elseif l:file_type == 'r'
-        let l:file_type = 'ruby'
-    elseif l:file_type == 'e'
-        let l:file_type = 'elixir'
-    elseif l:file_type == 'h'
-        let l:file_type = 'html'
-    elseif l:file_type == 'm'
-        let l:file_type = 'markdown'
-    endif
-    exec "setf ".l:file_type
-endfunction
-
 function! WriteCreatingDirs()
     call mkdir(expand('%:h'), 'p')
     write
 endfunction
 command! W call WriteCreatingDirs()
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Memorize
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! s:Memorize()
-  if !exists("w:memorized_cmd")
-    let w:memorized_cmd = put(":)
-    redraw
-  endif
-  execute w:memorized_cmd
-endfunction
-
-function! s:MemorizeClear()
-  unlet w:memorized_cmd
-endfunction
-
-command! MemorizeClear call <SID>MemorizeClear()
-
-nnoremap <leader>f Memorize
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TRAILING WHITE SPACES
@@ -542,9 +493,6 @@ nnoremap N Nzz
 inoremap <C-c> <ESC>
 inoremap <C-[> <ESC>
 nnoremap <leader><leader> <C-^>
-
-" format json
-" command! Json !python -m json.tool
 
 " Enter command mode with one key stroke
 " nnoremap ; :
@@ -598,37 +546,11 @@ function! RenameFile()
     if new_name != '' && new_name != old_name
         exec ':saveas ' . new_name
         exec ':silent !rm ' . old_name
+        exec ':bd'
         redraw!
     endif
 endfunction
 map <leader>n :call RenameFile()<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" PROMOTE VARIABLE TO RSPEC LET
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" function! PromoteToLet()
-"   :normal! dd
-"   " :exec '?^\s*it\>'
-"   :normal! P
-"   :.s/\(\w\+\) = \(.*\)$/let(:\1) { \2 }/
-"   :normal ==
-" endfunction
-" command! PromoteToLet :call PromoteToLet()
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" OpenChangedFiles COMMAND
-" Open a split for each dirty file in git
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! OpenChangedFiles()
-  only " Close all windows, unless they're modified
-  let status = system('git status -s | grep "^ \?\(M\|A\|UU\)" | sed "s/^.\{3\}//"')
-  let filenames = split(status, "\n")
-  exec "edit " . filenames[0]
-  for filename in filenames[1:]
-    exec "sp " . filename
-  endfor
-endfunction
-command! OpenChangedFiles :call OpenChangedFiles()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " allow multiple indentation/deindentation in visual mode
@@ -646,17 +568,51 @@ map <leader>lj :lnext<CR>
 map <leader>lk :lprevious<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ?
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Addons Settings
 " 插件設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" --- vim-polyglot
+" -- coc
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? coc#_select_confirm() :
+  \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+highlight CocFloating ctermfg=235 ctermbg=81 guifg=#282828 guibg=#36393C
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for format selected region
+xmap <leader>vf  <Plug>(coc-format-selected)
+nmap <leader>vf  <Plug>(coc-format-selected)
 
 " --- dash.vim
 map <leader>\ :Dash<CR>
@@ -668,10 +624,11 @@ elseif (executable('ag'))
   let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 endif
 
-map <M-p> :FZF<CR>
 
 if has('mvim')
   nmap <D-p> :FZF<CR>
+else
+  map <M-p> :FZF<CR>
 endif
 
 nnoremap <leader>/ :call fzf#vim#ag(expand('<cword>'), fzf#vim#with_preview('up:75%'), 1)<CR>
@@ -723,9 +680,6 @@ endfunction
 
 nnoremap <leader>vr :NERDTreeFocus<CR> :vert res 30<CR><C-w>l
 
-" --- end-wise
-" let g:endwise_no_mappings = 1
-
 " --- JavaScript Syntax
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
 
@@ -736,12 +690,6 @@ let g:user_emmet_settings = {
     \  },
   \}
 " let g:user_emmet_leader_key='<C-y>'
-
-" let g:user_emmet_install_global = 0
-" autocmd FileType html,eelixir,erb,vue,css EmmetInstall
-
-" --- vim-marked
-command! Mo MarkedOpen
 
 " --- vim-airline
 if !exists('g:airline_symbols')
@@ -759,40 +707,9 @@ let g:airline_symbols.linenr = '¶ '
 let g:airline_detect_modified=1
 let g:airline#extensions#tagbar#enabled=1
 let g:airline#extensions#branch#enabled=1
-let g:airline#extensions#neomake#enabled=1
-" let g:airline#extensions#ale#enabled=1
 
 " --- vim-easy-align
 vnoremap <silent><Enter> :EasyAlign<CR>
-
-" --- neosnippets
-" Plugin key-mappings.
-let g:neosnippet#enable_completed_snippet = 1
-
-let g:neosnippet#disable_runtime_snippets = {
-\ '_' : 1,
-\ }
-
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-
-" imap <expr><TAB>
-"  \ pumvisible() ? "\<C-n>" :
-"  \ neosnippet#expandable_or_jumpable() ?
-"  \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-" \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-
-let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/snippets'
 
 " --- tern_for_vim
 autocmd BufEnter * set completeopt-=preview
@@ -800,46 +717,12 @@ autocmd BufEnter * set completeopt-=preview
 " --- vim-jsx
 let g:jsx_ext_required = 0
 
-" --- vim-go
-" au FileType go nmap <leader>rt <Plug>(go-run-tab)
-" au FileType go nmap <leader>rs <Plug>(go-run-split)
-" au FileType go nmap <leader>rv <Plug>(go-run-vertical)
-
 " --- vim-markdown
-" let g:markdown_fenced_languages = ['html', 'javascript', 'bash=sh', 'ruby']
-" let g:markdown_syntax_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 
-
-" --- elm-vim
-let g:elm_setup_keybindings = 0
-
-" --- neomake
-let $MIX_ENV = 'test'
-call neomake#configure#automake('nw', 750)
-" let b:neomake_javascript_eslint_exe = nrun#Which('eslint')
-" let g:flow#flowpath = nrun#Which('flow')
-let g:neomake_c_enabled_makers = ['clang']
-let g:neomake_javascript_enabled_makers = []
-let g:neomake_jsx_enabled_makers = []
-let g:neomake_python_enabled_makers = ['mypy', 'pep8']
-let g:neomake_elixir_enabled_makers = ['mix']
-let g:neomake_haskell_enabled_makers = ['hdevtools', 'hlint']
-let g:neomake_rust_enabled_makers = ['cargo']
-let g:neomake_markdown_enabled_makers = []
-
-let g:neomake_warning_sign={'text': '⚠', 'texthl': 'WarningMsg'}
-let g:neomake_highlight_columns=0
-
 " --- Neoformat
-nnoremap <leader>vf :Neoformat<CR>
+nnoremap <leader>vr :Neoformat<CR>
 let g:neoformat_enabled_javascript = ['prettier']
-
-" --- LaTeX-Box
-" let s:extfname = expand("%:e")
-" if s:extfname ==? "tex"
-"   let g:LatexBox_split_type="new"
-" endif
 
 " --- tagbar
 let g:tagbar_left=1
@@ -907,30 +790,6 @@ let g:tagbar_type_markdown = {
 
 nmap <silent><leader>t :TagbarToggle<CR>
 
-" --- deoplete.nvim
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#max_list=15
-call deoplete#custom#option('smart_case', v:true)
-call deoplete#custom#source('alchemist', 'rank', 500)
-call deoplete#custom#source('ultisnips', 'rank', 700)
-
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>cr_with_indent()<CR>
-function! s:cr_with_indent() abort
-  return deoplete#close_popup() . "\<CR>"
-endfunction
-
-inoremap <silent><expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ deoplete#mappings#manual_complete()
-
-function! s:check_back_space() abort "{{{
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction"}}}
-
 " --- vim-gutentags
 " let g:gutentags_trace = 1
 let g:gutentags_generate_on_new = 1
@@ -997,21 +856,6 @@ let g:gutentags_ctags_exclude = [
       \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
       \ ]
 
-" --- alchemist.vim
-let g:alchemist#elixir_erlang_src = "~/Projects/source"
-
-function! ToggleMixFormatAutoGroup()
-  if !exists('#MixFormatAutogroup#BufWritePost')
-    autocmd BufWritePost *.ex,*.exs :silent !mix format
-  else
-    augroup MixFormatAutogroup
-      autocmd!
-    augroup END
-  endif
-endfunction
-
-nnoremap <leader>xt :call ToggleMixFormatAutoGroup()<cr>
-
 " --- hdevtools
 let g:hdevtools_stack = 1
 
@@ -1022,15 +866,7 @@ else
   let test#strategy = "vimterminal"
 endif
 
-" -- vim-gitgutter
-" let g:gitgutter_override_sign_column_highlight = 0
-
-" autocmd FileType markdown set foldcolumn=12 textwidth=74
-
-" autocmd VimEnter *
-"       \ call gittgutter#highlight#define_sign_column_highlight()
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: g j k l m o r s t u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
+" Free leader keys: f g j k l m o r s t u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim: set ft=vim :
