@@ -39,14 +39,23 @@ Plug 'chrisbra/unicode.vim'
 Plug 'schickling/vim-bufonly'
 Plug 'kassio/neoterm'
 Plug 'janko-m/vim-test'
-Plug 'Shougo/neosnippet.vim'
-Plug 'honza/vim-snippets'
+
+" coc
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'} " mru and stuff
+Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'} " color highlighting
 
 " Colorscheme
 " Plug 'guns/xterm-color-table.vim'
 Plug 'blerins/flattown'
 Plug 'jonathanfilip/vim-lucius'
-Plug 'jacoborus/tender.vim'
+Plug 'dim13/smyck.vim'
 
 Plug 'sbdchd/neoformat'
 
@@ -116,7 +125,7 @@ if exists('$TMUX')
   set term=screen-256-color
 endif
 
-colorscheme tender
+colorscheme smyck
 let g:airline_theme='flattown'
 
 " Breaking long lines
