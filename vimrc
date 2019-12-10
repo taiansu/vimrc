@@ -63,11 +63,6 @@ Plug 'jacoborus/tender.vim'
 Plug 'neomake/neomake'
 Plug 'sbdchd/neoformat'
 
-" Plug 'w0rp/ale', { 'do': function('InstallLints') }
-Plug 'autozimu/LanguageClient-neovim', {
-  \ 'branch': 'next',
-  \ 'do': 'bash install.sh'
-  \ }
 
 if has('nvim')
 else
@@ -1026,11 +1021,6 @@ if has("nvim")
 else
   let test#strategy = "vimterminal"
 endif
-
-" --- LanguageClient
-" let g:LanguageClient_serverCommands = {
-"       \ 'reason': [],
-"       \ }
 
 " -- vim-gitgutter
 " let g:gitgutter_override_sign_column_highlight = 0
