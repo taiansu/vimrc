@@ -1,6 +1,10 @@
 {
-  "elixir.pathToElixirLS": "~/Projects/source/elixir-ls/release/language_server.sh",
+  "codeLens.enable": true,
   "languageserver": {
+    "elixirLS": {
+      "command": "~/Projects/source/elixir-ls/release/language_server.sh",
+      "filetypes": ["elixir", "eelixir"]
+    },
     "haskell": {
       "command": "hie-wrapper",
       "rootPatterns": [
