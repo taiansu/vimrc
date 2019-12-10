@@ -51,6 +51,8 @@ Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'} " mru and stuff
 Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'} " color highlighting
 
+Plug 'honza/vim-snippets'
+
 " Colorscheme
 " Plug 'guns/xterm-color-table.vim'
 Plug 'blerins/flattown'
@@ -565,6 +567,20 @@ map <leader>lk :lprevious<CR>
 " Addons Settings
 " 插件設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" -- coc
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? coc#_select_confirm() :
+  \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
 " --- dash.vim
 map <leader>\ :Dash<CR>
 
