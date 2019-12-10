@@ -50,6 +50,9 @@ Plug 'neoclide/coc-tslint', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'} " mru and stuff
 Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'} " color highlighting
+Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-rls'
+Plug 'amiralies/coc-elixir'
 
 Plug 'honza/vim-snippets'
 
@@ -57,6 +60,7 @@ Plug 'honza/vim-snippets'
 " Plug 'guns/xterm-color-table.vim'
 Plug 'blerins/flattown'
 Plug 'jonathanfilip/vim-lucius'
+Plug 'jacoborus/tender.vim'
 Plug 'dim13/smyck.vim'
 
 Plug 'sbdchd/neoformat'
@@ -127,7 +131,7 @@ if exists('$TMUX')
   set term=screen-256-color
 endif
 
-colorscheme smyck
+colorscheme tender
 let g:airline_theme='flattown'
 
 " Breaking long lines
@@ -189,7 +193,7 @@ set linebreak
 " set showbreak=↪
 set showbreak=⇘
 " Always edit file, even when swap file is found
-set shortmess+=A
+set shortmess+=Ac
 set winheight=5
 set winminheight=5
 set equalalways
@@ -580,6 +584,35 @@ function! s:check_back_space() abort
 endfunction
 
 let g:coc_snippet_next = '<tab>'
+highlight CocFloating ctermfg=235 ctermbg=81 guifg=#282828 guibg=#36393C
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for format selected region
+xmap <leader>vf  <Plug>(coc-format-selected)
+nmap <leader>vf  <Plug>(coc-format-selected)
 
 " --- dash.vim
 map <leader>\ :Dash<CR>
@@ -688,7 +721,7 @@ let g:jsx_ext_required = 0
 let g:vim_markdown_conceal_code_blocks = 0
 
 " --- Neoformat
-nnoremap <leader>vf :Neoformat<CR>
+nnoremap <leader>vr :Neoformat<CR>
 let g:neoformat_enabled_javascript = ['prettier']
 
 " --- tagbar
