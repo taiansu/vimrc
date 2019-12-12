@@ -146,7 +146,7 @@ let g:airline_theme='flattown'
 syntax on
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
-inoremap # X#
+
 " wrap text if lines longer then the lenght of window
 set wrap
 set showmatch
