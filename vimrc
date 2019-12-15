@@ -187,9 +187,8 @@ set magic
 " Also load indent files, to automatically do language-dependent indenting.
 " use emacs-style tab completion when selecting files, etc
 set wildmode=longest,list
-set foldmethod=indent
-set foldlevelstart=3
-set foldnestmax=3
+set foldmethod=manual
+set foldlevelstart=99
 set linebreak
 " set showbreak=↪
 set showbreak=⇘
@@ -860,12 +859,26 @@ let g:gutentags_ctags_exclude = [
 " --- hdevtools
 let g:hdevtools_stack = 1
 
-" ---
+" --- terminal
 if has("nvim")
   let test#strategy = "neovim"
 else
   let test#strategy = "vimterminal"
 endif
+
+" --- FastFold
+  let g:fastfold_savehook = 1
+  let g:fastfold_fdmhook = 0
+  nmap zuz <Plug>(FastFoldUpdate)
+  let g:fastfold_fold_command_suffixes = ['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N', 'f']
+
+  let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+
+  let g:tex_fold_enabled=1
+  let g:vimsyn_folding='af'
+  let g:xml_syntax_folding = 1
+  let g:javaScript_fold = 1
+  let g:ruby_fold = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: f g j k l m o r s t u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
