@@ -508,6 +508,9 @@ nnoremap <silent> + :let @/.= '\\|\<'.expand('<cword>').'\>'<CR>n
 nmap <silent><leader>p ]p
 nmap <silent><leader>P [p
 
+" map fold trigger to zz
+nnoremap zz za
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BUFFER, TAB AND SPLIT MOTIONS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
