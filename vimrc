@@ -343,6 +343,15 @@ let g:netrw_altv = 1
 " autocmd bufwritepost vimrc source $MYVIMRC
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" tsx filetype
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup SyntaxSettings
+    autocmd! BufNewFile,BufRead,BufEnter *.ex,*.exs set ft=elixir
+    autocmd! BufNewFile,BufRead,BufEnter *.ls       set ft=ls
+    autocmd! BufNewFile,BufRead *.scss,*.sass       set ft=scss.css
+    autocmd! BufNewFile,BufRead *.md                set ft=markdown
+    autocmd! BufNewFile,BufRead *.tsx               set ft=typescript.typescriptreact
+augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
@@ -355,11 +364,6 @@ augroup vimrcEx
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal g`\"" |
     \ endif
-
-  autocmd! BufNewFile,BufRead,BufEnter *.ex,*.exs set ft=elixir
-  autocmd! BufNewFile,BufRead,BufEnter *.ls       set ft=ls
-  autocmd! BufNewFile,BufRead *.scss,*.sass       set ft=scss.css
-  autocmd! BufNewFile,BufRead *.md                set ft=markdown
 
   " Markdown syntax highlight is often wrong
   " you might like to disable it.
