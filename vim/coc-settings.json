@@ -1,6 +1,7 @@
 {
   "codeLens.enable": true,
   "elixir.pathToElixirLS": "~/Projects/source/elixir-ls/release/language_server.sh",
+  "signature.target": "echo",
   "languageserver": {
     "elixirLS": {
       "command": "~/Projects/source/elixir-ls/release/language_server.sh",
