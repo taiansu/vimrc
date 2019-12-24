@@ -64,6 +64,7 @@ Plug 'jacoborus/tender.vim'
 Plug 'dim13/smyck.vim'
 
 Plug 'sbdchd/neoformat'
+Plug 'liuchengxu/vim-which-key'
 
 " On-demand loading
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
@@ -165,7 +166,7 @@ set noerrorbells
 set vb t_vb=
 set title
 " set keyboard timeout
-set tm=500
+set tm=300
 " This makes RVM work inside Vim. I have no idea why.
 set shell=zsh
 " Prevent Vim from clobbering the scrollback buffer. See
@@ -423,6 +424,7 @@ set tabstop=2 softtabstop=2 shiftwidth=2
 " set listchars=tab:▸\ ,eol:¬
 
 let mapleader="\<space>" "you may like ',' or '\'
+let maplocalleader="\\"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SHOW INVISIBLES
@@ -925,7 +927,23 @@ else
   let test#strategy = "vimterminal"
 endif
 
+" --- vim-which-key
+call which_key#register('<Space>', "g:which_key_map")
+
+nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+
+" Define prefix dictionary
+let g:which_key_map =  {}
+
+autocmd FileType which_key highlight WhichKey cterm=bold ctermbg=DarkGray gui=bold ctermfg=7 guifg=LightSkyBlue3
+autocmd FileType which_key highlight WhichKeySeperator ctermbg=DarkGray ctermfg=7 guifg=Silver
+autocmd FileType which_key highlight WhichKeyGroup cterm=bold ctermbg=DarkGray ctermfg=7
+autocmd FileType which_key highlight WhichKeyDesc ctermbg=DarkGray ctermfg=7
+autocmd FileType which_key highlight WhichKeyFloating ctermbg=DarkGray ctermfg=7 guibg=Gray25
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: f g j k l m o r s t u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
+" Free leader keys: a e f g i j k l m o r s t u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim: set ft=vim :
