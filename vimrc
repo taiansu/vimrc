@@ -619,8 +619,8 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for format selected region
-xmap <leader>vf  <Plug>(coc-format-selected)
-nmap <leader>vf  <Plug>(coc-format-selected)
+xmap <leader>vc  <Plug>(coc-format-selected)
+nmap <leader>vc  <Plug>(coc-format-selected)
 
 " --- dash.vim
 map <leader>\ :Dash<CR>
@@ -729,7 +729,7 @@ let g:jsx_ext_required = 0
 let g:vim_markdown_conceal_code_blocks = 0
 
 " --- Neoformat
-nnoremap <leader>vr :Neoformat<CR>
+nnoremap <leader>vd :Neoformat<CR>
 let g:neoformat_enabled_javascript = ['prettier']
 
 " --- tagbar
