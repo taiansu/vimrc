@@ -174,8 +174,9 @@ set shell=zsh
 set t_ti= t_te=
 " Store temporary files in a central spot
 set nobackup
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backupdir=~/.vim/tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim/tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set undodir=~/.vim/undo
 set whichwrap+=<,>,h,l
 " display incomplete commands
 set showcmd
@@ -211,7 +212,6 @@ set splitbelow
 " Make fugitive diff split vertical
 set diffopt+=vertical
 
-set undodir=~/.vim/undo
 
 let g:python3_host_prog = '/usr/local/bin/python3'
 let g:python_host_prog = '/usr/local/bin/python'
