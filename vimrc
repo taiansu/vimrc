@@ -27,8 +27,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-indent'
 Plug 'vim-scripts/matchit.zip'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'kshenoy/vim-signature'
 Plug 'reedes/vim-pencil'
@@ -45,7 +44,6 @@ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
 " Colorscheme
 " Plug 'guns/xterm-color-table.vim'
-Plug 'blerins/flattown'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'jacoborus/tender.vim'
 Plug 'dim13/smyck.vim'
@@ -121,7 +119,6 @@ if exists('$TMUX')
 endif
 
 colorscheme tender
-let g:airline_theme='flattown'
 
 " Breaking long lines
 " gq{motion} % format the line that {motion} moves over
@@ -687,22 +684,35 @@ let g:user_emmet_settings = {
   \}
 " let g:user_emmet_leader_key='<C-y>'
 
-" --- vim-airline
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
+" --- lightline.vim
+let g:lightline = {
+      \ 'colorscheme': 'Tomorrow_Night',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified', 'tagbar'] ],
+      \   'right': [['fileencoding', 'percent', 'lineinfo'], ['filetype' ] ]
+      \ },
+      \ 'component': {
+      \   'lineinfo': ' %3l:%-2v',
+      \   'tagbar': '%{tagbar#currenttag("%s", "", "f")}',
+      \ },
+      \ 'component_function': {
+      \   'blame': 'LightlineGitBlame',
+      \   'gitbranch': 'fugitive#head'
+      \ }
+      \ }
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline#extensions#tabline#buffer_min_count = 1
+let g:tagbar_status_func = 'TagbarStatusFunc'
 
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_symbols.branch = '⎇ '
-let g:airline_symbols.linenr = '¶ '
-let g:airline_detect_modified=1
-let g:airline#extensions#tagbar#enabled=1
-let g:airline#extensions#branch#enabled=1
+function! TagbarStatusFunc(current, sort, fname, ...) abort
+    let g:lightline.fname = a:fname
+  return lightline#statusline(0)
+endfunction
+
+function! LightlineGitBlame() abort
+  let blame = get(b:, 'coc_git_blame', '')
+  " return blame
+  return winwidth(0) > 120 ? blame : ''
+endfunction
 
 " --- vim-easy-align
 vnoremap <silent><Enter> :EasyAlign<CR>
