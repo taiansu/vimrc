@@ -689,17 +689,44 @@ let g:lightline = {
       \ 'colorscheme': 'Tomorrow_Night',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified', 'tagbar'] ],
-      \   'right': [['fileencoding', 'percent', 'lineinfo'], ['filetype' ] ]
+      \   'right': [['blame', 'fileencoding', 'percent', 'lineinfo'], ['filetype' ] ]
       \ },
       \ 'component': {
-      \   'lineinfo': ' %3l:%-2v',
       \   'tagbar': '%{tagbar#currenttag("%s", "", "f")}',
       \ },
       \ 'component_function': {
+      \   'mode': 'LightLineMode',
+      \   'modified': 'LightLineModified',
+      \   'filename': 'LightLineFilename',
+      \   'lineinfo': 'LightLineLineinfo',
       \   'blame': 'LightlineGitBlame',
       \   'gitbranch': 'fugitive#head'
       \ }
       \ }
+
+function! LightLineMode()
+  return &ft == 'tagbar' ? '' :
+        \ winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+function! LightLineModified()
+  return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+function! LightLineReadonly()
+  return &ft !~? 'help' && &readonly ? 'RO' : ''
+endfunction
+
+function! LightLineFilename()
+  let fname = expand('%t')
+  return &ft == 'tagbar' ? '' :
+        \ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+        \ ('' != fname ? fname : '[No Name]') .
+        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+endfunction
+
+function! LinghtLineinfo()
+  return &ft == 'tagbar' ? g:lightline.'' : ' %3l:%-2v'
+endfunction
 
 let g:tagbar_status_func = 'TagbarStatusFunc'
 
