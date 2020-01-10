@@ -27,6 +27,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-indent'
 Plug 'vim-scripts/matchit.zip'
+Plug 'zefei/vim-wintabs'
 Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'kshenoy/vim-signature'
@@ -683,6 +684,9 @@ let g:user_emmet_settings = {
     \  },
   \}
 " let g:user_emmet_leader_key='<C-y>'
+
+" --- wintabs
+let g:wintabs_ui_buffer_name_format = ' %o %t '
 
 " --- lightline.vim
 let g:lightline = {
