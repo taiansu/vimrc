@@ -728,7 +728,7 @@ function! LightLineFilename()
         \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
 endfunction
 
-function! LinghtLineinfo()
+function! LightLineLineinfo()
   return &ft == 'tagbar' ? g:lightline.'' : ' %3l:%-2v'
 endfunction
 
