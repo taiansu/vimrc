@@ -26,7 +26,7 @@
       }
     },
     "ocaml": {
-      "command": "ocaml-language-server",
+      "command": "~/Projects/utils/rls-macos/reason-language-server",
       "args": ["--stdio"],
       "filetypes": ["ocaml", "reason"]
     }
