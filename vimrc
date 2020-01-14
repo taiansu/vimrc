@@ -628,7 +628,7 @@ endif
 nnoremap <leader>/ :call fzf#vim#ag(expand('<cword>'), fzf#vim#with_preview('up:75%'), 1)<CR>
 " nnoremap <leader>vf :FZF<CR>
 nnoremap <leader>vg :Files<CR>
-nnoremap <leader>va :Ag<CR>
+nnoremap <leader>vs :Ag<CR>
 nnoremap <leader>vb :Buffers<CR>
 nnoremap <leader>vm :Marks<CR>
 nnoremap <leader>vt :call fzf#vim#tags(expand('<cword>'))
