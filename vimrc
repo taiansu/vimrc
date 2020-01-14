@@ -686,7 +686,7 @@ let g:user_emmet_settings = {
 " let g:user_emmet_leader_key='<C-y>'
 
 " --- wintabs
-let g:wintabs_ui_buffer_name_format = ' %o %t '
+let g:wintabs_ui_buffer_name_format = ' %n %t '
 
 " --- lightline.vim
 let g:lightline = {
