@@ -1,7 +1,7 @@
 {
   "codeLens.enable": true,
   "elixir.pathToElixirLS": "~/Projects/source/elixir-ls/release/language_server.sh",
-  "signature.target": "echo",
+  "git.addGBlameToBufferVar": true,
   "languageserver": {
     "elixirLS": {
       "command": "~/Projects/source/elixir-ls/release/language_server.sh",
@@ -30,5 +30,6 @@
       "args": ["--stdio"],
       "filetypes": ["ocaml", "reason"]
     }
-  }
+  },
+  "signature.target": "echo"
 }

@@ -692,27 +692,27 @@ let g:wintabs_ui_buffer_name_format = ' %n %t '
 let g:lightline = {
       \ 'colorscheme': 'Tomorrow_Night',
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified', 'tagbar'] ],
-      \   'right': [['blame', 'fileencoding', 'percent', 'lineinfo'], ['filetype' ] ]
+      \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'tagbar' ] ],
+      \   'right': [ [ 'fileencoding', 'percent', 'lineinfo' ], [ 'filetype' ], [ 'blame' ] ]
       \ },
       \ 'component': {
       \   'tagbar': '%{tagbar#currenttag("%s", "", "f")}',
       \ },
       \ 'component_function': {
       \   'mode': 'LightLineMode',
-      \   'modified': 'LightLineModified',
       \   'filename': 'LightLineFilename',
       \   'lineinfo': 'LightLineLineinfo',
-      \   'blame': 'LightlineGitBlame',
-      \   'gitbranch': 'fugitive#head'
+      \   'blame': 'LightLineGitBlame',
+      \   'gitbranch': 'LightLineGitBranch'
       \ }
       \ }
 
 function! LightLineMode()
-  return &ft == 'tagbar' ? '' :
+  return IsHelperBuffer() ? '' :
         \ winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
-function! LightLineModified()
+
+function! LineModified()
   return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
@@ -722,14 +722,14 @@ endfunction
 
 function! LightLineFilename()
   let fname = expand('%t')
-  return &ft == 'tagbar' ? '' :
+  return IsHelperBuffer() ? '' :
         \ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
         \ ('' != fname ? fname : '[No Name]') .
-        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+        \ ('' != LineModified() ? ' ' . LineModified() : '')
 endfunction
 
 function! LightLineLineinfo()
-  return &ft == 'tagbar' ? g:lightline.'' : ' %3l:%-2v'
+  return IsHelperBuffer() ? '' : ' %3l:%-2v'
 endfunction
 
 let g:tagbar_status_func = 'TagbarStatusFunc'
@@ -739,10 +739,18 @@ function! TagbarStatusFunc(current, sort, fname, ...) abort
   return lightline#statusline(0)
 endfunction
 
-function! LightlineGitBlame() abort
+function! LightLineGitBranch() abort
+  return IsHelperBuffer() ? '' : 'fugitive#head'
+endfunction
+
+function! LightLineGitBlame() abort
   let blame = get(b:, 'coc_git_blame', '')
   " return blame
   return winwidth(0) > 120 ? blame : ''
+endfunction
+
+function! IsHelperBuffer() abort
+  return &ft == 'tagbar' || &ft == 'nerdtree'
 endfunction
 
 " --- vim-easy-align
