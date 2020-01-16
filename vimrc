@@ -729,18 +729,18 @@ function! LightLineFilename()
 endfunction
 
 function! LightLineLineinfo()
-  return IsHelperBuffer() ? '' : ' %3l:%-2v'
+  return IsHelperBuffer() ? '' : printf('%d/%d:%-2d', line('.'), line('$'), col('.'))
 endfunction
 
 let g:tagbar_status_func = 'TagbarStatusFunc'
 
 function! TagbarStatusFunc(current, sort, fname, ...) abort
-    let g:lightline.fname = a:fname
+  let g:lightline.fname = a:fname
   return lightline#statusline(0)
 endfunction
 
 function! LightLineGitBranch() abort
-  return IsHelperBuffer() ? '' : 'fugitive#head'
+  return IsHelperBuffer() ? '' : fugitive#head()
 endfunction
 
 function! LightLineGitBlame() abort
