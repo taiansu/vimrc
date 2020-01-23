@@ -40,7 +40,7 @@ Plug 'janko-m/vim-test'
 
 " coc
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-" CocInstall coc-lists coc-snippets coc-yank coc-highlight coc-git coc-tsserver coc-prettier coc-rls coc-solargraph coc-json coc-css coc-tslint coc-elixir coc-tabnine
+" CocInstall coc-lists coc-snippets coc-yank coc-highlight coc-git coc-tsserver coc-prettier coc-rls coc-solargraph coc-json coc-css coc-tslint coc-elixir coc-tabnine coc-tailwindcss
 " coc-eslint
 
 " Colorscheme
@@ -71,7 +71,6 @@ Plug 'bitc/vim-hdevtools',                 { 'for': 'haskell' }
 Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
 Plug 'reasonml-editor/vim-reason-plus'
 Plug 'pearofducks/ansible-vim'
-Plug 'jaawerth/nrun.vim'
 
 " Local
 
