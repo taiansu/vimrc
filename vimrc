@@ -728,7 +728,7 @@ function! LightLineFilename()
 endfunction
 
 function! LightLineLineinfo()
-  return IsHelperBuffer() ? '' : printf('%d/%d:%-2d', line('.'), line('$'), col('.'))
+  return IsHelperBuffer() ? '' : printf(' %d/%d:%-2d', line('.'), line('$'), col('.'))
 endfunction
 
 let g:tagbar_status_func = 'TagbarStatusFunc'
