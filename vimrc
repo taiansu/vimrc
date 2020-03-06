@@ -67,8 +67,8 @@ Plug 'vim-erlang/vim-erlang-omnicomplete', { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-tags',         { 'for': 'erlang' }
 Plug 'vim-erlang/vim-rebar',               { 'for': 'erlang' }
 Plug 'vim-erlang/vim-dialyzer',            { 'for': 'erlang' }
-Plug 'bitc/vim-hdevtools',                 { 'for': 'haskell' }
-Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
+" Plug 'bitc/vim-hdevtools',                 { 'for': 'haskell' }
+" Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
 Plug 'reasonml-editor/vim-reason-plus'
 Plug 'pearofducks/ansible-vim'
 
@@ -622,18 +622,18 @@ endfunction
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
 
 if has('mvim')
-  nmap <D-p> :FZF<CR>
+  nmap <D-p> :GFiles<CR>
 else
-  map <M-p> :FZF<CR>
+  map <M-p> :GFiles<CR>
 endif
 
-nnoremap <leader>/ :call fzf#vim#ag(expand('<cword>'), fzf#vim#with_preview('up:75%'), 1)<CR>
-" nnoremap <leader>vf :FZF<CR>
-nnoremap <leader>vg :Files<CR>
-nnoremap <leader>vs :Ag<CR>
+nnoremap <leader>/ :call fzf#vim#grep('rg --column --line-number --no-heading
+      \ --color=always --smart-case '.expand('<cword>'),
+      \ fzf#vim#with_preview('up:50%'), 0)<CR>
+nnoremap <leader>vf :Files<CR>
+nnoremap <leader>vg :Rg<CR>
 nnoremap <leader>vb :Buffers<CR>
 nnoremap <leader>vm :Marks<CR>
-nnoremap <leader>vt :call fzf#vim#tags(expand('<cword>'))
 
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
