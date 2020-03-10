@@ -694,11 +694,8 @@ let g:wintabs_ui_buffer_name_format = ' %n %t '
 let g:lightline = {
       \ 'colorscheme': 'Tomorrow_Night',
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'tagbar' ] ],
-      \   'right': [ [ 'fileencoding', 'percent', 'lineinfo' ], [ 'filetype' ], [ 'blame' ] ]
-      \ },
-      \ 'component': {
-      \   'tagbar': '%{tagbar#currenttag("%s", "", "f")}',
+      \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename'] ],
+      \   'right': [ [ 'fileencoding', 'percent', 'lineinfo' ], [ 'filetype' ], ['blame'] ]
       \ },
       \ 'component_function': {
       \   'mode': 'LightLineMode',
