@@ -622,15 +622,15 @@ endfunction
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
 
 if has('mvim')
-  nmap <D-p> :GFiles<CR>
+  nmap <D-p> :FZF<CR>
 else
-  map <M-p> :GFiles<CR>
+  map <M-p> :FZF<CR>
 endif
 
 nnoremap <leader>/ :call fzf#vim#grep('rg --column --line-number --no-heading
       \ --color=always --smart-case '.expand('<cword>'),
       \ fzf#vim#with_preview('up:50%'), 0)<CR>
-nnoremap <leader>vf :Files<CR>
+nnoremap <leader>vf :GFiles<CR>
 nnoremap <leader>vg :Rg<CR>
 nnoremap <leader>vb :Buffers<CR>
 nnoremap <leader>vm :Marks<CR>
