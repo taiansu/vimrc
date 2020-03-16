@@ -627,9 +627,13 @@ else
   map <M-p> :FZF<CR>
 endif
 
-nnoremap <leader>/ :call fzf#vim#grep('rg --column --line-number --no-heading
+function! RipgrepBottom()
+  call fzf#vim#grep('rg --column --line-number --no-heading
       \ --color=always --smart-case '.expand('<cword>'),
-      \ fzf#vim#with_preview('up:50%'), 0)<CR>
+      \ fzf#vim#with_preview('up:50%'), 0)
+endfunction
+
+nnoremap <leader>/ :call RipgrepBottom<CR>
 nnoremap <leader>vf :GFiles<CR>
 nnoremap <leader>vg :Rg<CR>
 nnoremap <leader>vb :Buffers<CR>
@@ -665,14 +669,24 @@ let NERDTreeIgnore=['\.pyc','\~$','\.swp']
 let NERDTreeShowBookmarks=1
 let NERDTreeAutoCenter=1
 let NERDTreeWinSize=31
-map <expr><leader>q
-  \ <SID>current_buffer_type() ?
-  \ ":NERDTreeToggle<CR>" : ":NERDTreeFind<CR>"
 
-function! s:current_buffer_type() abort
+function! s:in_side_buffer() abort
   let s:current_buffer_name = expand('%:t')
   return s:current_buffer_name == '' || &ft == 'nerdtree'
 endfunction
+
+nnoremap <leader>/ :call RipgrepBottom()<CR>
+
+function! ToggleOrFind() abort
+  if <SID>in_side_buffer()
+    :NERDTreeToggle
+  else
+    :NERDTreeFocus
+  endif
+endfunction
+
+map <leader>q :call ToggleOrFind()<CR>
+
 
 nnoremap <leader>vr :NERDTreeFocus<CR> :vert res 30<CR><C-w>l
 
