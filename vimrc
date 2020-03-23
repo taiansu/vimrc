@@ -687,8 +687,8 @@ endfunction
 
 map <leader>q :call ToggleOrFind()<CR>
 
-
-nnoremap <leader>vr :NERDTreeFocus<CR> :vert res 30<CR><C-w>l
+command ResizeWin vert res 30<CR>
+nnoremap <leader>vr :NERDTreeFocus<CR>:ResizeWin<CR><C-w>l
 
 " --- JavaScript Syntax
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
