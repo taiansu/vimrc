@@ -2,6 +2,7 @@
   "codeLens.enable": true,
   "elixir.pathToElixirLS": "~/Projects/source/elixir-ls/release/language_server.sh",
   "git.addGBlameToBufferVar": true,
+  "solargraph.commandPath": "/Users/taian.su/.asdf/shims/solargraph",
   "languageserver": {
     "elixirLS": {
       "command": "~/Projects/source/elixir-ls/release/language_server.sh",
