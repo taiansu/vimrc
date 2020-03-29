@@ -607,6 +607,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 xmap <leader>vc  <Plug>(coc-format-selected)
 nmap <leader>vc  <Plug>(coc-format-selected)
 
+nmap <leader>vs :call CocAction('codeLensAction')<CR>
+
 " --- dash.vim
 map <leader>\ :Dash<CR>
 
@@ -992,8 +994,10 @@ autocmd FileType which_key highlight WhichKeyGroup cterm=bold ctermbg=DarkGray c
 autocmd FileType which_key highlight WhichKeyDesc ctermbg=DarkGray ctermfg=7
 autocmd FileType which_key highlight WhichKeyFloating ctermbg=DarkGray ctermfg=7 guibg=Gray25
 
+" Open Application
+nmap <leader>o :!open -a iTerm .<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: a e f g i j k l m o r s t u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
+" Free leader keys: a e f g i j k l m r s t u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim: set ft=vim :
