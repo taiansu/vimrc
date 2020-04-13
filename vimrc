@@ -198,7 +198,7 @@ set splitbelow
 set diffopt+=vertical
 
 
-let g:python3_host_prog = '/usr/local/bin/python3'
+let g:python3_host_prog = '~/.asdf/shims/python'
 let g:python_host_prog = '/usr/local/bin/python'
 
 if has("gui_running")
