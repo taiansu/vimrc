@@ -197,6 +197,8 @@ set splitbelow
 " Make fugitive diff split vertical
 set diffopt+=vertical
 
+" allows to move the cursor past the last character.
+set virtualedit=all
 
 let g:python3_host_prog = '~/.asdf/shims/python'
 let g:python_host_prog = '/usr/local/bin/python'
