@@ -200,7 +200,7 @@ set diffopt+=vertical
 " allows to move the cursor past the last character.
 set virtualedit=all
 
-let g:python3_host_prog = '~/.asdf/shims/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
 let g:python_host_prog = '/usr/local/bin/python'
 
 if has("gui_running")
