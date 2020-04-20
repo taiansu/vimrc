@@ -197,8 +197,8 @@ set splitbelow
 " Make fugitive diff split vertical
 set diffopt+=vertical
 
-" allows to move the cursor past the last character.
-set virtualedit=all
+" allows to move the cursor past the last character in insert mode.
+set virtualedit=insert
 
 let g:python3_host_prog = '/usr/local/bin/python3'
 let g:python_host_prog = '/usr/local/bin/python'
