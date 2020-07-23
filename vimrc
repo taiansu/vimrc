@@ -34,14 +34,12 @@ Plug 'kshenoy/vim-signature'
 Plug 'reedes/vim-pencil'
 Plug 'AndrewRadev/linediff.vim'
 Plug 'chrisbra/unicode.vim'
-Plug 'schickling/vim-bufonly'
 Plug 'kassio/neoterm'
 Plug 'janko-m/vim-test'
 
 " coc
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " CocInstall coc-lists coc-snippets coc-yank coc-highlight coc-git coc-tsserver coc-prettier coc-rls coc-solargraph coc-json coc-css coc-tslint coc-elixir coc-tabnine coc-tailwindcss
-" coc-eslint
 
 " Colorscheme
 " Plug 'guns/xterm-color-table.vim'
@@ -493,12 +491,19 @@ nnoremap <leader><leader> <C-^>
 " Use + after * to search two words
 nnoremap <silent> + :let @/.= '\\|\<'.expand('<cword>').'\>'<CR>n
 
-" paste to line below/above
-nmap <silent><leader>p ]p
-nmap <silent><leader>P [p
-
 " map fold trigger to zz
 nnoremap zz za
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Check the current syntax highlight under the cursor
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BUFFER, TAB AND SPLIT MOTIONS
@@ -524,6 +529,8 @@ map <leader>bd :bdelete!<CR>
 map <leader>bo :BufOnly<CR>
 " nnoremap <C-b> <C-^>
 " inoremap <C-b> <esc><C-^>
+map ]b :WintabsNext<CR>
+map [b :WintabsPrevious<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shorts for tabnew tabn tabp
@@ -531,6 +538,8 @@ map <leader>bo :BufOnly<CR>
 ca tn tabnew
 ca th tabp
 ca tl tabn
+ca tc WintabsClose
+ca to WintabsClose
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
