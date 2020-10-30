@@ -635,9 +635,9 @@ endfunction
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
 
 if has('mvim')
-  nmap <D-p> :FZF<CR>
+  nmap <D-p> :GFiles --cached --others --exclude-standard<CR>
 else
-  map <M-p> :FZF<CR>
+  map <M-p> :GFiles --cached --others --exclude-standard<CR>
 endif
 
 function! RipgrepBottom()
@@ -647,7 +647,7 @@ function! RipgrepBottom()
 endfunction
 
 nnoremap <leader>/ :call RipgrepBottom<CR>
-nnoremap <leader>vf :GFiles<CR>
+nnoremap <leader>vf :FZF<CR>
 nnoremap <leader>vg :Rg<CR>
 nnoremap <leader>vb :Buffers<CR>
 nnoremap <leader>vm :Marks<CR>
