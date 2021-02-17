@@ -2,6 +2,8 @@
 " http://blog.taian.su
 " You can do what ever you want with this.
 "
+" set hls ic is nu noswf
+"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Setup Vim-plug
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -46,6 +48,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jonathanfilip/vim-lucius'
 Plug 'jacoborus/tender.vim'
 Plug 'dim13/smyck.vim'
+Plug 'arcticicestudio/nord-vim'
 
 Plug 'sbdchd/neoformat'
 Plug 'liuchengxu/vim-which-key'
