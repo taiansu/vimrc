@@ -621,7 +621,7 @@ nmap <leader>vc  <Plug>(coc-format-selected)
 nmap <leader>vs :call CocAction('codeLensAction')<CR>
 
 " --- dash.vim
-map <leader>\ :Dash<CR>
+map <leader>vd :Dash<CR>
 
 " --- fzf.vim
 
@@ -642,32 +642,39 @@ let g:fzf_colors =
             \ 'header':  ['fg', 'Comment'] }
 
 function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
   let initial_command = printf(command_fmt, shellescape(a:query))
   let reload_command = printf(command_fmt, '{q}')
   let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
   call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
-command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
 if has('mvim')
-  nmap <D-p> :GFiles --cached --others --exclude-standard<CR>
+  nmap <D-p> :FZF<CR>
 else
-  map <M-p> :GFiles --cached --others --exclude-standard<CR>
+  map <M-p> :FZF<CR>
 endif
 
 function! RipgrepBottom()
-  call fzf#vim#grep('rg --column --line-number --no-heading
-      \ --color=always --smart-case '.expand('<cword>'),
+  call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case '.expand('<cword>'), 1,
       \ fzf#vim#with_preview('up:50%'), 0)
 endfunction
 
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
 nnoremap <leader>/ :call RipgrepBottom<CR>
-nnoremap <leader>vf :FZF<CR>
-nnoremap <leader>vg :Rg<CR>
+nnoremap <leader>vg :GFiles --cached --others --exclude-standard<CR>
+nnoremap <leader>vf :Files --cached --others --exclude-standard<CR>
 nnoremap <leader>vb :Buffers<CR>
 nnoremap <leader>vm :Marks<CR>
+nnoremap <leader>\ :Rg<CR>
 
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
