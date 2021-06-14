@@ -160,8 +160,8 @@ set shell=zsh
 set t_ti= t_te=
 " Store temporary files in a central spot
 set nobackup
-set backupdir=~/.vim/tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set directory=~/.vim/tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backupdir=~/.vim/tmp,~/.tmp,/var/tmp,/tmp
+set directory=~/.vim/tmp,~/.tmp,/var/tmp,/tmp
 set undodir=~/.vim/undo
 set whichwrap+=<,>,h,l
 " display incomplete commands
