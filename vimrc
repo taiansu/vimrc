@@ -29,7 +29,6 @@ Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-indent'
 Plug 'vim-scripts/matchit.zip'
-Plug 'zefei/vim-wintabs'
 Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'kshenoy/vim-signature'
@@ -78,12 +77,6 @@ Plug 'pearofducks/ansible-vim'
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" AUTO RELOAD CONFIG
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-autocmd BufWritePost $MYVIMRC source $MYVIMRC
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ENCODING SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set encoding=utf-8
@@ -108,9 +101,8 @@ set t_Co=256 " 256 colors
 set ttyfast
 if has("gui_running")
   set ttyscroll=3
-  set guifont=Source\ Code\ Pro:h15
-  " set guifont=B612\ Mono:h15
 endif
+set guifont=Hasklig:h16
 syntax sync minlines=50
 let g:ruby_path=$HOME . "/.asdf/shims/ruby"
 call matchadd('WildMenu', '\%101v', &textwidth + 1)
@@ -327,8 +319,9 @@ let g:netrw_altv = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AUTO SOURCE vimrc AFTER SAVE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" autocmd bufwritepost .vimrc source $MYVIMRC
-" autocmd bufwritepost vimrc source $MYVIMRC
+
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " tsx filetype
@@ -529,11 +522,11 @@ call submode#map('undo/redo', 'n', '', '+', 'g+')
 " map <leader>fs :topleft :split<CR>
 
 map <leader>bd :bdelete!<CR>
-map <leader>bo :BufOnly<CR>
+map <leader>bo :Bonly<CR>
 " nnoremap <C-b> <C-^>
 " inoremap <C-b> <esc><C-^>
-map ]b :WintabsNext<CR>
-map [b :WintabsPrevious<CR>
+map ]b :bn<CR>
+map [b :bp<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shorts for tabnew tabn tabp
@@ -541,8 +534,8 @@ map [b :WintabsPrevious<CR>
 ca tn tabnew
 ca th tabp
 ca tl tabn
-ca tc WintabsClose
-ca to WintabsClose
+ca tc Bonly
+ca to Bonly
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
@@ -740,9 +733,6 @@ let g:user_emmet_settings = {
     \  },
   \}
 " let g:user_emmet_leader_key='<C-y>'
-
-" --- wintabs
-let g:wintabs_ui_buffer_name_format = ' %n %t '
 
 " --- lightline.vim
 let g:lightline = {
