@@ -12,6 +12,7 @@ Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'APZelos/blamer.nvim'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
@@ -616,6 +617,11 @@ xmap <leader>vc  <Plug>(coc-format-selected)
 nmap <leader>vc  <Plug>(coc-format-selected)
 
 nmap <leader>vs :call CocAction('codeLensAction')<CR>
+
+" --- blamer.nvim
+let g:blamer_enabled = 1
+" let g:blamer_show_in_visual_modes = 0
+" let g:blamer_show_in_insert_modes = 0
 
 " --- dash.vim
 map <leader>vd :Dash<CR>
