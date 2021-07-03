@@ -29,7 +29,8 @@ Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-indent'
 Plug 'vim-scripts/matchit.zip'
-Plug 'itchyny/lightline.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
 Plug 'kshenoy/vim-signature'
 Plug 'reedes/vim-pencil'
@@ -732,69 +733,19 @@ let g:user_emmet_settings = {
     \      'extends' : 'jsx',
     \  },
   \}
-" let g:user_emmet_leader_key='<C-y>'
+let g:user_emmet_leader_key='<C-y>'
 
-" --- lightline.vim
-let g:lightline = {
-      \ 'colorscheme': 'Tomorrow_Night',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename'] ],
-      \   'right': [ [ 'fileencoding', 'percent', 'lineinfo' ], [ 'filetype' ], ['blame'] ]
-      \ },
-      \ 'component_function': {
-      \   'mode': 'LightLineMode',
-      \   'filename': 'LightLineFilename',
-      \   'lineinfo': 'LightLineLineinfo',
-      \   'blame': 'LightLineGitBlame',
-      \   'gitbranch': 'LightLineGitBranch'
-      \ }
-      \ }
+" --- vim-airline
 
-function! LightLineMode()
-  return IsHelperBuffer() ? '' :
-        \ winwidth(0) > 60 ? lightline#mode() : ''
-endfunction
+let g:airline_theme='jellybeans'
 
-function! LineModified()
-  return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-endfunction
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
 
-function! LightLineReadonly()
-  return &ft !~? 'help' && &readonly ? 'RO' : ''
-endfunction
-
-function! LightLineFilename()
-  let fname = expand('%t')
-  return IsHelperBuffer() ? '' :
-        \ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-        \ ('' != fname ? fname : '[No Name]') .
-        \ ('' != LineModified() ? ' ' . LineModified() : '')
-endfunction
-
-function! LightLineLineinfo()
-  return IsHelperBuffer() ? '' : printf(' %d/%d:%-2d', line('.'), line('$'), col('.'))
-endfunction
-
-let g:tagbar_status_func = 'TagbarStatusFunc'
-
-function! TagbarStatusFunc(current, sort, fname, ...) abort
-  let g:lightline.fname = a:fname
-  return lightline#statusline(0)
-endfunction
-
-function! LightLineGitBranch() abort
-  return IsHelperBuffer() ? '' : fugitive#head()
-endfunction
-
-function! LightLineGitBlame() abort
-  let blame = get(b:, 'coc_git_blame', '')
-  " return blame
-  return winwidth(0) > 120 ? blame : ''
-endfunction
-
-function! IsHelperBuffer() abort
-  return &ft == 'tagbar' || &ft == 'nerdtree'
-endfunction
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#branch = 1
 
 " --- vim-easy-align
 vnoremap <silent><Enter> :EasyAlign<CR>
