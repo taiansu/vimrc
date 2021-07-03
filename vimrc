@@ -59,6 +59,7 @@ Plug 'liuchengxu/vim-which-key'
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
 Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown' }
 Plug 'junegunn/vim-easy-align',  { 'on': 'EasyAlign' }
+Plug 'numtostr/BufOnly.nvim',    { 'on': 'BufOnly' }
 
 " Language specified
 Plug 'sheerun/vim-polyglot'
@@ -525,7 +526,7 @@ call submode#map('undo/redo', 'n', '', '+', 'g+')
 " map <leader>fs :topleft :split<CR>
 
 map <leader>bd :bdelete!<CR>
-map <leader>bo :Bonly<CR>
+map <leader>bo :BufOnly<CR>
 " nnoremap <C-b> <C-^>
 " inoremap <C-b> <esc><C-^>
 map ]b :bn<CR>
@@ -537,8 +538,8 @@ map [b :bp<CR>
 ca tn tabnew
 ca th tabp
 ca tl tabn
-ca tc Bonly
-ca to Bonly
+ca tc BufOnly
+ca to BufOnly
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
