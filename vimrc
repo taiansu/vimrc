@@ -46,7 +46,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " CocInstall coc-lists coc-snippets coc-yank coc-highlight coc-git coc-tsserver coc-prettier coc-rls coc-solargraph coc-json coc-css coc-tslint coc-elixir coc-tabnine coc-tailwindcss
 
 " Colorscheme
-" Plug 'guns/xterm-color-table.vim'
+Plug 'guns/xterm-color-table.vim'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'jacoborus/tender.vim'
 Plug 'dim13/smyck.vim'
