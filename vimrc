@@ -73,7 +73,6 @@ Plug 'vim-erlang/vim-rebar',               { 'for': 'erlang' }
 Plug 'vim-erlang/vim-dialyzer',            { 'for': 'erlang' }
 " Plug 'bitc/vim-hdevtools',                 { 'for': 'haskell' }
 " Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
-Plug 'reasonml-editor/vim-reason-plus'
 Plug 'pearofducks/ansible-vim'
 
 " Local
