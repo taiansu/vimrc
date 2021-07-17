@@ -896,21 +896,45 @@ nmap <silent><leader>t :TagbarToggle<CR>
 
 " --- vim-gutentags
 " let g:gutentags_trace = 1
+let $GTAGSLABEL = 'native-pygments'
+let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
 let g:gutentags_generate_on_new = 1
 let g:gutentags_generate_on_missing = 1
 let g:gutentags_generate_on_write = 1
 let g:gutentags_generate_on_empty_buffer = 0
 let g:gutentags_add_default_project_roots = 0
 
-let g:gutentags_modules = ['ctags', 'gtags_cscope']
-let g:gutentags_project_root = ['package.json', '.git']
+let g:gutentags_project_root = ['package.json', '.git', '.root']
 
-let g:gutentags_cache_dir = expand('~/.cache/tags')
+let g:gutentags_ctags_tagfile = '.tags'
 
-let g:gutentags_ctags_extra_args = [
-      \ '--tag-relative=yes',
-      \ '--fields=+ailmnS',
-      \ ]
+let g:gutentags_modules = []
+if executable('ctags')
+  let g:gutentags_modules += ['ctags']
+endif
+if executable('gtags-cscope') && executable('gtags')
+  let g:gutentags_modules += ['gtags_cscope']
+endif
+
+let s:vim_tags = expand('~/.cache/tags')
+let g:gutentags_cache_dir = s:vim_tags
+" ~/.cache/tags 不存在就新建
+if !isdirectory(s:vim_tags)
+   silent! call mkdir(s:vim_tags, 'p')
+endif
+
+" let g:gutentags_ctags_extra_args = [
+"       \ '--tag-relative=yes',
+"       \ '--fields=+ailmnS',
+"       \ ]
+
+" 設定 ctags 的參數，舊的 Exuberant-ctags 不能有 --extra=+q
+let g:gutentags_ctags_extra_args = ['--tag-relative=yes', '--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+" 如果使用 universal ctags 需要增加下面一行，Exuberant-ctags 不能加
+let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
 
 let g:gutentags_ctags_exclude = [
       \ '*.git', '*.svg', '*.hg',
