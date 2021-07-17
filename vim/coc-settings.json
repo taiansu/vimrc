@@ -1,6 +1,7 @@
 {
   "codeLens.enable": true,
   "elixir.pathToElixirLS": "~/Projects/source/elixir-ls/release/language_server.sh",
+  "elixirLS.dialyzerWarnOpts": false,
   "git.addGBlameToBufferVar": true,
   "solargraph.commandPath": "~/.asdf/shims/solargraph",
   "languageserver": {
