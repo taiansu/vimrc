@@ -187,7 +187,8 @@ set timeoutlen=1000 ttimeoutlen=0
 set scrolloff=3
 " Solve ruby complete slowness
 " set complete-=i
-set iskeyword+=-
+" set iskeyword+=-
+
 " Split location
 set splitright
 set splitbelow
