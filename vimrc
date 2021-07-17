@@ -620,10 +620,14 @@ nmap <leader>vc  <Plug>(coc-format-selected)
 
 nmap <leader>vs :call CocAction('codeLensAction')<CR>
 
+nmap <leader>o :!open -a iTerm .<CR>
+nmap <leader>l :CocList<Cr>
+
 " --- blamer.nvim
 let g:blamer_enabled = 1
 " let g:blamer_show_in_visual_modes = 0
-" let g:blamer_show_in_insert_modes = 0
+let g:blamer_show_in_insert_modes = 0
+nmap <leader>bo :BlamerToggle<cr>
 
 " --- dash.vim
 map <leader>vd :Dash<CR>
@@ -985,6 +989,6 @@ autocmd FileType which_key highlight WhichKeyFloating ctermbg=DarkGray ctermfg=7
 nmap <leader>o :!open -a iTerm .<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: a e f g i j k l m r s t u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
+" Free leader keys: a e f g i j k m r s t u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim: set ft=vim :
