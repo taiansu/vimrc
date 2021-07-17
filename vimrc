@@ -620,7 +620,6 @@ nmap <leader>vc  <Plug>(coc-format-selected)
 
 nmap <leader>vs :call CocAction('codeLensAction')<CR>
 
-nmap <leader>o :!open -a iTerm .<CR>
 nmap <leader>l :CocList<Cr>
 
 " --- blamer.nvim
