@@ -23,8 +23,6 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive',
 Plug 'tpope/vim-sleuth',
 Plug 'liuchengxu/vista.vim'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'skywind3000/gutentags_plus'
 Plug 'kana/vim-submode'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
@@ -71,8 +69,8 @@ Plug 'vim-erlang/vim-erlang-omnicomplete', { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-tags',         { 'for': 'erlang' }
 Plug 'vim-erlang/vim-rebar',               { 'for': 'erlang' }
 Plug 'vim-erlang/vim-dialyzer',            { 'for': 'erlang' }
-" Plug 'bitc/vim-hdevtools',                 { 'for': 'haskell' }
-" Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
+Plug 'bitc/vim-hdevtools',                 { 'for': 'haskell' }
+Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
 Plug 'pearofducks/ansible-vim'
 
 " Local
@@ -790,96 +788,6 @@ autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 let g:vista#renderer#enable_icon=0
 
 nmap <silent><leader>t :Vista!!<CR>
-
-" --- vim-gutentags
-" let g:gutentags_trace = 1
-let $GTAGSLABEL = 'native-pygments'
-let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
-let g:gutentags_generate_on_new = 1
-let g:gutentags_generate_on_missing = 1
-let g:gutentags_generate_on_write = 1
-let g:gutentags_generate_on_empty_buffer = 0
-let g:gutentags_add_default_project_roots = 0
-
-let g:gutentags_project_root = ['package.json', '.git', '.root']
-
-let g:gutentags_ctags_tagfile = '.tags'
-
-let g:gutentags_modules = []
-if executable('ctags')
-  let g:gutentags_modules += ['ctags']
-endif
-if executable('gtags-cscope') && executable('gtags')
-  let g:gutentags_modules += ['gtags_cscope']
-endif
-
-let s:vim_tags = expand('~/.cache/tags')
-let g:gutentags_cache_dir = s:vim_tags
-" ~/.cache/tags 不存在就新建
-if !isdirectory(s:vim_tags)
-   silent! call mkdir(s:vim_tags, 'p')
-endif
-
-" let g:gutentags_ctags_extra_args = [
-"       \ '--tag-relative=yes',
-"       \ '--fields=+ailmnS',
-"       \ ]
-
-" 設定 ctags 的參數，舊的 Exuberant-ctags 不能有 --extra=+q
-let g:gutentags_ctags_extra_args = ['--tag-relative=yes', '--fields=+niazS', '--extra=+q']
-let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-
-" 如果使用 universal ctags 需要增加下面一行，Exuberant-ctags 不能加
-let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
-
-let g:gutentags_ctags_exclude = [
-      \ '*.git', '*.svg', '*.hg',
-      \ '*/tests/*',
-      \ 'build',
-      \ 'dist',
-      \ '*sites/*/files/*',
-      \ 'bin',
-      \ 'node_modules',
-      \ 'bower_components',
-      \ 'cache',
-      \ 'compiled',
-      \ 'docs',
-      \ 'example',
-      \ 'bundle',
-      \ 'vendor',
-      \ '*.md',
-      \ '*-lock.json',
-      \ '*.lock',
-      \ '*bundle*.js',
-      \ '*build*.js',
-      \ '.*rc*',
-      \ '*.json',
-      \ '*.min.*',
-      \ '*.map',
-      \ '*.bak',
-      \ '*.zip',
-      \ '*.pyc',
-      \ '*.class',
-      \ '*.sln',
-      \ '*.Master',
-      \ '*.csproj',
-      \ '*.tmp',
-      \ '*.csproj.user',
-      \ '*.cache',
-      \ '*.pdb',
-      \ 'tags*',
-      \ 'cscope.*',
-      \ '*.css',
-      \ '*.less',
-      \ '*.scss',
-      \ '*.exe', '*.dll',
-      \ '*.mp3', '*.ogg', '*.flac',
-      \ '*.swp', '*.swo',
-      \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
-      \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
-      \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
-      \ ]
 
 " --- hdevtools
 let g:hdevtools_stack = 1
