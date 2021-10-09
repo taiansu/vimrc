@@ -39,9 +39,24 @@ Plug 'chrisbra/unicode.vim'
 Plug 'kassio/neoterm'
 Plug 'janko-m/vim-test'
 
-" coc
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" CocInstall coc-lists coc-snippets coc-yank coc-highlight coc-git coc-tsserver coc-prettier coc-rls coc-solargraph coc-json coc-css coc-tslint coc-elixir coc-tabnine coc-tailwindcss
+" LSP
+Plug 'neovim/nvim-lspconfig'
+Plug 'ojroques/nvim-lspfuzzy'
+
+" elixir:
+" build from source: https://github.com/elixir-lsp/elixir-ls
+" python:
+" npm i -g pyright
+" javascript:
+" npm install -g typescript typescript-language-server
+" ruby:
+" gem install solargraph
+" graphql:
+" npm install -g graphql-language-service-cli
+" F#
+" dotnet tool install --global fsautocomplete
+" Haskell
+" from homebrew: brew install haskell-language-server
 
 " Colorscheme
 Plug 'guns/xterm-color-table.vim'
@@ -566,59 +581,13 @@ vnoremap > >gv
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 map <leader>lo :lopen<CR>
-map <leader>lj :lnext<CR>
-map <leader>lk :lprevious<CR>
+map <leader>ln :lnext<CR>
+map <leader>lp :lprevious<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Addons Settings
 " 插件設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" -- coc
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? coc#_select_confirm() :
-  \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ coc#refresh()
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-let g:coc_snippet_next = '<tab>'
-highlight CocFloating ctermfg=235 ctermbg=81 guifg=#282828 guibg=#36393C
-
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Remap for format selected region
-xmap <leader>vc  <Plug>(coc-format-selected)
-nmap <leader>vc  <Plug>(coc-format-selected)
-
-nmap <leader>vs :call CocAction('codeLensAction')<CR>
-
-nmap <leader>l :CocList<Cr>
 
 " --- blamer.nvim
 let g:blamer_enabled = 1
@@ -816,6 +785,35 @@ autocmd FileType which_key highlight WhichKeyFloating ctermbg=DarkGray ctermfg=7
 
 " Open Application
 nmap <leader>o :!open -a iTerm .<CR>
+
+" nvim-lspconfig
+lua << EOF
+require'lspconfig'.elixirls.setup{
+    -- Unix
+    cmd = { "/Users/tai/Projects/source/elixir-ls/release/language_server.sh" };
+    -- Windows
+    -- cmd = { "/path/to/elixir-ls/language_server.bat" };
+}
+require'lspconfig'.solargraph.setup{}
+require'lspconfig'.graphql.setup{}
+require'lspconfig'.pyright.setup{}
+require'lspconfig'.tsserver.setup{}
+require'lspconfig'.fsautocomplete.setup{}
+require'lspconfig'.hls.setup{}
+
+require'lspfuzzy'.setup {
+  jump_one = false,
+  save_last = true
+}
+EOF
+
+" lspfuzzy
+" nnoremap <silent><leader>ls <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent><leader>ll <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent><leader>lg <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent><leader>la <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent><leader>l; <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap <silent><leader>l, <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: a e f g i j k m r s t u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
