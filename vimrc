@@ -699,7 +699,7 @@ endfunction
 
 map <leader>q :call ToggleOrFind()<CR>
 
-command ResizeWin vert res 30<CR>
+command! ResizeWin vert res 30<CR>
 nnoremap <leader>vr :NERDTreeFocus<CR>:ResizeWin<CR><C-w>l
 
 " --- JavaScript Syntax
