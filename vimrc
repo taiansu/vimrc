@@ -10,6 +10,10 @@
 call plug#begin('~/.vim/plugged')
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'BurntSushi/ripgrep'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'APZelos/blamer.nvim'
@@ -616,41 +620,6 @@ let g:fzf_colors =
             \ 'spinner': ['fg', 'Label'],
             \ 'header':  ['fg', 'Comment'] }
 
-function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
-  let initial_command = printf(command_fmt, shellescape(a:query))
-  let reload_command = printf(command_fmt, '{q}')
-  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
-
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-
-if has('mvim')
-  nmap <D-p> :FZF<CR>
-else
-  map <M-p> :FZF<CR>
-endif
-
-function! RipgrepBottom()
-  call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case '.expand('<cword>'), 1,
-      \ fzf#vim#with_preview('up:50%'), 0)
-endfunction
-
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
-
-nnoremap <leader>/ :call RipgrepBottom<CR>
-nnoremap <leader>vg :GFiles --cached --others --exclude-standard<CR>
-nnoremap <leader>vf :Files --cached --others --exclude-standard<CR>
-nnoremap <leader>vb :Buffers<CR>
-nnoremap <leader>vm :Marks<CR>
-nnoremap <leader>\ :Rg<CR>
-
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
@@ -665,13 +634,21 @@ function! s:fzf_statusline()
   setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
 endfunction
 
-command! -bang -nargs=* Ag
-  \ call fzf#vim#ag(<q-args>,
-  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
-  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \                 <bang>0)
-
 autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
+" --- Telescope
+" nnoremap <silent><leader>ff <CMD>Telescope find_files<CR>
+nnoremap <silent><leader>fg <CMD>Telescope live_grep<CR>
+nnoremap <silent><leader>fb <CMD>Telescope buffers<CR>
+nnoremap <silent><leader>fh <CMD>Telescope help_tags<CR>
+
+nnoremap <silent><leader>/ :execute 'Telescope grep_string search='.expand('<cword>')<CR>
+
+if has('mvim')
+  nmap <D-p> <CMD>Telescope find_files<CR>
+else
+  map <M-p> <CMD>Telescope find_files<CR>
+endif
 
 " --- NERDTree
 autocmd FileType nerdtree :vert resize 30
@@ -686,8 +663,6 @@ function! s:in_side_buffer() abort
   let s:current_buffer_name = expand('%:t')
   return s:current_buffer_name == '' || &ft == 'nerdtree'
 endfunction
-
-nnoremap <leader>/ :call RipgrepBottom()<CR>
 
 function! ToggleOrFind() abort
   if <SID>in_side_buffer()
