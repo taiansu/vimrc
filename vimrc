@@ -14,6 +14,8 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'BurntSushi/ripgrep'
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'tom-anders/telescope-vim-bookmarks.nvim'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'APZelos/blamer.nvim'
@@ -650,6 +652,29 @@ else
   map <M-p> <CMD>Telescope find_files<CR>
 endif
 
+" --- vim-bookmarks
+nmap <silent><leader>mk <Plug>BookmarkToggle
+nmap <silent><leader>ma <Plug>BookmarkAnnotate
+" nmap <silent><leader>bs <Plug>BookmarkShowAll
+nmap <silent><leader>mn <Plug>BookmarkNext
+nmap <silent><leader>mp <Plug>BookmarkPrev
+nmap <silent><leader>mc <Plug>BookmarkClear
+nmap <silent><leader>mx <Plug>BookmarkClearAll
+" nmap <silent><leader>kk <Plug>BookmarkMoveUp
+" nmap <silent><leader>jj <Plug>BookmarkMoveDown
+nmap <silent><leader>mg <Plug>BookmarkMoveToLine
+
+let g:bookmark_no_default_key_mappings = 1
+
+" --- telescope-vim-bookmarks.nvim
+nnoremap <silent><leader>ml :Telescope vim_bookmarks all<CR>
+" Only pick from bookmarks in current file
+nnoremap <silent><leader>mf :Telescope vim_bookmarks current_file<CR>
+
+lua << EOF
+require('telescope').load_extension('vim_bookmarks')
+EOF
+
 " --- NERDTree
 autocmd FileType nerdtree :vert resize 30
 let g:NERDTreeQuitOnOpen=1
@@ -791,6 +816,6 @@ nnoremap <silent><leader>l; <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <silent><leader>l, <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: a e f g i j k m r s t u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
+" Free leader keys: a e g i j k r s t u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim: set ft=vim :
