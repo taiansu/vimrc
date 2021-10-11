@@ -36,8 +36,7 @@ Plug 'kana/vim-textobj-indent'
 Plug 'vim-scripts/matchit.zip'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'airblade/vim-gitgutter'
-Plug 'kshenoy/vim-signature'
+Plug 'lewis6991/gitsigns.nvim'
 Plug 'reedes/vim-pencil'
 Plug 'AndrewRadev/linediff.vim'
 Plug 'chrisbra/vim-diff-enhanced'
@@ -594,12 +593,6 @@ map <leader>lp :lprevious<CR>
 " Addons Settings
 " 插件設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" --- blamer.nvim
-let g:blamer_enabled = 1
-" let g:blamer_show_in_visual_modes = 0
-let g:blamer_show_in_insert_modes = 0
-nmap <leader>bl :BlamerToggle<cr>
 
 " --- dash.vim
 map <leader>vd :Dash<CR>
