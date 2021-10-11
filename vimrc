@@ -16,9 +16,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'BurntSushi/ripgrep'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'tom-anders/telescope-vim-bookmarks.nvim'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'APZelos/blamer.nvim'
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
@@ -93,6 +91,7 @@ Plug 'vim-erlang/vim-dialyzer',            { 'for': 'erlang' }
 Plug 'bitc/vim-hdevtools',                 { 'for': 'haskell' }
 Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
 Plug 'pearofducks/ansible-vim'
+Plug 'kyazdani42/nvim-web-devicons'
 
 " Local
 
@@ -653,32 +652,60 @@ lua << EOF
 require('telescope').load_extension('vim_bookmarks')
 EOF
 
-" --- NERDTree
-autocmd FileType nerdtree :vert resize 30
-let g:NERDTreeQuitOnOpen=1
+" --- gitsigns.nvim
+lua << EOF
+require('gitsigns').setup {
+  current_line_blame = true
+}
+EOF
 
-let NERDTreeIgnore=['\.pyc','\~$','\.swp']
-let NERDTreeShowBookmarks=1
-let NERDTreeAutoCenter=1
-let NERDTreeWinSize=31
+" --- nvim-tree.lua
+let g:WebDevIconsOS = 'Darwin'
+lua << EOF
+require'nvim-tree'.setup {}
+EOF
 
-function! s:in_side_buffer() abort
-  let s:current_buffer_name = expand('%:t')
-  return s:current_buffer_name == '' || &ft == 'nerdtree'
-endfunction
+let g:nvim_tree_indent_markers = 1
+let g:nvim_tree_highlight_opened_files = 1
 
-function! ToggleOrFind() abort
-  if <SID>in_side_buffer()
-    :NERDTreeToggle
-  else
-    :NERDTreeFocus
-  endif
-endfunction
+" let g:nvim_tree_show_icons = {
+"     \ 'git': 1,
+"     \ 'folders': 0,
+"     \ 'files': 0,
+"     \ 'folder_arrows': 0,
+"     \ }
+"If 0, do not show the icons for one of 'git' 'folder' and 'files'
+"1 by default, notice that if 'files' is 1, it will only display
+"if nvim-web-devicons is installed and on your runtimepath.
+"if folder is 1, you can also tell folder_arrows 1 to show small arrows next to the folder icons.
+"but this will not work when you set indent_markers (because of UI conflict)
 
-map <leader>q :call ToggleOrFind()<CR>
+" default will show icon by default if no icon is provided
+" default shows no icon by default
+" let g:nvim_tree_icons = {
+"     \ 'default': "",
+"     \ 'symlink': "",
+"     \ 'git': {
+"     \   'unstaged': "✗",
+"     \   'staged': "✓",
+"     \   'unmerged': "...",
+"     \   'renamed': "➜",
+"     \   'untracked': "★",
+"     \   'deleted': "xxx",
+"     \   'ignored': "◌"
+"     \   },
+"     \ 'folder': {
+"     \   'default': "d",
+"     \   'open': "o",
+"     \   }
+"     \ }
 
-command! ResizeWin vert res 30<CR>
-nnoremap <leader>vr :NERDTreeFocus<CR>:ResizeWin<CR><C-w>l
+nnoremap <leader>q :NvimTreeToggle<CR>
+nnoremap <leader>fq :NvimTreeFindFile<CR>
+nnoremap <leader>r :NvimTreeRefresh<CR>
+" NvimTreeOpen, NvimTreeClose, NvimTreeFocus and NvimTreeResize are also available if you need them
+
+set termguicolors " this variable must be enabled for colors to be applied properly
 
 " --- JavaScript Syntax
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
@@ -798,6 +825,6 @@ nnoremap <silent><leader>l, <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 nnoremap <silent><leader>lm <cmd>lua vim.lsp.buf.formatting()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: a e g i j k r s t u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
+" Free leader keys: a e g i j k s t u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim: set ft=vim
