@@ -65,10 +65,11 @@ Plug 'ojroques/nvim-lspfuzzy'
 
 " Colorscheme
 Plug 'guns/xterm-color-table.vim'
-Plug 'jonathanfilip/vim-lucius'
 Plug 'jacoborus/tender.vim'
 Plug 'dim13/smyck.vim'
-Plug 'arcticicestudio/nord-vim'
+Plug 'Th3Whit3Wolf/one-nvim'
+Plug 'shaunsingh/nord.nvim'
+Plug 'NLKNguyen/papercolor-theme'
 
 Plug 'sbdchd/neoformat'
 Plug 'liuchengxu/vim-which-key'
@@ -100,10 +101,10 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ENCODING SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set encoding=utf-8
-set termencoding=utf-8
-set fileencoding=utf-8
-set fileencodings=ucs-bom,utf-8,big5,gb2312,latin1
+set encoding=UTF-8
+set termencoding=UTF-8
+set fileencoding=UTF-8
+set fileencodings=UCS-BOM,UTF-8,big5,gb2312,latin1
 set ffs=unix,mac,dos
 lang zh_TW.UTF-8
 
@@ -123,7 +124,7 @@ set ttyfast
 if has("gui_running")
   set ttyscroll=3
 endif
-set guifont=Hasklig:h16
+" set guifont=Hasklug\ Nerd\ Font:h16
 syntax sync minlines=50
 let g:ruby_path=$HOME . "/.asdf/shims/ruby"
 call matchadd('WildMenu', '\%101v', &textwidth + 1)
@@ -599,22 +600,6 @@ map <leader>vd :Dash<CR>
 
 " --- fzf.vim
 
-" Customize fzf colors to match your color scheme
-let g:fzf_colors =
-            \ { 'fg':    ['fg', 'Normal'],
-            \ 'bg':      ['bg', 'Normal'],
-            \ 'hl':      ['fg', 'Comment'],
-            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-            \ 'hl+':     ['fg', 'Statement'],
-            \ 'info':    ['fg', 'PreProc'],
-            \ 'border':  ['fg', 'Ignore'],
-            \ 'prompt':  ['fg', 'Conditional'],
-            \ 'pointer': ['fg', 'Exception'],
-            \ 'marker':  ['fg', 'Keyword'],
-            \ 'spinner': ['fg', 'Label'],
-            \ 'header':  ['fg', 'Comment'] }
-
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
@@ -779,7 +764,7 @@ autocmd FileType which_key highlight WhichKeyFloating ctermbg=DarkGray ctermfg=7
 " Open Application
 nmap <leader>o :!open -a iTerm .<CR>
 
-" nvim-lspconfig
+" --- nvim-lspconfig
 lua << EOF
 require'lspconfig'.elixirls.setup{
     -- Unix
@@ -800,15 +785,19 @@ require'lspfuzzy'.setup {
 }
 EOF
 
-" lspfuzzy
+" --- lspfuzzy
 " nnoremap <silent><leader>ls <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent><leader>ll <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent><leader>lg <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent><leader>lf <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent><leader>lc <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent><leader>lt <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent><leader>lr <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent><leader>la <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent><leader>l; <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <silent><leader>l, <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap <silent><leader>lm <cmd>lua vim.lsp.buf.formatting()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: a e g i j k r s t u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim: set ft=vim :
+" vim: set ft=vim
