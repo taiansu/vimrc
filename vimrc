@@ -59,8 +59,6 @@ Plug 'ojroques/nvim-lspfuzzy'
 " npm install -g typescript typescript-language-server
 " ruby:
 " gem install solargraph
-" graphql:
-" npm install -g graphql-language-service-cli
 " F#
 " dotnet tool install --global fsautocomplete
 " Haskell
@@ -911,7 +909,7 @@ nvim_lsp.elixirls.setup{
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'fsautocomplete', 'graphql', 'hls', 'pyright', 'rust_analyzer', 'solargraph', 'tsserver' }
+local servers = { 'fsautocomplete', 'hls', 'pyright', 'rust_analyzer', 'solargraph', 'tsserver' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
