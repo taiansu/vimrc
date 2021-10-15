@@ -862,9 +862,9 @@ cmp.setup({
     end, { "i", "s" }),
   },
   sources = {
-    { name = 'nvim_lsp' },
-    { name = 'vsnip' },
-    { name = 'buffer' },
+    { name = 'nvim_lsp', max_item_count = 20 },
+    { name = 'buffer', max_item_count = 25 },
+    { name = 'vsnip', max_item_count = 5 },
   }
 })
 EOF
