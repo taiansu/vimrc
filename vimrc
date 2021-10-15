@@ -74,6 +74,8 @@ Plug 'NLKNguyen/papercolor-theme'
 
 Plug 'liuchengxu/vim-which-key'
 
+Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
+
 " On-demand loading
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
 Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown' }
@@ -864,6 +866,24 @@ cmp.setup({
     { name = 'vsnip' },
     { name = 'buffer' },
   }
+})
+EOF
+
+" -- cmp-tabnine
+lua <<EOF
+require'cmp'.setup {
+ sources = {
+  { name = 'cmp_tabnine' },
+ },
+}
+
+local tabnine = require('cmp_tabnine.config')
+tabnine:setup({
+  max_lines = 1000;
+  max_num_results = 20;
+  sort = true;
+  run_on_every_keystroke = true;
+  snippet_placeholder = '..';
 })
 EOF
 
