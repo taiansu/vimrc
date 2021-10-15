@@ -72,7 +72,6 @@ Plug 'Th3Whit3Wolf/one-nvim'
 Plug 'shaunsingh/nord.nvim'
 Plug 'NLKNguyen/papercolor-theme'
 
-Plug 'sbdchd/neoformat'
 Plug 'liuchengxu/vim-which-key'
 
 " On-demand loading
@@ -594,6 +593,22 @@ map <leader>ln :lnext<CR>
 map <leader>lp :lprevious<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Formatting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+augroup formatting
+  autocmd!
+  autocmd FileType javascript setlocal formatprg=prettier\ --parser\ babel
+  autocmd FileType markdown setlocal formatprg=prettier\ --parser\ markdown
+  autocmd FileType css setlocal formatprg=prettier\ --parser\ css
+  autocmd FileType html setlocal formatprg=prettier\ --parser\ html
+  autocmd FileType json setlocal formatprg=prettier\ --parser\ json
+augroup END
+
+" format entire buffer and keep cursor position with mark
+nnoremap <silent><leader>vf mxgggqG'x<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Addons Settings
 " 插件設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -745,10 +760,6 @@ let g:jsx_ext_required = 0
 
 " --- vim-markdown
 let g:vim_markdown_conceal_code_blocks = 0
-
-" --- Neoformat
-nnoremap <leader>vd :Neoformat<CR>
-let g:neoformat_enabled_javascript = ['prettier']
 
 " --- vista.vim
 function! NearestMethodOrFunction() abort
@@ -929,14 +940,14 @@ EOF
 " --- lspfuzzy
 " nnoremap <silent><leader>ls <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent><leader>ll <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent><leader>lf <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent><leader>ld <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent><leader>lc <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent><leader>lt <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent><leader>lr <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent><leader>la <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent><leader>l; <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <silent><leader>l, <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-nnoremap <silent><leader>lm <cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap <silent><leader>lf <cmd>lua vim.lsp.buf.formatting()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: a e g i j k s t u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
