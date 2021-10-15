@@ -66,15 +66,18 @@ Plug 'ojroques/nvim-lspfuzzy'
 " Haskell
 " from homebrew: brew install haskell-language-server
 
-" Colorscheme
+Plug 'liuchengxu/vim-which-key'
 Plug 'guns/xterm-color-table.vim'
+Plug 'kyazdani42/nvim-web-devicons'
+
+" Colorscheme
 Plug 'jacoborus/tender.vim'
 Plug 'dim13/smyck.vim'
 Plug 'Th3Whit3Wolf/one-nvim'
 Plug 'shaunsingh/nord.nvim'
-Plug 'NLKNguyen/papercolor-theme'
-
-Plug 'liuchengxu/vim-which-key'
+Plug 'mhartington/oceanic-next'
+Plug 'rktjmp/lush.nvim'
+Plug 'adisen99/codeschool.nvim'
 
 " On-demand loading
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
@@ -95,7 +98,6 @@ Plug 'vim-erlang/vim-dialyzer',            { 'for': 'erlang' }
 Plug 'bitc/vim-hdevtools',                 { 'for': 'haskell' }
 Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
 Plug 'pearofducks/ansible-vim'
-Plug 'kyazdani42/nvim-web-devicons'
 
 " Local
 
