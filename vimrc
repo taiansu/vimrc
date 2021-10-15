@@ -683,7 +683,17 @@ EOF
 " --- nvim-tree.lua
 let g:WebDevIconsOS = 'Darwin'
 lua << EOF
-require'nvim-tree'.setup {}
+require'nvim-tree'.setup {
+  auto_close = true,
+  update_focused_file = {
+    enable = true,
+    update_cwd  = true,
+  },
+  view = {
+    width = 35,
+    auto_reize = true
+  }
+}
 EOF
 
 let g:nvim_tree_indent_markers = 1
@@ -701,32 +711,10 @@ let g:nvim_tree_highlight_opened_files = 1
 "if folder is 1, you can also tell folder_arrows 1 to show small arrows next to the folder icons.
 "but this will not work when you set indent_markers (because of UI conflict)
 
-" default will show icon by default if no icon is provided
-" default shows no icon by default
-" let g:nvim_tree_icons = {
-"     \ 'default': "",
-"     \ 'symlink': "",
-"     \ 'git': {
-"     \   'unstaged': "✗",
-"     \   'staged': "✓",
-"     \   'unmerged': "...",
-"     \   'renamed': "➜",
-"     \   'untracked': "★",
-"     \   'deleted': "xxx",
-"     \   'ignored': "◌"
-"     \   },
-"     \ 'folder': {
-"     \   'default': "d",
-"     \   'open': "o",
-"     \   }
-"     \ }
-
-nnoremap <leader>q :NvimTreeToggle<CR>
-nnoremap <leader>fq :NvimTreeFindFile<CR>
-nnoremap <leader>r :NvimTreeRefresh<CR>
+nnoremap <silent><leader>t :NvimTreeToggle<CR>
+nnoremap <silent><leader>ft :NvimTreeFindFile<CR>
+" nnoremap <silent><leader>r :NvimTreeRefresh<CR>
 " NvimTreeOpen, NvimTreeClose, NvimTreeFocus and NvimTreeResize are also available if you need them
-
-set termguicolors " this variable must be enabled for colors to be applied properly
 
 " --- JavaScript Syntax
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
@@ -778,7 +766,7 @@ autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 let g:vista#renderer#enable_icon=0
 
-nmap <silent><leader>t :Vista!!<CR>
+nmap <silent><leader>s :Vista!!<CR>
 
 " --- hdevtools
 let g:hdevtools_stack = 1
@@ -970,6 +958,6 @@ nnoremap <silent><leader>l, <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 nnoremap <silent><leader>lf <cmd>lua vim.lsp.buf.formatting()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: a e g i j k s t u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
+" Free leader keys: a e g i j k q u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim: set ft=vim
