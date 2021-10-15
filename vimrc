@@ -41,11 +41,12 @@ Plug 'chrisbra/unicode.vim'
 Plug 'kassio/neoterm'
 Plug 'janko-m/vim-test'
 
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
+Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
@@ -73,8 +74,6 @@ Plug 'shaunsingh/nord.nvim'
 Plug 'NLKNguyen/papercolor-theme'
 
 Plug 'liuchengxu/vim-which-key'
-
-Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 
 " On-demand loading
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
@@ -853,18 +852,13 @@ cmp.setup({
     { name = 'nvim_lsp', max_item_count = 20 },
     { name = 'buffer', max_item_count = 25 },
     { name = 'vsnip', max_item_count = 5 },
+    { name = 'cmp_tabnine', max_item_count = 5 }
   }
 })
 EOF
 
 " -- cmp-tabnine
 lua <<EOF
-require'cmp'.setup {
- sources = {
-  { name = 'cmp_tabnine' },
- },
-}
-
 local tabnine = require('cmp_tabnine.config')
 tabnine:setup({
   max_lines = 1000;
