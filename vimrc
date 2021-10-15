@@ -47,6 +47,7 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
+Plug 'windwp/nvim-autopairs'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
@@ -867,6 +868,11 @@ tabnine:setup({
   run_on_every_keystroke = true;
   snippet_placeholder = '..';
 })
+EOF
+
+" --- nvim-autopairs
+lua << EOF
+require('nvim-autopairs').setup{}
 EOF
 
 
