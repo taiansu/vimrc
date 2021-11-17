@@ -14,8 +14,6 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'BurntSushi/ripgrep'
-Plug 'MattesGroeger/vim-bookmarks'
-Plug 'tom-anders/telescope-vim-bookmarks.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-abolish'
@@ -81,7 +79,7 @@ Plug 'adisen99/codeschool.nvim'
 
 " On-demand loading
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
-Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown' }
+" Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown' }
 Plug 'junegunn/vim-easy-align',  { 'on': 'EasyAlign' }
 Plug 'numtostr/BufOnly.nvim',    { 'on': 'BufOnly' }
 
@@ -651,29 +649,6 @@ if has('mvim')
 else
   map <M-p> <CMD>Telescope find_files<CR>
 endif
-
-" --- vim-bookmarks
-nmap <silent><leader>mk <Plug>BookmarkToggle
-nmap <silent><leader>ma <Plug>BookmarkAnnotate
-" nmap <silent><leader>bs <Plug>BookmarkShowAll
-nmap <silent><leader>mn <Plug>BookmarkNext
-nmap <silent><leader>mp <Plug>BookmarkPrev
-nmap <silent><leader>mc <Plug>BookmarkClear
-nmap <silent><leader>mx <Plug>BookmarkClearAll
-" nmap <silent><leader>kk <Plug>BookmarkMoveUp
-" nmap <silent><leader>jj <Plug>BookmarkMoveDown
-nmap <silent><leader>mg <Plug>BookmarkMoveToLine
-
-let g:bookmark_no_default_key_mappings = 1
-
-" --- telescope-vim-bookmarks.nvim
-nnoremap <silent><leader>ml :Telescope vim_bookmarks all<CR>
-" Only pick from bookmarks in current file
-nnoremap <silent><leader>mf :Telescope vim_bookmarks current_file<CR>
-
-lua << EOF
-require('telescope').load_extension('vim_bookmarks')
-EOF
 
 " --- gitsigns.nvim
 lua << EOF
