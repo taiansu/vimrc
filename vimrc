@@ -12,6 +12,7 @@ Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
+Plug 'ThePrimeagen/harpoon'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'BurntSushi/ripgrep'
 Plug 'kyazdani42/nvim-tree.lua'
@@ -475,11 +476,21 @@ nmap <leader>xv :TrailingWhiteSpaces<CR>:nohlsearch<CR>
 nnoremap ' `
 nnoremap ` '
 
-" Non-memorized yank and delete, should follow with a motion.
+" Non-memorized paste, yank and delete, should follow with a motion.
 " For example, use <leader>y2j will yank 2 line to
 " paste, but without put them into the yank ring.
-map <leader>y "_y
-map <leader>d "_d
+
+" greatest remap ever
+xnoremap <leader>p "_dP
+
+" next greatest remap ever : asbjornHaland
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>Y gg"+yG
+
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
+
 
 "  Insert a backward arrow
 imap <M-,> <space><-<space>
@@ -567,17 +578,17 @@ ca to BufOnly
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! RenameFile()
-    let old_name = expand('%')
-    let new_name = input('New file name: ', expand('%'), 'file')
-    if new_name != '' && new_name != old_name
-        exec ':saveas ' . new_name
-        exec ':silent !rm ' . old_name
-        exec ':bd'
-        redraw!
-    endif
-endfunction
-map <leader>n :call RenameFile()<CR>
+" function! RenameFile()
+"     let old_name = expand('%')
+"     let new_name = input('New file name: ', expand('%'), 'file')
+"     if new_name != '' && new_name != old_name
+"         exec ':saveas ' . new_name
+"         exec ':silent !rm ' . old_name
+"         exec ':bd'
+"         redraw!
+"     endif
+" endfunction
+" map <leader>n :call RenameFile()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " allow multiple indentation/deindentation in visual mode
@@ -690,7 +701,7 @@ let g:nvim_tree_highlight_opened_files = 1
 
 nnoremap <silent><leader>t :NvimTreeToggle<CR>
 nnoremap <silent><leader>ft :NvimTreeFindFile<CR>
-" nnoremap <silent><leader>r :NvimTreeRefresh<CR>
+nnoremap <silent><leader>fr :NvimTreeRefresh<CR>
 " NvimTreeOpen, NvimTreeClose, NvimTreeFocus and NvimTreeResize are also available if you need them
 
 " --- JavaScript Syntax
@@ -849,7 +860,32 @@ EOF
 
 " --- nvim-autopairs
 lua << EOF
-require('nvim-autopairs').setup{}
+require('nvim-autopairs').setup{
+  map_cr = true, --  map <CR> on insert mode
+  map_complete = true, -- it will auto insert `(` (map_char) after select function or method item
+  auto_select = true, -- automatically select the first item
+  insert = false, -- use insert confirm behavior instead of replace
+  map_char = { -- modifies the function or method delimiter by filetypes
+    all = '(',
+    tex = '{'
+  },
+  enable_check_bracket_line = false,
+  ignored_next_char = string.gsub([[ [%w%%%'%[%"%.] ]],"%s+", ""),
+  disable_filetype = { "TelescopePrompt"}
+}
+-- require('nvim-autopairs.completion.cmp').setup{
+--   map_cr = true, --  map <CR> on insert mode
+--   map_complete = true, -- it will auto insert `(` (map_char) after select function or method item
+--   auto_select = true, -- automatically select the first item
+--   insert = false, -- use insert confirm behavior instead of replace
+--   map_char = { -- modifies the function or method delimiter by filetypes
+--     all = '(',
+--     tex = '{'
+--   },
+--   enable_check_bracket_line = false,
+--   ignored_next_char = string.gsub([[ [%w%%%'%[%"%.] ]],"%s+", "")
+--   disable_filetype = { "TelescopePrompt"}
+-- }
 EOF
 
 
@@ -924,17 +960,44 @@ EOF
 
 " --- lspfuzzy
 " nnoremap <silent><leader>ls <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent><leader>ll <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent><leader>ld <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent><leader>lc <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent><leader>lj <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent><leader>lk <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent><leader>lh <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent><leader>lt <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent><leader>lr <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent><leader>la <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <silent><leader>l; <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap <silent><leader>l, <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap <silent><leader>lp <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap <silent><leader>ln <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 nnoremap <silent><leader>lf <cmd>lua vim.lsp.buf.formatting()<CR>
 
+" --- harpoon
+lua << EOF
+require("harpoon").setup({
+    global_settings = {
+        save_on_toggle = false,
+        save_on_change = true,
+        enter_on_sendcmd = false,
+        excluded_filetypes = { "harpoon" }
+    }
+})
+EOF
+
+nnoremap <silent><leader>ji :lua require("harpoon.mark").add_file()<CR>
+nnoremap <silent><leader>jj :lua require("harpoon.ui").toggle_quick_menu()<CR>
+nnoremap <C-j> :lua require("harpoon.ui").nav_file(1)<CR>
+nnoremap <C-m> :lua require("harpoon.ui").nav_file(2)<CR>
+nnoremap <C-i> :lua require("harpoon.ui").nav_file(3)<CR>
+nnoremap <C-s> :lua require("harpoon.ui").nav_file(4)<CR>
+nnoremap <silent><leader>jk :lua require("harpoon.ui").nav_file(1)<CR>
+nnoremap <silent><leader>jl :lua require("harpoon.ui").nav_file(2)<CR>
+nnoremap <silent><leader>jl :lua require("harpoon.ui").nav_file(3)<CR>
+nnoremap <silent><leader>jh :lua require("harpoon.ui").nav_file(4)<CR>
+nnoremap <silent><leader>j1 :lua require("harpoon.term").totoTerminal(1)<CR>
+nnoremap <silent><leader>j2 :lua require("harpoon.term").totoTerminal(2)<CR>
+nnoremap <silent><leader>jq :lua require("harpoon.term").sendCommand(1, 1)<CR>
+nnoremap <silent><leader>jw :lua require("harpoon.term").sendCommand(1, 2)<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: a e g i j k q u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
+" Free leader keys: a e g i j k n q r u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim: set ft=vim
