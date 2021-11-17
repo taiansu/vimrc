@@ -701,7 +701,7 @@ let g:nvim_tree_highlight_opened_files = 1
 "if folder is 1, you can also tell folder_arrows 1 to show small arrows next to the folder icons.
 "but this will not work when you set indent_markers (because of UI conflict)
 
-nnoremap <silent><leader>t :NvimTreeToggle<CR>
+nnoremap <silent><leader>q :NvimTreeToggle<CR>
 nnoremap <silent><leader>ft :NvimTreeFindFile<CR>
 nnoremap <silent><leader>fr :NvimTreeRefresh<CR>
 " NvimTreeOpen, NvimTreeClose, NvimTreeFocus and NvimTreeResize are also available if you need them
