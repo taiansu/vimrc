@@ -52,19 +52,9 @@ Plug 'windwp/nvim-autopairs'
 " LSP
 Plug 'neovim/nvim-lspconfig'
 Plug 'ojroques/nvim-lspfuzzy'
+Plug 'williamboman/nvim-lsp-installer'
 
-" elixir:
-" build from source: https://github.com/elixir-lsp/elixir-ls
-" python:
-" npm i -g pyright
-" javascript:
-" npm install -g typescript typescript-language-server
-" ruby:
-" gem install solargraph
-" F#
-" dotnet tool install --global fsautocomplete
-" Haskell
-" from homebrew: brew install haskell-language-server
+" LspInstall elixirls erlangls fsautocomplete hls html pyright rust_analyzer solargraph tailwindcss tsserver vimls
 
 Plug 'liuchengxu/vim-which-key'
 Plug 'guns/xterm-color-table.vim'
@@ -961,7 +951,7 @@ nvim_lsp.elixirls.setup{
       debounce_text_changes = 150,
     },
     -- Unix
-    cmd = { "/Users/tai/Projects/source/elixir-ls/release/language_server.sh" },
+    cmd = { "/Users/tai/.local/share/nvim/lsp_servers/elixir/elixir-ls/language_server.sh" }
     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
     -- Windows
