@@ -46,6 +46,7 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
+Plug 'github/copilot.vim'
 Plug 'windwp/nvim-autopairs'
 
 " LSP
