@@ -1002,20 +1002,17 @@ require("harpoon").setup({
 })
 EOF
 
-nnoremap <silent><leader>ji :lua require("harpoon.mark").add_file()<CR>
-nnoremap <silent><leader>jj :lua require("harpoon.ui").toggle_quick_menu()<CR>
+nnoremap <silent><leader>jk :lua require("harpoon.mark").add_file()<CR>
+nnoremap <silent><leader>jl :lua require("harpoon.ui").toggle_quick_menu()<CR>
 nnoremap <C-j> :lua require("harpoon.ui").nav_file(1)<CR>
 nnoremap <C-k> :lua require("harpoon.ui").nav_file(2)<CR>
 nnoremap <C-h> :lua require("harpoon.ui").nav_file(3)<CR>
 nnoremap <C-i> :lua require("harpoon.ui").nav_file(4)<CR>
-nnoremap <silent><leader>jk :lua require("harpoon.ui").nav_file(1)<CR>
-nnoremap <silent><leader>jl :lua require("harpoon.ui").nav_file(2)<CR>
-nnoremap <silent><leader>jl :lua require("harpoon.ui").nav_file(3)<CR>
-nnoremap <silent><leader>jh :lua require("harpoon.ui").nav_file(4)<CR>
-nnoremap <silent><leader>j1 :lua require("harpoon.term").totoTerminal(1)<CR>
-nnoremap <silent><leader>j2 :lua require("harpoon.term").totoTerminal(2)<CR>
-nnoremap <silent><leader>jq :lua require("harpoon.term").sendCommand(1, 1)<CR>
-nnoremap <silent><leader>jw :lua require("harpoon.term").sendCommand(1, 2)<CR>
+nnoremap <silent> <leader>jo :lua require("harpoon.ui").nav_file(getchar())<cr>
+nnoremap <silent><leader>j; :lua require("harpoon.term").totoTerminal(1)<CR>
+nnoremap <silent><leader>j' :lua require("harpoon.term").totoTerminal(2)<CR>
+nnoremap <silent><leader>j[ :lua require("harpoon.term").sendCommand(1, 1)<CR>
+nnoremap <silent><leader>j] :lua require("harpoon.term").sendCommand(1, 2)<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: a e g i j k n q r u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
