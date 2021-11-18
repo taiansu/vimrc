@@ -1005,9 +1005,9 @@ EOF
 nnoremap <silent><leader>ji :lua require("harpoon.mark").add_file()<CR>
 nnoremap <silent><leader>jj :lua require("harpoon.ui").toggle_quick_menu()<CR>
 nnoremap <C-j> :lua require("harpoon.ui").nav_file(1)<CR>
-nnoremap <C-m> :lua require("harpoon.ui").nav_file(2)<CR>
-nnoremap <C-i> :lua require("harpoon.ui").nav_file(3)<CR>
-nnoremap <C-s> :lua require("harpoon.ui").nav_file(4)<CR>
+nnoremap <C-k> :lua require("harpoon.ui").nav_file(2)<CR>
+nnoremap <C-h> :lua require("harpoon.ui").nav_file(3)<CR>
+nnoremap <C-i> :lua require("harpoon.ui").nav_file(4)<CR>
 nnoremap <silent><leader>jk :lua require("harpoon.ui").nav_file(1)<CR>
 nnoremap <silent><leader>jl :lua require("harpoon.ui").nav_file(2)<CR>
 nnoremap <silent><leader>jl :lua require("harpoon.ui").nav_file(3)<CR>
