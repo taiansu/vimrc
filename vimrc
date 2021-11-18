@@ -951,7 +951,7 @@ nvim_lsp.elixirls.setup{
       debounce_text_changes = 150,
     },
     -- Unix
-    cmd = { "/Users/tai/.local/share/nvim/lsp_servers/elixir/elixir-ls/language_server.sh" }
+    cmd = { "/Users/tai/.local/share/nvim/lsp_servers/elixir/elixir-ls/language_server.sh" },
     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
     -- Windows
