@@ -610,9 +610,6 @@ augroup formatting
   autocmd FileType json setlocal formatprg=prettier\ --parser\ json
 augroup END
 
-" format entire buffer and keep cursor position with mark
-nnoremap <silent><leader>vf mxgggqG'x<CR>
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Addons Settings
 " 插件設定
@@ -941,8 +938,8 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  buf_set_keymap('n', '<space>ll', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap('n', '<space>fv', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
 nvim_lsp.elixirls.setup{
@@ -1015,6 +1012,6 @@ nnoremap <silent><leader>j[ :lua require("harpoon.term").sendCommand(1, 1)<CR>
 nnoremap <silent><leader>j] :lua require("harpoon.term").sendCommand(1, 2)<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: a e g i j k n q r u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
+" Free leader keys: a e g i j k n r u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim: set ft=vim
