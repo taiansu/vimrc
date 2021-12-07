@@ -48,6 +48,7 @@ Plug 'hrsh7th/cmp-vsnip'
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 Plug 'github/copilot.vim'
 Plug 'windwp/nvim-autopairs'
+Plug 'lukas-reineke/format.nvim'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
@@ -302,11 +303,6 @@ nnoremap <M-l> <c-w>l
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let &t_SI = "\<Esc>[5 q"
 let &t_EI = "\<Esc>[2 q"
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" DISABLE AUTOMATIC COMMENT INSERTION
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType css,scss setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Bracketed paste mode
@@ -598,11 +594,12 @@ map <leader>ln :lnext<CR>
 map <leader>lp :lprevious<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Formatting
+" Formatting, DISABLE AUTOMATIC COMMENT INSERTION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 augroup formatting
   autocmd!
+  autocmd FileType css,scss setlocal formatoptions-=c formatoptions-=r formatoptions-=o
   autocmd FileType javascript setlocal formatprg=prettier\ --parser\ babel
   autocmd FileType markdown setlocal formatprg=prettier\ --parser\ markdown
   autocmd FileType css setlocal formatprg=prettier\ --parser\ css
@@ -905,6 +902,50 @@ require('nvim-autopairs').setup{
 -- }
 EOF
 
+" ---
+lua << EOF
+require "format".setup {
+  ["*"] = {
+    {cmd = {"sed -i 's/[ \t]*$//'"}} -- remove trailing whitespace
+  },
+  vim = {
+    {
+      cmd = {"luafmt -w replace"},
+      start_pattern = "^lua << EOF$",
+      end_pattern = "^EOF$"
+    }
+  },
+--  lua = {
+--    {
+--      cmd = {
+--        function(file)
+--          return string.format("luafmt -l %s -w replace %s", vim.bo.textwidth, file)
+--        end
+--      }
+--    }
+--  },
+--  go = {
+--    {
+--      cmd = {"gofmt -w", "goimports -w"},
+--      tempfile_postfix = ".tmp"
+--    }
+--  },
+  javascript = {
+    {cmd = {"prettier -w"}}
+  },
+  markdown = {
+    {cmd = {"prettier -w"}},
+    {
+      cmd = {"black"},
+      start_pattern = "^```python$",
+      end_pattern = "^```$",
+      target = "current"
+    }
+  }
+}
+EOF
+
+nnoremap <silent><leader>fv :Format<CR>
 
 " --- nvim-lspconfig
 lua << EOF
@@ -939,7 +980,6 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>ll', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap('n', '<space>fv', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
 nvim_lsp.elixirls.setup{
