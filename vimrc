@@ -344,6 +344,8 @@ autocmd BufWritePost $MYVIMRC source $MYVIMRC
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup SyntaxSettings
     autocmd! BufNewFile,BufRead,BufEnter *.ex,*.exs set ft=elixir
+    autocmd! BufNewFile,BufRead,BufEnter *.html.heex set ft=html.heex
+    autocmd! BufNewFile,BufRead,BufEnter *.html.leex set ft=html.leex
     autocmd! BufNewFile,BufRead,BufEnter *.ls       set ft=ls
     autocmd! BufNewFile,BufRead *.scss,*.sass       set ft=scss.css
     autocmd! BufNewFile,BufRead *.md                set ft=markdown
@@ -369,7 +371,7 @@ augroup vimrcEx
 
   autocmd FileType ruby compiler ruby
   autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
-  autocmd FileType html,haml,markdown,handlebars setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType html,haml,markdown,html.heex,eruby setlocal omnifunc=htmlcomplete#CompleteTags
 
   " Enable omni completion. (Ctrl-X Ctrl-O)
   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
