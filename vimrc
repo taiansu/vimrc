@@ -640,6 +640,7 @@ autocmd! User FzfStatusLine call <SID>fzf_statusline()
 nnoremap <silent><leader>fg <CMD>Telescope live_grep<CR>
 nnoremap <silent><leader>fb <CMD>Telescope buffers<CR>
 nnoremap <silent><leader>fh <CMD>Telescope help_tags<CR>
+nnoremap <silent><leader>fm <CMD>Telescope harpoon marks<CR>
 
 nnoremap <silent><leader>/ :execute 'Telescope grep_string search='.expand('<cword>')<CR>
 
@@ -648,6 +649,10 @@ if has('mvim')
 else
   map <M-p> <CMD>Telescope find_files<CR>
 endif
+
+lua<<EOF
+require("telescope").load_extension('harpoon')
+EOF
 
 " --- gitsigns.nvim
 lua << EOF
@@ -1017,15 +1022,19 @@ EOF
 
 " --- lspfuzzy
 " nnoremap <silent><leader>ls <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent><leader>lj <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent><leader>lk <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent><leader>lh <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent><leader>lrr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent><leader>ld <cmd>lua vim.lsp.buf.definition()<CR>
+"nnoremap <silent><leader>ldc <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent><leader>li <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent><leader>lt <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent><leader>lr <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent><leader>la <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent><leader>lrn <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent><leader>lc <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent><leader>lp <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <silent><leader>ln <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 nnoremap <silent><leader>lf <cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap <silent><leader>lh <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent><leader>lsd <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <silent><leader>ll <cmd>call LspLocationList()<CR>
 
 " --- harpoon
 lua << EOF
@@ -1041,11 +1050,11 @@ EOF
 
 nnoremap <silent><leader>jk :lua require("harpoon.mark").add_file()<CR>
 nnoremap <silent><leader>jl :lua require("harpoon.ui").toggle_quick_menu()<CR>
-nnoremap <C-j> :lua require("harpoon.ui").nav_file(1)<CR>
-nnoremap <C-k> :lua require("harpoon.ui").nav_file(2)<CR>
+nnoremap <C-k> :lua require("harpoon.ui").nav_file(1)<CR>
+nnoremap <C-j> :lua require("harpoon.ui").nav_file(2)<CR>
 nnoremap <C-h> :lua require("harpoon.ui").nav_file(3)<CR>
 nnoremap <C-i> :lua require("harpoon.ui").nav_file(4)<CR>
-nnoremap <silent> <leader>jo :lua require("harpoon.ui").nav_file(getchar())<cr>
+nnoremap <silent><leader>jo :lua require("harpoon.ui").nav_file(getchar())<cr>
 nnoremap <silent><leader>j; :lua require("harpoon.term").totoTerminal(1)<CR>
 nnoremap <silent><leader>j' :lua require("harpoon.term").totoTerminal(2)<CR>
 nnoremap <silent><leader>j[ :lua require("harpoon.term").sendCommand(1, 1)<CR>
