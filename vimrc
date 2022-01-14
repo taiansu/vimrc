@@ -680,12 +680,12 @@ EOF
 let g:nvim_tree_indent_markers = 1
 let g:nvim_tree_highlight_opened_files = 1
 
-" let g:nvim_tree_show_icons = {
-"     \ 'git': 1,
-"     \ 'folders': 0,
-"     \ 'files': 0,
-"     \ 'folder_arrows': 0,
-"     \ }
+let g:nvim_tree_show_icons = {
+    \ 'git': 1,
+    \ 'folders': 0,
+    \ 'files': 0,
+    \ 'folder_arrows': 0,
+    \ }
 "If 0, do not show the icons for one of 'git' 'folder' and 'files'
 "1 by default, notice that if 'files' is 1, it will only display
 "if nvim-web-devicons is installed and on your runtimepath.
