@@ -61,7 +61,6 @@ Plug 'williamboman/nvim-lsp-installer'
 Plug 'liuchengxu/vim-which-key'
 Plug 'guns/xterm-color-table.vim'
 Plug 'kyazdani42/nvim-web-devicons'
-" Plug 'lukas-reineke/indent-blankline.nvim'
 
 " Colorscheme
 Plug 'jacoborus/tender.vim'
@@ -774,34 +773,6 @@ if has("nvim")
 else
   let test#strategy = "vimterminal"
 endif
-
-" --- indent-blankline
-lua << EOF
--- vim.opt.termguicolors = true
--- vim.cmd [[highlight IndentBlanklineIndent1 guibg=#1a1a1a gui=nocombine]]
---
--- require("indent_blankline").setup {
---   char = " ",
---   char_highlight_list = {
---     "IndentBlanklineIndent1",
---     "Normal",
---   },
---   space_char_highlight_list = {
---     "IndentBlanklineIndent1",
---     "Normal",
---   },
---   show_trailing_blankline_indent = false,
--- }
-
--- vim.opt.list = true
--- vim.opt.listchars:append("eol:↴")
---
--- require("indent_blankline").setup {
---   char = "⎸",
---   show_end_of_line = true,
---   buftype_exclude = {"terminal"}
--- }
-EOF
 
 " --- vim-which-key
 call which_key#register('<Space>', "g:which_key_map")
