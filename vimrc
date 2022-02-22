@@ -68,7 +68,6 @@ Plug 'jacoborus/tender.vim'
 Plug 'dim13/smyck.vim'
 Plug 'Th3Whit3Wolf/one-nvim'
 Plug 'shaunsingh/nord.nvim'
-Plug 'mhartington/oceanic-next'
 Plug 'rktjmp/lush.nvim'
 Plug 'adisen99/codeschool.nvim'
 
