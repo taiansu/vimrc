@@ -63,12 +63,7 @@ Plug 'guns/xterm-color-table.vim'
 Plug 'kyazdani42/nvim-web-devicons'
 
 " Colorscheme
-Plug 'jacoborus/tender.vim'
-Plug 'dim13/smyck.vim'
-Plug 'Th3Whit3Wolf/one-nvim'
-Plug 'shaunsingh/nord.nvim'
-Plug 'rktjmp/lush.nvim'
-Plug 'adisen99/codeschool.nvim'
+Plug 'rafi/awesome-vim-colorschemes'
 
 " On-demand loading
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
@@ -616,11 +611,9 @@ function! ToggleBackgroundColor()
   if (&background == 'light')
     set background=dark
     colorscheme tender
-    let g:airline_theme='jellybeans'
   else
     set background=light
-    colorscheme codeschool
-    let g:airline_theme='base16_ia_light'
+    colorscheme lucius
   end
 endfunction
 
