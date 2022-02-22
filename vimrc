@@ -562,6 +562,7 @@ ca to BufOnly
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" keep this for function example
 " function! RenameFile()
 "     let old_name = expand('%')
 "     let new_name = input('New file name: ', expand('%'), 'file')
