@@ -30,8 +30,8 @@ Plug 'kana/vim-submode'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-indent'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'kdheepak/tabline.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'reedes/vim-pencil'
 Plug 'AndrewRadev/linediff.vim'
@@ -401,9 +401,11 @@ set clipboard^=unnamed,unnamedplus
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 command! App :silent !open -a /Applications/
 
+set sessionoptions+=tabpages,globals " store tabpages and globals in session
 if has("gui_running")
     set guioptions-=T
-    set guioptions+=e
+    " set guioptions+=e
+    set guioptions-=e " Use showtabline in gui vim
     set guitablabel=%M\ %t
 endif
 
@@ -717,17 +719,71 @@ let g:user_emmet_settings = {
   \}
 let g:user_emmet_leader_key='<C-y>'
 
-" --- vim-airline
+" -- lualine.nvim and tabline.nvim
+lua << EOF
+require('tabline').setup {
+    -- Defaults configuration options
+    enable = true,
+    options = {
+    -- If lualine is installed tabline will use separators configured in lualine by default.
+    -- These options can be used to override those settings.
+      section_separators = {'', ''},
+      component_separators = {'', ''},
+      max_bufferline_percent = 66, -- set to nil by default, and it uses vim.o.columns * 2/3
+      show_tabs_always = false, -- this shows tabs only when there are more than one tab or if the first tab is named
+      show_devicons = true, -- this shows devicons in buffer section
+      show_bufnr = false, -- this appends [bufnr] to buffer section,
+      show_filename_only = false, -- shows base filename only instead of relative path in filename
+      --  modified_icon = "+ ", -- change the default modified icon
+      modified_italic = false, -- set to true by default; this determines whether the filename turns italic if modified
+    }
+  }
 
-let g:airline_theme='jellybeans'
+require('lualine').setup {
+  options = {
+    icons_enabled = true,
+    theme = 'auto',
+    component_separators = { "", "" },
+    section_separators = { "·", "·" },
+    disabled_filetypes = {},
+    always_divide_middle = true,
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {
+       {
+          'filename',
+          file_status = true,      -- Displays file status (readonly status, modified status)
+          path = 1,                -- 0: Just the filename
+                                   -- 1: Relative path
+                                   -- 2: Absolute path
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-
-let g:airline#extensions#tagbar#enabled = 1
-let g:airline#extensions#branch = 1
+          shorting_target = 0,    -- Shortens path to leave 40 spaces in the window
+                                   -- for other components. (terrible name, any suggestions?)
+          symbols = {
+            modified = '[+]',      -- Text to show when the file is modified.
+            readonly = '[-]',      -- Text to show when the file is non-modifiable or readonly.
+            unnamed = '[No Name]', -- Text to show for unnamed buffers.
+          }
+        }
+    },
+    lualine_x = {'NearestMethodOrFunction', 'filetype', 'encoding'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  extensions = {'quickfix', 'nvim-tree', 'fzf'}
+}
+EOF
 
 " --- vim-easy-align
 vnoremap <silent><Enter> :EasyAlign<CR>
@@ -745,8 +801,6 @@ let g:vim_markdown_conceal_code_blocks = 0
 function! NearestMethodOrFunction() abort
   return get(b:, 'vista_nearest_method_or_function', '')
 endfunction
-
-set statusline+=%{NearestMethodOrFunction()}
 
 " By default vista.vim never run if you don't call it explicitly.
 "
