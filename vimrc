@@ -851,26 +851,6 @@ cmp.setup({
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     ['<C-e>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm({ select = false }),
-
-    -- supertab-like mapping
-    -- ["<Tab>"] = cmp.mapping(function(fallback)
-    --   if cmp.visible() then
-    --     cmp.select_next_item()
-    --   elseif vim.fn["vsnip#available"]() == 1 then
-    --     feedkey("<Plug>(vsnip-expand-or-jump)", "")
-    --   elseif has_words_before() then
-    --     cmp.complete()
-    --   else
-    --     fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
-    --   end
-    -- end, { "i", "s" }),
-    -- ["<S-Tab>"] = cmp.mapping(function()
-    --   if cmp.visible() then
-    --     cmp.select_prev_item()
-    --   elseif vim.fn["vsnip#jumpable"](-1) == 1 then
-    --     feedkey("<Plug>(vsnip-jump-prev)", "")
-    --   end
-    -- end, { "i", "s" }),
   },
   sources = {
     { name = 'nvim_lsp', max_item_count = 20 },
@@ -1037,20 +1017,21 @@ require'lspfuzzy'.setup {
 EOF
 
 " --- lspfuzzy
-" nnoremap <silent><leader>ls <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent><leader>lrr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent><leader>l] <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent><leader>lr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent><leader>la <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent><leader>ld <cmd>lua vim.lsp.buf.definition()<CR>
-"nnoremap <silent><leader>ldc <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent><leader>li <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent><leader>lt <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent><leader>lrn <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent><leader>lc <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <silent><leader>lp <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap <silent><leader>ln <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 nnoremap <silent><leader>lf <cmd>lua vim.lsp.buf.formatting()<CR>
-nnoremap <silent><leader>lh <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent><leader>lsd <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 nnoremap <silent><leader>ll <cmd>call LspLocationList()<CR>
+
+" nnoremap <silent><leader>ls <cmd>lua vim.lsp.buf.document_symbol()<CR>
+" nnoremap <silent><leader>lt <cmd>lua vim.lsp.buf.type_definition()<CR>
+" nnoremap <silent><leader>lrn <cmd>lua vim.lsp.buf.rename()<CR>
+" nnoremap <silent><leader>lp <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+" nnoremap <silent><leader>ln <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+" nnoremap <silent><leader>lh <cmd>lua vim.lsp.buf.hover()<CR>
+" nnoremap <silent><leader>lsd <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
 " --- harpoon
 lua << EOF
