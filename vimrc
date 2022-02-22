@@ -681,7 +681,7 @@ EOF
 let g:WebDevIconsOS = 'Darwin'
 lua << EOF
 require'nvim-tree'.setup {
-  auto_close = true,
+  auto_close = false,
   update_focused_file = {
     enable = true,
     update_cwd  = true,
