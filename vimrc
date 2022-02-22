@@ -610,6 +610,22 @@ augroup formatting
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Toggle between light and dark background
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! ToggleBackgroundColor()
+  if (&background == 'light')
+    set background=dark
+    colorscheme tender
+    let g:airline_theme='jellybeans'
+  else
+    set background=light
+    colorscheme codeschool
+    let g:airline_theme='base16_ia_light'
+  end
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Addons Settings
 " 插件設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
