@@ -48,7 +48,7 @@ Plug 'hrsh7th/cmp-vsnip'
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 Plug 'github/copilot.vim'
 Plug 'windwp/nvim-autopairs'
-Plug 'lukas-reineke/format.nvim'
+Plug 'mhartington/formatter.nvim'
 Plug 'rafamadriz/friendly-snippets'
 
 " LSP
@@ -924,45 +924,55 @@ EOF
 
 " ---
 lua << EOF
-require "format".setup {
-  ["*"] = {
-    {cmd = {"sed -i 's/[ \t]*$//'"}} -- remove trailing whitespace
-  },
-  vim = {
-    {
-      cmd = {"luafmt -w replace"},
-      start_pattern = "^lua << EOF$",
-      end_pattern = "^EOF$"
-    }
-  },
---  lua = {
---    {
---      cmd = {
---        function(file)
---          return string.format("luafmt -l %s -w replace %s", vim.bo.textwidth, file)
---        end
---      }
---    }
---  },
---  go = {
---    {
---      cmd = {"gofmt -w", "goimports -w"},
---      tempfile_postfix = ".tmp"
---    }
---  },
-  javascript = {
-    {cmd = {"prettier -w"}}
-  },
-  markdown = {
-    {cmd = {"prettier -w"}},
-    {
-      cmd = {"black"},
-      start_pattern = "^```python$",
-      end_pattern = "^```$",
-      target = "current"
-    }
+require "formatter".setup ({
+  filetype = {
+    javascript = {
+      -- prettier
+      function()
+        return {
+          exe = "prettier",
+          args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
+          stdin = true
+        }
+      end
+    },
+
+    json = {
+      function()
+        return {
+          exe = "prettier",
+          args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), "--double-quote"},
+          stdin = true
+        }
+      end
+    },
+
+    python = {
+      function()
+        return {
+          exe = "python3 -m autopep8",
+          args = {
+            "--in-place --aggressive --aggressive",
+            vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))
+          },
+          stdin = false
+        }
+      end
+    },
+
+    elixir = {
+      function()
+        return {
+          exe = "mix format",
+          args = {
+            vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))
+          },
+          stdin = false
+        }
+      end
+    },
   }
-}
+})
 EOF
 
 nnoremap <silent><leader>fv :Format<CR>
@@ -1015,10 +1025,20 @@ nvim_lsp.elixirls.setup{
     -- cmd = { "/path/to/elixir-ls/language_server.bat" }
 }
 
+nvim_lsp.fsautocomplete.setup{
+  cmd = { "dotnet", "fsautocomplete", "--background-service-enabled" },
+  init_options = {
+    AutomaticWorkspaceInit = true
+  },
+  root_dir = function(startpath)
+    return M.search_ancestors(startpath, matcher)
+  end
+}
+
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'fsautocomplete', 'hls', 'pyright', 'rust_analyzer', 'solargraph', 'tsserver' }
+local servers = { 'hls', 'pyright', 'rust_analyzer', 'solargraph', 'tsserver' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
