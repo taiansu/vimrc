@@ -647,7 +647,7 @@ endfunction
 autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 " --- Telescope
-" nnoremap <silent><leader>ff <CMD>Telescope find_files<CR>
+nnoremap <silent><leader>ff <CMD>Telescope find_files<CR>
 nnoremap <silent><leader>fg <CMD>Telescope live_grep<CR>
 nnoremap <silent><leader>fb <CMD>Telescope buffers<CR>
 nnoremap <silent><leader>fh <CMD>Telescope help_tags<CR>
@@ -671,42 +671,6 @@ require('gitsigns').setup {
   current_line_blame = true
 }
 EOF
-
-" --- nvim-tree.lua
-let g:WebDevIconsOS = 'Darwin'
-lua << EOF
-require'nvim-tree'.setup {
-  auto_close = false,
-  update_focused_file = {
-    enable = true,
-    update_cwd  = true,
-  },
-  view = {
-    width = 35,
-    auto_reize = true
-  }
-}
-EOF
-
-let g:nvim_tree_indent_markers = 1
-let g:nvim_tree_highlight_opened_files = 1
-
-let g:nvim_tree_show_icons = {
-    \ 'git': 1,
-    \ 'folders': 0,
-    \ 'files': 0,
-    \ 'folder_arrows': 0,
-    \ }
-"If 0, do not show the icons for one of 'git' 'folder' and 'files'
-"1 by default, notice that if 'files' is 1, it will only display
-"if nvim-web-devicons is installed and on your runtimepath.
-"if folder is 1, you can also tell folder_arrows 1 to show small arrows next to the folder icons.
-"but this will not work when you set indent_markers (because of UI conflict)
-
-nnoremap <silent><leader>q :NvimTreeToggle<CR>
-nnoremap <silent><leader>ft :NvimTreeFindFile<CR>
-nnoremap <silent><leader>fr :NvimTreeRefresh<CR>
-" NvimTreeOpen, NvimTreeClose, NvimTreeFocus and NvimTreeResize are also available if you need them
 
 " --- JavaScript Syntax
 let g:javascript_enable_domhtmlcss = 1 "Enable html,css syntax Highlight in js
@@ -1095,6 +1059,55 @@ nnoremap <silent><leader>j; :lua require("harpoon.term").totoTerminal(1)<CR>
 nnoremap <silent><leader>j' :lua require("harpoon.term").totoTerminal(2)<CR>
 nnoremap <silent><leader>j[ :lua require("harpoon.term").sendCommand(1, 1)<CR>
 nnoremap <silent><leader>j] :lua require("harpoon.term").sendCommand(1, 2)<CR>
+
+" --- nvim-tree.lua
+let g:WebDevIconsOS = 'Darwin'
+let g:nvim_tree_highlight_opened_files = 1
+
+let g:nvim_tree_show_icons = {
+    \ 'git': 1,
+    \ 'folders': 0,
+    \ 'files': 0,
+    \ 'folder_arrows': 0,
+    \ }
+"If 0, do not show the icons for one of 'git' 'folder' and 'files'
+"1 by default, notice that if 'files' is 1, it will only display
+"if nvim-web-devicons is installed and on your runtimepath.
+"if folder is 1, you can also tell folder_arrows 1 to show small arrows next to the folder icons.
+"but this will not work when you set indent_markers (because of UI conflict)
+
+lua << EOF
+require'nvim-tree'.setup {
+  update_focused_file = {
+    enable = true,
+    update_cwd  = true,
+  },
+  view = {
+    width = 35
+  },
+  renderer = {
+    indent_markers = {
+      enable = true,
+      icons = {
+        corner = "└ ",
+        edge = "│ ",
+        none = "  ",
+      },
+    },
+  },
+  actions = {
+    open_file = {
+      quit_on_open = true,
+      resize_window = true,
+    }
+  }
+}
+EOF
+
+nnoremap <silent><leader>q :NvimTreeToggle<CR>
+nnoremap <silent><leader>ft :NvimTreeFindFile<CR>
+nnoremap <silent><leader>fr :NvimTreeRefresh<CR>
+" NvimTreeOpen, NvimTreeClose, NvimTreeFocus and NvimTreeResize are also available if you need them
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: a e g i j k n r u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
