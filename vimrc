@@ -73,7 +73,7 @@ Plug 'numtostr/BufOnly.nvim',    { 'on': 'BufOnly' }
 
 " Language specified
 Plug 'sheerun/vim-polyglot'
-Plug 'mattn/emmet-vim',                    { 'for': ['html', 'eruby', 'eelixir'] }
+Plug 'mattn/emmet-vim',                    { 'for': ['html', 'eruby', 'eelixir', 'elixir'] }
 Plug 'Vimjas/vim-python-pep8-indent',      { 'for': 'python' }
 Plug 'vim-erlang/vim-erlang-compiler',     { 'for': 'erlang' }
 Plug 'vim-erlang/vim-erlang-skeletons',    { 'for': 'erlang' }
