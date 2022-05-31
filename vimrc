@@ -1062,14 +1062,7 @@ nnoremap <silent><leader>j] :lua require("harpoon.term").sendCommand(1, 2)<CR>
 
 " --- nvim-tree.lua
 let g:WebDevIconsOS = 'Darwin'
-let g:nvim_tree_highlight_opened_files = 1
 
-let g:nvim_tree_show_icons = {
-    \ 'git': 1,
-    \ 'folders': 0,
-    \ 'files': 0,
-    \ 'folder_arrows': 0,
-    \ }
 "If 0, do not show the icons for one of 'git' 'folder' and 'files'
 "1 by default, notice that if 'files' is 1, it will only display
 "if nvim-web-devicons is installed and on your runtimepath.
@@ -1094,6 +1087,15 @@ require'nvim-tree'.setup {
         none = "  ",
       },
     },
+    icons = {
+      show = {
+        file = false,
+        folder = true,
+        folder_arrow = true,
+        git = true
+      }
+    },
+    highlight_opened_files = "all"
   },
   actions = {
     open_file = {
