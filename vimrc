@@ -650,8 +650,8 @@ autocmd! User FzfStatusLine call <SID>fzf_statusline()
 nnoremap <silent><leader>ff <CMD>Telescope find_files<CR>
 nnoremap <silent><leader>fg <CMD>Telescope live_grep<CR>
 nnoremap <silent><leader>fb <CMD>Telescope buffers<CR>
-nnoremap <silent><leader>fh <CMD>Telescope help_tags<CR>
-nnoremap <silent><leader>fm <CMD>Telescope harpoon marks<CR>
+nnoremap <silent><leader>ft <CMD>Telescope help_tags<CR>
+nnoremap <silent><leader>fh <CMD>Telescope harpoon marks<CR>
 
 nnoremap <silent><leader>/ :execute 'Telescope grep_string search='.expand('<cword>')<CR>
 
@@ -1050,11 +1050,13 @@ EOF
 
 nnoremap <silent><leader>jk :lua require("harpoon.mark").add_file()<CR>
 nnoremap <silent><leader>jl :lua require("harpoon.ui").toggle_quick_menu()<CR>
-nnoremap <C-k> :lua require("harpoon.ui").nav_file(1)<CR>
-nnoremap <C-j> :lua require("harpoon.ui").nav_file(2)<CR>
-nnoremap <C-h> :lua require("harpoon.ui").nav_file(3)<CR>
-nnoremap <C-i> :lua require("harpoon.ui").nav_file(4)<CR>
-nnoremap <silent><leader>jo :lua require("harpoon.ui").nav_file(getchar())<cr>
+nnoremap <C-0> :lua require("harpoon.ui").nav_file(1)<CR>
+nnoremap <C-9> :lua require("harpoon.ui").nav_file(2)<CR>
+nnoremap <C-8> :lua require("harpoon.ui").nav_file(3)<CR>
+nnoremap <C-7> :lua require("harpoon.ui").nav_file(4)<CR>
+nnoremap <C-k> :lua require("harpoon.ui").nav_prev()<CR>
+nnoremap <C-j> :lua require("harpoon.ui").nav_next()<CR>
+nnoremap <C-l> :lua require("harpoon.ui").toggle_quick_menu()<CR>
 nnoremap <silent><leader>j; :lua require("harpoon.term").totoTerminal(1)<CR>
 nnoremap <silent><leader>j' :lua require("harpoon.term").totoTerminal(2)<CR>
 nnoremap <silent><leader>j[ :lua require("harpoon.term").sendCommand(1, 1)<CR>
