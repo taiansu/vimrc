@@ -39,6 +39,7 @@ Plug 'chrisbra/vim-diff-enhanced'
 Plug 'chrisbra/unicode.vim'
 Plug 'kassio/neoterm'
 Plug 'janko-m/vim-test'
+Plug 'folke/trouble.nvim'
 
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/vim-vsnip'
@@ -662,7 +663,20 @@ else
 endif
 
 lua<<EOF
-require("telescope").load_extension('harpoon')
+local actions = require("telescope.actions")
+local trouble = require("trouble.providers.telescope")
+local telescope = require("telescope")
+
+telescope.setup {
+  defaults = {
+    mappings = {
+      i = { ["<c-t>"] = trouble.open_with_trouble },
+      n = { ["<c-t>"] = trouble.open_with_trouble },
+    }
+  }
+}
+
+telescope.load_extension('harpoon')
 EOF
 
 " --- gitsigns.nvim
@@ -1112,6 +1126,19 @@ nnoremap <silent><leader>q :NvimTreeToggle<CR>
 nnoremap <silent><leader>ft :NvimTreeFindFile<CR>
 nnoremap <silent><leader>fr :NvimTreeRefresh<CR>
 " NvimTreeOpen, NvimTreeClose, NvimTreeFocus and NvimTreeResize are also available if you need them
+
+" --- trouble.nvim
+lua << EOF
+  require("trouble").setup {
+  }
+EOF
+
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
+nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
+nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
+nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
+nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: a e g i j k n r u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
