@@ -8,13 +8,13 @@
 " Setup Vim-plug
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
-Plug '/usr/local/opt/fzf'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'ThePrimeagen/harpoon'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'BurntSushi/ripgrep'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-abolish'
@@ -61,7 +61,6 @@ Plug 'williamboman/nvim-lsp-installer'
 
 Plug 'liuchengxu/vim-which-key'
 Plug 'guns/xterm-color-table.vim'
-Plug 'kyazdani42/nvim-web-devicons'
 
 " Colorscheme
 Plug 'rafi/awesome-vim-colorschemes'
@@ -972,21 +971,12 @@ local on_attach = function(client, bufnr)
   local opts = { noremap=true, silent=true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', '<space>h', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>ll', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 end
 
@@ -1043,10 +1033,9 @@ nnoremap <silent><leader>lf <cmd>lua vim.lsp.buf.formatting()<CR>
 nnoremap <silent><leader>ll <cmd>call LspLocationList()<CR>
 
 " nnoremap <silent><leader>ls <cmd>lua vim.lsp.buf.document_symbol()<CR>
-" nnoremap <silent><leader>lt <cmd>lua vim.lsp.buf.type_definition()<CR>
 " nnoremap <silent><leader>lrn <cmd>lua vim.lsp.buf.rename()<CR>
-" nnoremap <silent><leader>lp <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-" nnoremap <silent><leader>ln <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap <silent><leader>lp <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap <silent><leader>ln <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 " nnoremap <silent><leader>lh <cmd>lua vim.lsp.buf.hover()<CR>
 " nnoremap <silent><leader>lsd <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
@@ -1130,6 +1119,18 @@ nnoremap <silent><leader>fr :NvimTreeRefresh<CR>
 " --- trouble.nvim
 lua << EOF
   require("trouble").setup {
+   icons = false,
+   fold_open = "v", -- icon used for open folds
+   fold_closed = ">", -- icon used for closed folds
+   indent_lines = false, -- add an indent guide below the fold icons
+   signs = {
+     -- icons / text used for a diagnostic
+     error = "error",
+     warning = "warn",
+     hint = "hint",
+     information = "info"
+    },
+    use_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
   }
 EOF
 
@@ -1139,6 +1140,8 @@ nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
 nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
 nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
 nnoremap gR <cmd>TroubleToggle lsp_references<cr>
+" nnoremap <leader>gd <cmd>TroubleToggle lsp_definitions<cr>
+" nnoremap <leader>gt <cmd>TroubleToggle lsp_type_definitions<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: a e g i j k n r u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
