@@ -39,7 +39,7 @@ Plug 'chrisbra/vim-diff-enhanced'
 Plug 'chrisbra/unicode.vim'
 Plug 'kassio/neoterm'
 Plug 'janko-m/vim-test'
-Plug 'folke/trouble.nvim'
+Plug 'onsails/lspkind-nvim'
 
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/vim-vsnip'
@@ -663,17 +663,9 @@ endif
 
 lua<<EOF
 local actions = require("telescope.actions")
-local trouble = require("trouble.providers.telescope")
 local telescope = require("telescope")
 
-telescope.setup {
-  defaults = {
-    mappings = {
-      i = { ["<c-t>"] = trouble.open_with_trouble },
-      n = { ["<c-t>"] = trouble.open_with_trouble },
-    }
-  }
-}
+telescope.setup {}
 
 telescope.load_extension('harpoon')
 EOF
@@ -800,10 +792,11 @@ else
 endif
 
 " --- vim-which-key
-call which_key#register('<Space>', "g:which_key_map")
-
 nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey  '\'<CR>
+
+set timeoutlen=500
 
 " Define prefix dictionary
 let g:which_key_map =  {}
@@ -813,6 +806,8 @@ autocmd FileType which_key highlight WhichKeySeperator ctermbg=DarkGray ctermfg=
 autocmd FileType which_key highlight WhichKeyGroup cterm=bold ctermbg=DarkGray ctermfg=7
 autocmd FileType which_key highlight WhichKeyDesc ctermbg=DarkGray ctermfg=7
 autocmd FileType which_key highlight WhichKeyFloating ctermbg=DarkGray ctermfg=7 guibg=Gray25
+
+call which_key#register('<Space>', "g:which_key_map")
 
 " Open Application
 nmap <leader>o :!open -a iTerm .<CR>
@@ -830,6 +825,7 @@ local feedkey = function(key, mode)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
+local lspkind = require("lspkind")
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -842,9 +838,9 @@ cmp.setup({
     ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
     ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
     ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm({ select = false }),
   },
@@ -853,7 +849,15 @@ cmp.setup({
     { name = 'buffer', max_item_count = 25 },
     { name = 'vsnip', max_item_count = 5 },
     { name = 'cmp_tabnine', max_item_count = 5 }
-  }
+  },
+  formatting = {
+    format = lspkind.cmp_format({
+      with_text = true,
+      menu = {
+        nvim_lsp = "[LSP]",
+      }
+    }),
+  },
 })
 EOF
 
@@ -861,7 +865,7 @@ EOF
 lua <<EOF
 local tabnine = require('cmp_tabnine.config')
 tabnine:setup({
-  max_lines = 1000;
+  max_lines = 200;
   max_num_results = 20;
   sort = true;
   run_on_every_keystroke = true;
@@ -884,19 +888,6 @@ require('nvim-autopairs').setup{
   ignored_next_char = string.gsub([[ [%w%%%'%[%"%.] ]],"%s+", ""),
   disable_filetype = { "TelescopePrompt"}
 }
--- require('nvim-autopairs.completion.cmp').setup{
---   map_cr = true, --  map <CR> on insert mode
---   map_complete = true, -- it will auto insert `(` (map_char) after select function or method item
---   auto_select = true, -- automatically select the first item
---   insert = false, -- use insert confirm behavior instead of replace
---   map_char = { -- modifies the function or method delimiter by filetypes
---     all = '(',
---     tex = '{'
---   },
---   enable_check_bracket_line = false,
---   ignored_next_char = string.gsub([[ [%w%%%'%[%"%.] ]],"%s+", "")
---   disable_filetype = { "TelescopePrompt"}
--- }
 EOF
 
 " ---
@@ -957,37 +948,52 @@ nnoremap <silent><leader>fv :Format<CR>
 " --- nvim-lspconfig
 lua << EOF
 local nvim_lsp = require('lspconfig')
+local opts = { noremap=true, silent=true }
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+   -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  -- Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  local bufopts = { noremap=true, silent=true }
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  -- vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  -- vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  -- vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
 
-  -- Mappings.
-  local opts = { noremap=true, silent=true }
-
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<space>h', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '<space>ll', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  -- tell nvim-cmp about our desired capabilities
+  require("cmp_nvim_lsp").update_capabilities(capabilities)
 end
 
+local path_to_elixirls = vim.fn.expand("~/.local/share/nvim/lsp_servers/elixir/elixir-ls/language_server.sh")
 nvim_lsp.elixirls.setup{
+    cmd = {path_to_elixirls},
+    capabilities = capabilities,
     on_attach = on_attach,
     flags = {
       debounce_text_changes = 150,
     },
+    settings = {
+      dialyzerEnabled = false,
+      fetchDeps = false
+    },
     -- Unix
-    cmd = { "/Users/tai/.local/share/nvim/lsp_servers/elixir/elixir-ls/language_server.sh" },
-    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
     -- Windows
     -- cmd = { "/path/to/elixir-ls/language_server.bat" }
@@ -1006,13 +1012,14 @@ nvim_lsp.fsautocomplete.setup{
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
+local lsp_flags = {
+  debounce_text_changes = 150,
+}
 local servers = { 'hls', 'pyright', 'rust_analyzer', 'solargraph', 'tsserver' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    },
+    flags = lsp_flags,
     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   }
 end
@@ -1030,12 +1037,12 @@ nnoremap <silent><leader>la <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent><leader>ld <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent><leader>li <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent><leader>lf <cmd>lua vim.lsp.buf.formatting()<CR>
-nnoremap <silent><leader>ll <cmd>call LspLocationList()<CR>
 
 " nnoremap <silent><leader>ls <cmd>lua vim.lsp.buf.document_symbol()<CR>
 " nnoremap <silent><leader>lrn <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent><leader>lp <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap <silent><leader>ln <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap <silent><leader>ll <cmd>lua vim.diagnostic.setloclist()<CR>
+nnoremap <silent><leader>lp <cmd>lua vim.diagnostic.goto_prev()<CR>
+nnoremap <silent><leader>ln <cmd>lua vim.diagnostic.goto_next()<CR>
 " nnoremap <silent><leader>lh <cmd>lua vim.lsp.buf.hover()<CR>
 " nnoremap <silent><leader>lsd <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
@@ -1115,33 +1122,6 @@ nnoremap <silent><leader>q :NvimTreeToggle<CR>
 nnoremap <silent><leader>ft :NvimTreeFindFile<CR>
 nnoremap <silent><leader>fr :NvimTreeRefresh<CR>
 " NvimTreeOpen, NvimTreeClose, NvimTreeFocus and NvimTreeResize are also available if you need them
-
-" --- trouble.nvim
-lua << EOF
-  require("trouble").setup {
-   icons = false,
-   fold_open = "v", -- icon used for open folds
-   fold_closed = ">", -- icon used for closed folds
-   indent_lines = false, -- add an indent guide below the fold icons
-   signs = {
-     -- icons / text used for a diagnostic
-     error = "error",
-     warning = "warn",
-     hint = "hint",
-     information = "info"
-    },
-    use_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
-  }
-EOF
-
-nnoremap <leader>xx <cmd>TroubleToggle<cr>
-nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
-nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
-nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
-nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
-nnoremap gR <cmd>TroubleToggle lsp_references<cr>
-" nnoremap <leader>gd <cmd>TroubleToggle lsp_definitions<cr>
-" nnoremap <leader>gt <cmd>TroubleToggle lsp_type_definitions<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: a e g i j k n r u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
