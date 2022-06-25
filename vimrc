@@ -59,7 +59,7 @@ Plug 'williamboman/nvim-lsp-installer'
 
 " LspInstall elixirls erlangls fsautocomplete hls html pyright rust_analyzer solargraph tailwindcss tsserver vimls
 
-Plug 'liuchengxu/vim-which-key'
+Plug 'folke/which-key.nvim'
 Plug 'guns/xterm-color-table.vim'
 
 " Colorscheme
@@ -791,23 +791,33 @@ else
   let test#strategy = "vimterminal"
 endif
 
-" --- vim-which-key
-nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
-vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
-nnoremap <silent> <localleader> :<c-u>WhichKey  '\'<CR>
+" --- which.nvim
 
-set timeoutlen=500
+lua <<EOF
+require("which-key").setup { }
 
-" Define prefix dictionary
-let g:which_key_map =  {}
-
-autocmd FileType which_key highlight WhichKey cterm=bold ctermbg=DarkGray gui=bold ctermfg=7 guifg=LightSkyBlue3
-autocmd FileType which_key highlight WhichKeySeperator ctermbg=DarkGray ctermfg=7 guifg=Silver
-autocmd FileType which_key highlight WhichKeyGroup cterm=bold ctermbg=DarkGray ctermfg=7
-autocmd FileType which_key highlight WhichKeyDesc ctermbg=DarkGray ctermfg=7
-autocmd FileType which_key highlight WhichKeyFloating ctermbg=DarkGray ctermfg=7 guibg=Gray25
-
-call which_key#register('<Space>', "g:which_key_map")
+--local wk = require("which-key")
+---- As an example, we will create the following mappings:
+----  * <leader>ff find files
+----  * <leader>fr show recent files
+----  * <leader>fb Foobar
+---- we'll document:
+----  * <leader>fn new file
+----  * <leader>fe edit file
+---- and hide <leader>1
+--
+--wk.register({
+--  f = {
+--    name = "file", -- optional group name
+--    f = { "<cmd>Telescope find_files<cr>", "Find File" }, -- create a binding with label
+--    r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File", noremap=false, buffer = 123 }, -- additional options for creating the keymap
+--    n = { "New File" }, -- just a label. don't create any mapping
+--    e = "Edit File", -- same as above
+--    ["1"] = "which_key_ignore",  -- special label to hide it in the popup
+--    b = { function() print("bar") end, "Foobar" } -- you can also pass functions!
+--  },
+--}, { prefix = "<leader>" })
+EOF
 
 " Open Application
 nmap <leader>o :!open -a iTerm .<CR>
@@ -968,14 +978,14 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  -- vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  -- vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wl', function()
+  vim.keymap.set('n', '<Leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<Leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<Leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, bufopts)
-  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
   -- vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
 
   -- tell nvim-cmp about our desired capabilities
   require("cmp_nvim_lsp").update_capabilities(capabilities)
