@@ -49,7 +49,6 @@ Plug 'hrsh7th/cmp-vsnip'
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 Plug 'github/copilot.vim'
 Plug 'windwp/nvim-autopairs'
-Plug 'mhartington/formatter.nvim'
 Plug 'rafamadriz/friendly-snippets'
 
 " LSP
@@ -898,61 +897,6 @@ require('nvim-autopairs').setup{
   disable_filetype = { "TelescopePrompt"}
 }
 EOF
-
-" ---
-lua << EOF
-require "formatter".setup ({
-  filetype = {
-    javascript = {
-      -- prettier
-      function()
-        return {
-          exe = "prettier",
-          args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
-          stdin = true
-        }
-      end
-    },
-
-    json = {
-      function()
-        return {
-          exe = "prettier",
-          args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), "--double-quote"},
-          stdin = true
-        }
-      end
-    },
-
-    python = {
-      function()
-        return {
-          exe = "python3 -m autopep8",
-          args = {
-            "--in-place --aggressive --aggressive",
-            vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))
-          },
-          stdin = false
-        }
-      end
-    },
-
-    elixir = {
-      function()
-        return {
-          exe = "mix format",
-          args = {
-            vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))
-          },
-          stdin = false
-        }
-      end
-    },
-  }
-})
-EOF
-
-nnoremap <silent><leader>fv :Format<CR>
 
 " --- nvim-lspconfig
 lua << EOF
