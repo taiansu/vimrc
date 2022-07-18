@@ -338,8 +338,7 @@ autocmd BufWritePost $MYVIMRC source $MYVIMRC
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup SyntaxSettings
     autocmd! BufNewFile,BufRead,BufEnter *.ex,*.exs set ft=elixir
-    autocmd! BufNewFile,BufRead,BufEnter *.html.heex set ft=html.heex
-    autocmd! BufNewFile,BufRead,BufEnter *.html.leex set ft=html.leex
+    autocmd! BufRead,BufNewFile *.eex,*.heex,*.leex,*.sface,*.lexs set filetype=eelixir
     autocmd! BufNewFile,BufRead,BufEnter *.ls       set ft=ls
     autocmd! BufNewFile,BufRead *.scss,*.sass       set ft=scss.css
     autocmd! BufNewFile,BufRead *.md                set ft=markdown
