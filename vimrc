@@ -1077,8 +1077,8 @@ nnoremap <C-7> :lua require("harpoon.ui").nav_file(4)<CR>
 nnoremap <C-k> :lua require("harpoon.ui").nav_prev()<CR>
 nnoremap <C-j> :lua require("harpoon.ui").nav_next()<CR>
 nnoremap <C-l> :lua require("harpoon.ui").toggle_quick_menu()<CR>
-nnoremap <silent><leader>j; :lua require("harpoon.term").totoTerminal(1)<CR>
-nnoremap <silent><leader>j' :lua require("harpoon.term").totoTerminal(2)<CR>
+nnoremap <silent><leader>j; :lua require("harpoon.term").toTerminal(1)<CR>
+nnoremap <silent><leader>j' :lua require("harpoon.term").toTerminal(2)<CR>
 nnoremap <silent><leader>j[ :lua require("harpoon.term").sendCommand(1, 1)<CR>
 nnoremap <silent><leader>j] :lua require("harpoon.term").sendCommand(1, 2)<CR>
 
