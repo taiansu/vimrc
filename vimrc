@@ -342,6 +342,7 @@ augroup SyntaxSettings
     autocmd! BufNewFile,BufRead *.scss,*.sass       set ft=scss.css
     autocmd! BufNewFile,BufRead *.md                set ft=markdown
     autocmd! BufNewFile,BufRead *.tsx               set ft=typescript.typescriptreact
+    autocmd FileType elixir,eelixir autocmd BufWritePre <buffer> silent lua vim.lsp.buf.formatting_sync(nil, 1000)
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -989,7 +990,7 @@ nnoremap <silent><leader>lr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent><leader>la <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent><leader>ld <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent><leader>li <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent><leader>lf <cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap <silent><leader>lf <cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>
 
 " nnoremap <silent><leader>ls <cmd>lua vim.lsp.buf.document_symbol()<CR>
 " nnoremap <silent><leader>lrn <cmd>lua vim.lsp.buf.rename()<CR>
