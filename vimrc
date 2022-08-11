@@ -31,7 +31,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-indent'
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'kdheepak/tabline.nvim'
+Plug 'romgrk/barbar.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'reedes/vim-pencil'
 Plug 'AndrewRadev/linediff.vim'
@@ -68,7 +68,6 @@ Plug 'rafi/awesome-vim-colorschemes'
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
 " Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown' }
 Plug 'junegunn/vim-easy-align',  { 'on': 'EasyAlign' }
-Plug 'numtostr/BufOnly.nvim',    { 'on': 'BufOnly' }
 
 " Language specified
 Plug 'sheerun/vim-polyglot'
@@ -403,8 +402,7 @@ command! App :silent !open -a /Applications/
 set sessionoptions+=tabpages,globals " store tabpages and globals in session
 if has("gui_running")
     set guioptions-=T
-    " set guioptions+=e
-    set guioptions-=e " Use showtabline in gui vim
+    set guioptions+=e
     set guitablabel=%M\ %t
 endif
 
@@ -476,7 +474,6 @@ nnoremap <leader>Y gg"+yG
 nnoremap <leader>d "_d
 vnoremap <leader>d "_d
 
-
 "  Insert a backward arrow
 imap <M-,> <space><-<space>
 " Insert an arrow
@@ -544,21 +541,11 @@ call submode#map('undo/redo', 'n', '', '+', 'g+')
 
 " map <leader>fs :topleft :split<CR>
 
-map <leader>bd :bdelete!<CR>
-map <leader>bo :BufOnly<CR>
 " nnoremap <C-b> <C-^>
 " inoremap <C-b> <esc><C-^>
 map ]b :bn<CR>
 map [b :bp<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Shorts for tabnew tabn tabp
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-ca tn tabnew
-ca th tabp
-ca tl tabn
-ca tc BufOnly
-ca to BufOnly
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
@@ -656,8 +643,10 @@ nnoremap <silent><leader>/ :execute 'Telescope grep_string search='.expand('<cwo
 
 if has('mvim')
   nmap <D-p> <CMD>Telescope find_files<CR>
+  nmap <D-h> <CMD>Telescope harpoon marks<CR>
 else
   map <M-p> <CMD>Telescope find_files<CR>
+  nmap <M-h> <CMD>Telescope harpoon marks<CR>
 endif
 
 lua<<EOF
@@ -672,6 +661,7 @@ EOF
 " --- gitsigns.nvim
 lua << EOF
 require('gitsigns').setup {
+  icons = both,
   current_line_blame = true
 }
 EOF
@@ -687,26 +677,45 @@ let g:user_emmet_settings = {
   \}
 let g:user_emmet_leader_key='<C-y>'
 
-" -- lualine.nvim and tabline.nvim
+" --- barbar.nvim
 lua << EOF
-require('tabline').setup {
-    -- Defaults configuration options
-    enable = true,
-    options = {
-    -- If lualine is installed tabline will use separators configured in lualine by default.
-    -- These options can be used to override those settings.
-      section_separators = {'', ''},
-      component_separators = {'', ''},
-      max_bufferline_percent = 66, -- set to nil by default, and it uses vim.o.columns * 2/3
-      show_tabs_always = false, -- this shows tabs only when there are more than one tab or if the first tab is named
-      show_devicons = true, -- this shows devicons in buffer section
-      show_bufnr = false, -- this appends [bufnr] to buffer section,
-      show_filename_only = false, -- shows base filename only instead of relative path in filename
-      --  modified_icon = "+ ", -- change the default modified icon
-      modified_italic = false, -- set to true by default; this determines whether the filename turns italic if modified
-    }
-  }
+require'bufferline'.setup {
+  icon_pinned = '📌'
+}
+EOF
+" Re-order to previous/next
+nnoremap <silent><M-,> <CMD>BufferMovePrevious<CR>
+nnoremap <silent><M-.> <CMD>BufferMoveNext<CR>
+" Close buffer
+nnoremap <silent><M-c> <CMD>BufferClose<CR>
+nnoremap <silent><leader>bd <CMD>BufferClose<CR>
+" Wipeout buffer
+"                          :BufferWipeout
+" Close commands
+"                          :BufferCloseAllButCurrent
+"                          :BufferCloseAllButPinned
+"                          :BufferCloseAllButCurrentOrPinned
+"                          :BufferCloseBuffersLeft
+"                          :BufferCloseBuffersRight
+nnoremap <silent><leader>bo <CMD>BufferCloseAllButCurrentOrPinned<CR>
 
+" Pin/unpin buffer
+nnoremap <silent><leader>bp <CMD>BufferPin<CR>
+nnoremap <silent><M-k> <Cmd>BufferPin<CR>
+
+" Magic buffer-picking mode
+nnoremap <silent><leader>bk <CMD>BufferPick<CR>
+" list buffers
+nnoremap <silent><leader>bb <CMD>Telescope buffers<CR>
+
+" Sort automatically by...
+nnoremap <silent><leader>bn <CMD>BufferOrderByBufferNumber<CR>
+nnoremap <silent><leader>bf <CMD>BufferOrderByDirectory<CR>
+nnoremap <silent><leader>bl <CMD>BufferOrderByLanguage<CR>
+" nnoremap <silent> <leader>bw <Cmd>BufferOrderByWindowNumber<CR>
+
+" -- lualine.nvim
+lua << EOF
 require('lualine').setup {
   options = {
     icons_enabled = true,
@@ -1018,9 +1027,9 @@ nnoremap <C-0> :lua require("harpoon.ui").nav_file(1)<CR>
 nnoremap <C-9> :lua require("harpoon.ui").nav_file(2)<CR>
 nnoremap <C-8> :lua require("harpoon.ui").nav_file(3)<CR>
 nnoremap <C-7> :lua require("harpoon.ui").nav_file(4)<CR>
+nnoremap <C-i> :lua require("harpoon.ui").toggle_quick_menu()<CR>
 nnoremap <C-k> :lua require("harpoon.ui").nav_prev()<CR>
 nnoremap <C-j> :lua require("harpoon.ui").nav_next()<CR>
-nnoremap <C-l> :lua require("harpoon.ui").toggle_quick_menu()<CR>
 nnoremap <silent><leader>j; :lua require("harpoon.term").toTerminal(1)<CR>
 nnoremap <silent><leader>j' :lua require("harpoon.term").toTerminal(2)<CR>
 nnoremap <silent><leader>j[ :lua require("harpoon.term").sendCommand(1, 1)<CR>
@@ -1070,6 +1079,25 @@ require'nvim-tree'.setup {
     }
   }
 }
+
+local nvim_tree_events = require('nvim-tree.events')
+local bufferline_state = require('bufferline.state')
+
+local function get_tree_size()
+  return require'nvim-tree.view'.View.width
+end
+
+nvim_tree_events.subscribe('TreeOpen', function()
+  bufferline_state.set_offset(get_tree_size())
+end)
+
+nvim_tree_events.subscribe('Resize', function()
+  bufferline_state.set_offset(get_tree_size())
+end)
+
+nvim_tree_events.subscribe('TreeClose', function()
+  bufferline_state.set_offset(0)
+end)
 EOF
 
 nnoremap <silent><leader>q :NvimTreeToggle<CR>
