@@ -9,13 +9,12 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'ThePrimeagen/harpoon'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-ui-select.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-abolish'
@@ -56,7 +55,6 @@ Plug 'simrat39/rust-tools.nvim'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
-Plug 'ojroques/nvim-lspfuzzy'
 Plug 'williamboman/nvim-lsp-installer'
 " LspInstall elixirls erlangls fsautocomplete hls html pyright rust_analyzer solargraph tailwindcss tsserver vimls
 
@@ -619,24 +617,6 @@ endfunction
 " --- dash.vim
 map <leader>vd :Dash<CR>
 
-" --- fzf.vim
-
-" Insert mode completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
-
-function! s:fzf_statusline()
-  " Override statusline as you like
-  highlight fzf1 ctermfg=161 ctermbg=251
-  highlight fzf2 ctermfg=23 ctermbg=251
-  highlight fzf3 ctermfg=237 ctermbg=251
-  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
-endfunction
-
-autocmd! User FzfStatusLine call <SID>fzf_statusline()
-
 " --- Telescope
 nnoremap <silent><leader>ff <CMD>Telescope find_files<CR>
 nnoremap <silent><leader>fg <CMD>Telescope live_grep<CR>
@@ -678,13 +658,38 @@ telescope.setup {
       --      do the following
       --   codeactions = false,
       -- }
+    },
+    fzf = {
+      fuzzy = true,                    -- false will only do exact matching
+      override_generic_sorter = true,  -- override the generic sorter
+      override_file_sorter = true,     -- override the file sorter
+      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+                                       -- the default case_mode is "smart_case"
     }
   }
 }
 
+telescope.load_extension('fzf')
 telescope.load_extension('harpoon')
 telescope.load_extension("ui-select")
 EOF
+
+" --- lsp key mappings
+"  builtin.lsp_references
+nnoremap <silent><leader>la <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent><leader>ll <cmd>lua require('telescope.builtin').diagnostics()<CR>
+nnoremap <silent><leader>lt <cmd>lua require('telescope.builtin').lsp_type_definitions()<CR>
+nnoremap <silent><leader>lk <cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<CR>
+nnoremap <silent><leader>ls <cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>
+nnoremap <silent><leader>li <cmd>lua require('telescope.builtin').lsp_incoming_calls()<CR>
+nnoremap <silent><leader>lo <cmd>lua require('telescope.builtin').lsp_outgoing_calls()<CR>
+nnoremap <silent><leader>lm <cmd>lua require('telescope.builtin').lsp_implementation()<CR>
+nnoremap <silent><leader>lf <cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>
+
+nnoremap <silent><leader>lr <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent><leader>lp <cmd>lua vim.diagnostic.goto_prev()<CR>
+nnoremap <silent><leader>ln <cmd>lua vim.diagnostic.goto_next()<CR>
+nnoremap <silent><leader>lh <cmd>lua vim.lsp.buf.hover()<CR>
 
 " --- gitsigns.nvim
 lua << EOF
@@ -708,7 +713,8 @@ let g:user_emmet_leader_key='<C-y>'
 " --- barbar.nvim
 lua << EOF
 require'bufferline'.setup {
-  icon_pinned = '📌'
+  icon_pinned = '📌',
+  insert_at_end = true
 }
 EOF
 " Re-order to previous/next
@@ -755,26 +761,32 @@ require('lualine').setup {
   },
   sections = {
     lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {
-       {
-          'filename',
-          file_status = true,      -- Displays file status (readonly status, modified status)
-          path = 1,                -- 0: Just the filename
-                                   -- 1: Relative path
-                                   -- 2: Absolute path
-
-          shorting_target = 0,    -- Shortens path to leave 40 spaces in the window
-                                   -- for other components. (terrible name, any suggestions?)
-          symbols = {
-            modified = '[+]',      -- Text to show when the file is modified.
-            readonly = '[-]',      -- Text to show when the file is non-modifiable or readonly.
-            unnamed = '[No Name]', -- Text to show for unnamed buffers.
-          },
-          'lsp_progress'
-        }
+    lualine_b = {
+      'branch',
+      'diff',
+      {
+        'diagnostics',
+        sources = {'nvim_diagnostic', 'nvim_lsp'}
+      }
     },
-    lualine_x = {'NearestMethodOrFunction', 'filetype', 'encoding'},
+    lualine_c = {
+      {
+        'filename',
+        file_status = true,      -- Displays file status (readonly status, modified status)
+        path = 1,                -- 0: Just the filename
+                                 -- 1: Relative path
+                                 -- 2: Absolute path
+
+        shorting_target = 0,    -- Shortens path to leave 40 spaces in the window
+                                 -- for other components. (terrible name, any suggestions?)
+        symbols = {
+          modified = '[+]',      -- Text to show when the file is modified.
+          readonly = '[-]',      -- Text to show when the file is non-modifiable or readonly.
+          unnamed = '[No Name]', -- Text to show for unnamed buffers.
+        },
+      }
+    },
+    lualine_x = {'lsp_progress', 'NearestMethodOrFunction', 'filetype', 'encoding'},
     lualine_y = {'progress'},
     lualine_z = {'location'}
   },
@@ -955,21 +967,16 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
+
    -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
+  local telescope_builtin = require('telescope.builtin')
   local bufopts = { noremap=true, silent=true }
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', 'gk', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'gr', telescope_builtin.lsp_references, bufopts)
+  vim.keymap.set('n', 'gd', telescope_builtin.lsp_definitions, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<Leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<Leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<Leader>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
 
   -- tell nvim-cmp about our desired capabilities
   require("cmp_nvim_lsp").update_capabilities(capabilities)
@@ -1021,11 +1028,6 @@ for _, lsp in ipairs(servers) do
     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   }
 end
-
-require'lspfuzzy'.setup {
-  jump_one = false,
-  save_last = true
-}
 EOF
 
 " --- rust-tools
@@ -1077,23 +1079,6 @@ local opts = {
 }
 require('rust-tools').setup(opts)
 EOF
-
-" --- lspfuzzy
-nnoremap <silent><leader>lk <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent><leader>lr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent><leader>la <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <silent><leader>ld <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent><leader>lt <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent><leader>li <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent><leader>lf <cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>
-
-" nnoremap <silent><leader>ls <cmd>lua vim.lsp.buf.document_symbol()<CR>
-" nnoremap <silent><leader>lrn <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent><leader>ll <cmd>lua vim.diagnostic.setloclist()<CR>
-nnoremap <silent><leader>lp <cmd>lua vim.diagnostic.goto_prev()<CR>
-nnoremap <silent><leader>ln <cmd>lua vim.diagnostic.goto_next()<CR>
-" nnoremap <silent><leader>lh <cmd>lua vim.lsp.buf.hover()<CR>
-" nnoremap <silent><leader>lsd <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
 " --- harpoon
 lua << EOF
