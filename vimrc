@@ -15,6 +15,7 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'ThePrimeagen/harpoon'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-ui-select.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-abolish'
@@ -31,6 +32,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-indent'
 Plug 'nvim-lualine/lualine.nvim'
+Plug 'arkav/lualine-lsp-progress'
 Plug 'romgrk/barbar.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'reedes/vim-pencil'
@@ -47,16 +49,19 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
-Plug 'github/copilot.vim'
-Plug 'windwp/nvim-autopairs'
-Plug 'rafamadriz/friendly-snippets'
+" Plug 'github/copilot.vim'
+
+" Rust
+Plug 'simrat39/rust-tools.nvim'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
 Plug 'ojroques/nvim-lspfuzzy'
 Plug 'williamboman/nvim-lsp-installer'
-
 " LspInstall elixirls erlangls fsautocomplete hls html pyright rust_analyzer solargraph tailwindcss tsserver vimls
+
+Plug 'windwp/nvim-autopairs'
+Plug 'rafamadriz/friendly-snippets'
 
 Plug 'folke/which-key.nvim'
 Plug 'guns/xterm-color-table.vim'
@@ -653,9 +658,32 @@ lua<<EOF
 local actions = require("telescope.actions")
 local telescope = require("telescope")
 
-telescope.setup {}
+telescope.setup {
+  extensions = {
+    ["ui-select"] = {
+      require("telescope.themes").get_dropdown {
+        -- even more opts
+      }
+
+      -- pseudo code / specification for writing custom displays, like the one
+      -- for "codeactions"
+      -- specific_opts = {
+      --   [kind] = {
+      --     make_indexed = function(items) -> indexed_items, width,
+      --     make_displayer = function(widths) -> displayer
+      --     make_display = function(displayer) -> function(e)
+      --     make_ordinal = function(e) -> string
+      --   },
+      --   -- for example to disable the custom builtin "codeactions" display
+      --      do the following
+      --   codeactions = false,
+      -- }
+    }
+  }
+}
 
 telescope.load_extension('harpoon')
+telescope.load_extension("ui-select")
 EOF
 
 " --- gitsigns.nvim
@@ -742,7 +770,8 @@ require('lualine').setup {
             modified = '[+]',      -- Text to show when the file is modified.
             readonly = '[-]',      -- Text to show when the file is non-modifiable or readonly.
             unnamed = '[No Name]', -- Text to show for unnamed buffers.
-          }
+          },
+          'lsp_progress'
         }
     },
     lualine_x = {'NearestMethodOrFunction', 'filetype', 'encoding'},
@@ -908,6 +937,11 @@ require('nvim-autopairs').setup{
 }
 EOF
 
+" -- nvim-lsp-installer
+lua <<EOF
+require("nvim-lsp-installer").setup {}
+EOF
+
 " --- nvim-lspconfig
 lua << EOF
 local nvim_lsp = require('lspconfig')
@@ -926,7 +960,7 @@ local on_attach = function(client, bufnr)
 
   local bufopts = { noremap=true, silent=true }
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gk', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
@@ -936,9 +970,6 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<Leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, bufopts)
-  vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
-  -- vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
 
   -- tell nvim-cmp about our desired capabilities
   require("cmp_nvim_lsp").update_capabilities(capabilities)
@@ -972,6 +1003,10 @@ nvim_lsp.fsautocomplete.setup{
   end
 }
 
+nvim_lsp.tsserver.setup{
+  on_attach = on_attach,
+  flags = lsp_flags,
+}
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
@@ -993,11 +1028,62 @@ require'lspfuzzy'.setup {
 }
 EOF
 
+" --- rust-tools
+lua <<EOF
+local opts = {
+  -- rust-tools options
+  tools = {
+    autoSetHints = true,
+    inlay_hints = {
+      show_parameter_hints = true,
+      parameter_hints_prefix = "",
+      other_hints_prefix = "",
+      },
+    },
+
+  -- all the opts to send to nvim-lspconfig
+  -- these override the defaults set by rust-tools.nvim
+  -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+  -- https://rust-analyzer.github.io/manual.html#features
+  server = {
+    settings = {
+      ["rust-analyzer"] = {
+        assist = {
+          importEnforceGranularity = true,
+          importPrefix = "crate"
+          },
+        cargo = {
+          allFeatures = true
+          },
+        checkOnSave = {
+          -- default: `cargo check`
+          command = "clippy"
+          },
+        },
+        inlayHints = {
+          lifetimeElisionHints = {
+            enable = true,
+            useParameterNames = true
+          },
+        },
+       on_attach = function(_, bufnr)
+         -- Hover actions
+         vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+         -- Code action groups
+         vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+       end,
+      }
+    },
+}
+require('rust-tools').setup(opts)
+EOF
+
 " --- lspfuzzy
-nnoremap <silent><leader>l] <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent><leader>lk <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent><leader>lr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent><leader>la <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent><leader>ld <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent><leader>lt <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent><leader>li <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent><leader>lf <cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>
 
