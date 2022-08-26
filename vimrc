@@ -56,7 +56,7 @@ Plug 'simrat39/rust-tools.nvim'
 " LSP
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
-" LspInstall elixirls erlangls fsautocomplete hls html pyright rust_analyzer solargraph tailwindcss tsserver vimls
+" LspInstall elixirls erlangls hls html pyright rust_analyzer solargraph tailwindcss tsserver vimls
 
 Plug 'windwp/nvim-autopairs'
 Plug 'rafamadriz/friendly-snippets'
@@ -85,6 +85,7 @@ Plug 'vim-erlang/vim-dialyzer',            { 'for': 'erlang' }
 Plug 'bitc/vim-hdevtools',                 { 'for': 'haskell' }
 Plug 'itchyny/vim-haskell-indent',         { 'for': 'haskell' }
 Plug 'pearofducks/ansible-vim'
+Plug 'ionide/Ionide-vim'
 
 " Local
 
@@ -675,20 +676,21 @@ telescope.load_extension("ui-select")
 EOF
 
 " --- lsp key mappings
-"  builtin.lsp_references
 nnoremap <silent><leader>la <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent><leader>ll <cmd>lua require('telescope.builtin').diagnostics()<CR>
+nnoremap <silent><leader>ld <cmd>lua require('telescope.builtin').lsp_definitions()<CR>
+nnoremap <silent><leader>lr <cmd>lua require('telescope.builtin').lsp_references()<CR>
 nnoremap <silent><leader>lt <cmd>lua require('telescope.builtin').lsp_type_definitions()<CR>
-nnoremap <silent><leader>lk <cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<CR>
+nnoremap <silent><leader>lw <cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<CR>
 nnoremap <silent><leader>ls <cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>
 nnoremap <silent><leader>li <cmd>lua require('telescope.builtin').lsp_incoming_calls()<CR>
 nnoremap <silent><leader>lo <cmd>lua require('telescope.builtin').lsp_outgoing_calls()<CR>
 nnoremap <silent><leader>lm <cmd>lua require('telescope.builtin').lsp_implementation()<CR>
 nnoremap <silent><leader>lf <cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>
 
-nnoremap <silent><leader>lr <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent><leader>lp <cmd>lua vim.diagnostic.goto_prev()<CR>
-nnoremap <silent><leader>ln <cmd>lua vim.diagnostic.goto_next()<CR>
+nnoremap <silent><leader>lk <cmd>lua vim.diagnostic.goto_prev()<CR>
+nnoremap <silent><leader>lj <cmd>lua vim.diagnostic.goto_next()<CR>
+nnoremap <silent><leader>ln <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent><leader>lh <cmd>lua vim.lsp.buf.hover()<CR>
 
 " --- gitsigns.nvim
@@ -1000,18 +1002,12 @@ nvim_lsp.elixirls.setup{
     -- cmd = { "/path/to/elixir-ls/language_server.bat" }
 }
 
-nvim_lsp.fsautocomplete.setup{
-  cmd = { "dotnet", "fsautocomplete", "--background-service-enabled" },
-  init_options = {
-    AutomaticWorkspaceInit = true
-  },
-  root_dir = function(startpath)
-    return M.search_ancestors(startpath, matcher)
-  end
-}
-
 nvim_lsp.tsserver.setup{
-  on_attach = on_attach,
+  init_options = {
+    preferences = {
+      disableSuggestions = true,
+    },
+  },
   flags = lsp_flags,
 }
 
@@ -1020,7 +1016,8 @@ nvim_lsp.tsserver.setup{
 local lsp_flags = {
   debounce_text_changes = 150,
 }
-local servers = { 'hls', 'pyright', 'rust_analyzer', 'solargraph', 'tsserver' }
+
+local servers = { 'hls', 'pyright', 'rust_analyzer', 'solargraph' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -1094,15 +1091,15 @@ EOF
 
 nnoremap <silent><leader>jk :lua require("harpoon.mark").add_file()<CR>
 nnoremap <silent><leader>jl :lua require("harpoon.ui").toggle_quick_menu()<CR>
-nnoremap <C-0> :lua require("harpoon.ui").nav_file(1)<CR>
-nnoremap <C-9> :lua require("harpoon.ui").nav_file(2)<CR>
-nnoremap <C-8> :lua require("harpoon.ui").nav_file(3)<CR>
-nnoremap <C-7> :lua require("harpoon.ui").nav_file(4)<CR>
+nnoremap <silent><leader>1 :lua require("harpoon.ui").nav_file(1)<CR>
+nnoremap <silent><leader>2 :lua require("harpoon.ui").nav_file(2)<CR>
+nnoremap <silent><leader>3 :lua require("harpoon.ui").nav_file(3)<CR>
+nnoremap <silent><leader>4 :lua require("harpoon.ui").nav_file(4)<CR>
 nnoremap <C-i> :lua require("harpoon.ui").toggle_quick_menu()<CR>
 nnoremap <C-k> :lua require("harpoon.ui").nav_prev()<CR>
 nnoremap <C-j> :lua require("harpoon.ui").nav_next()<CR>
-nnoremap <silent><leader>j; :lua require("harpoon.term").toTerminal(1)<CR>
-nnoremap <silent><leader>j' :lua require("harpoon.term").toTerminal(2)<CR>
+nnoremap <silent><leader>jj :lua require("harpoon.term").toTerminal(1)<CR>
+nnoremap <silent><leader>jh :lua require("harpoon.term").toTerminal(2)<CR>
 nnoremap <silent><leader>j[ :lua require("harpoon.term").sendCommand(1, 1)<CR>
 nnoremap <silent><leader>j] :lua require("harpoon.term").sendCommand(1, 2)<CR>
 
