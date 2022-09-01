@@ -99,7 +99,6 @@ set termencoding=UTF-8
 set fileencoding=UTF-8
 set fileencodings=UCS-BOM,UTF-8,big5,gb2312,latin1
 set ffs=unix,mac,dos
-lang zh_TW.UTF-8
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SYNTAX HIGHLIGHT FIX
@@ -114,10 +113,7 @@ set synmaxcol=256
 set t_Co=256 " 256 colors
 
 set ttyfast
-if has("gui_running")
-  set ttyscroll=3
-endif
-" set guifont=Hasklug\ Nerd\ Font:h16
+
 syntax sync minlines=50
 let g:ruby_path=$HOME . "/.asdf/shims/ruby"
 call matchadd('WildMenu', '\%101v', &textwidth + 1)
@@ -327,13 +323,11 @@ let g:netrw_special_syntax = 1
 let g:netrw_winsize = -30
 let g:netrw_altv = 1
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AUTO SOURCE vimrc AFTER SAVE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " tsx filetype
@@ -627,12 +621,12 @@ nnoremap <silent><leader>fh <CMD>Telescope harpoon marks<CR>
 
 nnoremap <silent><leader>/ :execute 'Telescope grep_string search='.expand('<cword>')<CR>
 
-if has('mvim')
+if has('gui_vimr')
   nmap <D-p> <CMD>Telescope find_files<CR>
-  nmap <D-h> <CMD>Telescope harpoon marks<CR>
+  nmap <D-j> <CMD>Telescope harpoon marks<CR>
 else
   map <M-p> <CMD>Telescope find_files<CR>
-  nmap <M-h> <CMD>Telescope harpoon marks<CR>
+  nmap <M-j> <CMD>Telescope harpoon marks<CR>
 endif
 
 lua<<EOF
@@ -1174,6 +1168,6 @@ nnoremap <silent><leader>fr :NvimTreeRefresh<CR>
 " NvimTreeOpen, NvimTreeClose, NvimTreeFocus and NvimTreeResize are also available if you need them
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: a e g i j k n r u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
+" Free leader keys: a e g i k n r u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim: set ft=vim
