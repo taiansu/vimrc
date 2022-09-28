@@ -49,6 +49,7 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 " Plug 'github/copilot.vim'
+Plug 'sudormrfbin/cheatsheet.nvim'
 
 " Rust
 Plug 'simrat39/rust-tools.nvim'
@@ -255,7 +256,6 @@ endif
 " NeoVim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("nvim")
-
   set mouse=a mousemodel=popup_setpos
   " Terminal mode:
   tnoremap <M-[> <C-\><C-n>
@@ -609,6 +609,11 @@ endfunction
 " 插件設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" -- open current file with vimr
+map <leader>v% :!nvim %<CR>
+" -- open current directory with vimr
+map <leader>v. :!nvim .<CR>
+
 " --- dash.vim
 map <leader>vd :Dash<CR>
 
@@ -622,11 +627,11 @@ nnoremap <silent><leader>fh <CMD>Telescope harpoon marks<CR>
 nnoremap <silent><leader>/ :execute 'Telescope grep_string search='.expand('<cword>')<CR>
 
 if has('gui_vimr')
-  nmap <D-p> <CMD>Telescope find_files<CR>
-  nmap <D-j> <CMD>Telescope harpoon marks<CR>
+  nmap <D-f> <CMD>Telescope find_files<CR>
+  nmap <D-h> <CMD>Telescope harpoon marks<CR>
 else
   map <M-p> <CMD>Telescope find_files<CR>
-  nmap <M-j> <CMD>Telescope harpoon marks<CR>
+  nmap <M-h> <CMD>Telescope harpoon marks<CR>
 endif
 
 lua<<EOF
@@ -710,7 +715,8 @@ let g:user_emmet_leader_key='<C-y>'
 lua << EOF
 require'bufferline'.setup {
   icon_pinned = '📌',
-  insert_at_end = true
+  insert_at_end = true,
+  icons = 'buffer_number_with_icon',
 }
 EOF
 " Re-order to previous/next
@@ -835,6 +841,39 @@ if has("nvim")
 else
   let test#strategy = "vimterminal"
 endif
+
+" --- neoterm
+au VimEnter,BufRead,BufNewFile *.idr set filetype=idris
+au VimEnter,BufRead,BufNewFile *.lidr set filetype=lidris
+au VimEnter,BufRead,BufNewFile *.lfe set filetype=lfe
+au VimEnter,BufRead,BufNewFile *.jl set filetype=julia
+
+" let g:neoterm_autojump = 1
+let g:neoterm_callbacks = {}
+let g:neoterm_clear_cmd = ["clear", ""]
+function! g:neoterm_callbacks.before_new()
+  if winwidth('.') > 300
+    let g:neoterm_size = '150'
+    let g:neoterm_default_mod = 'botright vertical'
+  else
+    let g:neoterm_size = ''
+    let g:neoterm_default_mod = 'botright'
+  end
+endfunction
+
+nnoremap <silent><leader>` :Tnew<CR>
+nnoremap <silent><leader>k<space> :Tclear<CR>
+nnoremap <silent><leader>kx :Tclose!<CR>
+
+" Use gx{text-object} in normal mode
+nmap gx <Plug>(neoterm-repl-send)
+" Send selected contents in visual mode.
+xmap gx <Plug>(neoterm-repl-send)
+" Send selected line in visual mode.
+nmap gxx <Plug>(neoterm-repl-send-line)
+
+nnoremap <silent><leader>r :Tredo<CR>
+
 
 " --- which.nvim
 
@@ -1083,19 +1122,31 @@ require("harpoon").setup({
 })
 EOF
 
-nnoremap <silent><leader>jk :lua require("harpoon.mark").add_file()<CR>
-nnoremap <silent><leader>jl :lua require("harpoon.ui").toggle_quick_menu()<CR>
-nnoremap <silent><leader>1 :lua require("harpoon.ui").nav_file(1)<CR>
-nnoremap <silent><leader>2 :lua require("harpoon.ui").nav_file(2)<CR>
-nnoremap <silent><leader>3 :lua require("harpoon.ui").nav_file(3)<CR>
-nnoremap <silent><leader>4 :lua require("harpoon.ui").nav_file(4)<CR>
+nnoremap <silent><leader>kj :lua require("harpoon.mark").add_file()<CR>
+nnoremap <silent><leader>kl :lua require("harpoon.ui").toggle_quick_menu()<CR>
+if has('gui_vimr')
+  nnoremap <D-1> :lua require("harpoon.ui").nav_file(1)<CR>
+  nnoremap <D-2> :lua require("harpoon.ui").nav_file(2)<CR>
+  nnoremap <D-3> :lua require("harpoon.ui").nav_file(3)<CR>
+  nnoremap <D-4> :lua require("harpoon.ui").nav_file(4)<CR>
+  nnoremap <D-j> :lua require("harpoon.ui").nav_file(1)<CR>
+  nnoremap <D-k> :lua require("harpoon.ui").nav_file(2)<CR>
+  nnoremap <D-l> :lua require("harpoon.ui").nav_file(3)<CR>
+  nnoremap <D-;> :lua require("harpoon.ui").nav_file(4)<CR>
+else
+  nnoremap <C-T>1 :lua require("harpoon.ui").nav_file(1)<CR>
+  nnoremap <C-T>2 :lua require("harpoon.ui").nav_file(2)<CR>
+  nnoremap <C-T>3 :lua require("harpoon.ui").nav_file(3)<CR>
+  nnoremap <C-T>4 :lua require("harpoon.ui").nav_file(4)<CR>
+endif
+
+nnoremap <silent><leader>l1 :lua require("harpoon.ui").nav_file(1)<CR>
+nnoremap <silent><leader>l2 :lua require("harpoon.ui").nav_file(2)<CR>
+nnoremap <silent><leader>l3 :lua require("harpoon.ui").nav_file(3)<CR>
+nnoremap <silent><leader>l4 :lua require("harpoon.ui").nav_file(4)<CR>
 nnoremap <C-i> :lua require("harpoon.ui").toggle_quick_menu()<CR>
 nnoremap <C-k> :lua require("harpoon.ui").nav_prev()<CR>
 nnoremap <C-j> :lua require("harpoon.ui").nav_next()<CR>
-nnoremap <silent><leader>jj :lua require("harpoon.term").toTerminal(1)<CR>
-nnoremap <silent><leader>jh :lua require("harpoon.term").toTerminal(2)<CR>
-nnoremap <silent><leader>j[ :lua require("harpoon.term").sendCommand(1, 1)<CR>
-nnoremap <silent><leader>j] :lua require("harpoon.term").sendCommand(1, 2)<CR>
 
 " --- nvim-tree.lua
 let g:WebDevIconsOS = 'Darwin'
@@ -1168,6 +1219,6 @@ nnoremap <silent><leader>fr :NvimTreeRefresh<CR>
 " NvimTreeOpen, NvimTreeClose, NvimTreeFocus and NvimTreeResize are also available if you need them
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: a e g i k n r u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
+" Free leader keys: a e g i j n u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim: set ft=vim
