@@ -627,7 +627,7 @@ nnoremap <silent><leader>fh <CMD>Telescope harpoon marks<CR>
 nnoremap <silent><leader>/ :execute 'Telescope grep_string search='.expand('<cword>')<CR>
 
 if has('gui_vimr')
-  nmap <D-f> <CMD>Telescope find_files<CR>
+  nmap <D-p> <CMD>Telescope find_files<CR>
   nmap <D-h> <CMD>Telescope harpoon marks<CR>
 else
   map <M-p> <CMD>Telescope find_files<CR>
