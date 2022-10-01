@@ -711,45 +711,6 @@ let g:user_emmet_settings = {
   \}
 let g:user_emmet_leader_key='<C-y>'
 
-" --- barbar.nvim
-lua << EOF
-require'bufferline'.setup {
-  icon_pinned = '📌',
-  insert_at_end = true,
-  icons = 'buffer_number_with_icon',
-}
-EOF
-" Re-order to previous/next
-nnoremap <silent><M-,> <CMD>BufferMovePrevious<CR>
-nnoremap <silent><M-.> <CMD>BufferMoveNext<CR>
-" Close buffer
-nnoremap <silent><M-c> <CMD>BufferClose<CR>
-nnoremap <silent><leader>bd <CMD>BufferClose<CR>
-" Wipeout buffer
-"                          :BufferWipeout
-" Close commands
-"                          :BufferCloseAllButCurrent
-"                          :BufferCloseAllButPinned
-"                          :BufferCloseAllButCurrentOrPinned
-"                          :BufferCloseBuffersLeft
-"                          :BufferCloseBuffersRight
-nnoremap <silent><leader>bo <CMD>BufferCloseAllButCurrentOrPinned<CR>
-
-" Pin/unpin buffer
-nnoremap <silent><leader>bp <CMD>BufferPin<CR>
-nnoremap <silent><M-k> <Cmd>BufferPin<CR>
-
-" Magic buffer-picking mode
-nnoremap <silent><leader>bk <CMD>BufferPick<CR>
-" list buffers
-nnoremap <silent><leader>bb <CMD>Telescope buffers<CR>
-
-" Sort automatically by...
-nnoremap <silent><leader>bn <CMD>BufferOrderByBufferNumber<CR>
-nnoremap <silent><leader>bf <CMD>BufferOrderByDirectory<CR>
-nnoremap <silent><leader>bl <CMD>BufferOrderByLanguage<CR>
-" nnoremap <silent> <leader>bw <Cmd>BufferOrderByWindowNumber<CR>
-
 " -- lualine.nvim
 lua << EOF
 require('lualine').setup {
@@ -1192,31 +1153,70 @@ require'nvim-tree'.setup {
     }
   }
 }
-
-local nvim_tree_events = require('nvim-tree.events')
-local bufferline_state = require('bufferline.state')
-
-local function get_tree_size()
-  return require'nvim-tree.view'.View.width
-end
-
-nvim_tree_events.subscribe('TreeOpen', function()
-  bufferline_state.set_offset(get_tree_size())
-end)
-
-nvim_tree_events.subscribe('Resize', function()
-  bufferline_state.set_offset(get_tree_size())
-end)
-
-nvim_tree_events.subscribe('TreeClose', function()
-  bufferline_state.set_offset(0)
-end)
 EOF
 
 nnoremap <silent><leader>q :NvimTreeToggle<CR>
 nnoremap <silent><leader>ft :NvimTreeFindFile<CR>
 nnoremap <silent><leader>fr :NvimTreeRefresh<CR>
 " NvimTreeOpen, NvimTreeClose, NvimTreeFocus and NvimTreeResize are also available if you need them
+
+" --- barbar.nvim
+lua << EOF
+require'bufferline'.setup {
+  icon_pinned = '📌',
+  insert_at_end = true,
+  icons = 'buffer_number_with_icon',
+}
+
+local nvim_tree_events = require('nvim-tree.events')
+local bufferline_api = require('bufferline.api')
+
+local function get_tree_size()
+  return require'nvim-tree.view'.View.width
+end
+
+nvim_tree_events.subscribe('TreeOpen', function()
+  bufferline_api.set_offset(get_tree_size())
+end)
+
+nvim_tree_events.subscribe('Resize', function()
+  bufferline_api.set_offset(get_tree_size())
+end)
+
+nvim_tree_events.subscribe('TreeClose', function()
+  bufferline_api.set_offset(0)
+end)
+EOF
+" Re-order to previous/next
+nnoremap <silent><M-,> <CMD>BufferMovePrevious<CR>
+nnoremap <silent><M-.> <CMD>BufferMoveNext<CR>
+" Close buffer
+nnoremap <silent><M-c> <CMD>BufferClose<CR>
+nnoremap <silent><leader>bd <CMD>BufferClose<CR>
+" Wipeout buffer
+"                          :BufferWipeout
+" Close commands
+"                          :BufferCloseAllButCurrent
+"                          :BufferCloseAllButPinned
+"                          :BufferCloseAllButCurrentOrPinned
+"                          :BufferCloseBuffersLeft
+"                          :BufferCloseBuffersRight
+nnoremap <silent><leader>bo <CMD>BufferCloseAllButCurrentOrPinned<CR>
+
+" Pin/unpin buffer
+nnoremap <silent><leader>bp <CMD>BufferPin<CR>
+nnoremap <silent><M-k> <Cmd>BufferPin<CR>
+
+" Magic buffer-picking mode
+nnoremap <silent><leader>bk <CMD>BufferPick<CR>
+" list buffers
+nnoremap <silent><leader>bb <CMD>Telescope buffers<CR>
+
+" Sort automatically by...
+nnoremap <silent><leader>bn <CMD>BufferOrderByBufferNumber<CR>
+nnoremap <silent><leader>bf <CMD>BufferOrderByDirectory<CR>
+nnoremap <silent><leader>bl <CMD>BufferOrderByLanguage<CR>
+" nnoremap <silent> <leader>bw <Cmd>BufferOrderByWindowNumber<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: a e g i j n u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
