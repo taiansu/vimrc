@@ -48,7 +48,7 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
-" Plug 'github/copilot.vim'
+Plug 'github/copilot.vim'
 Plug 'sudormrfbin/cheatsheet.nvim'
 
 " Rust
