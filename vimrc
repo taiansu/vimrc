@@ -823,8 +823,8 @@ function! g:neoterm_callbacks.before_new()
 endfunction
 
 nnoremap <silent><leader>` :Tnew<CR>
-nnoremap <silent><leader>k<space> :Tclear<CR>
-nnoremap <silent><leader>kx :Tclose!<CR>
+nnoremap <silent><leader>x<space> :Tclear<CR>
+nnoremap <silent><leader>xt :Tclose!<CR>
 
 " Use gx{text-object} in normal mode
 nmap gx <Plug>(neoterm-repl-send)
