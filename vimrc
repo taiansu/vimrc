@@ -41,6 +41,8 @@ Plug 'chrisbra/unicode.vim'
 Plug 'kassio/neoterm'
 Plug 'janko-m/vim-test'
 Plug 'onsails/lspkind-nvim'
+Plug 'folke/trouble.nvim'
+Plug 'jose-elias-alvarez/null-ls.nvim'
 
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/vim-vsnip'
@@ -330,7 +332,7 @@ let g:netrw_altv = 1
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" tsx filetype
+" filetypes
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup SyntaxSettings
     autocmd! BufNewFile,BufRead,BufEnter *.ex,*.exs set ft=elixir
@@ -339,7 +341,7 @@ augroup SyntaxSettings
     autocmd! BufNewFile,BufRead *.scss,*.sass       set ft=scss.css
     autocmd! BufNewFile,BufRead *.md                set ft=markdown
     autocmd! BufNewFile,BufRead *.tsx               set ft=typescript.typescriptreact
-    autocmd FileType elixir,eelixir autocmd BufWritePre <buffer> silent lua vim.lsp.buf.formatting_sync(nil, 1000)
+    autocmd FileType elixir,eelixir,rust autocmd BufWritePre <buffer> silent lua vim.lsp.buf.formatting_sync(nil, 1000)
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -957,13 +959,13 @@ local opts = { noremap=true, silent=true }
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- TODO
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-
    -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -973,9 +975,6 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'gd', telescope_builtin.lsp_definitions, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-
-  -- tell nvim-cmp about our desired capabilities
-  require("cmp_nvim_lsp").update_capabilities(capabilities)
 end
 
 local path_to_elixirls = vim.fn.expand("~/.local/share/nvim/lsp_servers/elixir/elixir-ls/language_server.sh")
@@ -1016,7 +1015,7 @@ for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
     flags = lsp_flags,
-    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    capabilities = capabilities
   }
 end
 EOF
@@ -1165,7 +1164,7 @@ lua << EOF
 require'bufferline'.setup {
   icon_pinned = '📌',
   insert_at_end = true,
-  icons = 'buffer_number_with_icon',
+  icons = 'buffer_number_with_icons',
 }
 
 local nvim_tree_events = require('nvim-tree.events')
