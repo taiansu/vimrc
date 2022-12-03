@@ -32,7 +32,6 @@ Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-indent'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'arkav/lualine-lsp-progress'
-Plug 'romgrk/barbar.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'reedes/vim-pencil'
 Plug 'AndrewRadev/linediff.vim'
@@ -718,7 +717,7 @@ lua << EOF
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'auto',
+    theme = 'jellybeans',
     component_separators = { "", "" },
     section_separators = { "·", "·" },
     disabled_filetypes = {},
@@ -763,7 +762,9 @@ require('lualine').setup {
     lualine_y = {},
     lualine_z = {}
   },
-  tabline = {},
+  tabline = {
+    lualine_a = {},
+  },
   extensions = {'quickfix', 'nvim-tree', 'fzf'}
 }
 EOF
@@ -1159,65 +1160,7 @@ nnoremap <silent><leader>ft :NvimTreeFindFile<CR>
 nnoremap <silent><leader>fr :NvimTreeRefresh<CR>
 " NvimTreeOpen, NvimTreeClose, NvimTreeFocus and NvimTreeResize are also available if you need them
 
-" --- barbar.nvim
-lua << EOF
-require'bufferline'.setup {
-  icon_pinned = '📌',
-  insert_at_end = true,
-  icons = 'buffer_number_with_icons',
-}
-
-local nvim_tree_events = require('nvim-tree.events')
-local bufferline_api = require('bufferline.api')
-
-local function get_tree_size()
-  return require'nvim-tree.view'.View.width
-end
-
-nvim_tree_events.subscribe('TreeOpen', function()
-  bufferline_api.set_offset(get_tree_size())
-end)
-
-nvim_tree_events.subscribe('Resize', function()
-  bufferline_api.set_offset(get_tree_size())
-end)
-
-nvim_tree_events.subscribe('TreeClose', function()
-  bufferline_api.set_offset(0)
-end)
-EOF
-" Re-order to previous/next
-nnoremap <silent><M-,> <CMD>BufferMovePrevious<CR>
-nnoremap <silent><M-.> <CMD>BufferMoveNext<CR>
-" Close buffer
-nnoremap <silent><M-c> <CMD>BufferClose<CR>
-nnoremap <silent><leader>bd <CMD>BufferClose<CR>
-" Wipeout buffer
-"                          :BufferWipeout
-" Close commands
-"                          :BufferCloseAllButCurrent
-"                          :BufferCloseAllButPinned
-"                          :BufferCloseAllButCurrentOrPinned
-"                          :BufferCloseBuffersLeft
-"                          :BufferCloseBuffersRight
-nnoremap <silent><leader>bo <CMD>BufferCloseAllButCurrentOrPinned<CR>
-
-" Pin/unpin buffer
-nnoremap <silent><leader>bp <CMD>BufferPin<CR>
-nnoremap <silent><M-k> <Cmd>BufferPin<CR>
-
-" Magic buffer-picking mode
-nnoremap <silent><leader>bk <CMD>BufferPick<CR>
-" list buffers
-nnoremap <silent><leader>bb <CMD>Telescope buffers<CR>
-
-" Sort automatically by...
-nnoremap <silent><leader>bn <CMD>BufferOrderByBufferNumber<CR>
-nnoremap <silent><leader>bf <CMD>BufferOrderByDirectory<CR>
-nnoremap <silent><leader>bl <CMD>BufferOrderByLanguage<CR>
-" nnoremap <silent> <leader>bw <Cmd>BufferOrderByWindowNumber<CR>
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Free leader keys: a e g i j n u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
+" Free leader keys: a b e g i j n u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim: set ft=vim
