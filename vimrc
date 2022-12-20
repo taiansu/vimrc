@@ -56,8 +56,9 @@ Plug 'sudormrfbin/cheatsheet.nvim'
 Plug 'simrat39/rust-tools.nvim'
 
 " LSP
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
-Plug 'williamboman/nvim-lsp-installer'
 " LspInstall elixirls erlangls hls html pyright rust_analyzer solargraph tailwindcss tsserver vimls
 
 Plug 'windwp/nvim-autopairs'
@@ -948,13 +949,10 @@ require('nvim-autopairs').setup{
 }
 EOF
 
-" -- nvim-lsp-installer
-lua <<EOF
-require("nvim-lsp-installer").setup {}
-EOF
-
 " --- nvim-lspconfig
 lua << EOF
+require('mason').setup()
+require('mason-lspconfig').setup()
 local nvim_lsp = require('lspconfig')
 local opts = { noremap=true, silent=true }
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
@@ -1011,7 +1009,7 @@ local lsp_flags = {
   debounce_text_changes = 150,
 }
 
-local servers = { 'hls', 'pyright', 'rust_analyzer', 'solargraph' }
+local servers = { 'rust_analyzer', 'hls', 'pyright', 'solargraph' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
