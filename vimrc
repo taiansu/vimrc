@@ -15,7 +15,8 @@ Plug 'ThePrimeagen/harpoon'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-ui-select.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'kyazdani42/nvim-tree.lua'
+Plug 'MunifTanjim/nui.nvim'
+Plug 'nvim-neo-tree/neo-tree.nvim'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
@@ -474,13 +475,6 @@ nnoremap <leader>Y gg"+yG
 nnoremap <leader>d "_d
 vnoremap <leader>d "_d
 
-"  Insert a backward arrow
-imap <M-,> <space><-<space>
-" Insert an arrow
-imap <M-.> <space>-><space>
-"  Insert a hash rocket
-imap <M-/> <space>=><space>
-
 " Apply Macros with Q and disable ex mode
 nnoremap Q @q
 vnoremap Q :norm @q<CR>
@@ -571,14 +565,6 @@ vnoremap < <gv
 vnoremap > >gv
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Open quickfix box
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-map <leader>lo :lopen<CR>
-map <leader>ln :lnext<CR>
-map <leader>lp :lprevious<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Formatting, DISABLE AUTOMATIC COMMENT INSERTION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -638,9 +624,16 @@ endif
 
 lua<<EOF
 local actions = require("telescope.actions")
+local trouble = require("trouble.providers.telescope")
 local telescope = require("telescope")
 
 telescope.setup {
+  defaults = {
+    mappings = {
+      i = { ["<C-t>"] = trouble.open_with_trouble },
+      n = { ["<C-t>"] = trouble.open_with_trouble },
+    },
+  },
   extensions = {
     ["ui-select"] = {
       require("telescope.themes").get_dropdown {
@@ -766,7 +759,7 @@ require('lualine').setup {
   tabline = {
     lualine_a = {},
   },
-  extensions = {'quickfix', 'nvim-tree', 'fzf'}
+  extensions = {'quickfix', 'fzf', 'neo-tree', 'trouble'}
 }
 EOF
 
@@ -1057,12 +1050,12 @@ local opts = {
             useParameterNames = true
           },
         },
-       on_attach = function(_, bufnr)
-         -- Hover actions
-         vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
-         -- Code action groups
-         vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
-       end,
+       -- on_attach = function(_, bufnr)
+       --   -- Hover actions
+       --   vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+       --   -- Code action groups
+       --   vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+       -- end,
       }
     },
 }
@@ -1084,79 +1077,35 @@ EOF
 nnoremap <silent><leader>kj :lua require("harpoon.mark").add_file()<CR>
 nnoremap <silent><leader>kl :lua require("harpoon.ui").toggle_quick_menu()<CR>
 if has('gui_vimr')
-  nnoremap <D-1> :lua require("harpoon.ui").nav_file(1)<CR>
-  nnoremap <D-2> :lua require("harpoon.ui").nav_file(2)<CR>
-  nnoremap <D-3> :lua require("harpoon.ui").nav_file(3)<CR>
-  nnoremap <D-4> :lua require("harpoon.ui").nav_file(4)<CR>
-  nnoremap <D-j> :lua require("harpoon.ui").nav_file(1)<CR>
-  nnoremap <D-k> :lua require("harpoon.ui").nav_file(2)<CR>
-  nnoremap <D-l> :lua require("harpoon.ui").nav_file(3)<CR>
-  nnoremap <D-;> :lua require("harpoon.ui").nav_file(4)<CR>
+  nnoremap <M-1> :lua require("harpoon.ui").nav_file(1)<CR>
+  nnoremap <M-2> :lua require("harpoon.ui").nav_file(2)<CR>
+  nnoremap <M-3> :lua require("harpoon.ui").nav_file(3)<CR>
+  nnoremap <M-4> :lua require("harpoon.ui").nav_file(4)<CR>
+  nnoremap <M-5> :lua require("harpoon.ui").nav_file(5)<CR>
 else
   nnoremap <C-T>1 :lua require("harpoon.ui").nav_file(1)<CR>
   nnoremap <C-T>2 :lua require("harpoon.ui").nav_file(2)<CR>
   nnoremap <C-T>3 :lua require("harpoon.ui").nav_file(3)<CR>
   nnoremap <C-T>4 :lua require("harpoon.ui").nav_file(4)<CR>
+  nnoremap <C-T>5 :lua require("harpoon.ui").nav_file(5)<CR>
 endif
 
-nnoremap <silent><leader>l1 :lua require("harpoon.ui").nav_file(1)<CR>
-nnoremap <silent><leader>l2 :lua require("harpoon.ui").nav_file(2)<CR>
-nnoremap <silent><leader>l3 :lua require("harpoon.ui").nav_file(3)<CR>
-nnoremap <silent><leader>l4 :lua require("harpoon.ui").nav_file(4)<CR>
-nnoremap <C-i> :lua require("harpoon.ui").toggle_quick_menu()<CR>
-nnoremap <C-k> :lua require("harpoon.ui").nav_prev()<CR>
-nnoremap <C-j> :lua require("harpoon.ui").nav_next()<CR>
+nnoremap <silent><leader>1 :lua require("harpoon.ui").nav_file(1)<CR>
+nnoremap <silent><leader>2 :lua require("harpoon.ui").nav_file(2)<CR>
+nnoremap <silent><leader>3 :lua require("harpoon.ui").nav_file(3)<CR>
+nnoremap <silent><leader>4 :lua require("harpoon.ui").nav_file(4)<CR>
+nnoremap <silent><leader>5 :lua require("harpoon.ui").nav_file(5)<CR>
+nnoremap <D-l> :lua require("harpoon.ui").toggle_quick_menu()<CR>
+nnoremap <D-k> :lua require("harpoon.ui").nav_prev()<CR>
+nnoremap <D-j> :lua require("harpoon.ui").nav_next()<CR>
 
-" --- nvim-tree.lua
-let g:WebDevIconsOS = 'Darwin'
+" ---trouble
+nnoremap <leader>tq :TroubleToggle quickfix<CR>
 
-"If 0, do not show the icons for one of 'git' 'folder' and 'files'
-"1 by default, notice that if 'files' is 1, it will only display
-"if nvim-web-devicons is installed and on your runtimepath.
-"if folder is 1, you can also tell folder_arrows 1 to show small arrows next to the folder icons.
-"but this will not work when you set indent_markers (because of UI conflict)
-
-lua << EOF
-require'nvim-tree'.setup {
-  update_focused_file = {
-    enable = true,
-    update_cwd  = true,
-  },
-  view = {
-    width = 35
-  },
-  renderer = {
-    indent_markers = {
-      enable = true,
-      icons = {
-        corner = "└",
-        edge = "│ ",
-        none = "  ",
-      },
-    },
-    icons = {
-      show = {
-        file = false,
-        folder = true,
-        folder_arrow = true,
-        git = true
-      }
-    },
-    highlight_opened_files = "all"
-  },
-  actions = {
-    open_file = {
-      quit_on_open = true,
-      resize_window = true,
-    }
-  }
-}
-EOF
-
-nnoremap <silent><leader>q :NvimTreeToggle<CR>
-nnoremap <silent><leader>ft :NvimTreeFindFile<CR>
-nnoremap <silent><leader>fr :NvimTreeRefresh<CR>
-" NvimTreeOpen, NvimTreeClose, NvimTreeFocus and NvimTreeResize are also available if you need them
+" ---neo-tree
+let g:neo_tree_remove_legacy_commands = 1
+nnoremap <silent><leader>q :Neotree toggle<CR>
+nnoremap <silent><leader>ft :Neotree reveal<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Free leader keys: a b e g i j n u w z 1 2 3 4 5 6 7 8 9 0 [ ] - = _  | : > , . '
