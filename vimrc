@@ -52,6 +52,7 @@ Plug 'hrsh7th/cmp-vsnip'
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 Plug 'github/copilot.vim'
 Plug 'sudormrfbin/cheatsheet.nvim'
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Rust
 Plug 'simrat39/rust-tools.nvim'
@@ -70,6 +71,7 @@ Plug 'guns/xterm-color-table.vim'
 
 " Colorscheme
 Plug 'rafi/awesome-vim-colorschemes'
+Plug 'dim13/smyck.vim'
 
 " On-demand loading
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
@@ -1101,6 +1103,7 @@ nnoremap <D-j> :lua require("harpoon.ui").nav_next()<CR>
 
 " ---trouble
 nnoremap <leader>tq :TroubleToggle quickfix<CR>
+nnoremap <leader>td :TroubleToggle document_diagnostics<CR>
 
 " ---neo-tree
 let g:neo_tree_remove_legacy_commands = 1
