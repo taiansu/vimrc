@@ -111,6 +111,9 @@ set ffs=unix,mac,dos
 " Stop syntax highlight on 1024 column or 256 line
 " Color hint on the 101th character
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Show name of syntax element below cursor
+command! SynName  echo synIDattr(synID(line("."), col("."), 1), "name")
+
 if(has("termguicolors"))
   set termguicolors
 endif
@@ -140,6 +143,7 @@ colorscheme tender
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable highlighting for syntax
 syntax on
+
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
 
@@ -244,6 +248,15 @@ function! s:Repl()
     let s:restore_reg = @"
     return "p@=RestoreRegister()\<CR>"
 endfunction
+
+function! HighlightAnnotations()
+  syn keyword elixirTodo contained NOTE IDEAL DECAY OPTIMIZE
+  syn keyword jsCommentTodo contained NOTE IDEAL DECAY OPTIMIZE
+  syn keyword pythonTodo contained NOTE IDEAL DECAY OPTIMIZE
+  syn keyword rubyTodo contained NOTE IDEAL DECAY OPTIMIZE
+  syn keyword rustTodo contained NOTE IDEAL DECAY OPTIMIZE
+endfunction
+autocmd Syntax * call HighlightAnnotations()
 
 " NB: this supports "rp that replaces the selection by the contents of @r
 vnoremap <silent> <expr> p <SID>Repl()
