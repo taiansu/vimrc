@@ -315,23 +315,6 @@ let &t_SI = "\<Esc>[5 q"
 let &t_EI = "\<Esc>[2 q"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Bracketed paste mode
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if &term =~ "xterm.*"
-    let &t_ti = &t_ti . "\e[?2004h"
-    let &t_te = "\e[?2004l" . &t_te
-    function XTermPasteBegin(ret)
-        set pastetoggle=<Esc>[201~
-        set paste
-        return a:ret
-    endfunction
-    map <expr> <Esc>[200~ XTermPasteBegin("i")
-    imap <expr> <Esc>[200~ XTermPasteBegin("")
-    cmap <Esc>[200~ <nop>
-    cmap <Esc>[201~ <nop>
-endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NETRW DEFUAULT SETTING
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:netrw_banner = 0
@@ -357,7 +340,7 @@ augroup SyntaxSettings
     autocmd! BufNewFile,BufRead *.scss,*.sass       set ft=scss.css
     autocmd! BufNewFile,BufRead *.md                set ft=markdown
     autocmd! BufNewFile,BufRead *.tsx               set ft=typescript.typescriptreact
-    autocmd FileType elixir,eelixir,rust autocmd BufWritePre <buffer> silent lua vim.lsp.buf.formatting_sync(nil, 1000)
+    autocmd! BufWritePost *.ex,*.exs,*.heex,*.rs lua vim.lsp.buf.format()
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
