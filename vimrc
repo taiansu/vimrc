@@ -628,9 +628,26 @@ local telescope = require("telescope")
 
 telescope.setup {
   defaults = {
+  sorting_strategy = "ascending",
+    layout_config = {
+      horizontal = { prompt_position = "top", preview_width = 0.55 },
+      vertical = { mirror = false },
+      width = 0.87,
+      height = 0.80,
+      preview_cutoff = 120,
+    },
     mappings = {
-      i = { ["<C-t>"] = trouble.open_with_trouble },
-      n = { ["<C-t>"] = trouble.open_with_trouble },
+      i = {
+        ["<C-t>"] = trouble.open_with_trouble,
+        ["<C-n>"] = actions.cycle_history_next,
+        ["<C-p>"] = actions.cycle_history_prev,
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+      },
+      n = {
+        ["<C-t>"] = trouble.open_with_trouble,
+        q = actions.close,
+      },
     },
   },
   extensions = {
@@ -1107,6 +1124,9 @@ let g:neo_tree_remove_legacy_commands = 1
 
 lua << EOF
 require("neo-tree").setup({
+  close_if_last_window = false,
+  enable_git_status = true,
+  enable_diagnosticls = true,
   filesystem = {
     follor_current_file = true,
     hijack_netrw_behavior = "open_current",
