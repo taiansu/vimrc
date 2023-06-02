@@ -72,6 +72,7 @@ Plug 'guns/xterm-color-table.vim'
 " Colorscheme
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'dim13/smyck.vim'
+Plug 'kvrohit/rasmus.nvim'
 
 " On-demand loading
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
@@ -1103,6 +1104,23 @@ nnoremap <leader>td :TroubleToggle document_diagnostics<CR>
 
 " ---neo-tree
 let g:neo_tree_remove_legacy_commands = 1
+
+lua << EOF
+require("neo-tree").setup({
+  filesystem = {
+    follor_current_file = true,
+    hijack_netrw_behavior = "open_current",
+    use_libuv_file_watcher = true,
+  },
+  event_handlers = {
+    {
+      event = "neo_tree_buffer_enter",
+      handler = function(_) vim.opt_local.signcolumn = "auto" end
+    }
+  },
+})
+EOF
+
 nnoremap <silent><leader>q :Neotree toggle<CR>
 nnoremap <silent><leader>ft :Neotree reveal<CR>
 
