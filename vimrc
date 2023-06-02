@@ -2,8 +2,6 @@
 " http://blog.taian.su
 " You can do what ever you want with this.
 "
-" set hls ic is nu noswf
-"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Setup Vim-plug
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -43,13 +41,13 @@ Plug 'janko-m/vim-test'
 Plug 'onsails/lspkind-nvim'
 Plug 'folke/trouble.nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'jay-babu/mason-null-ls.nvim'
 
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-vsnip'
-Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 Plug 'github/copilot.vim'
 Plug 'sudormrfbin/cheatsheet.nvim'
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -61,7 +59,7 @@ Plug 'simrat39/rust-tools.nvim'
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
-" LspInstall elixirls erlangls hls html pyright rust_analyzer solargraph tailwindcss tsserver vimls
+" MasonInstall elixirls erlangls hls html pyright rust_analyzer solargraph tailwindcss tsserver vimls
 
 Plug 'windwp/nvim-autopairs'
 Plug 'rafamadriz/friendly-snippets'
@@ -621,7 +619,7 @@ else
   nmap <M-h> <CMD>Telescope harpoon marks<CR>
 endif
 
-lua<<EOF
+lua << EOF
 local actions = require("telescope.actions")
 local trouble = require("trouble.providers.telescope")
 local telescope = require("telescope")
@@ -851,7 +849,7 @@ nnoremap <silent><leader>r :Tredo<CR>
 
 " --- which.nvim
 
-lua <<EOF
+lua << EOF
 require("which-key").setup { }
 
 --local wk = require("which-key")
@@ -881,7 +879,7 @@ EOF
 nmap <leader>o :!open -a iTerm .<CR>
 
 " --- nvim-cmp
-lua <<EOF
+lua << EOF
 -- Setup nvim-cmp.
 local cmp = require'cmp'
 local has_words_before = function()
@@ -926,18 +924,6 @@ cmp.setup({
       }
     }),
   },
-})
-EOF
-
-" -- cmp-tabnine
-lua <<EOF
-local tabnine = require('cmp_tabnine.config')
-tabnine:setup({
-  max_lines = 200;
-  max_num_results = 20;
-  sort = true;
-  run_on_every_keystroke = true;
-  snippet_placeholder = '..';
 })
 EOF
 
@@ -1028,8 +1014,30 @@ for _, lsp in ipairs(servers) do
 end
 EOF
 
+" ---null-ls
+lua << EOF
+require("mason-null-ls").setup({
+  ensure_installed = {
+    "jq",
+    "prettier",
+    "rustfmt",
+  },
+  automatic_installation = false,
+  handlers = {},
+})
+
+local null_ls = require("null-ls")
+null_ls.setup({
+  sources = {
+    null_ls.builtins.formatting.mix,
+    null_ls.builtins.diagnostics.credo,
+    null_ls.builtins.diagnostics.ltrs,
+  }
+})
+EOF
+
 " --- rust-tools
-lua <<EOF
+lua << EOF
 local opts = {
   -- rust-tools options
   tools = {
