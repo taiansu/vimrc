@@ -50,7 +50,7 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'github/copilot.vim'
 Plug 'sudormrfbin/cheatsheet.nvim'
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Rust
 Plug 'simrat39/rust-tools.nvim'
@@ -59,9 +59,10 @@ Plug 'simrat39/rust-tools.nvim'
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
-" MasonInstall elixirls erlangls hls html pyright rust_analyzer solargraph tailwindcss tsserver vimls
+" LspInstall elixirls erlangls hls html pyright rust_analyzer solargraph tailwindcss tsserver vimls
 
 Plug 'windwp/nvim-autopairs'
+Plug 'RRethy/nvim-treesitter-endwise'
 Plug 'rafamadriz/friendly-snippets'
 
 Plug 'folke/which-key.nvim'
@@ -74,7 +75,6 @@ Plug 'kvrohit/rasmus.nvim'
 
 " On-demand loading
 Plug 'rizzatti/dash.vim',        { 'on': ['Dash', 'DashKeywords'] }
-" Plug 'itspriddle/vim-marked',    { 'on': 'MarkedOpen', 'for': 'markdown' }
 Plug 'junegunn/vim-easy-align',  { 'on': 'EasyAlign' }
 
 " Language specified
@@ -881,12 +881,41 @@ nmap <leader>o :!open -a iTerm .<CR>
 " --- nvim-cmp
 lua << EOF
 -- Setup nvim-cmp.
-local cmp = require'cmp'
+local cmp = require('cmp')
 local has_words_before = function()
 local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+local ts_utils = require("nvim-treesitter.ts_utils")
+
+local ts_node_func_parens_disabled = {
+  -- ecma
+  named_imports = true,
+  -- rust
+  use_declaration = true,
+}
+
+local default_handler = cmp_autopairs.filetypes["*"]["("].handler
+cmp_autopairs.filetypes["*"]["("].handler = function(char, item, bufnr, rules, commit_character)
+  local node_type = ts_utils.get_node_at_cursor():type()
+  if ts_node_func_parens_disabled[node_type] then
+    if item.data then
+      item.data.funcParensDisabled = true
+    else
+      char = ""
+    end
+  end
+  default_handler(char, item, bufnr, rules, commit_character)
+end
+
+cmp.event:on(
+  "confirm_done",
+  cmp_autopairs.on_confirm_done({
+    sh = false,
+  })
+)
 local feedkey = function(key, mode)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
@@ -929,18 +958,30 @@ EOF
 
 " --- nvim-autopairs
 lua << EOF
-require('nvim-autopairs').setup{
-  map_cr = true, --  map <CR> on insert mode
-  map_complete = true, -- it will auto insert `(` (map_char) after select function or method item
+local npairs = require('nvim-autopairs')
+npairs.setup{
+  enable_check_bracket_line = false,  -- if next character is a close pair and it doesn't have an open pair in same line, then it will not add a close pair
+  map_complete = false, -- it will auto insert `(` (map_char) after select function or method item
   auto_select = true, -- automatically select the first item
   insert = false, -- use insert confirm behavior instead of replace
   map_char = { -- modifies the function or method delimiter by filetypes
     all = '(',
     tex = '{'
   },
-  enable_check_bracket_line = false,
-  ignored_next_char = string.gsub([[ [%w%%%'%[%"%.] ]],"%s+", ""),
-  disable_filetype = { "TelescopePrompt"}
+  disable_filetype = { "TelescopePrompt" },
+  map_cr = true, --  map <CR> on insert mode
+  map_bs = false,
+}
+
+npairs.remove_rule('"')
+npairs.remove_rule('"""')
+npairs.remove_rule("'")
+EOF
+
+" --- nvim-treesitter-endwise
+lua << EOF
+require('nvim-treesitter.configs').setup {
+  endwise = { enable = true }
 }
 EOF
 
