@@ -1,7 +1,1 @@
-vim/bundle
-vim/vim-addons
-vim/plugged
-vim/spell
-vim/sessions
-vim/tmp
-.netrwhist
+pack/*
