@@ -1,4 +1,17 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
+--
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
+end
+
+local packer_bootstrap = ensure_packer()
 
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
@@ -41,6 +54,7 @@ return require('packer').startup(function(use)
   use('tpope/vim-fugitive')
   use('tpope/vim-repeat')
   use('tpope/vim-commentary')
+  use('tpope/vim-surround')
 
   use ('onsails/lspkind-nvim')
 
@@ -55,6 +69,8 @@ return require('packer').startup(function(use)
 			  build = ":MasonUpdate",
 		  },
 		  {'williamboman/mason-lspconfig.nvim'},
+      {'jose-elias-alvarez/null-ls.nvim'},
+      {'jay-babu/mason-null-ls.nvim'},
 
 		  -- Autocompletion
 		  {'hrsh7th/nvim-cmp'},
@@ -113,9 +129,30 @@ return require('packer').startup(function(use)
     dependencies = { "nvim-lua/plenary.nvim" },
   }
 
-  use("github/copilot.vim")
-  -- use('rebelot/heirline.nvim')
+  use {'AndrewRadev/linediff.vim'}
+
+  use {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      })
+    end,
+  }
+
+  use {
+    "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua" },
+    config = function ()
+      require("copilot_cmp").setup()
+    end
+  }
+
+  if packer_bootstrap then
+    require('packer').sync()
+  end
 end)
-
-
 
