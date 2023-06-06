@@ -108,6 +108,11 @@ return require('packer').startup(function(use)
     config = function() require('aerial').setup() end
   }
 
+  use {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+  }
+
   use("github/copilot.vim")
   -- use('rebelot/heirline.nvim')
 end)
