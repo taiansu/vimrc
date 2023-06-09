@@ -20,10 +20,10 @@ telescope.setup {
     mappings = {
       i = {
         ["<C-t>"] = trouble.open_with_trouble,
-        ["<C-j>"] = actions.cycle_history_next,
-        ["<C-k>"] = actions.cycle_history_prev,
         ["<C-n>"] = actions.move_selection_next,
         ["<C-p>"] = actions.move_selection_previous,
+        ["<C-j>"] = actions.cycle_history_next,
+        ["<C-k>"] = actions.cycle_history_prev,
       },
       n = {
         ["<C-t>"] = trouble.open_with_trouble,
@@ -56,16 +56,16 @@ telescope.setup {
 -- keymaps
 
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<D-p>', builtin.git_files, { noremap = true, silent = true })
+vim.keymap.set('n', '<C-M-p>', builtin.find_files, {})
 vim.keymap.set('n', '<M-p>', builtin.git_files, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fd', '<cmd>Telescope aerial<cr>', {})
 vim.keymap.set('n', '<leader>fg', '<cmd>Telescope git_status<cr>', {})
-vim.keymap.set('n', '<leader>fl', '<cmd>Telescope live_grep<cr>', {})
 vim.keymap.set('n', '<leader>ft', '<cmd>Telescope help_tags<cr>', {})
-vim.keymap.set('n', '<leader>fm', '<cmd>Telescope harpoon marks<cr>', {})
-vim.keymap.set('n', '<leader>/', function()
+vim.keymap.set('n', '<leader>fh', '<cmd>Telescope harpoon marks<cr>', {})
+vim.keymap.set('n', '<leader>/', '<cmd>Telescope live_grep<cr>', {})
+vim.keymap.set('n', '<leader>fr', function()
 	builtin.grep_string({ search = vim.fn.input("Grep > ") });
 end)
+vim.keymap.set('n', '<leader>*', builtin.grep_string, {})
 

@@ -28,7 +28,7 @@ vim.keymap.set("n", "<leader><leader>", "<C-^>")
 vim.keymap.set("n", "Q", "@q")
 vim.keymap.set("v", "Q", "<cmd>norm @q<cr>")
 
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+-- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")

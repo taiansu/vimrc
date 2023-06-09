@@ -57,21 +57,21 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
     end,
     s = cmp.mapping.confirm({ select = true }),
     c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
-  }),
+  }, {"i", "s"}),
   ['<ESC>'] = function(fallback)
     cmp.mapping.abort()
     fallback()
   end,
   ['<C-e>'] = cmp.mapping.abort(),
   ['<C-Space>'] = cmp.mapping.complete(),
-})
+}, { "i", "s" })
 
 local cmp_sources = {
   {name = 'copilot'},
 	{name = 'nvim_lsp', max_item_count = 10},
 	{name = 'buffer', max_item_count = 10},
   {name = 'luasnip', max_item_count = 5},
-	-- {name = 'cmp_tabnine', max_item_count = 5},
+	{name = 'cmp_tabnine', max_item_count = 5},
 }
 
 cmp_mappings['<Tab>'] = nil
@@ -109,7 +109,7 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "gr", function() vim.lsp.buf.references() end, {buffer = bufnr, remap = false, desc = "vim.lsp.buf.references()"})
   vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end, {buffer = bufnr, remap = false, desc = "vim.lsp.buf.implementation()"})
   vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, {buffer = bufnr, remap = false, desc = "vim.lsp.buf.rename()"})
-  vim.keymap.set("n", "<leader>fq", function() vim.lsp.buf.format() end, {buffer = bufnr, remap = false, desc = "vim.lsp.buf.format()"})
+  vim.keymap.set("n", "<leader>fm", function() vim.lsp.buf.format() end, {buffer = bufnr, remap = false, desc = "vim.lsp.buf.format()"})
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, {buffer = bufnr, remap = false, desc = "vim.lsp.buf.signature_help()"})
 end)
 

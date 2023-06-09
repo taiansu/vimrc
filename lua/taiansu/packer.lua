@@ -46,7 +46,12 @@ return require('packer').startup(function(use)
   use('dim13/smyck.vim')
 
   use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
-  use("nvim-treesitter/nvim-treesitter-context");
+  use({
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    after = "nvim-treesitter",
+    requires = "nvim-treesitter/nvim-treesitter",
+  })
+  use('nvim-treesitter/nvim-treesitter-context')
   use('nvim-treesitter/playground')
 
   use('theprimeagen/harpoon')
@@ -55,6 +60,8 @@ return require('packer').startup(function(use)
   use('tpope/vim-repeat')
   use('tpope/vim-commentary')
   use('tpope/vim-surround')
+  use('tpope/vim-abolish')
+  use('tpope/vim-rsi')
 
   use ('onsails/lspkind-nvim')
 
@@ -150,6 +157,17 @@ return require('packer').startup(function(use)
       require("copilot_cmp").setup()
     end
   }
+
+  use {
+    'lewis6991/gitsigns.nvim',
+    config = function()
+      require('gitsigns').setup({
+        current_line_blame = true
+      })
+    end
+  }
+
+  use { 'vim-test/vim-test'}
 
   if packer_bootstrap then
     require('packer').sync()
