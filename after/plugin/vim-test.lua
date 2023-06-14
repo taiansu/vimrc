@@ -1,5 +1,0 @@
-vim.keymap.set('n', '<leader>tl', '<cmd>TestLast<cr>')
-vim.keymap.set('n', '<leader>tn', '<cmd>TestNearest<cr>')
-vim.keymap.set('n', '<leader>tf', '<cmd>TestFile<cr>')
-vim.keymap.set('n', '<leader>tv', '<cmd>TestVisit<cr>')
-vim.keymap.set('n', '<leader>ta', '<cmd>TestSuite<cr>')
