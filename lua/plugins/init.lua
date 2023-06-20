@@ -4,8 +4,29 @@ return {
 	"tpope/vim-surround",
 	"tpope/vim-abolish",
 	"tpope/vim-rsi",
+
+	-- LSP support
+	"neovim/nvim-lspconfig",
+	{ "williamboman/mason.nvim", build = ":MasonUpdate" },
+	"williamboman/mason-lspconfig.nvim",
+	"jose-elias-alvarez/null-ls.nvim",
+	"jay-babu/mason-null-ls.nvim",
 	"onsails/lspkind-nvim",
 
+	-- Autocompletion
+	"hrsh7th/nvim-cmp",
+	"hrsh7th/cmp-nvim-lsp",
+	"hrsh7th/cmp-buffer",
+	"hrsh7th/cmp-path",
+	"saadparwaiz1/cmp_luasnip",
+
+	-- Snippets
+	{
+		"L3MON4D3/LuaSnip",
+		version = "1.*",
+		build = "make install_jsregexp",
+	},
+	"rafamadriz/friendly-snippets",
 	{
 		"folke/which-key.nvim",
 		config = function()
