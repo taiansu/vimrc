@@ -39,14 +39,15 @@ return {
 				-- refer to the configuration section below
 			})
       wk.register({
+        ["<leader>*"] = { "builtin.grep_string" },
+        ["<leader>a"] = { "harpoon.mark.add_file" },
+        ["<leader>u"] = { "UndoTreeToggle" },
         ["g"] = { name = "+lsp" },
         ["<leader>v"] = { name = "+lsp" },
         ["<leader>g"] = { name = "+git" },
         ["<leader>f"] = { name = "+telescope" },
         ["<leader>t"] = { name = "+test/trouble" },
-        ["<leader>*"] = { "builtin.grep_string" },
-        ["<leader>a"] = { "harpoon.mark.add_file" },
-        ["<leader>u"] = { "UndoTreeToggle" },
+        ["<leader>x"] = { name = "+cmd" },
       })
 		end,
 	},
