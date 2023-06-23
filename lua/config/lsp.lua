@@ -34,12 +34,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end
 })
 
-local wk = require("which-key")
-wk.register({
-  ["g"] = { name = "+lsp" },
-  ["<leader>v"] = { name = "+lsp" },
-})
-
 mason.setup()
 mason_lspconfig.setup({
   ensure_installed = {

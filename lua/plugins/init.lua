@@ -32,11 +32,22 @@ return {
 		config = function()
 			vim.o.timeout = true
 			vim.o.timeoutlen = 300
-			require("which-key").setup({
+      local wk = require("which-key")
+			wk.setup({
 				-- your configuration comes here
 				-- or leave it empty to use the default settings
 				-- refer to the configuration section below
 			})
+      wk.register({
+        ["g"] = { name = "+lsp" },
+        ["<leader>v"] = { name = "+lsp" },
+        ["<leader>g"] = { name = "+git" },
+        ["<leader>f"] = { name = "+telescope" },
+        ["<leader>t"] = { name = "+test/trouble" },
+        ["<leader>*"] = { "builtin.grep_string" },
+        ["<leader>a"] = { "harpoon.mark.add_file" },
+        ["<leader>u"] = { "UndoTreeToggle" },
+      })
 		end,
 	},
 	{
