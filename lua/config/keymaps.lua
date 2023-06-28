@@ -47,3 +47,6 @@ vim.keymap.set("n", "<leader>xv", "<cmd>command! TrailingWhiteSpaces %s/\\s\\+$/
 -- JUMP TO THE COLUMN OF MARK
 vim.keymap.set("n", "'", "`", { noremap = true })
 vim.keymap.set("n", "`", "'", { noremap = true })
+
+-- Open current directory in iTerm
+vim.keymap.set("n", "<leader>o", "<cmd>!open -a iTerm .<CR>")
