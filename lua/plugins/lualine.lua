@@ -60,7 +60,7 @@
         tabline = {
           lualine_a = {},
         },
-        extensions = {'quickfix', 'fzf', 'neo-tree', 'trouble'}
+        extensions = {'quickfix', 'fzf', 'neo-tree', 'trouble', 'aerial'}
       }
     end,
   }
