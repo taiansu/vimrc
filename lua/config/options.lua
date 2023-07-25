@@ -1,4 +1,9 @@
+-- vim.opt.clipboard = "unnamedplus"
+
+vim.api.nvim_exec('language zh_TW.UTF-8', true)
+
 vim.opt.nu = true
+
 vim.opt.relativenumber = false
 
 vim.opt.tabstop = 2
