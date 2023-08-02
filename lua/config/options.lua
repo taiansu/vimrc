@@ -37,3 +37,5 @@ vim.opt.wildmode = "longest:full,list:full"
 
 -- Make fugitive diff split vertically
 vim.opt.diffopt:append("vertical")
+
+vim.cmd [[autocmd BufWritePre *.ex,*.exs,*.heex,*.rs lua vim.lsp.buf.format()]]
