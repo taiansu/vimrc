@@ -1,6 +1,6 @@
   return {
     'nvim-neo-tree/neo-tree.nvim',
-    branch = "v2.x",
+    branch = "v3.x",
     keys = {
       { '<leader>q', '<cmd>Neotree toggle<CR>' }
     },
@@ -16,9 +16,11 @@
         enable_git_status = false,
         enable_diagnosticls = true,
         filesystem = {
-          follow_current_file = true,
           hijack_netrw_behavior = "open_current",
           use_libuv_file_watcher = true,
+          follow_current_file = {
+            enable = true,
+          }
         },
         event_handlers = {
           {
