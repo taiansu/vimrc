@@ -39,3 +39,9 @@ vim.opt.wildmode = "longest:full,list:full"
 vim.opt.diffopt:append("vertical")
 
 vim.cmd [[autocmd BufWritePre *.ex,*.exs,*.heex,*.rs lua vim.lsp.buf.format()]]
+
+-- language providers
+vim.g.python3_host_prog = '~/.asdf/shims/python'
+
+-- The line here make neovim can not fint the correct node host, so do not use it.
+-- vim.g.node_host_prog = '~/.asdf/shims/node'
