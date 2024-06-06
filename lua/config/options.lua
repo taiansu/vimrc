@@ -1,4 +1,4 @@
--- vim.opt.clipboard = "unnamedplus"
+vim.opt.clipboard = "unnamedplus"
 
 vim.api.nvim_exec('language zh_TW.UTF-8', true)
 
