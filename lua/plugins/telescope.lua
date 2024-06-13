@@ -1,18 +1,15 @@
 return {
   'nvim-telescope/telescope.nvim',
-  -- version = '0.1.1',
-  -- or                            
   branch = '0.1.x',
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope-ui-select.nvim',
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
   },
-
   config = function ()
-    local actions = require('telescope.actions')
-    local trouble = require('trouble.providers.telescope')
     local telescope = require('telescope')
+    local actions = require('telescope.actions')
+    local trouble = require('trouble.sources.telescope')
 
     telescope.load_extension('fzf')
     telescope.load_extension('harpoon')
@@ -31,16 +28,21 @@ return {
         },
         mappings = {
           i = {
-            ["<C-t>"] = trouble.open_with_trouble,
+            ["<C-t>"] = trouble.open,
             ["<C-n>"] = actions.move_selection_next,
             ["<C-p>"] = actions.move_selection_previous,
             ["<C-j>"] = actions.cycle_history_next,
             ["<C-k>"] = actions.cycle_history_prev,
           },
           n = {
-            ["<C-t>"] = trouble.open_with_trouble,
+            ["<C-t>"] = trouble.open,
             q = actions.close,
           },
+        },
+      },
+      pickers = {
+        find_files = {
+          find_command = { "fd", "--type", "f", "--strip-cwd-prefix" }
         },
       },
       extensions = {
@@ -65,11 +67,32 @@ return {
       }
     }
 
-    -- keymaps
     local builtin = require('telescope.builtin')
 
-    vim.keymap.set('n', '<C-M-p>', builtin.find_files, {})
-    vim.keymap.set('n', '<M-p>', builtin.git_files, { noremap = true, silent = true })
+    -- Falling back to find_files if git_files can't find a .git directory
+    -- We cache the results of "git rev-parse"
+    -- Process creation is expensive in Windows, so this reduces latency
+    local is_inside_work_tree = {}
+
+    function project_files ()
+        local opts = {} -- define here if you want to define something
+
+        local cwd = vim.fn.getcwd()
+        if is_inside_work_tree[cwd] == nil then
+            vim.fn.system("git rev-parse --is-inside-work-tree")
+            is_inside_work_tree[cwd] = vim.v.shell_error == 0
+        end
+
+        if is_inside_work_tree[cwd] then
+            builtin.git_files(opts)
+        else
+            builtin.find_files(opts)
+        end
+    end
+
+    -- keymaps
+
+    vim.keymap.set('n', '<M-p>', project_files, {})
     vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
     vim.keymap.set('n', '<leader>fd', '<cmd>Telescope aerial<cr>', {})
     vim.keymap.set('n', '<leader>fg', '<cmd>Telescope git_status<cr>', {})
