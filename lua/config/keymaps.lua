@@ -54,6 +54,8 @@ vim.keymap.set("n", "<leader>o", "<cmd>!open -a iTerm .<CR>")
 -- Barbar
 vim.keymap.set('n', 'gt', '<cmd>BufferNext<cr>', { noremap = true, silent = true })
 vim.keymap.set('n', 'gT', '<cmd>BufferPrevious<cr>', { noremap = true, silent = true })
+vim.keymap.set('n', ']b', '<cmd>BufferNext<cr>', { noremap = true, silent = true })
+vim.keymap.set('n', '[b', '<cmd>BufferPrevious<cr>', { noremap = true, silent = true })
 if vim.fn.exists("g:gui_vimr") == 1 then
   vim.keymap.set('n', '<D-S-}>', '<cmd>BufferPrevious<cr>', { noremap = true, silent = true })
   vim.keymap.set('n', '<D-S-{>', '<cmd>BufferNext<cr>', { noremap = true, silent = true })
