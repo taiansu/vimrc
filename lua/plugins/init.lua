@@ -29,27 +29,38 @@ return {
 	"rafamadriz/friendly-snippets",
 	{
 		"folke/which-key.nvim",
-		config = function()
-			vim.o.timeout = true
-			vim.o.timeoutlen = 300
-      local wk = require("which-key")
-			wk.setup({
-				-- your configuration comes here
-				-- or leave it empty to use the default settings
-				-- refer to the configuration section below
-			})
-      wk.register({
-        ["<leader>*"] = { "builtin.grep_string" },
-        ["<leader>a"] = { "harpoon.mark.add_file" },
-        ["<leader>u"] = { "UndoTreeToggle" },
-        ["g"] = { name = "+lsp" },
-        ["<leader>v"] = { name = "+lsp" },
-        ["<leader>g"] = { name = "+git" },
-        ["<leader>f"] = { name = "+telescope" },
-        ["<leader>t"] = { name = "+test/trouble" },
-        ["<leader>x"] = { name = "+cmd" },
-      })
-		end,
+    event = "VeryLazy",
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+      spec = {
+        {"<leader>1", desc = "harpoon.ui.nav_file(1)" },
+        {"<leader>2", desc = "harpoon.ui.nav_file(2)" },
+        {"<leader>3", desc = "harpoon.ui.nav_file(3)" },
+        {"<leader>4", desc = "harpoon.ui.nav_file(4)" },
+        {"<leader>5", desc = "harpoon.ui.nav_file(5)" },
+        {"<leader>*", desc = "builtin.grep_string" },
+        {"<leader>a", desc = "harpoon.mark.add_file" },
+        {"<leader>u", desc = "UndoTreeToggle" },
+        {"<ledder>f", group = "file" },
+        {"g", group = "+lsp" },
+        {"<leader>v", group = "+lsp" },
+        {"<leader>g", group = "+git" },
+        {"<leader>f", group = "+telescope" },
+        {"<leader>t", group = "+test/trouble" },
+        {"<leader>x", group = "+cmd" }
+      }
+    },
+    keys = {
+      {
+        "<leader>?",
+        function()
+          require("which-key").show({ global = true })
+        end,
+        desc = "Buffer Local Keymaps (which-key)",
+      }
+    }
 	},
 	{
     "zbirenbaum/copilot.lua",
