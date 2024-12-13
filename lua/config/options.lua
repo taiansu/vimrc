@@ -41,7 +41,10 @@ vim.opt.diffopt:append("vertical")
 vim.cmd [[autocmd BufWritePre *.ex,*.exs,*.heex,*.rs lua vim.lsp.buf.format()]]
 
 -- language providers
-vim.g.python3_host_prog = '~/.asdf/shims/python'
+vim.g.python3_host_prog = '~/.mise/shims/python'
+
+vim.g.splitbbelow = true
+vim.g.splitright = true
 
 -- The line here make neovim can not fint the correct node host, so do not use it.
 -- vim.g.node_host_prog = '~/.asdf/shims/node'
