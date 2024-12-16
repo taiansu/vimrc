@@ -61,3 +61,7 @@ if vim.fn.exists("g:gui_vimr") == 1 then
   vim.keymap.set('n', '<D-S-}>', '<cmd>BufferPrevious<cr>', opt)
   vim.keymap.set('n', '<D-S-{>', '<cmd>BufferNext<cr>', opt)
 end
+
+-- Neoterm
+vim.keymap.set('n', 'gz', '<Plug>(neoterm-repl-send)')
+vim.keymap.set('n', 'gzz', '<Plug>(neoterm-repl-send-line)')

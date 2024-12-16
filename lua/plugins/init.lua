@@ -5,6 +5,8 @@ return {
 	"tpope/vim-abolish",
 	"tpope/vim-rsi",
 
+
+
 	-- LSP support
 	"neovim/nvim-lspconfig",
 	{ "williamboman/mason.nvim", build = ":MasonUpdate" },
@@ -27,6 +29,7 @@ return {
 		build = "make install_jsregexp",
 	},
 	"rafamadriz/friendly-snippets",
+	"theprimeagen/harpoon",
 	{
 		"folke/which-key.nvim",
     event = "VeryLazy",
@@ -62,6 +65,10 @@ return {
       }
     }
 	},
+  {
+    "kassio/neoterm",
+    init = function() vim.g.neoterm_default_mod = 'below' end
+  },
 	-- {
     -- "zbirenbaum/copilot.lua",
     -- cmd = "Copilot",
@@ -70,12 +77,12 @@ return {
     --   require("copilot").setup({})
     -- end,
 	-- },
-	{
-		"zbirenbaum/copilot-cmp",
-		config = function()
-			require("copilot_cmp").setup()
-		end,
-	},
+	-- {
+	-- 	"zbirenbaum/copilot-cmp",
+	-- 	config = function()
+	-- 		require("copilot_cmp").setup()
+	-- 	end,
+	-- },
 	{
 		"lewis6991/gitsigns.nvim",
 		config = function()
@@ -100,11 +107,4 @@ return {
 	-- colors
 	"dim13/smyck.vim",
 	"jacoborus/tender.vim",
-	"theprimeagen/harpoon",
-	"tpope/vim-repeat",
-	"tpope/vim-commentary",
-	"tpope/vim-surround",
-	"tpope/vim-abolish",
-	"tpope/vim-rsi",
-	"onsails/lspkind-nvim",
 }

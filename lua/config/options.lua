@@ -38,13 +38,14 @@ vim.opt.wildmode = "longest:full,list:full"
 -- Make fugitive diff split vertically
 vim.opt.diffopt:append("vertical")
 
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
 vim.cmd [[autocmd BufWritePre *.ex,*.exs,*.heex,*.rs lua vim.lsp.buf.format()]]
 
 -- language providers
 vim.g.python3_host_prog = '~/.mise/shims/python'
 
-vim.g.splitbelow = true
-vim.g.splitright = true
 
 -- The line here make neovim can not fint the correct node host, so do not use it.
 -- vim.g.node_host_prog = '~/.asdf/shims/node'
