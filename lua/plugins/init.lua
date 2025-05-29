@@ -11,7 +11,7 @@ return {
 	"neovim/nvim-lspconfig",
 	{ "williamboman/mason.nvim", build = ":MasonUpdate" },
 	"williamboman/mason-lspconfig.nvim",
-	"jose-elias-alvarez/null-ls.nvim",
+	"nvimtools/none-ls.nvim",
 	"jay-babu/mason-null-ls.nvim",
 	"onsails/lspkind-nvim",
 
