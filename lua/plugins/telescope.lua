@@ -91,9 +91,10 @@ return {
     end
 
     -- keymaps
-    if vim.fn.exists("g:gui_vimr") == 1 then
+    if vim.g.neovide or vim.fn.exists("g:gui_vimr") == 1 then
       vim.keymap.set('n', '<D-p>', project_files, {})
     end
+
     vim.keymap.set('n', '<M-p>', project_files, {})
     vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
     vim.keymap.set('n', '<leader>fd', '<cmd>Telescope aerial<cr>', {})

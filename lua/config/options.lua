@@ -6,6 +6,33 @@ vim.opt.nu = true
 
 vim.opt.relativenumber = false
 
+if vim.g.neovide then
+    vim.g.neovide_input_ime = true
+    vim.g.neovide_input_macos_option_key_is_meta = 'both'
+    vim.g.neovide_scale_factor = 1.0
+    vim.g.neovide_input_use_logo = true -- Enable Cmd key
+
+    -- Put anything you want to happen only in Neovide here
+    vim.o.guifont = "Source Code Pro:h18"
+
+    -- Allow clipboard copy paste in neovim
+    vim.keymap.set('n', '<D-s>', ':w<CR>') -- Save
+    vim.keymap.set('v', '<D-c>', '"+y') -- Copy
+    vim.keymap.set('n', '<D-v>', '"+P') -- Paste normal mode
+    vim.keymap.set('v', '<D-v>', '"+P') -- Paste visual mode
+    vim.keymap.set('c', '<D-v>', '<C-R>+') -- Paste command mode
+    vim.keymap.set('i', '<D-v>', '<ESC>l"+Pli') -- Paste insert mode
+
+    -- vim.keymap.set('n', '<D-p>', project_files, {})
+end
+
+-- Allow clipboard copy paste in neovim
+vim.api.nvim_set_keymap('', '<D-v>', '+p<CR>', { noremap = true, silent = true})
+vim.api.nvim_set_keymap('!', '<D-v>', '<C-R>+', { noremap = true, silent = true})
+vim.api.nvim_set_keymap('t', '<D-v>', '<C-R>+', { noremap = true, silent = true})
+vim.api.nvim_set_keymap('v', '<D-v>', '<C-R>+', { noremap = true, silent = true})
+
+-- tabstop
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
