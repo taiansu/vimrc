@@ -35,4 +35,3 @@ vim.env.PATH = vim.env.HOME .. "/.local/share/mise/shims:" .. vim.env.PATH
 require("lazy").setup("plugins")
 
 require("config.lsp")
-require("config.cmp")
