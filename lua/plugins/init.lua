@@ -151,4 +151,5 @@ return {
 	-- colors
 	"dim13/smyck.vim",
 	"jacoborus/tender.vim",
+	"drzel/vim-gui-zoom",
 }

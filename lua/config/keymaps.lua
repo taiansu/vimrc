@@ -57,11 +57,17 @@ vim.keymap.set('n', 'gt', '<cmd>BufferNext<cr>', opt)
 vim.keymap.set('n', 'gT', '<cmd>BufferPrevious<cr>', opt)
 vim.keymap.set('n', ']b', '<cmd>BufferNext<cr>', opt)
 vim.keymap.set('n', '[b', '<cmd>BufferPrevious<cr>', opt)
-if vim.fn.exists("g:gui_vimr") == 1 then
-  vim.keymap.set('n', '<D-S-}>', '<cmd>BufferPrevious<cr>', opt)
-  vim.keymap.set('n', '<D-S-{>', '<cmd>BufferNext<cr>', opt)
+if vim.g.neovide or vim.g.gui_vimr then
+  vim.keymap.set('n', '<D-}>', '<cmd>BufferPrevious<cr>', opt)
+  vim.keymap.set('n', '<D-{>', '<cmd>BufferNext<cr>', opt)
 end
 
 -- Neoterm
 vim.keymap.set('n', 'gz', '<Plug>(neoterm-repl-send)')
 vim.keymap.set('n', 'gzz', '<Plug>(neoterm-repl-send-line)')
+
+--vim-gui-zoom
+if vim.g.neovide or vim.g.gui_vimr then
+  vim.keymap.set('n', '<D-+>', '<cmd>ZoomIn<cr>', opt)
+  vim.keymap.set('n', '<D-_>', '<cmd>ZoomOut<cr>', opt)
+end
