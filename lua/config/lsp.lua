@@ -52,6 +52,7 @@ mason_lspconfig.setup({
   ensure_installed = {
     -- Replace these with whatever servers you want to install
     'elixirls',
+    'expert',
     'lua_ls',
     'pyright',
     'rust_analyzer',

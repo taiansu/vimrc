@@ -148,6 +148,30 @@ return {
 		},
 		-- version = '^1.0.0', -- optional: only update when a new 1.x version is released
 	},
+  {
+    'kana/vim-submode',
+    config = function()
+      local enter = vim.fn['submode#enter_with']
+      local map   = vim.fn['submode#map']
+
+      -- Window resize submode
+      enter('bufsize', 'n', '', '<C-w>>', '<C-w>>')
+      enter('bufsize', 'n', '', '<C-w><', '<C-w><')
+      enter('bufsize', 'n', '', '<C-w>+', '<C-w>+')
+      enter('bufsize', 'n', '', '<C-w>-', '<C-w>-')
+      map('bufsize', 'n', '', '>', '<C-w>>')
+      map('bufsize', 'n', '', '<', '<C-w><')
+      map('bufsize', 'n', '', '+', '<C-w>+')
+      map('bufsize', 'n', '', '-', '<C-w>-')
+
+      -- Undo/redo submode
+      enter('undo/redo', 'n', '', 'g-', 'g-')
+      enter('undo/redo', 'n', '', 'g+', 'g+')
+      map('undo/redo', 'n', '', '-', 'g-')
+      map('undo/redo', 'n', '', '+', 'g+')
+      -- leave('undo/redo', 'n', '', '<Esc>')
+    end
+  },
 	-- colors
 	"dim13/smyck.vim",
 	"jacoborus/tender.vim",
